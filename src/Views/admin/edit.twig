@@ -1,0 +1,61 @@
+{% extends 'admin/admin.twig' %}
+
+{% block title %}
+	Admin ·
+	{{ page.title }}
+{% endblock %}
+
+{% block css %}
+	{{ parent() }}
+	<style>
+		aside {
+			width: 20%;
+		}
+
+		article {
+			width: 50%;
+		}
+	</style>
+{% endblock %}
+
+{% block header %}
+	<header>
+		<h1>{{ page.title }}</h1>
+	</header>
+{% endblock %}
+
+{% block asideRight %}
+	<aside id="left">
+		<a class="fold-button" href="javascript:void(0)" onclick="toggleFoldContent('#images-fold-content')"><h2>Images</h2></a>
+		<form name="image-form">
+			<input type="file" onchange="uploadImage()" multiple name="image">
+			<input type="hidden" name="month" value="{{ month }}">
+			<input type="hidden" name="day" value="{{ page.title }}">
+		</form>
+		<div class="fold-content" id="images-fold-content">
+			<ul id="images-list"></ul>
+			<input type="text" value="" id="copy-me">
+		</div>
+	</aside>
+{% endblock %}
+
+{% block article %}
+	<form method="POST" action="/admin" name="content-form">
+		<textarea name="content" id="content"></textarea>
+		<input type="hidden" name="file" value="{{ page.id }}">
+		<button type="button" onclick="save()">Save</button>
+	</form>
+	<div>
+		<a id="referer" href="javascrtip:void(0)">Return</a>
+	</div>
+	<div id="last-saved"></div>
+{% endblock %}
+
+{% block js %}
+	{{ parent() }}
+	<script>
+		$(function () {
+window.mde.value(window.decode("{{ base64_encode(page.raw_content) }}"));
+});
+	</script>
+{% endblock %}
