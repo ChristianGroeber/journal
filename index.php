@@ -78,6 +78,14 @@ function getContent($route)
     return $cnt->$function($request);
 }
 
+// if (is_file($path)) {
+//     echo file_get_contents($path);
+//     return;
+// }
+if (!startsWith($path, '/api')) {
+    echo file_get_contents('public/index.html');
+    return '';
+}
 $route = getRoute($path);
 if (!$route) {
     $route = getRoute('/');

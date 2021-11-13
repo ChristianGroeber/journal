@@ -1,46 +1,47 @@
 {
-  "name": "brunch-vue-uikit-barebone",
-  "description": "Vue Skeleton App with Brunch and UIKIT",
-  "version": "0.0.1",
+  "name": "journal-frontend",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "brunch watch --server",
-    "build": "brunch build --production"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "author": {
-    "url": "http://tomquirk.com.au",
-    "name": "Jvo Maurer",
-    "email": "jvo.maurer@gmail.com"
-  },
-  "repository": {
-    "url": "https://bitbucket.org/fischimglas/brunch-vue-uikit-barebone.git"
-  },
-  "keywords": [
-    "vue",
-    "brunch",
-    "skeleton",
-    "vue-router"
-  ],
   "dependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
-    "@vuikit/icons": "^0.8.1",
-    "@vuikit/theme": "^0.8.1",
-    "lodash": "^4.17.15",
-    "main": "^1000.0.1",
-    "node-sass": "^6.0.1",
-    "sass-brunch": "^3.0.0",
-    "vue": "^2.4.4",
-    "vue-router": "^2.7.0",
-    "vue-tailwind": "^2.5.0",
-    "vuex": "^3.1.1"
+    "axios": "^0.24.0",
+    "core-js": "^3.6.5",
+    "moment": "^2.29.1",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.4.0",
+    "vue-router": "^3.5.3",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "babel-brunch": "^6.1.1",
-    "babel-eslint": "^7.2.3",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "brunch": "^2.10.17",
-    "vue-brunch": "^2.0.3"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
   },
-  "license": "ISC"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
