@@ -1,6 +1,6 @@
 {
     "require": {
-        "christiangroeber/nacho": "0.6"
+        "christiangroeber/nacho": "*"
     },
     "autoload": {
         "psr-4": {
