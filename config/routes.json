@@ -5,33 +5,11 @@
         "function": "index"
     },
     {
-        "route": "/{month}",
-        "variables": [
-            {
-                "variable": "month",
-                "options": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            }
-        ],
-        "controller": "App\\Controllers\\HomeController",
-        "function": "getMonth"
-    },
-    {
-        "route": "/{month}/{date}",
-        "variables": [
-            {
-                "variable": "month",
-                "options": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            }
-        ],
-        "controller": "App\\Controllers\\HomeController",
-        "function": "getDay"
-    },
-    {
-        "route": "/nacho",
+        "route": "/api/entries",
         "controller": "App\\Controllers\\PageController",
-        "function": "loadEntry"
+        "function": "index"
     },
-   {
+    {
         "route": "/admin",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",

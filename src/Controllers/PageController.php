@@ -10,12 +10,11 @@ use Nacho\Controllers\AbstractController;
  */
 class PageController extends AbstractController
 {
-    public function loadEntry()
+    public function index()
     {
-        $url = $_REQUEST['p'];
-        $directory = $_SERVER['DOCUMENT_ROOT'] . '/content' . $url;
+        $directory = $_SERVER['DOCUMENT_ROOT'] . '/content';
         $tmp = scandir($directory);
-        $pagesDirs = [];
+        $pages = [];
         foreach ($tmp as $subPage) {
             if (endswith($subPage, '.gitignore')) {
                 continue;
@@ -23,21 +22,17 @@ class PageController extends AbstractController
             if (!is_file($directory . '/' . $subPage)) {
                 continue;
             }
-            if (endswith($subPage, 'index.md')) {
-                array_push($pagesDirs, $url);
-            } else {
-                array_push($pagesDirs, $url . '/' . rtrim($subPage, '.md'));
-            }
-        }
-        $pages = [];
-        foreach ($pagesDirs as $page) {
-            $subPage = $this->nacho->getPage($page);
-            if (is_bool($subPage)) {
+
+            $pageDir = '/' . rtrim($subPage, '.md');
+            $nachoPage = $this->nacho->getPage($pageDir);
+
+            if (is_bool($nachoPage)) {
                 header('HTTP/1.1 404');
                 return $this->json(['message' => 'Unable to find This page']);
             }
-            $subPage['content'] = base64_encode($this->nacho->renderPage($subPage));
-            array_push($pages, $subPage);
+
+            $nachoPage['content'] = base64_encode($this->nacho->renderPage($nachoPage));
+            array_push($pages, $nachoPage);
         }
 
         usort($pages, [$this, 'sortByDate']);
@@ -45,7 +40,7 @@ class PageController extends AbstractController
         return $this->json($pages);
     }
 
-    public function sortByDate($a, $b) 
+    public function sortByDate($a, $b)
     {
         if (is_int(array_search($a['title'], MONTHS))) {
             return -1;
