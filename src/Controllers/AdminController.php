@@ -29,12 +29,13 @@ class AdminController extends AbstractController
         $strPage = '/' . $_REQUEST['page'];
         $page = $this->nacho->getPage($strPage);
 
-        if (strtolower($request->requestMethod) === 'post') {
-            if (!$page || !is_file($page['file'])) {
-                return $this->json(['message' => 'Unable to find this file']);
-            }
+        if (!$page || !is_file($page['file'])) {
+            return $this->json(['message' => 'Unable to find this file']);
+        }
 
+        if (strtolower($request->requestMethod) === 'post') {
             file_put_contents($page['file'], $_REQUEST['content']);
+
             return $this->json(['message' => 'successfully saved content']);
         }
 
