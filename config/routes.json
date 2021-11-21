@@ -10,6 +10,11 @@
         "function": "index"
     },
     {
+        "route": "/api/edit",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "edit"
+    },
+    {
         "route": "/admin",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",
@@ -20,18 +25,6 @@
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",
         "function": "add"
-    },
-    {
-        "route": "/admin/edit",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "edit"
-    },
-    {
-        "route": "/admin/edit/home",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "editHome"
     },
     {
         "route": "/admin/edit/home/upload-original",
