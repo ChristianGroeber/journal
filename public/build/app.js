@@ -148,111 +148,375 @@ var __makeRelativeRequire = function(require, mappings, pref) {
     return require(name);
   }
 };
-require.register("babel.config.js", function(exports, require, module) {
-module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
-  ]
-}
+require.register("App.vue", function(exports, require, module) {
+;(function(){
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "App",
+  created: function created() {
+    this.$store.dispatch("getMonths");
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._m(0),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e015f16", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2e015f16", __vue__options__)
+  }
+})()}
+});
+
+;require.register("babel.config.js", function(exports, require, module) {
+'use strict';
+
+module.exports = {
+  presets: ['@vue/cli-plugin-babel/preset']
+};
 });
 
 ;require.register("main.js", function(exports, require, module) {
-import Vue from 'vue'
-import App from './src/App.vue'
-import store from "./src/store";
-import VueAxios from "vue-axios";
-import axios from "axios";
-import {router} from "./src/routes";
+'use strict';
 
-Vue.config.productionTip = false
+var _vue = require('vue');
 
-Vue.use(VueAxios, axios);
+var _vue2 = _interopRequireDefault(_vue);
 
-new Vue({
-  store,
-  router,
-  render: h => h(App),
-}).$mount('#app')
+var _App = require('./App.vue');
 
+var _App2 = _interopRequireDefault(_App);
+
+var _store = require('./src/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+var _routes = require('./src/routes');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.config.productionTip = false;
+
+new _vue2.default({
+  store: _store2.default,
+  router: _routes.router,
+  render: function render(h) {
+    return h(_App2.default);
+  }
+}).$mount('#app');
+});
+
+;require.register("src/components/Day.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _moment = require("moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "Day",
+  props: ["day"],
+  computed: {
+    formattedDate: function formattedDate() {
+      return (0, _moment2.default)(this.day.date).format('D.M.Y');
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',[_vm._v("\n      "+_vm._s(_vm.day.content)+"\n    ")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-cf82b76c", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/Loading.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "Loading"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"loader"},[_c('div',{staticClass:"loading-wrapper"},[_c('div',{staticClass:"lds-ellipsis"},[_c('div'),_vm._v(" "),_c('div'),_vm._v(" "),_c('div'),_vm._v(" "),_c('div')])])])}]
+__vue__options__._scopeId = "data-v-c1a3922c"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c1a3922c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-c1a3922c", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/Month.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Day = require("./Day");
+
+var _Day2 = _interopRequireDefault(_Day);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "Month",
+  props: ["month"],
+  components: {
+    Day: _Day2.default
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v(_vm._s(_vm.month.name))]),_vm._v(" "),_c('div',{staticClass:"article-list container"},_vm._l((_vm.month.days),function(day,index){return _c('div',{key:index},[_c('Day',{attrs:{"day":day}})],1)}),0)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ceeef8a4", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-ceeef8a4", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/MonthList.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Month = require("./Month");
+
+var _Month2 = _interopRequireDefault(_Month);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "MonthList",
+  components: {
+    Month: _Month2.default
+  },
+  computed: {
+    months: function months() {
+      return this.$store.getters.months;
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.months),function(month){return _c('div',{key:month.id,staticClass:"month"},[_c('Month',{attrs:{"month":month}})],1)}),0)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6354c328", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-6354c328", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/error/NotFound.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "NotFound"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mt-3"},[_c('div',{staticClass:"container h-100"},[_c('div',{staticClass:"row align-items-center h-100"},[_c('div',{staticClass:"col-8 mx-auto"},[_c('div',{staticClass:"jumbotron h-100"},[_c('h3',[_vm._v("Sorry, die Seite wurde nicht gefunden :(")]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("\n            Zurück zum "),_c('router-link',{attrs:{"to":"/"}},[_vm._v("Shop")])],1)])])])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-282a4a58", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-282a4a58", __vue__options__)
+  }
+})()}
 });
 
 ;require.register("src/routes.js", function(exports, require, module) {
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+'use strict';
 
-Vue.use(VueRouter);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.router = undefined;
 
-import MonthList from "./components/MonthList";
-import NotFound from './components/error/NotFound';
+var _vue = require('vue');
 
-const routes = [
-    {
-        path: '/',
-        component: MonthList,
-    },
-    {
-        path: "*",
-        component: NotFound,
-    }
-];
+var _vue2 = _interopRequireDefault(_vue);
 
-export const router = new VueRouter({
+var _vueRouter = require('vue-router');
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _MonthList = require('./components/MonthList');
+
+var _MonthList2 = _interopRequireDefault(_MonthList);
+
+var _NotFound = require('./components/error/NotFound');
+
+var _NotFound2 = _interopRequireDefault(_NotFound);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vueRouter2.default);
+
+var routes = [{
+    path: '/',
+    component: _MonthList2.default
+}, {
+    path: "*",
+    component: _NotFound2.default
+}];
+
+var router = exports.router = new _vueRouter2.default({
     mode: 'history',
-    routes,
-})
+    routes: routes
+});
 });
 
 ;require.register("src/store/index.js", function(exports, require, module) {
-import Vue from 'vue';
-import Vuex from 'vuex';
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vuex = require('vuex');
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+var _months = require('./modules/months/');
+
+var _months2 = _interopRequireDefault(_months);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vuex2.default);
 
 // Module
-import months from "./modules/months/";
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+exports.default = new _vuex2.default.Store({
     modules: {
-        months,
+        months: _months2.default
     }
-})
+});
 });
 
 ;require.register("src/store/modules/months/index.js", function(exports, require, module) {
-import axios from 'axios';
+'use strict';
 
-const state = {
-    months: [],
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var state = {
+    months: []
 };
 
-const mutations = {
-    UPDATE_MONTHS(state, payload) {
+var mutations = {
+    UPDATE_MONTHS: function UPDATE_MONTHS(state, payload) {
         state.months = payload;
     }
-}
+};
 
-const actions = {
-    getMonths({commit}) {
-        axios.get('/months.json')
-            .then((response) =>  {
-                commit('UPDATE_MONTHS', response.data);
-            });
+var actions = {
+    getMonths: function getMonths(_ref) {
+        var commit = _ref.commit;
+
+        _axios2.default.get('/months.json').then(function (response) {
+            commit('UPDATE_MONTHS', response.data);
+        });
     }
-}
+};
 
-const getters = {
-    months: state => state.months,
-}
+var getters = {
+    months: function months(state) {
+        return state.months;
+    }
+};
 
-const monthsModule = {
-    state,
-    mutations,
-    actions,
-    getters,
-}
+var monthsModule = {
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
 
-export default monthsModule;
+exports.default = monthsModule;
 });
 
 require.register("___globals___", function(exports, require, module) {

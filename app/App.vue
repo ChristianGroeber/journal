@@ -1,49 +1,16 @@
 <template>
   <div>
-    <div v-if="loading > 0">
-      <Loading />
-    </div>
     <div class="header">
       <h1>2022</h1>
     </div>
     <router-view></router-view>
-   </div>
+  </div>
 </template>
 
 <script>
-import Loading from "./src/components/Loading";
-
 export default {
   name: "App",
-  components: {
-    Loading,
-  },
-  data() {
-    return {
-      loading: 0,
-    }
-  },
   created() {
-        this.axios.interceptors.request.use(
-      (config) => {
-        this.loading++;
-        return config;
-      },
-      (error) => {
-        this.loading--;
-        return Promise.reject(error);
-      }
-    );
-    this.axios.interceptors.response.use(
-      (response) => {
-        this.loading--;
-        return response;
-      },
-      (error) => {
-        this.loading--;
-        return Promise.reject(error);
-      }
-    );
     this.$store.dispatch("getMonths");
   },
 };
