@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "start": "brunch watch",
-    "build": "brunch build --production",
+    "build": "brunch build",
     "serve": "vue-cli-service serve"
- },
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
+    "node-sass": "^6.0.1",
+    "node-sass-import": "^2.0.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.4.0",
     "vue-router": "^3.5.3",

@@ -1,28 +1,35 @@
-module.exports = {
-    files: {
-        javascripts: {
-            joinTo: {
-                'vendor.js': /^(?!app)/,
-                'app.js': /^app/
-            }
-        },
-        stylesheets: {
-            joinTo: {
-                'app.css': /^app/
-            }
-        },
-        templates: {
-            joinTo: 'app.js'
+var importer = require("node-sass-import");
+exports.files = {
+    javascripts: {
+        joinTo: {
+            'vendor.js': /^(?!app)/, // Files that are not in `app` dir.
+            'app.js': /^app/
         }
     },
-    plugins: {
-        babel: {
-            presets: ['env']
-        },
-        plugins: {
-            sass: {
-                allowCache: true
-            }
+    stylesheets: {joinTo: 'app.css'}
+};
+
+exports.conventions = {
+    ignored: /^(attic|cypress|offline-page|public|var|templates|vendor|tests)/
+}
+
+exports.plugins = {
+    babel: {presets: ['es2015']},
+    vue: {
+        extractCSS: true,
+        out: 'public/build/components.css',
+        sass: {
+            options: ['--quiet'],
+            importer: importer
         }
+    },
+    sass: {
+        allowCache: true,
+        sourceMapEmbed: false,
+        precision: 8 // Added precision for arithmetic operations
     }
+};
+
+exports.paths = {
+    public: 'public/build'
 }
