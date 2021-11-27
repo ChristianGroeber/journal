@@ -117,6 +117,7 @@
 
 (function() {
 var global = typeof window === 'undefined' ? this : window;
+var process;
 var __makeRelativeRequire = function(require, mappings, pref) {
   var none = {};
   var tryReq = function(name, pref) {
@@ -177,14 +178,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2e015f16", __vue__options__)
   }
 })()}
-});
-
-;require.register("babel.config.js", function(exports, require, module) {
-'use strict';
-
-module.exports = {
-  presets: ['@vue/cli-plugin-babel/preset']
-};
 });
 
 ;require.register("main.js", function(exports, require, module) {
@@ -427,9 +420,11 @@ _vue2.default.use(_vueRouter2.default);
 
 var routes = [{
     path: '/',
+    name: "Home",
     component: _MonthList2.default
 }, {
     path: "*",
+    name: "notFound",
     component: _NotFound2.default
 }];
 
@@ -519,7 +514,7 @@ var monthsModule = {
 exports.default = monthsModule;
 });
 
-require.register("___globals___", function(exports, require, module) {
+require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 

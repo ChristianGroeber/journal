@@ -9,10 +9,12 @@ import NotFound from './components/error/NotFound';
 const routes = [
     {
         path: '/',
+        name: "Home",
         component: MonthList,
     },
     {
         path: "*",
+        name: "notFound",
         component: NotFound,
     }
 ];
