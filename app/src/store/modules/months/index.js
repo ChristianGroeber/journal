@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
     getMonths({commit}) {
-        axios.get('/months.json')
+        axios.get('/api/entries')
             .then((response) =>  {
                 commit('UPDATE_MONTHS', response.data);
             });

@@ -175,7 +175,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2e015f16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2e015f16", __vue__options__)
+    hotAPI.rerender("data-v-2e015f16", __vue__options__)
   }
 })()}
 });
@@ -492,7 +492,7 @@ var actions = {
     getMonths: function getMonths(_ref) {
         var commit = _ref.commit;
 
-        _axios2.default.get('/months.json').then(function (response) {
+        _axios2.default.get('/api/entries').then(function (response) {
             commit('UPDATE_MONTHS', response.data);
         });
     }
