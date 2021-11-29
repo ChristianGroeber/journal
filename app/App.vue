@@ -56,15 +56,6 @@ body {
   padding: 1rem;
 }
 
-.article {
-  width: 60%;
-  background-color: white;
-  padding: 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 aside {
   background-color: white;
   display: block;

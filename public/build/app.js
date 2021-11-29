@@ -175,7 +175,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2e015f16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2e015f16", __vue__options__)
+    hotAPI.rerender("data-v-2e015f16", __vue__options__)
   }
 })()}
 });
@@ -242,6 +242,7 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-cf82b76c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -308,8 +309,9 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v(_vm._s(_vm.month.name))]),_vm._v(" "),_c('div',{staticClass:"article-list container"},_vm._l((_vm.month.days),function(day,index){return _c('div',{key:index},[_c('Day',{attrs:{"day":day}})],1)}),0)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"month"},[_vm._v(_vm._s(_vm.month.name))]),_vm._v(" "),_c('div',{staticClass:"article-list container"},_vm._l((_vm.month.days),function(day,index){return _c('div',{key:index},[_c('Day',{attrs:{"day":day}})],1)}),0)])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-ceeef8a4"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -317,7 +319,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-ceeef8a4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ceeef8a4", __vue__options__)
+    hotAPI.rerender("data-v-ceeef8a4", __vue__options__)
   }
 })()}
 });

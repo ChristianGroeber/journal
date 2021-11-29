@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ month.name }}</h2>
+    <h2 class="month">{{ month.name }}</h2>
     <div class="article-list container">
       <div v-for="(day, index) in month.days" :key="index">
         <Day :day="day" />
@@ -20,3 +20,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.month {
+  padding-left: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .month {
+    padding-left: 0;
+  }
+}
+</style>
