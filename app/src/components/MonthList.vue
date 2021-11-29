@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     months() {
-      return this.$store.getters.months;
+      return this.$store.getters.entries;
     },
   },
 };

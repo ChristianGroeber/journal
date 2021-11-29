@@ -1,26 +1,26 @@
 import axios from 'axios';
 
 const state = {
-    months: [],
+    entries: [],
 };
 
 const mutations = {
-    UPDATE_MONTHS(state, payload) {
-        state.months = payload;
+    UPDATE_ENTRIES(state, payload) {
+        state.entries = payload;
     }
 }
 
 const actions = {
-    getMonths({commit}) {
+    getEntries({commit}) {
         axios.get('/api/entries')
             .then((response) =>  {
-                commit('UPDATE_MONTHS', response.data);
+                commit('UPDATE_ENTRIES', response.data);
             });
     }
 }
 
 const getters = {
-    months: state => state.months,
+    entries: state => state.entries,
 }
 
 const monthsModule = {

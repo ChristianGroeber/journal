@@ -11,7 +11,7 @@
 export default {
   name: "App",
   created() {
-    this.$store.dispatch("getMonths");
+    this.$store.dispatch("getEntries");
   },
 };
 </script>

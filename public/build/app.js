@@ -159,7 +159,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   name: "App",
   created: function created() {
-    this.$store.dispatch("getMonths");
+    this.$store.dispatch("getEntries");
   }
 };
 })()
@@ -175,7 +175,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2e015f16", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-2e015f16", __vue__options__)
+    hotAPI.reload("data-v-2e015f16", __vue__options__)
   }
 })()}
 });
@@ -229,7 +229,10 @@ exports.default = {
   props: ["day"],
   computed: {
     formattedDate: function formattedDate() {
-      return (0, _moment2.default)(this.day.date).format('D.M.Y');
+      return (0, _moment2.default)(this.day.date).format("D.M.Y");
+    },
+    content: function content() {
+      return atob(this.day.content);
     }
   }
 };
@@ -237,7 +240,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',[_vm._v("\n      "+_vm._s(_vm.day.content)+"\n    ")])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -246,7 +249,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-cf82b76c", __vue__options__)
+    hotAPI.rerender("data-v-cf82b76c", __vue__options__)
   }
 })()}
 });
@@ -340,7 +343,7 @@ exports.default = {
   },
   computed: {
     months: function months() {
-      return this.$store.getters.months;
+      return this.$store.getters.entries;
     }
   }
 };
@@ -479,28 +482,28 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var state = {
-    months: []
+    entries: []
 };
 
 var mutations = {
-    UPDATE_MONTHS: function UPDATE_MONTHS(state, payload) {
-        state.months = payload;
+    UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
+        state.entries = payload;
     }
 };
 
 var actions = {
-    getMonths: function getMonths(_ref) {
+    getEntries: function getEntries(_ref) {
         var commit = _ref.commit;
 
         _axios2.default.get('/api/entries').then(function (response) {
-            commit('UPDATE_MONTHS', response.data);
+            commit('UPDATE_ENTRIES', response.data);
         });
     }
 };
 
 var getters = {
-    months: function months(state) {
-        return state.months;
+    entries: function entries(state) {
+        return state.entries;
     }
 };
 

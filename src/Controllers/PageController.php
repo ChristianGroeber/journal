@@ -12,32 +12,22 @@ class PageController extends AbstractController
 {
     public function index()
     {
-        $directory = $_SERVER['DOCUMENT_ROOT'] . '/content';
-        $tmp = scandir($directory);
-        $pages = [];
-        foreach ($tmp as $subPage) {
-            if (endswith($subPage, '.gitignore')) {
-                continue;
+        $pages = $this->nacho->getPages();
+        usort($pages, [$this, 'sortByDate']);
+        $months = [];
+        foreach ($pages as $key => $page) {
+            $month = explode('/', $key)[1];
+            if (!key_exists($month, $months)) {
+                $months[$month] = [
+                    'name' => $month,
+                    'days' => [],
+                ];
             }
-            if (!is_file($directory . '/' . $subPage)) {
-                continue;
-            }
-
-            $pageDir = '/' . rtrim($subPage, '.md');
-            $nachoPage = $this->nacho->getPage($pageDir);
-
-            if (is_bool($nachoPage)) {
-                header('HTTP/1.1 404');
-                return $this->json(['message' => 'Unable to find This page']);
-            }
-
-            $nachoPage['content'] = base64_encode($this->nacho->renderPage($nachoPage));
-            array_push($pages, $nachoPage);
+            $page['content'] = base64_encode($this->nacho->renderPage($page));
+            array_push($months[$month]['days'], $page);
         }
 
-        usort($pages, [$this, 'sortByDate']);
-
-        return $this->json($pages);
+        return $this->json($months);
     }
 
     public function sortByDate($a, $b)

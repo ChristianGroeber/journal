@@ -2,9 +2,7 @@
   <div class="article">
     <h3 class="article-head">{{ formattedDate }}</h3>
     <div class="article-body">
-      <p>
-        {{ day.content }}
-      </p>
+      <p v-html="content"></p>
     </div>
   </div>
 </template>
@@ -16,9 +14,12 @@ export default {
   name: "Day",
   props: ["day"],
   computed: {
-      formattedDate() {
-        return moment(this.day.date).format('D.M.Y');          
-      }
-  }
+    formattedDate() {
+      return moment(this.day.date).format("D.M.Y");
+    },
+    content() {
+      return atob(this.day.content);
+    }
+  },
 };
 </script>
