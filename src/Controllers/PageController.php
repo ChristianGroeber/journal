@@ -15,8 +15,8 @@ class PageController extends AbstractController
         $pages = $this->nacho->getPages();
         usort($pages, [$this, 'sortByDate']);
         $months = [];
-        foreach ($pages as $key => $page) {
-            $month = explode('/', $key)[1];
+        foreach ($pages as $page) {
+            $month = explode('/', $page['id'])[1];
             if (!key_exists($month, $months)) {
                 $months[$month] = [
                     'name' => $month,
