@@ -175,7 +175,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2e015f16", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-2e015f16", __vue__options__)
+    hotAPI.reload("data-v-2e015f16", __vue__options__)
   }
 })()}
 });
@@ -197,9 +197,15 @@ var _store2 = _interopRequireDefault(_store);
 
 var _routes = require('./src/routes');
 
+var _vMarkdownEditor = require('v-markdown-editor');
+
+var _vMarkdownEditor2 = _interopRequireDefault(_vMarkdownEditor);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.config.productionTip = false;
+
+_vue2.default.use(_vMarkdownEditor2.default);
 
 new _vue2.default({
   store: _store2.default,
@@ -218,6 +224,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _entries = require("babel-runtime/core-js/object/entries");
+
+var _entries2 = _interopRequireDefault(_entries);
+
 var _moment = require("moment");
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -233,6 +247,17 @@ exports.default = {
     },
     content: function content() {
       return atob(this.day.content);
+    },
+    query: function query() {
+      var q = { entry: this.day.id };
+      var query = (0, _entries2.default)(q).map(function (_ref) {
+        var _ref2 = (0, _slicedToArray3.default)(_ref, 2),
+            key = _ref2[0],
+            val = _ref2[1];
+
+        return key + "=" + val;
+      }).join("&");
+      return query;
     }
   }
 };
@@ -240,7 +265,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_c('div',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('router-link',{staticClass:"edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")])],1),_vm._v("\n  "+_vm._s(_vm.query)+"\n  "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-cf82b76c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -250,7 +275,46 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-cf82b76c", __vue__options__)
+    hotAPI.reload("data-v-cf82b76c", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/EditEntry.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "EditEntry",
+  props: ["entry"],
+  created: function created() {
+    this.$store.dispatch("getEntry", this.entry);
+  },
+
+  computed: {
+    markdown: function markdown() {
+      console.log(this.$store.getters.editingEntry.raw_content);
+      return this.$store.getters.editingEntry.raw_content;
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._v("\n  Edit an entry\n  "),_c('div',{staticClass:"container"},[_c('markdown-editor',{attrs:{"value":_vm.markdown}})],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2fb27a94", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2fb27a94", __vue__options__)
   }
 })()}
 });
@@ -319,7 +383,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-ceeef8a4", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-ceeef8a4", __vue__options__)
+    hotAPI.reload("data-v-ceeef8a4", __vue__options__)
   }
 })()}
 });
@@ -415,6 +479,10 @@ var _MonthList = require('./components/MonthList');
 
 var _MonthList2 = _interopRequireDefault(_MonthList);
 
+var _EditEntry = require('./components/EditEntry');
+
+var _EditEntry2 = _interopRequireDefault(_EditEntry);
+
 var _NotFound = require('./components/error/NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -427,6 +495,13 @@ var routes = [{
     path: '/',
     name: "Home",
     component: _MonthList2.default
+}, {
+    path: '/edit',
+    name: "Edit",
+    props: function props(route) {
+        return { entry: route.query.entry };
+    },
+    component: _EditEntry2.default
 }, {
     path: "*",
     name: "notFound",
@@ -483,11 +558,17 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
 var state = {
-    entries: []
+    entries: [],
+    editingEntry: {}
 };
 
 var mutations = {
+    UPDATE_EDITING_ENTRY: function UPDATE_EDITING_ENTRY(state, payload) {
+        state.editingEntry = payload;
+    },
     UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
         state.entries = payload;
     }
@@ -500,12 +581,23 @@ var actions = {
         _axios2.default.get('/api/entries').then(function (response) {
             commit('UPDATE_ENTRIES', response.data);
         });
+    },
+    getEntry: function getEntry(_ref2, payload) {
+        _objectDestructuringEmpty(_ref2);
+
+        console.log(payload);
+        _axios2.default.get('/api/edit?entry=' + payload).then(function (response) {
+            console.log(response.data);
+        });
     }
 };
 
 var getters = {
     entries: function entries(state) {
         return state.entries;
+    },
+    editingEntry: function editingEntry(state) {
+        return state.editingEntry;
     }
 };
 

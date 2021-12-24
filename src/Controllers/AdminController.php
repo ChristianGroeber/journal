@@ -26,7 +26,7 @@ class AdminController extends AbstractController
      */
     function edit($request)
     {
-        $strPage = '/' . $_REQUEST['page'];
+        $strPage = $_REQUEST['entry'];
         $page = $this->nacho->getPage($strPage);
 
         if (!$page || !is_file($page['file'])) {
