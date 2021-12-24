@@ -4,7 +4,6 @@
       <div>{{ formattedDate }}</div>
       <!-- <router-link :to="'/edit?' + query" class="edit-button">Edit</router-link> -->
     </h3>
-    {{ query }}
     <div class="article-body">
       <p v-html="content"></p>
     </div>
