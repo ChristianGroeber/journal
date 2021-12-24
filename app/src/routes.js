@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import MonthList from "./components/MonthList";
-import EditEntry from "./components/EditEntry";
+// import EditEntry from "./components/EditEntry";
 import NotFound from './components/error/NotFound';
 
 const routes = [
@@ -13,12 +13,12 @@ const routes = [
         name: "Home",
         component: MonthList,
     },
-    {
-        path: '/edit',
-        name: "Edit",
-        props: route => ({ entry: route.query.entry }),
-        component: EditEntry,
-    },
+    // {
+    //     path: '/edit',
+    //     name: "Edit",
+    //     props: route => ({ entry: route.query.entry }),
+    //     component: EditEntry,
+    // },
     {
         path: "*",
         name: "notFound",

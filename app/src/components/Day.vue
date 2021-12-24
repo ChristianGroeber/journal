@@ -2,7 +2,7 @@
   <div class="article">
     <h3 class="article-head">
       <div>{{ formattedDate }}</div>
-      <router-link :to="'/edit?' + query" class="edit-button">Edit</router-link>
+      <!-- <router-link :to="'/edit?' + query" class="edit-button">Edit</router-link> -->
     </h3>
     {{ query }}
     <div class="article-body">

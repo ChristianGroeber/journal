@@ -265,7 +265,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_c('div',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('router-link',{staticClass:"edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")])],1),_vm._v("\n  "+_vm._s(_vm.query)+"\n  "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_c('div',[_vm._v(_vm._s(_vm.formattedDate))])]),_vm._v("\n  "+_vm._s(_vm.query)+"\n  "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-cf82b76c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -275,7 +275,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-cf82b76c", __vue__options__)
+    hotAPI.rerender("data-v-cf82b76c", __vue__options__)
   }
 })()}
 });
@@ -479,10 +479,6 @@ var _MonthList = require('./components/MonthList');
 
 var _MonthList2 = _interopRequireDefault(_MonthList);
 
-var _EditEntry = require('./components/EditEntry');
-
-var _EditEntry2 = _interopRequireDefault(_EditEntry);
-
 var _NotFound = require('./components/error/NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -490,19 +486,21 @@ var _NotFound2 = _interopRequireDefault(_NotFound);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vueRouter2.default);
+// import EditEntry from "./components/EditEntry";
+
 
 var routes = [{
     path: '/',
     name: "Home",
     component: _MonthList2.default
-}, {
-    path: '/edit',
-    name: "Edit",
-    props: function props(route) {
-        return { entry: route.query.entry };
-    },
-    component: _EditEntry2.default
-}, {
+},
+// {
+//     path: '/edit',
+//     name: "Edit",
+//     props: route => ({ entry: route.query.entry }),
+//     component: EditEntry,
+// },
+{
     path: "*",
     name: "notFound",
     component: _NotFound2.default
