@@ -445,7 +445,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mt-3"},[_c('div',{staticClass:"container h-100"},[_c('div',{staticClass:"row align-items-center h-100"},[_c('div',{staticClass:"col-8 mx-auto"},[_c('div',{staticClass:"jumbotron h-100"},[_c('h3',[_vm._v("Sorry, die Seite wurde nicht gefunden :(")]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("\n            Zurück zum "),_c('router-link',{attrs:{"to":"/"}},[_vm._v("Shop")])],1)])])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mt-3"},[_c('div',{staticClass:"container h-100"},[_c('div',{staticClass:"row align-items-center h-100"},[_c('div',{staticClass:"col-8 mx-auto"},[_c('div',{staticClass:"jumbotron h-100"},[_c('h3',[_vm._v("Sorry, this page could not be found :(")]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("\n            Return "),_c('router-link',{attrs:{"to":"/"}},[_vm._v("Home")])],1)])])])])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -454,7 +454,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-282a4a58", __vue__options__)
   } else {
-    hotAPI.reload("data-v-282a4a58", __vue__options__)
+    hotAPI.rerender("data-v-282a4a58", __vue__options__)
   }
 })()}
 });
