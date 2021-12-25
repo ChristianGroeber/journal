@@ -243,7 +243,7 @@ exports.default = {
   props: ["day"],
   computed: {
     formattedDate: function formattedDate() {
-      return (0, _moment2.default)(this.day.date).format("D.M.Y");
+      return this.day.title;
     },
     content: function content() {
       return atob(this.day.content);
@@ -275,7 +275,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-cf82b76c", __vue__options__)
+    hotAPI.reload("data-v-cf82b76c", __vue__options__)
   }
 })()}
 });
