@@ -34,10 +34,14 @@ body {
 
 body {
   margin: 0;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   min-height: 100vh;
   width: 100vw;
   background-color: rgb(243, 243, 243);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto";
 }
 
 .header {
