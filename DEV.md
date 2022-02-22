@@ -3,9 +3,10 @@
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles for development (on port 86)
 ```
-yarn serve
+yarn start
+docker-compose up -d
 ```
 
 ### Compiles and minifies for production
