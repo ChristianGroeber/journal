@@ -42,6 +42,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto";
+  margin: 0.5rem 0 0.25rem 0;
 }
 
 .header {

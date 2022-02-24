@@ -37,7 +37,7 @@ export default {
 <style scoped>
 .article {
   background-color: white;
-  padding: 2em;
+  padding: 0 2em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
