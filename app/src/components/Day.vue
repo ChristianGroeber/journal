@@ -2,7 +2,7 @@
   <div class="article">
     <h3 class="article-head">
       <div>{{ formattedDate }}</div>
-      <router-link :to="'/edit?' + query" class="edit-button">Edit</router-link>
+      <router-link v-if="canEdit" :to="'/edit?' + query" class="edit-button">Edit</router-link>
     </h3>
     <div class="article-body">
       <p v-html="content"></p>
@@ -20,6 +20,9 @@ export default {
     },
     content() {
       return atob(this.day.content);
+    },
+    canEdit() {
+      return this.$store.getters.token !== null;
     },
     query() {
       const q = { entry: this.day.id };

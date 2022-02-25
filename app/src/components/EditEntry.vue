@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link :to="'/'">Return</router-link>
     <div class="container">
       <!-- <markdown-editor :value="markdown"></markdown-editor> -->
       <textarea ref="editEntry" class="edit-entry" :value="markdown"></textarea>
