@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 import MonthList from "./components/MonthList";
 import Login from "./components/auth/Login";
-// import EditEntry from "./components/EditEntry";
+import EditEntry from "./components/EditEntry";
 import NotFound from './components/error/NotFound';
 
 const routes = [
@@ -14,12 +14,12 @@ const routes = [
         name: "Home",
         component: MonthList,
     },
-    // {
-    //     path: '/edit',
-    //     name: "Edit",
-    //     props: route => ({ entry: route.query.entry }),
-    //     component: EditEntry,
-    // },
+    {
+        path: '/edit',
+        name: "Edit",
+        props: route => ({ entry: route.query.entry }),
+        component: EditEntry,
+    },
     {
         path: '/login',
         name: "Login",

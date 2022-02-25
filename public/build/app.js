@@ -231,10 +231,6 @@ var _entries = require("babel-runtime/core-js/object/entries");
 
 var _entries2 = _interopRequireDefault(_entries);
 
-var _moment = require("moment");
-
-var _moment2 = _interopRequireDefault(_moment);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -264,7 +260,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_c('div',[_vm._v(_vm._s(_vm.formattedDate))])]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('h3',{staticClass:"article-head"},[_c('div',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('router-link',{staticClass:"edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")])],1),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-cf82b76c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -290,7 +286,7 @@ exports.default = {
   name: "EditEntry",
   props: ["entry"],
   created: function created() {
-    this.$store.dispatch("getEntry", this.entry);
+    this.$store.dispatch("getEntry", { entry: this.entry, token: this.$store.getters.token });
   },
 
   computed: {
@@ -304,7 +300,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._v("\n  Edit an entry\n  "),_c('div',{staticClass:"container"},[_c('markdown-editor',{attrs:{"value":_vm.markdown}})],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._v("\n  Edit an entry\n  "),_c('div',{staticClass:"container"},[_c('textarea',{domProps:{"value":_vm.markdown}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -527,6 +523,10 @@ var _Login = require('./components/auth/Login');
 
 var _Login2 = _interopRequireDefault(_Login);
 
+var _EditEntry = require('./components/EditEntry');
+
+var _EditEntry2 = _interopRequireDefault(_EditEntry);
+
 var _NotFound = require('./components/error/NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -534,21 +534,19 @@ var _NotFound2 = _interopRequireDefault(_NotFound);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vueRouter2.default);
-// import EditEntry from "./components/EditEntry";
-
 
 var routes = [{
     path: '/',
     name: "Home",
     component: _MonthList2.default
-},
-// {
-//     path: '/edit',
-//     name: "Edit",
-//     props: route => ({ entry: route.query.entry }),
-//     component: EditEntry,
-// },
-{
+}, {
+    path: '/edit',
+    name: "Edit",
+    props: function props(route) {
+        return { entry: route.query.entry };
+    },
+    component: _EditEntry2.default
+}, {
     path: '/login',
     name: "Login",
     component: _Login2.default
@@ -681,8 +679,6 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
 var state = {
     entries: [],
     editingEntry: {}
@@ -706,11 +702,10 @@ var actions = {
         });
     },
     getEntry: function getEntry(_ref2, payload) {
-        _objectDestructuringEmpty(_ref2);
+        var commit = _ref2.commit;
 
-        console.log(payload);
-        _axios2.default.get('/api/edit?entry=' + payload).then(function (response) {
-            console.log(response.data);
+        _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
+            commit('UPDATE_EDITING_ENTRY', response.data);
         });
     }
 };

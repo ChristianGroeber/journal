@@ -2,7 +2,8 @@
   <div>
     Edit an entry
     <div class="container">
-      <markdown-editor :value="markdown"></markdown-editor>
+      <!-- <markdown-editor :value="markdown"></markdown-editor> -->
+      <textarea :value="markdown"></textarea>
     </div>
   </div>
 </template>
@@ -12,7 +13,7 @@ export default {
   name: "EditEntry",
   props: ["entry"],
   created() {
-    this.$store.dispatch("getEntry", this.entry);
+    this.$store.dispatch("getEntry", {entry: this.entry, token: this.$store.getters.token});
   },
   computed: {
     markdown() {

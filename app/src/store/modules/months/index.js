@@ -21,11 +21,10 @@ const actions = {
                 commit('UPDATE_ENTRIES', response.data);
             });
     },
-    getEntry({}, payload) {
-        console.log(payload);
-        axios.get('/api/edit?entry=' + payload)
+    getEntry({commit}, payload) {
+        axios.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token)
             .then((response) => {
-                console.log(response.data);
+                commit('UPDATE_EDITING_ENTRY', response.data);
             });
     }
 }

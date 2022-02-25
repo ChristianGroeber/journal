@@ -32,7 +32,7 @@ class AdminController extends AbstractController
         }
         $tokenHelper = new TokenHelper();
         $token = $_REQUEST['token'];
-        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler());
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
         if (!$user) {
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }

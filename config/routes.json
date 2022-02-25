@@ -86,6 +86,11 @@
         "function": "login"
     },
     {
+        "route": "/api/validate-token",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "validateToken"
+    },
+    {
         "route": "/change-password",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "changePassword",

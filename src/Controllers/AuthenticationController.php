@@ -40,6 +40,14 @@ class AuthenticationController extends AbstractController
         ], $status);
     }
 
+    public function validateToken()
+    {
+        $tokenHelper = new TokenHelper();
+        $isValid = $tokenHelper->isTokenValid($_REQUEST['token'], $this->nacho->userHandler->getUsers());
+
+        return $this->json(['success' => $isValid !== false]);
+    }
+
     /**
      * TODO: update to use with API
      */
