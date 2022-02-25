@@ -286,7 +286,10 @@ exports.default = {
   name: "EditEntry",
   props: ["entry"],
   created: function created() {
-    this.$store.dispatch("getEntry", { entry: this.entry, token: this.$store.getters.token });
+    this.$store.dispatch("getEntry", {
+      entry: this.entry,
+      token: this.$store.getters.token
+    });
   },
 
   computed: {
@@ -294,14 +297,23 @@ exports.default = {
       console.log(this.$store.getters.editingEntry.raw_content);
       return this.$store.getters.editingEntry.raw_content;
     }
+  },
+  methods: {
+    save: function save() {
+      var newContent = this.$refs.editEntry.value;
+      var entry = this.$store.getters.editingEntry;
+      entry.raw_content = newContent;
+      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token });
+    }
   }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._v("\n  Edit an entry\n  "),_c('div',{staticClass:"container"},[_c('textarea',{domProps:{"value":_vm.markdown}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-2fb27a94"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -701,8 +713,29 @@ var actions = {
             commit('UPDATE_ENTRIES', response.data);
         });
     },
-    getEntry: function getEntry(_ref2, payload) {
+    updateEntry: function updateEntry(_ref2, payload) {
         var commit = _ref2.commit;
+
+        commit('UPDATE_EDITING_ENTRY', payload.entry);
+        var data = {
+            token: payload.token,
+            content: payload.entry.raw_content,
+            entry: payload.entry.id
+        };
+        var queryString = Object.keys(data).map(function (key) {
+            return key + '=' + data[key];
+        }).join('&');
+        (0, _axios2.default)({
+            method: 'post',
+            url: '/api/edit',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    },
+    getEntry: function getEntry(_ref3, payload) {
+        var commit = _ref3.commit;
 
         _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
             commit('UPDATE_EDITING_ENTRY', response.data);

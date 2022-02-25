@@ -15,3 +15,4 @@ images/December/*
 .idea
 yarn-error.log
 .secret
+content/*
