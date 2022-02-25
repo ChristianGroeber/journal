@@ -347,10 +347,14 @@ exports.default = {
   },
   methods: {
     save: function save() {
+      var _this = this;
+
       var newContent = this.$refs.editEntry.value;
       var entry = this.$store.getters.editingEntry;
       entry.raw_content = newContent;
-      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token });
+      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token }).then(function () {
+        _this.$store.dispatch('getEntries');
+      });
     }
   }
 };
@@ -780,7 +784,7 @@ var actions = {
         var queryString = Object.keys(data).map(function (key) {
             return key + '=' + data[key];
         }).join('&');
-        (0, _axios2.default)({
+        return (0, _axios2.default)({
             method: 'post',
             url: '/api/edit',
             data: queryString,

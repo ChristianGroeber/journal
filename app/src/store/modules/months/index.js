@@ -33,7 +33,7 @@ const actions = {
             entry: payload.entry.id,
         };
         const queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-        axios({
+        return axios({
             method: 'post',
             url: '/api/edit',
             data: queryString,
