@@ -3,16 +3,15 @@
 namespace App\Controllers;
 
 use Nacho\Controllers\AbstractController;
-
+use App\Helpers\TokenHelper;
 
 class AuthenticationController extends AbstractController
 {
     public function login($request)
     {
-        if (!isset($_REQUEST['required_page'])) {
-            $_REQUEST['required_page'] = '/';
-        }
+        $tokenHelper = new TokenHelper();
         $message = '';
+        $status = 200;
         if (strtolower($request->requestMethod) === 'post') {
             $isValid = false;
             $foundUser = null;
@@ -29,22 +28,21 @@ class AuthenticationController extends AbstractController
 
             if (!$isValid) {
                 $message = 'This password/ username is not valid';
-                header('HTTP/1.0 400');
+                $status = 400;
             } else {
-                session_start();
-                $_SESSION['user'] = $foundUser;
-                header('HTTP/1.1 302');
-                header('Location: ' . $_REQUEST['required_page']);
-                die();
+                $token = $tokenHelper->generateToken($foundUser['username']);
+                return $this->json(['token' => $token]);
             }
         }
 
-        return $this->render('security/login.twig', [
+        return $this->json([
             'message' => $message,
-            'page' => $_REQUEST['required_page'],
-        ]);
+        ], $status);
     }
 
+    /**
+     * TODO: update to use with API
+     */
     public function changePassword($request)
     {
         if (!$this->isGranted('Reader')) {
@@ -70,54 +68,6 @@ class AuthenticationController extends AbstractController
         return $this->render('security/change-password.twig', [
             'referer' => $_SERVER['HTTP_REFERER'],
             'message' => $message,
-        ]);
-    }
-
-    public function logout($request)
-    {
-        session_destroy();
-        header('HTTP/1.1 302');
-        header('Location: /');
-    }
-
-    public function register($request)
-    {
-        if (strtolower($request->requestMethod) === 'post') {
-            $existingUsers = json_decode(
-                file_get_contents($request->documentRoot . '/users.json'),
-                true
-            );
-            $userExists = false;
-            foreach ($existingUsers as $user) {
-                if ($user['username'] === $_REQUEST['username']) {
-                    header('HTTP/1.0 409');
-                    $message = 'This username is already taken';
-                    $userExists = true;
-                    break;
-                }
-            }
-            if (!$userExists) {
-                array_push($existingUsers, [
-                    'username' => $_REQUEST['username'],
-                    'password' => password_hash($_REQUEST['password'], PASSWORD_DEFAULT),
-                    'role' => 'Reader',
-                ]);
-                print_r($existingUsers);
-                file_put_contents(
-                    $request->documentRoot . 'users.json',
-                    json_encode($existingUsers)
-                );
-
-                header('HTTP/1.1 302');
-                header('Location: /');
-                return '';
-            }
-        }
-
-        return $this->render(VIEWS_DIR . '/base.php', [
-            'article' => $this->render(
-                VIEWS_DIR . '/includes/security/register/article.php'
-            ),
         ]);
     }
 }

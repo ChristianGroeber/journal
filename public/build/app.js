@@ -159,6 +159,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   name: "App",
   created: function created() {
+    this.$store.dispatch("getToken");
     this.$store.dispatch("getEntries");
   }
 };
@@ -166,7 +167,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._m(0),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":"/login"}},[_c('button',[_vm._v("Login")])]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('router-view')],1)}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -197,15 +198,13 @@ var _store2 = _interopRequireDefault(_store);
 
 var _routes = require('./src/routes');
 
-var _vMarkdownEditor = require('v-markdown-editor');
-
-var _vMarkdownEditor2 = _interopRequireDefault(_vMarkdownEditor);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import Editor from "v-markdown-editor";
 
 _vue2.default.config.productionTip = false;
 
-_vue2.default.use(_vMarkdownEditor2.default);
+// Vue.use(Editor);
 
 new _vue2.default({
   store: _store2.default,
@@ -431,6 +430,51 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })()}
 });
 
+;require.register("src/components/auth/Login.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      password: ""
+    };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      this.$store.dispatch("login", {
+        username: this.username,
+        password: this.password
+      }).then(function () {
+        _this.$router.push('/');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("LOGIN")]),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.login.apply(null, arguments)}}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"username"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br'),_vm._v(" "),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],attrs:{"placeholder":"password","type":"password"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}}),_vm._v(" "),_c('br'),_vm._v(" "),_c('br'),_vm._v(" "),_c('button',{attrs:{"type":"submit"}},[_vm._v("Login")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2610ee78", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2610ee78", __vue__options__)
+  }
+})()}
+});
+
 ;require.register("src/components/error/NotFound.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -479,6 +523,10 @@ var _MonthList = require('./components/MonthList');
 
 var _MonthList2 = _interopRequireDefault(_MonthList);
 
+var _Login = require('./components/auth/Login');
+
+var _Login2 = _interopRequireDefault(_Login);
+
 var _NotFound = require('./components/error/NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -501,6 +549,10 @@ var routes = [{
 //     component: EditEntry,
 // },
 {
+    path: '/login',
+    name: "Login",
+    component: _Login2.default
+}, {
     path: "*",
     name: "notFound",
     component: _NotFound2.default
@@ -531,19 +583,92 @@ var _months = require('./modules/months/');
 
 var _months2 = _interopRequireDefault(_months);
 
+var _auth = require('./modules/auth/');
+
+var _auth2 = _interopRequireDefault(_auth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Module
 _vue2.default.use(_vuex2.default);
 
-// Module
 exports.default = new _vuex2.default.Store({
     modules: {
-        months: _months2.default
+        months: _months2.default,
+        auth: _auth2.default
     }
 });
 });
 
-;require.register("src/store/modules/months/index.js", function(exports, require, module) {
+;require.register("src/store/modules/auth/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var state = {
+    token: null
+};
+
+var mutations = {
+    UPDATE_TOKEN: function UPDATE_TOKEN(state, payload) {
+        localStorage.setItem('token', payload);
+        state.token = payload;
+    }
+};
+
+var actions = {
+    login: function login(_ref, payload) {
+        var commit = _ref.commit;
+
+        var queryString = Object.keys(payload).map(function (key) {
+            return key + '=' + payload[key];
+        }).join('&');
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/login',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
+    },
+    getToken: function getToken(_ref2) {
+        var commit = _ref2.commit;
+
+        var token = localStorage.getItem('token');
+        if (token) {
+            commit('UPDATE_TOKEN', token);
+        }
+    }
+};
+
+var getters = {
+    token: function token(state) {
+        return state.token;
+    }
+};
+
+var authModule = {
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
+
+exports.default = authModule;
+});
+
+require.register("src/store/modules/months/index.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

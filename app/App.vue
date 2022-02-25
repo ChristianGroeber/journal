@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link  to="/login"><button>Login</button></router-link> 
     <div class="header">
       <h1>2022</h1>
     </div>
@@ -11,6 +12,7 @@
 export default {
   name: "App",
   created() {
+    this.$store.dispatch("getToken");
     this.$store.dispatch("getEntries");
   },
 };

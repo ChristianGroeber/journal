@@ -5,6 +5,7 @@ namespace App\Controllers;
 use DateTime;
 use App\Helpers\ImageHelper;
 use App\Helpers\NavRenderer;
+use App\Helpers\TokenHelper;
 use Nacho\Controllers\AbstractController;
 use Nacho\Nacho;
 
@@ -26,6 +27,15 @@ class AdminController extends AbstractController
      */
     function edit($request)
     {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
         $strPage = $_REQUEST['entry'];
         $page = $this->nacho->getPage($strPage);
 
@@ -44,23 +54,18 @@ class AdminController extends AbstractController
 
     public function delete($request)
     {
-        function returnHome()
-        {
-            header('Location: /admin');
-            header('HTTP/1.1 302');
-        }
         if (key_exists('file', $_REQUEST)) {
             $file = $_REQUEST['file'];
         } elseif (key_exists('dir', $_REQUEST)) {
             $file = $_REQUEST['dir'];
         } else {
-            returnHome();
+        //    returnHome();
         }
         if (
             substr($file, 0, strlen($_SERVER['DOCUMENT_ROOT'])) !==
             $_SERVER['DOCUMENT_ROOT']
         ) {
-            returnHome();
+         //   returnHome();
         }
 
         function rmdirRecursive($dir)
@@ -85,7 +90,7 @@ class AdminController extends AbstractController
         } elseif (is_dir($file)) {
             rmdirRecursive($file);
         }
-        returnHome();
+        //returnHome();
     }
 
     public function uploadOriginal($request)
@@ -165,26 +170,5 @@ class AdminController extends AbstractController
         }
 
         return "/${month}/${title}";
-    }
-
-    public function showInfo($request)
-    {
-        return phpinfo();
-    }
-
-    protected function render(string $template, array $args = [])
-    {
-        $args['nav'] = $this->getFilesRecursive();
-
-        return parent::render($template, $args);
-    }
-
-    private function getFilesRecursive(): array
-    {
-        $navHelper = new NavRenderer($this->nacho);
-        $pages = $this->nacho->getPages();
-        $page = $this->nacho->getPage('/');
-
-        return [$navHelper->findChildPages('/', $page, $pages)];
     }
 }

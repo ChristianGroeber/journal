@@ -14,3 +14,4 @@ images/November/*
 images/December/*
 .idea
 yarn-error.log
+.secret
