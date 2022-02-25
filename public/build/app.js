@@ -215,6 +215,50 @@ new _vue2.default({
 }).$mount('#app');
 });
 
+;require.register("src/components/AdminBar.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "AdminBar",
+  methods: {
+    editCurrent: function editCurrent() {
+      var _this = this;
+
+      _axios2.default.get("/api/edit/current?token=" + this.$store.getters.token).then(function (response) {
+        _this.$router.push('/edit?entry=' + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-63c306f4", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-63c306f4", __vue__options__)
+  }
+})()}
+});
+
 ;require.register("src/components/Day.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -410,16 +454,24 @@ var _Month = require("./Month");
 
 var _Month2 = _interopRequireDefault(_Month);
 
+var _AdminBar = require("./AdminBar");
+
+var _AdminBar2 = _interopRequireDefault(_AdminBar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: "MonthList",
   components: {
-    Month: _Month2.default
+    Month: _Month2.default,
+    AdminBar: _AdminBar2.default
   },
   computed: {
     months: function months() {
       return this.$store.getters.entries;
+    },
+    canEdit: function canEdit() {
+      return this.$store.getters.token !== null;
     }
   }
 };
@@ -427,7 +479,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.months),function(month){return _c('div',{key:month.id,staticClass:"month"},[_c('Month',{attrs:{"month":month}})],1)}),0)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.canEdit)?_c('AdminBar'):_vm._e(),_vm._v(" "),_vm._l((_vm.months),function(month){return _c('div',{key:month.id,staticClass:"month"},[_c('Month',{attrs:{"month":month}})],1)})],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

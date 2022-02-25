@@ -33,8 +33,7 @@
         "function": "uploadOriginal"
     },
     {
-        "route": "/admin/edit/current",
-        "min_role": "Editor",
+        "route": "/api/edit/current",
         "controller": "App\\Controllers\\AdminController",
         "function": "editCurrent"
     },

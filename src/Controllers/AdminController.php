@@ -113,7 +113,7 @@ class AdminController extends AbstractController
     {
         $file = $this->getCurrentFile();
 
-        return $this->redirect("/admin/edit?file=" . rtrim($file, '.md'));
+        return $this->json(['entryId' => rtrim($file, '.md')]);
     }
 
     public function publishStatus($request)
