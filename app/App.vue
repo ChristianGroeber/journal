@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link  to="/login"><button>Login</button></router-link> 
+    <!-- <router-link  to="/login"><button>Login</button></router-link>  -->
     <div class="header">
       <h1>2022</h1>
     </div>

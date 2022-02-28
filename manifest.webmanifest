@@ -4,7 +4,7 @@
     "name": "2022",
     "scope": "/",
     "display": "fullscreen",
-    "start_url": "/",
+    "start_url": "/admin",
     "short_name": "2022",
     "theme_color": "#ce54d6",
     "orientation": "any",
