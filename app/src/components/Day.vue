@@ -16,7 +16,7 @@ export default {
   props: ["day"],
   computed: {
     formattedDate() {
-      return this.day.title;
+      return this.day.meta.title;
     },
     content() {
       return atob(this.day.content);

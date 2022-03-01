@@ -282,7 +282,7 @@ exports.default = {
   props: ["day"],
   computed: {
     formattedDate: function formattedDate() {
-      return this.day.title;
+      return this.day.meta.title;
     },
     content: function content() {
       return atob(this.day.content);
