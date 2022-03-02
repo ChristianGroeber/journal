@@ -32,14 +32,14 @@ class PageController extends AbstractController
 
     public function sortByDate($a, $b)
     {
-        if (is_int(array_search($a['title'], MONTHS))) {
+        if (is_int(array_search($a['meta']['title'], MONTHS))) {
             return -1;
         }
-        if (is_int(array_search($b['title'], MONTHS))) {
+        if (is_int(array_search($b['meta']['title'], MONTHS))) {
             return 1;
         }
-        $t1 = strtotime($a['title']);
-        $t2 = strtotime($b['title']);
+        $t1 = strtotime($a['meta']['title']);
+        $t2 = strtotime($b['meta']['title']);
 
         return $t2 - $t1;
     }
