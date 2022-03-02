@@ -44,7 +44,7 @@ class AdminController extends AbstractController
         }
 
         if (strtolower($request->requestMethod) === 'post') {
-            file_put_contents($page['file'], $_REQUEST['content']);
+            file_put_contents($page['file'], $this->nacho->createMetaString($page['meta']) . $_REQUEST['content']);
 
             return $this->json(['message' => 'successfully saved content', 'file' => $page['file']]);
         }
