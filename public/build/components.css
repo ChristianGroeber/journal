@@ -100,10 +100,6 @@ img {
     margin: 0;
   }
 }
-.edit-entry[data-v-2fb27a94] {
-  width: 80%;
-  min-height: 200px;
-}
 .loader[data-v-c1a3922c] {
   display: block;
   position: absolute;
@@ -182,4 +178,8 @@ img {
   .month[data-v-ceeef8a4] {
     padding-left: 0;
   }
+}
+.edit-entry[data-v-cd4d9914] {
+  width: 80%;
+  min-height: 200px;
 }

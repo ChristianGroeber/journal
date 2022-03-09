@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 import MonthList from "./components/MonthList";
 import Login from "./components/auth/Login";
-import EditEntry from "./components/EditEntry";
+import EditEntry from "./components/admin/EditEntry";
 import NotFound from './components/error/NotFound';
 
 const routes = [

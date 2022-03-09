@@ -21,7 +21,6 @@ export default {
   },
   computed: {
     markdown() {
-      console.log(this.$store.getters.editingEntry.raw_content);
       return this.$store.getters.editingEntry.raw_content;
     },
   },

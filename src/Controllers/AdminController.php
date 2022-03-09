@@ -157,7 +157,8 @@ class AdminController extends AbstractController
         $now = new \DateTime();
         $title = $now->format('Y-m-d') . '.md';
         $month = $now->format('F');
-        $fileDir = $_SERVER['DOCUMENT_ROOT'] . "/content/${month}/${title}";
+        $folderDir = $_SERVER['DOCUMENT_ROOT'] . "/content/${month}";
+        $fileDir = "${folderDir}/${title}";
         // check if file exists, if not create it
         $content =
             "---\ntitle: " .
@@ -165,6 +166,9 @@ class AdminController extends AbstractController
             "\ndate: " .
             $now->format('Y-m-d H:i') .
             "\n---\n";
+        if (!is_dir($folderDir)) {
+            mkdir($folderDir);
+        }
         if (!is_file($fileDir)) {
             file_put_contents($fileDir, $content);
         }

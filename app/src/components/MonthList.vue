@@ -9,7 +9,7 @@
 
 <script>
 import Month from "./Month";
-import AdminBar from "./AdminBar";
+import AdminBar from "./admin/AdminBar";
 
 export default {
   name: "MonthList",

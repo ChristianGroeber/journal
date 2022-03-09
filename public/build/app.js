@@ -215,50 +215,6 @@ new _vue2.default({
 }).$mount('#app');
 });
 
-;require.register("src/components/AdminBar.vue", function(exports, require, module) {
-;(function(){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _axios = require("axios");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  name: "AdminBar",
-  methods: {
-    editCurrent: function editCurrent() {
-      var _this = this;
-
-      _axios2.default.get("/api/edit/current?token=" + this.$store.getters.token).then(function (response) {
-        _this.$router.push('/edit?entry=' + response.data.entryId);
-      });
-    }
-  }
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")])])}
-__vue__options__.staticRenderFns = []
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-63c306f4", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-63c306f4", __vue__options__)
-  }
-})()}
-});
-
 ;require.register("src/components/Day.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -318,61 +274,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-cf82b76c", __vue__options__)
   } else {
     hotAPI.reload("data-v-cf82b76c", __vue__options__)
-  }
-})()}
-});
-
-;require.register("src/components/EditEntry.vue", function(exports, require, module) {
-;(function(){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  name: "EditEntry",
-  props: ["entry"],
-  created: function created() {
-    this.$store.dispatch("getEntry", {
-      entry: this.entry,
-      token: this.$store.getters.token
-    });
-  },
-
-  computed: {
-    markdown: function markdown() {
-      console.log(this.$store.getters.editingEntry.raw_content);
-      return this.$store.getters.editingEntry.raw_content;
-    }
-  },
-  methods: {
-    save: function save() {
-      var _this = this;
-
-      var newContent = this.$refs.editEntry.value;
-      var entry = this.$store.getters.editingEntry;
-      entry.raw_content = newContent;
-      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token }).then(function () {
-        _this.$store.dispatch('getEntries');
-      });
-    }
-  }
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])],1)}
-__vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-2fb27a94"
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2fb27a94", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-2fb27a94", __vue__options__)
   }
 })()}
 });
@@ -458,7 +359,7 @@ var _Month = require("./Month");
 
 var _Month2 = _interopRequireDefault(_Month);
 
-var _AdminBar = require("./AdminBar");
+var _AdminBar = require("./admin/AdminBar");
 
 var _AdminBar2 = _interopRequireDefault(_AdminBar);
 
@@ -493,6 +394,104 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-6354c328", __vue__options__)
   } else {
     hotAPI.reload("data-v-6354c328", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/AdminBar.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "AdminBar",
+  methods: {
+    editCurrent: function editCurrent() {
+      var _this = this;
+
+      _axios2.default.get("/api/edit/current?token=" + this.$store.getters.token).then(function (response) {
+        _this.$router.push('/edit?entry=' + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-687af3c6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-687af3c6", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/EditEntry.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "EditEntry",
+  props: ["entry"],
+  created: function created() {
+    this.$store.dispatch("getEntry", {
+      entry: this.entry,
+      token: this.$store.getters.token
+    });
+  },
+
+  computed: {
+    markdown: function markdown() {
+      return this.$store.getters.editingEntry.raw_content;
+    }
+  },
+  methods: {
+    save: function save() {
+      var _this = this;
+
+      var newContent = this.$refs.editEntry.value;
+      var entry = this.$store.getters.editingEntry;
+      entry.raw_content = newContent;
+      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token }).then(function () {
+        _this.$store.dispatch('getEntries');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])],1)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-cd4d9914"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cd4d9914", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-cd4d9914", __vue__options__)
   }
 })()}
 });
@@ -594,7 +593,7 @@ var _Login = require('./components/auth/Login');
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _EditEntry = require('./components/EditEntry');
+var _EditEntry = require('./components/admin/EditEntry');
 
 var _EditEntry2 = _interopRequireDefault(_EditEntry);
 
