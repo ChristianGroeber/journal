@@ -54,4 +54,22 @@ class ImageController extends AbstractController
 
         return $this->json(['message' => 'I should be loading your images now', 'images' => $images]);
     }
+
+    /**
+     * GET: get a list of images for a selected entry
+     */
+    function images()
+    {
+        $strPage = $_REQUEST['page'];
+
+        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images' . $strPage;
+        $images = [];
+        foreach (scandir($imagesDir) as $imgPath) {
+            if (is_file($imagesDir . '/' . $imgPath)) {
+                $images[] = $strPage . '/' . $imgPath;
+            }
+        } 
+
+        return $this->json($images);
+    }
 }
