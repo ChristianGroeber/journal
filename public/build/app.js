@@ -481,7 +481,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('router-link',{attrs:{"to":'/edit/gallery?entry=' + _vm.entry}},[_vm._v("Gallery")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])],1)}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-cd4d9914"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -492,6 +492,67 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-cd4d9914", __vue__options__)
   } else {
     hotAPI.reload("data-v-cd4d9914", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/EditGallery.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _entries = require("babel-runtime/core-js/object/entries");
+
+var _entries2 = _interopRequireDefault(_entries);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "EditGallery",
+  props: ["entry"],
+  created: function created() {
+    this.$store.dispatch("getGallery", { entry: this.entry });
+  },
+
+  computed: {
+    getGallery: function getGallery() {
+      return this.$store.getters.gallery;
+    },
+    query: function query() {
+      var q = { entry: this.entry };
+      var query = (0, _entries2.default)(q).map(function (_ref) {
+        var _ref2 = (0, _slicedToArray3.default)(_ref, 2),
+            key = _ref2[0],
+            val = _ref2[1];
+
+        return key + "=" + val;
+      }).join("&");
+      return query;
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Edit Gallery")]),_vm._v(" "),_c('router-link',{staticClass:"edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("<- Return")]),_vm._v(" "),_c('div',{staticClass:"images"},_vm._l((_vm.getGallery),function(image,index){return _c('div',{key:index,staticClass:"gallery-image"},[_c('img',{attrs:{"src":image}})])}),0)],1)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-aad4f154"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-aad4f154", __vue__options__)
+  } else {
+    hotAPI.rerender("data-v-aad4f154", __vue__options__)
   }
 })()}
 });
@@ -597,6 +658,10 @@ var _EditEntry = require('./components/admin/EditEntry');
 
 var _EditEntry2 = _interopRequireDefault(_EditEntry);
 
+var _EditGallery = require('./components/admin/EditGallery');
+
+var _EditGallery2 = _interopRequireDefault(_EditGallery);
+
 var _NotFound = require('./components/error/NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -616,6 +681,13 @@ var routes = [{
         return { entry: route.query.entry };
     },
     component: _EditEntry2.default
+}, {
+    path: '/edit/gallery',
+    name: "Gallery",
+    props: function props(route) {
+        return { entry: route.query.entry };
+    },
+    component: _EditGallery2.default
 }, {
     path: '/login',
     name: "Login",
@@ -751,7 +823,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var state = {
     entries: [],
-    editingEntry: {}
+    editingEntry: {},
+    editingGallery: {}
 };
 
 var mutations = {
@@ -760,6 +833,9 @@ var mutations = {
     },
     UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
         state.entries = payload;
+    },
+    UPDATE_EDITING_GALLERY: function UPDATE_EDITING_GALLERY(state, payload) {
+        state.editingGallery = payload;
     }
 };
 
@@ -798,6 +874,13 @@ var actions = {
         _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
             commit('UPDATE_EDITING_ENTRY', response.data);
         });
+    },
+    getGallery: function getGallery(_ref4, payload) {
+        var commit = _ref4.commit;
+
+        _axios2.default.get('/api/entry/gallery?page=' + payload.entry).then(function (response) {
+            commit('UPDATE_EDITING_GALLERY', response.data);
+        });
     }
 };
 
@@ -807,6 +890,9 @@ var getters = {
     },
     editingEntry: function editingEntry(state) {
         return state.editingEntry;
+    },
+    gallery: function gallery(state) {
+        return state.editingGallery;
     }
 };
 

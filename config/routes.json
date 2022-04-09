@@ -15,7 +15,7 @@
         "function": "edit"
     },
     {
-        "route": "/api/entry/images",
+        "route": "/api/entry/gallery",
         "controller": "App\\Controllers\\ImageController",
         "function": "images"
     },

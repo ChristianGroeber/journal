@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = {
     entries: [],
     editingEntry: {},
+    editingGallery: {},
 };
 
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
     },
     UPDATE_ENTRIES(state, payload) {
         state.entries = payload;
+    },
+    UPDATE_EDITING_GALLERY(state, payload) {
+        state.editingGallery = payload;
     }
 }
 
@@ -49,12 +53,19 @@ const actions = {
             .then((response) => {
                 commit('UPDATE_EDITING_ENTRY', response.data);
             });
+    },
+    getGallery({commit}, payload) {
+        axios.get('/api/entry/gallery?page=' + payload.entry)
+        .then((response) => {
+            commit('UPDATE_EDITING_GALLERY', response.data);
+        });
     }
 }
 
 const getters = {
     entries: state => state.entries,
     editingEntry: state => state.editingEntry,
+    gallery: state => state.editingGallery,
 }
 
 const monthsModule = {

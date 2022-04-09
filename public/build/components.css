@@ -183,3 +183,12 @@ img {
   width: 80%;
   min-height: 200px;
 }
+.images[data-v-aad4f154] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.gallery-image[data-v-aad4f154] {
+  width: 40%;
+}
