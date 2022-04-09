@@ -66,7 +66,7 @@ class ImageController extends AbstractController
         $images = [];
         foreach (scandir($imagesDir) as $imgPath) {
             if (is_file($imagesDir . '/' . $imgPath)) {
-                $images[] = $strPage . '/' . $imgPath;
+                $images[] = '/images' . $strPage . '/' . $imgPath;
             }
         } 
 
