@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { marked } from 'marked';
+
 export default {
   name: "Day",
   props: ["day"],
@@ -19,7 +21,8 @@ export default {
       return this.day.meta.title;
     },
     content() {
-      return atob(this.day.content);
+      console.log(marked.parse(this.day.raw_content));
+      return marked.parse(this.day.raw_content);
     },
     canEdit() {
       return this.$store.getters.token !== null;

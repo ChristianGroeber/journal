@@ -231,6 +231,8 @@ var _entries = require("babel-runtime/core-js/object/entries");
 
 var _entries2 = _interopRequireDefault(_entries);
 
+var _marked = require("marked");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -241,7 +243,8 @@ exports.default = {
       return this.day.meta.title;
     },
     content: function content() {
-      return atob(this.day.content);
+      console.log(_marked.marked.parse(this.day.raw_content));
+      return _marked.marked.parse(this.day.raw_content);
     },
     canEdit: function canEdit() {
       return this.$store.getters.token !== null;
@@ -449,6 +452,17 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _from = require("babel-runtime/core-js/array/from");
+
+var _from2 = _interopRequireDefault(_from);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   name: "EditEntry",
   props: ["entry"],
@@ -471,8 +485,30 @@ exports.default = {
       var newContent = this.$refs.editEntry.value;
       var entry = this.$store.getters.editingEntry;
       entry.raw_content = newContent;
-      this.$store.dispatch('updateEntry', { entry: entry, token: this.$store.getters.token }).then(function () {
-        _this.$store.dispatch('getEntries');
+      this.$store.dispatch("updateEntry", {
+        entry: entry,
+        token: this.$store.getters.token
+      }).then(function () {
+        _this.$store.dispatch("getEntries");
+      });
+    },
+    uploadImages: function uploadImages(e) {
+      var _this2 = this;
+
+      console.log(e.target.files);
+      var formData = new FormData();
+      (0, _from2.default)(e.target.files).forEach(function (img) {
+        console.log(img);
+        formData.append((0, _from2.default)(e.target.files).indexOf(img), img);
+      });
+      formData.append("entry", this.entry);
+      formData.append("token", this.$store.getters.token);
+      console.log(formData);
+      _axios2.default.post("/api/entry/gallery/upload", formData).then(function (response) {
+        var images = response.data.files;
+        images.forEach(function (img) {
+          _this2.$refs.editEntry.value += "![uploaded image](" + encodeURI(img) + ")";
+        });
       });
     }
   }
@@ -481,7 +517,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('router-link',{attrs:{"to":'/edit/gallery?entry=' + _vm.entry}},[_vm._v("Gallery")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('router-link',{attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('router-link',{attrs:{"to":'/edit/gallery?entry=' + _vm.entry}},[_vm._v("Gallery")]),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('input',{attrs:{"accept":"image/*","type":"file","label":"Upload Images","multiple":""},on:{"change":_vm.uploadImages}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])],1)}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-cd4d9914"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -552,7 +588,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-aad4f154", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-aad4f154", __vue__options__)
+    hotAPI.reload("data-v-aad4f154", __vue__options__)
   }
 })()}
 });
@@ -853,7 +889,7 @@ var actions = {
         commit('UPDATE_EDITING_ENTRY', payload.entry);
         var data = {
             token: payload.token,
-            content: payload.entry.raw_content,
+            content: btoa(payload.entry.raw_content),
             entry: payload.entry.id
         };
         var queryString = Object.keys(data).map(function (key) {

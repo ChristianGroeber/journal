@@ -4,29 +4,38 @@ namespace App\Controllers;
 
 use App\Helpers\ImageHelper;
 use Nacho\Controllers\AbstractController;
+use App\Helpers\TokenHelper;
 
 class ImageController extends AbstractController
 {
-    public function uploadImage($request)
+    public function uploadImages($request)
     {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
         $now = new \DateTime();
         $baseFileName = $now->getTimestamp();
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
-        $month = $_REQUEST['month'];
-        $day = $_REQUEST['day'];
+        $entry = $_REQUEST['entry'];
 
-        if (!is_dir("${imagesDir}${month}/${day}")) {
-            mkdir("${imagesDir}${month}/${day}", 0777, true);
+        if (!is_dir("${imagesDir}${entry}")) {
+            mkdir("${imagesDir}${entry}", 0777, true);
         }
 
         $imgHelper = new ImageHelper();
         $uploadedFiles = [];
         foreach ($_FILES as $file) {
-            file_put_contents("${imagesDir}${month}/${day}/${baseFileName}" . $file['name'], file_get_contents($file['tmp_name']));
+            file_put_contents("${imagesDir}${entry}/${baseFileName}" . $file['name'], file_get_contents($file['tmp_name']));
             foreach ($imgHelper->getDefaultSizes() as $size) {
-                $imgHelper->compressImage("${imagesDir}${month}/${day}/${baseFileName}" . $file['name'], $size);
+                $imgHelper->compressImage("${imagesDir}${entry}/${baseFileName}" . $file['name'], $size);
                 if ($size === 500) {
-                    array_push($uploadedFiles, "/images/${month}/${day}/${size}/${baseFileName}" . $file['name']);
+                    array_push($uploadedFiles, "/images${entry}/${size}/${baseFileName}" . $file['name']);
                 }
             }
         }

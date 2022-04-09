@@ -33,7 +33,7 @@ const actions = {
         commit('UPDATE_EDITING_ENTRY', payload.entry);
         const data = {
             token: payload.token,
-            content: payload.entry.raw_content,
+            content: btoa(payload.entry.raw_content),
             entry: payload.entry.id,
         };
         const queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');

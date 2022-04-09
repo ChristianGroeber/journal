@@ -20,6 +20,11 @@
         "function": "images"
     },
     {
+        "route": "/api/entry/gallery/upload",
+        "controller": "App\\Controllers\\ImageController",
+        "function": "uploadImages"
+    },
+    {
         "route": "/admin",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",
