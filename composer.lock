@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "christiangroeber/nacho",
-            "version": "0.8",
+            "version": "0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianGroeber/Nacho.git",
-                "reference": "82de2f085d220a6c9f34dfdffe66e873bacb042f"
+                "reference": "f0c8e2043c1318c800b966e426cf9f8963a79cb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianGroeber/Nacho/zipball/82de2f085d220a6c9f34dfdffe66e873bacb042f",
-                "reference": "82de2f085d220a6c9f34dfdffe66e873bacb042f",
+                "url": "https://api.github.com/repos/ChristianGroeber/Nacho/zipball/f0c8e2043c1318c800b966e426cf9f8963a79cb5",
+                "reference": "f0c8e2043c1318c800b966e426cf9f8963a79cb5",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "description": "My own Lightweight PHP Framework",
             "support": {
                 "issues": "https://github.com/ChristianGroeber/Nacho/issues",
-                "source": "https://github.com/ChristianGroeber/Nacho/tree/0.8"
+                "source": "https://github.com/ChristianGroeber/Nacho/tree/0.10"
             },
-            "time": "2022-03-01T16:14:52+00:00"
+            "time": "2022-04-09T22:54:37+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -101,16 +101,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -164,11 +164,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T14:48:14+00:00"
+            "time": "2022-01-02T09:53:40+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.24.0",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -230,7 +230,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.24.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.25.0"
             },
             "funding": [
                 {
