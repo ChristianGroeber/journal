@@ -52,6 +52,13 @@ class AdminController extends AbstractController
         return $this->json($page);
     }
 
+    function createSpecific()
+    {
+        $dateFile = $_REQUEST['entry'];
+        $entryId = $this->createFileIfNotExists(new DateTime($dateFile));
+        return $this->json(['entryId' => $entryId]);
+    }
+
     public function delete($request)
     {
         if (key_exists('file', $_REQUEST)) {
@@ -153,10 +160,14 @@ class AdminController extends AbstractController
 
     private function getCurrentFile()
     {
-        // get name of current file
         $now = new \DateTime();
-        $title = $now->format('Y-m-d') . '.md';
-        $month = $now->format('F');
+        return $this->createFileIfNotExists($now);
+    }
+
+    private function createFileIfNotExists(DateTime $dateEntry)
+    {
+        $title = $dateEntry->format('Y-m-d') . '.md';
+        $month = $dateEntry->format('F');
         $folderDir = $_SERVER['DOCUMENT_ROOT'] . "/content/${month}";
         $fileDir = "${folderDir}/${title}";
         // check if file exists, if not create it
@@ -164,7 +175,7 @@ class AdminController extends AbstractController
             "---\ntitle: " .
             rtrim($title, '.md') .
             "\ndate: " .
-            $now->format('Y-m-d H:i') .
+            $dateEntry->format('Y-m-d H:i') .
             "\n---\n";
         if (!is_dir($folderDir)) {
             mkdir($folderDir);
@@ -173,6 +184,6 @@ class AdminController extends AbstractController
             file_put_contents($fileDir, $content);
         }
 
-        return "/${month}/${title}";
+        return "/${month}/" . rtrim($title, '.md');
     }
 }

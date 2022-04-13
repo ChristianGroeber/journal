@@ -413,10 +413,17 @@ var _axios = require("axios");
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _EditSpecificEntry = require("./EditSpecificEntry.vue");
+
+var _EditSpecificEntry2 = _interopRequireDefault(_EditSpecificEntry);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: "AdminBar",
+  components: {
+    editSpecificEntry: _EditSpecificEntry2.default
+  },
   methods: {
     editCurrent: function editCurrent() {
       var _this = this;
@@ -431,7 +438,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")]),_vm._v(" "),_c('edit-specific-entry')],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -589,6 +596,62 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-aad4f154", __vue__options__)
   } else {
     hotAPI.reload("data-v-aad4f154", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/EditSpecificEntry.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _moment = require("moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      dateEntry: (0, _moment2.default)().format("yyyy-MM-DD"),
+      showDatePicker: false
+    };
+  },
+  methods: {
+    toggleShowDatePicker: function toggleShowDatePicker() {
+      this.showDatePicker = true;
+    },
+    editSpecificEntry: function editSpecificEntry() {
+      var _this = this;
+
+      _axios2.default.get("/api/create?token=" + this.$store.getters.token + '&entry=' + this.dateEntry).then(function (response) {
+        _this.$router.push("/edit?entry=" + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{on:{"click":function($event){return _vm.toggleShowDatePicker()}}},[_vm._v("Edit Specific Entry")]),_vm._v(" "),(_vm.showDatePicker)?_c('div',{attrs:{"id":"date-picker"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"text"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}}),_vm._v(" "),_c('button',{on:{"click":function($event){return _vm.editSpecificEntry()}}},[_vm._v("Submit")])]):_vm._e()])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-876f1338", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-876f1338", __vue__options__)
   }
 })()}
 });

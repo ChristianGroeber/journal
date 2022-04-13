@@ -15,6 +15,12 @@
         "function": "edit"
     },
     {
+        "route": "/api/create",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "createSpecific"
+    },
+    {
         "route": "/api/entry/gallery",
         "controller": "App\\Controllers\\ImageController",
         "function": "images"
