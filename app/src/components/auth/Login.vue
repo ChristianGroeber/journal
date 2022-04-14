@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-content">
     <h1>LOGIN</h1>
     <form @submit.prevent="login">
       <input v-model="username" placeholder="username" />
