@@ -1,9 +1,9 @@
 <template>
   <div class="article">
-    <h3 class="article-head">
-      <div>{{ formattedDate }}</div>
-      <router-link v-if="canEdit" :to="'/edit?' + query" class="edit-button">Edit</router-link>
-    </h3>
+    <div class="article-head">
+      <h3>{{ formattedDate }}</h3>
+      <router-link v-if="canEdit" :to="'/edit?' + query" class="btn edit-button">Edit</router-link>
+    </div>
     <div class="article-body">
       <p v-html="content"></p>
     </div>
@@ -21,7 +21,6 @@ export default {
       return this.day.meta.title;
     },
     content() {
-      console.log(marked.parse(this.day.raw_content));
       return marked.parse(this.day.raw_content);
     },
     canEdit() {
@@ -39,7 +38,7 @@ export default {
 </script>
 
 <style scoped>
-.article {
+/* .article {
   background-color: white;
   padding: 0 2em;
   display: flex;
@@ -66,5 +65,5 @@ export default {
   .article {
     margin: 0;
   }
-}
+} */
 </style>

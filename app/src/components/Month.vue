@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style scoped>
-.month {
+/* .month {
   padding-left: 1rem;
 }
 
@@ -30,5 +30,5 @@ export default {
   .month {
     padding-left: 0;
   }
-}
+} */
 </style>

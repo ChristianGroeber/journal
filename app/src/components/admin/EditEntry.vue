@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <router-link :to="'/'">Return</router-link>
-    <router-link :to="'/edit/gallery?entry=' + entry">Gallery</router-link>
+<div class="main-content">
+    <div style="margin: 1rem 0">
+      <router-link class="btn" :to="'/'">Return</router-link>
+      <router-link class="btn" :to="'/edit/gallery?entry=' + entry"
+        >Gallery</router-link
+      >
+    </div>
     <div class="container">
       <!-- <markdown-editor :value="markdown"></markdown-editor> -->
       <textarea ref="editEntry" class="edit-entry" :value="markdown"></textarea>
@@ -60,21 +64,21 @@ export default {
       formData.append("entry", this.entry);
       formData.append("token", this.$store.getters.token);
       console.log(formData);
-      axios.post("/api/entry/gallery/upload", formData)
-        .then(response => {
-          const images = response.data.files;
-          images.forEach(img => {
-            this.$refs.editEntry.value += "![uploaded image](" + encodeURI(img) + ")"; 
-          })
+      axios.post("/api/entry/gallery/upload", formData).then((response) => {
+        const images = response.data.files;
+        images.forEach((img) => {
+          this.$refs.editEntry.value +=
+            "![uploaded image](" + encodeURI(img) + ")";
         });
+      });
     },
   },
 };
 </script>
 
 <style scoped>
-.edit-entry {
+/* .edit-entry {
   width: 80%;
   min-height: 200px;
-}
+} */
 </style>

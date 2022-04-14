@@ -1,40 +1,15 @@
-:root {
+/* :root {
   --box-border-radius: 20px;
-  --primary: #00bb2f;
-}
-
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  overflow-x: hidden;
-}
-
-body {
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  min-height: 100vh;
-  width: 100vw;
-  background-color: rgb(243, 243, 243);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Roboto";
   margin: 0.5rem 0 0.25rem 0;
 }
+/*
 
-.header {
-  background-color: white;
-  padding: 0 1rem;
-  position: relative;
-}
 
 .header h1 {
   z-index: 3;
-  position: relative;
   display: block;
   font-size: 10rem;
   margin: unset;
@@ -63,43 +38,11 @@ footer * {
   flex: 1 1 0%;
 }
 
-img {
-  max-width: 100%;
-}
-
 @media screen and (max-width: 500px) {
   .header h1 {
     font-size: 5rem;
   }
-}
-.article[data-v-cf82b76c] {
-  background-color: white;
-  padding: 0 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 3rem;
-}
-
-.article-head[data-v-cf82b76c] {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.article-head .edit-button[data-v-cf82b76c] {
-  display: none;
-}
-
-.article-head:hover .edit-button[data-v-cf82b76c] {
-  display: block;
-}
-
-@media screen and (max-width: 500px) {
-  .article[data-v-cf82b76c] {
-    margin: 0;
-  }
-}
+} */
 .loader[data-v-c1a3922c] {
   display: block;
   position: absolute;
@@ -170,25 +113,53 @@ img {
     transform: translate(24px, 0);
   }
 }
-.month[data-v-ceeef8a4] {
+/* .month {
   padding-left: 1rem;
 }
 
 @media screen and (max-width: 500px) {
-  .month[data-v-ceeef8a4] {
+  .month {
     padding-left: 0;
   }
+} */
+/* .article {
+  background-color: white;
+  padding: 0 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 3rem;
 }
-.edit-entry[data-v-cd4d9914] {
+
+.article-head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.article-head .edit-button {
+  display: none;
+}
+
+.article-head:hover .edit-button {
+  display: block;
+}
+
+@media screen and (max-width: 500px) {
+  .article {
+    margin: 0;
+  }
+} */
+/* .edit-entry {
   width: 80%;
   min-height: 200px;
-}
-.images[data-v-aad4f154] {
+} */
+/* .images {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
 }
-.gallery-image[data-v-aad4f154] {
+.gallery-image {
   width: 40%;
-}
+} */

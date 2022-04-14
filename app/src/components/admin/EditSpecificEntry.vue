@@ -1,8 +1,9 @@
 <template>
   <div>
-    <button @click="toggleShowDatePicker()">Edit Specific Entry</button>
+    <button @click="toggleShowDatePicker()" v-if="!showDatePicker">Edit Specific Entry</button>
     <div id="date-picker" v-if="showDatePicker">
       <input type="text" v-model="dateEntry" />
+      <button @click="toggleShowDatePicker()">X</button>
       <button @click="editSpecificEntry()">Submit</button>
     </div>
   </div>
@@ -21,7 +22,7 @@ export default {
   },
   methods: {
     toggleShowDatePicker() {
-      this.showDatePicker = true;
+      this.showDatePicker = !this.showDatePicker;
     },
     editSpecificEntry() {
       //   this.$router.push("/edit?entry=/" + month + "/" + this.dateEntry);

@@ -1,0 +1,91 @@
+@import 'variables';
+@import 'fonts';
+@import 'responsive';
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+* {
+    transition: all 0.1s ease;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: rgb(243, 243, 243);
+}
+
+button,
+input[type="file"]::file-selector-button,
+.btn {
+    color: $primary;
+    background-color: transparent;
+    border: 2px solid $primary;
+    border-radius: 2px;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    cursor: default;
+
+    &:hover {
+        background-color: $primary;
+        color: white;
+    }
+}
+
+a {
+    color: $primary;
+}
+
+.header {
+    background-color: white;
+    position: relative;
+
+    h1 {
+        display: block;
+        font-size: 5rem;
+        margin: unset;
+    }
+}
+
+.admin-bar {
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+}
+
+.main-content {
+    background-color: white;
+}
+
+
+.article-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1rem;
+}
+
+.article-body {
+    padding: 1rem;
+
+    img {
+        width: 100vw;
+        margin-left: -1rem;
+    }
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+}

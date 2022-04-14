@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-content">
     <AdminBar v-if="canEdit" />
     <div class="month" v-for="month in months" :key="month.id">
       <Month :month="month" />

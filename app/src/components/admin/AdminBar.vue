@@ -1,14 +1,16 @@
 <template>
-  <div>
+  <div class="admin-bar">
     <h3>Welcome Admin</h3>
-    <button @click="editCurrent">Edit Current Entry</button>
-    <edit-specific-entry></edit-specific-entry>
+    <div class="actions">
+      <button @click="editCurrent">Edit Current Entry</button>
+      <edit-specific-entry></edit-specific-entry>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import editSpecificEntry from './EditSpecificEntry.vue';
+import editSpecificEntry from "./EditSpecificEntry.vue";
 
 export default {
   name: "AdminBar",
@@ -20,7 +22,7 @@ export default {
       axios
         .get("/api/edit/current?token=" + this.$store.getters.token)
         .then((response) => {
-          this.$router.push('/edit?entry=' + response.data.entryId);
+          this.$router.push("/edit?entry=" + response.data.entryId);
         });
     },
   },

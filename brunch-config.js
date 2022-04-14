@@ -6,12 +6,10 @@ exports.files = {
             'app.js': /^app/
         }
     },
-    stylesheets: {joinTo: 'app.css'}
+    stylesheets: {
+        joinTo: 'app.css',
+    }
 };
-
-exports.conventions = {
-    ignored: /^(attic|cypress|offline-page|public|var|templates|vendor|tests)/
-}
 
 exports.plugins = {
     babel: {presets: ['es2015']},
@@ -31,5 +29,6 @@ exports.plugins = {
 };
 
 exports.paths = {
-    public: 'public/build'
+    public: 'public/build',
+    watched: ['app'],
 }

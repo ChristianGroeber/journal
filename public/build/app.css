@@ -1,2 +1,147 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto";
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto";
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+@media screen and (min-width: 500px) {
+  .header h1 {
+    font-size: 10rem;
+  }
+
+  .main-content {
+    margin: 0 auto;
+    max-width: 1000px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    padding: 5px;
+  }
+  .main-content .article-body img {
+    max-width: 1000px;
+    padding-left: -1px;
+  }
+}
+html,
+body {
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+* {
+  transition: all 0.1s ease;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: rgb(243, 243, 243);
+}
+
+button,
+input[type=file]::file-selector-button,
+.btn {
+  color: #00bb2f;
+  background-color: transparent;
+  border: 2px solid #00bb2f;
+  border-radius: 2px;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  cursor: default;
+}
+button:hover,
+input[type=file]::file-selector-button:hover,
+.btn:hover {
+  background-color: #00bb2f;
+  color: white;
+}
+
+a {
+  color: #00bb2f;
+}
+
+.header {
+  background-color: white;
+  position: relative;
+}
+.header h1 {
+  display: block;
+  font-size: 5rem;
+  margin: unset;
+}
+
+.admin-bar .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.main-content {
+  background-color: white;
+}
+
+.article-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+
+.article-body {
+  padding: 1rem;
+}
+.article-body img {
+  width: 100vw;
+  margin-left: -1rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 150px;
+}
+
+@media screen and (min-width: 500px) {
+  .header h1 {
+    font-size: 10rem;
+  }
+
+  .main-content {
+    margin: 0 auto;
+    max-width: 1000px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    padding: 5px;
+  }
+  .main-content .article-body img {
+    max-width: 1000px;
+    padding-left: -1px;
+  }
+}
+
+
+
 
 /*# sourceMappingURL=app.css.map*/

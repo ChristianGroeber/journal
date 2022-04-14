@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-.images {
+/* .images {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -47,5 +47,5 @@ export default {
 }
 .gallery-image {
   width: 40%;
-}
+} */
 </style>
