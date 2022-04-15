@@ -4,6 +4,7 @@
     <div class="actions">
       <button @click="editCurrent">Edit Current Entry</button>
       <edit-specific-entry></edit-specific-entry>
+      <router-link class="btn" to="/auth">Auth</router-link>
     </div>
   </div>
 </template>

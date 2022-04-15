@@ -437,7 +437,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"admin-bar"},[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")]),_vm._v(" "),_c('edit-specific-entry')],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"admin-bar"},[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")]),_vm._v(" "),_c('edit-specific-entry'),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Auth")])],1)])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -655,6 +655,112 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })()}
 });
 
+;require.register("src/components/auth/Auth.vue", function(exports, require, module) {
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"d-flex gap-1"},[_c('router-link',{staticClass:"btn",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/login"}},[_vm._v("Login")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/restore-password"}},[_vm._v("Restore Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/change-password"}},[_vm._v("Change Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/generate-new-token"}},[_vm._v("Generate New Token")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/request-new-password"}},[_vm._v("Request New Password")])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-aad876c6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-aad876c6", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/ChangePassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      currentPassword: "",
+      newPassword1: "",
+      newPassword2: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      this.$store.dispatch("changePassword", {
+        username: this.username,
+        currentPassword: this.currentPassword,
+        newPassword1: this.newPassword1,
+        newPassword2: this.newPassword2
+      }).then(function () {
+        _this.$router.push('/');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.currentPassword),expression:"currentPassword"}],attrs:{"placeholder":"Current Password","type":"password"},domProps:{"value":(_vm.currentPassword)},on:{"input":function($event){if($event.target.composing){ return; }_vm.currentPassword=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newPassword1),expression:"newPassword1"}],attrs:{"placeholder":"Password","type":"password"},domProps:{"value":(_vm.newPassword1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.newPassword1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newPassword2),expression:"newPassword2"}],attrs:{"placeholder":"Repeat Password","type":"password"},domProps:{"value":(_vm.newPassword2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.newPassword2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-628f3fa0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-628f3fa0", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/GenerateNewToken.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      this.$store.dispatch("generateNewToken", {
+        username: this.username,
+        token: this.$store.getters.getToken
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br')]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d56cd7a", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-5d56cd7a", __vue__options__)
+  }
+})()}
+});
+
 ;require.register("src/components/auth/Login.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -677,7 +783,7 @@ exports.default = {
         username: this.username,
         password: this.password
       }).then(function () {
-        _this.$router.push('/');
+        _this.$router.push("/");
       });
     }
   }
@@ -686,7 +792,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('h1',[_vm._v("LOGIN")]),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.login.apply(null, arguments)}}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"username"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br'),_vm._v(" "),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],attrs:{"placeholder":"password","type":"password"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}}),_vm._v(" "),_c('br'),_vm._v(" "),_c('br'),_vm._v(" "),_c('button',{attrs:{"type":"submit"}},[_vm._v("Login")])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('h1',[_vm._v("LOGIN")]),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.login.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"username"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],attrs:{"placeholder":"password","type":"password"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}})]),_vm._v(" "),_c('button',{attrs:{"type":"submit"}},[_vm._v("Login")])])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -696,6 +802,134 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-2610ee78", __vue__options__)
   } else {
     hotAPI.reload("data-v-2610ee78", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/Register.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      email: "",
+      password1: "",
+      password2: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      console.log(this.username, this.email, this.password1, this.password2);
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],attrs:{"placeholder":"Email","type":"email"},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password1),expression:"password1"}],attrs:{"placeholder":"Password","type":"password"},domProps:{"value":(_vm.password1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password2),expression:"password2"}],attrs:{"placeholder":"Repeat Password","type":"password"},domProps:{"value":(_vm.password2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4fb4acd0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-4fb4acd0", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/RequestNewPassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      this.$store.dispatch("requestNewPassword", { username: this.username });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","id":"username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br')]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-bb5ce6fe"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bb5ce6fe", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-bb5ce6fe", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/RestorePassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      password1: "",
+      password2: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      this.$store.dispatch("restorePassword", {
+        username: this.username,
+        password1: this.password1,
+        password2: this.password2,
+        token: urlParams.get('token')
+      }).then(function () {
+        _this.$router.push('/');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password1),expression:"password1"}],attrs:{"placeholder":"New Password","type":"password"},domProps:{"value":(_vm.password1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password2),expression:"password2"}],attrs:{"placeholder":"Repeat New Password","type":"password"},domProps:{"value":(_vm.password2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2a0b9638", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2a0b9638", __vue__options__)
   }
 })()}
 });
@@ -752,6 +986,30 @@ var _Login = require('./components/auth/Login');
 
 var _Login2 = _interopRequireDefault(_Login);
 
+var _RestorePassword = require('./components/auth/RestorePassword');
+
+var _RestorePassword2 = _interopRequireDefault(_RestorePassword);
+
+var _RequestNewPassword = require('./components/auth/RequestNewPassword');
+
+var _RequestNewPassword2 = _interopRequireDefault(_RequestNewPassword);
+
+var _ChangePassword = require('./components/auth/ChangePassword');
+
+var _ChangePassword2 = _interopRequireDefault(_ChangePassword);
+
+var _Register = require('./components/auth/Register');
+
+var _Register2 = _interopRequireDefault(_Register);
+
+var _GenerateNewToken = require('./components/auth/GenerateNewToken');
+
+var _GenerateNewToken2 = _interopRequireDefault(_GenerateNewToken);
+
+var _Auth = require('./components/auth/Auth');
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
 var _EditEntry = require('./components/admin/EditEntry');
 
 var _EditEntry2 = _interopRequireDefault(_EditEntry);
@@ -787,9 +1045,33 @@ var routes = [{
     },
     component: _EditGallery2.default
 }, {
-    path: '/login',
+    path: '/auth',
+    name: "Auth",
+    component: _Auth2.default
+}, {
+    path: '/auth/login',
     name: "Login",
     component: _Login2.default
+}, {
+    path: '/auth/register',
+    name: "Register",
+    component: _Register2.default
+}, {
+    path: '/auth/restore-password',
+    name: "Restore Password",
+    component: _RestorePassword2.default
+}, {
+    path: '/auth/request-new-password',
+    name: "Request New Password",
+    component: _RequestNewPassword2.default
+}, {
+    path: '/auth/change-password',
+    name: "Change Password",
+    component: _ChangePassword2.default
+}, {
+    path: '/auth/generate-new-token',
+    name: "Generate New Token",
+    component: _GenerateNewToken2.default
 }, {
     path: "*",
     name: "notFound",
@@ -845,11 +1127,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _actions;
+
 var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var state = {
     token: null
@@ -862,8 +1148,21 @@ var mutations = {
     }
 };
 
-var actions = {
-    login: function login(_ref, payload) {
+var actions = (_actions = {
+    register: function register(payload) {
+        var queryString = Object.keys(payload).map(function (key) {
+            return key + '=' + payload[key];
+        }).join('&');
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/register',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    },
+    changePassword: function changePassword(_ref, payload) {
         var commit = _ref.commit;
 
         var queryString = Object.keys(payload).map(function (key) {
@@ -871,7 +1170,7 @@ var actions = {
         }).join('&');
         return (0, _axios2.default)({
             method: 'POST',
-            url: '/api/login',
+            url: '/api/auth/change-password',
             data: queryString,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -880,15 +1179,95 @@ var actions = {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    getToken: function getToken(_ref2) {
+    requestNewPassword: function requestNewPassword(_ref2, payload) {
         var commit = _ref2.commit;
 
-        var token = localStorage.getItem('token');
-        if (token) {
-            commit('UPDATE_TOKEN', token);
-        }
+        var queryString = Object.keys(payload).map(function (key) {
+            return key + '=' + payload[key];
+        }).join('&');
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/request-new-password',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    },
+    restorePassword: function restorePassword(_ref3, payload) {
+        var commit = _ref3.commit;
+
+        var queryString = Object.keys(payload).map(function (key) {
+            return key + '=' + payload[key];
+        }).join('&');
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/restore-password',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
+    },
+    generateNewToken: function generateNewToken(_ref4, payload) {
+        var commit = _ref4.commit;
+
+        var queryString = Object.keys(payload).map(function (key) {
+            return key + '=' + payload[key];
+        }).join('&');
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/generate-new-token',
+            data: queryString,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
     }
-};
+}, _defineProperty(_actions, 'register', function register(_ref5, payload) {
+    var commit = _ref5.commit;
+
+    var queryString = Object.keys(payload).map(function (key) {
+        return key + '=' + payload[key];
+    }).join('&');
+    return (0, _axios2.default)({
+        method: 'POST',
+        url: '/api/auth/register',
+        data: queryString,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function (response) {
+        commit('UPDATE_TOKEN', response.data.token);
+    });
+}), _defineProperty(_actions, 'login', function login(_ref6, payload) {
+    var commit = _ref6.commit;
+
+    var queryString = Object.keys(payload).map(function (key) {
+        return key + '=' + payload[key];
+    }).join('&');
+    return (0, _axios2.default)({
+        method: 'POST',
+        url: '/api/login',
+        data: queryString,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function (response) {
+        commit('UPDATE_TOKEN', response.data.token);
+    });
+}), _defineProperty(_actions, 'getToken', function getToken(_ref7) {
+    var commit = _ref7.commit;
+
+    var token = localStorage.getItem('token');
+    if (token) {
+        commit('UPDATE_TOKEN', token);
+    }
+}), _actions);
 
 var getters = {
     token: function token(state) {

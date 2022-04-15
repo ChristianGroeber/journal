@@ -35,7 +35,7 @@ class TokenHelper
     // Generate a fresh token
     public function generateToken($username)
     {
-        $tokenStamp = time();
+        $tokenStamp = md5(random_bytes(100));
         $this->userHandler->modifyUser($username, 'tokenStamp', $tokenStamp);
 
         return $this->getToken($username);

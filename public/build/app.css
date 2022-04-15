@@ -101,6 +101,8 @@ a {
 
 .main-content {
   background-color: white;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .article-head {
@@ -117,6 +119,26 @@ a {
 .article-body img {
   width: 100vw;
   margin-left: -1rem;
+}
+
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.d-flex.gap-1 {
+  gap: 1px;
+}
+
+label {
+  display: block;
+}
+
+.mt-1 {
+  margin-top: 1px;
+}
+
+.form-row {
+  margin-bottom: 1rem;
 }
 
 textarea {

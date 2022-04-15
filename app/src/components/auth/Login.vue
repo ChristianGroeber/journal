@@ -1,13 +1,16 @@
 <template>
   <div class="main-content">
+    <div>
+      <router-link class="btn" to="/auth">Return</router-link>
+    </div>
     <h1>LOGIN</h1>
     <form @submit.prevent="login">
-      <input v-model="username" placeholder="username" />
-      <br />
-      <br />
-      <input v-model="password" placeholder="password" type="password" />
-      <br />
-      <br />
+      <div class="form-row">
+        <input v-model="username" placeholder="username" />
+      </div>
+      <div class="form-row">
+        <input v-model="password" placeholder="password" type="password" />
+      </div>
       <button type="submit">Login</button>
     </form>
   </div>
@@ -22,13 +25,14 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("login", {
-        username: this.username,
-        password: this.password,
-      })
-      .then(() => {
-          this.$router.push('/');
-      });
+      this.$store
+        .dispatch("login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
     },
   },
 };

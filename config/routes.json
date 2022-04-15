@@ -101,15 +101,30 @@
         "function": "login"
     },
     {
-        "route": "/api/validate-token",
+        "route": "/api/auth/request-new-password",
         "controller": "App\\Controllers\\AuthenticationController",
-        "function": "validateToken"
+        "function": "requestNewPassword"
     },
     {
-        "route": "/change-password",
+        "route": "/api/auth/restore-password",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "restorePassword"
+    },
+    {
+        "route": "/api/auth/generate-new-token",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "generateNewToken"
+    },
+    {
+        "route": "/api/auth/change-password",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "changePassword",
         "min_role": "Reader"
+    },
+    {
+        "route": "/api/validate-token",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "validateToken"
     },
     {
         "route": "/logout",

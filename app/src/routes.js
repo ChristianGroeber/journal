@@ -5,6 +5,12 @@ Vue.use(VueRouter);
 
 import MonthList from "./components/MonthList";
 import Login from "./components/auth/Login";
+import RestorePassword from "./components/auth/RestorePassword";
+import RequestNewPassword from "./components/auth/RequestNewPassword";
+import ChangePassword from "./components/auth/ChangePassword";
+import Register from "./components/auth/Register";
+import GenerateNewToken from "./components/auth/GenerateNewToken";
+import Auth from "./components/auth/Auth";
 import EditEntry from "./components/admin/EditEntry";
 import EditGallery from "./components/admin/EditGallery";
 import NotFound from './components/error/NotFound';
@@ -28,9 +34,39 @@ const routes = [
         component: EditGallery,
     },
     {
-        path: '/login',
+        path: '/auth',
+        name: "Auth",
+        component: Auth,
+    },
+    {
+        path: '/auth/login',
         name: "Login",
         component: Login,
+    },
+    {
+        path: '/auth/register',
+        name: "Register",
+        component: Register,
+    },
+    {
+        path: '/auth/restore-password',
+        name: "Restore Password",
+        component: RestorePassword,
+    },
+    {
+        path: '/auth/request-new-password',
+        name: "Request New Password",
+        component: RequestNewPassword,
+    },
+    {
+        path: '/auth/change-password',
+        name: "Change Password",
+        component: ChangePassword,
+    },
+    {
+        path: '/auth/generate-new-token',
+        name: "Generate New Token",
+        component: GenerateNewToken,
     },
     {
         path: "*",
