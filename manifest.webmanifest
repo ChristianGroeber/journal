@@ -4,7 +4,7 @@
     "name": "2022",
     "scope": "/",
     "display": "fullscreen",
-    "start_url": "/login",
+    "start_url": "/auth/login",
     "short_name": "2022",
     "theme_color": "#ce54d6",
     "orientation": "any",
