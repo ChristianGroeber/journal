@@ -16,13 +16,5 @@
     Header set Cache-Control "public, max-age=1209600, no-transform"
 </FilesMatch>
 
-# ExpiresActive On
-# ExpiresByType image/png "access plus 1 month"
-# ExpiresByType image/gif "access plus 1 month"
-# ExpiresByType image/jpeg "access plus 1 month"
-# ExpiresByType image/jpg "access plus 1 month"
-# ExpiresByType text/javascript "access plus 1 month"
-# ExpiresByType text/css "access plus 1 month"
-
 # Prevent file browsing
 Options -Indexes -MultiViews
