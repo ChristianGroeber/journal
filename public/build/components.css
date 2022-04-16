@@ -150,9 +150,6 @@ footer * {
     padding-left: 0;
   }
 } */
-label[data-v-bb5ce6fe] {
-  display: block;
-}
 /* .edit-entry {
   width: 80%;
   min-height: 200px;
@@ -166,3 +163,6 @@ label[data-v-bb5ce6fe] {
 .gallery-image {
   width: 40%;
 } */
+label[data-v-bb5ce6fe] {
+  display: block;
+}
