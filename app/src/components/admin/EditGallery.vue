@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-content">
     <h2>Edit Gallery</h2>
     <router-link :to="'/edit?' + query" class="edit-button"
       >&lt;- Return</router-link
