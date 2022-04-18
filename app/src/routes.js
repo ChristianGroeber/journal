@@ -12,7 +12,6 @@ import Register from "./components/auth/Register";
 import GenerateNewToken from "./components/auth/GenerateNewToken";
 import Auth from "./components/auth/Auth";
 import EditEntry from "./components/admin/EditEntry";
-import EditGallery from "./components/admin/EditGallery";
 import NotFound from './components/error/NotFound';
 
 const routes = [
@@ -26,12 +25,6 @@ const routes = [
         name: "Edit",
         props: route => ({ entry: route.query.entry }),
         component: EditEntry,
-    },
-    {
-        path: '/edit/gallery',
-        name: "Gallery",
-        props: route => ({ entry: route.query.entry }),
-        component: EditGallery,
     },
     {
         path: '/auth',
