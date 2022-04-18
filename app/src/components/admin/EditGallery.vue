@@ -37,15 +37,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* .images {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-.gallery-image {
-  width: 40%;
-} */
-</style>

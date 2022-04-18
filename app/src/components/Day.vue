@@ -36,34 +36,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* .article {
-  background-color: white;
-  padding: 0 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 3rem;
-}
-
-.article-head {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.article-head .edit-button {
-  display: none;
-}
-
-.article-head:hover .edit-button {
-  display: block;
-}
-
-@media screen and (max-width: 500px) {
-  .article {
-    margin: 0;
-  }
-} */
-</style>

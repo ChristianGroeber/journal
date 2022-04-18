@@ -311,7 +311,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),(_vm.canEdit)?_c('router-link',{staticClass:"btn edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")]):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-cf82b76c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -380,7 +379,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"month"},[_vm._v(_vm._s(_vm.month.name))]),_vm._v(" "),_c('div',{staticClass:"article-list container"},_vm._l((_vm.month.days),function(day,index){return _c('div',{key:index},[_c('Day',{attrs:{"day":day}})],1)}),0)])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-ceeef8a4"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -569,7 +567,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticStyle:{"margin":"1rem 0"}},[_c('router-link',{staticClass:"btn",attrs:{"to":'/'}},[_vm._v("Return")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":'/edit/gallery?entry=' + _vm.entry}},[_vm._v("Gallery")])],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('input',{attrs:{"accept":"image/*","type":"file","label":"Upload Images","multiple":""},on:{"change":_vm.uploadImages}}),_vm._v(" "),_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-cd4d9914"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -630,7 +627,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Edit Gallery")]),_vm._v(" "),_c('router-link',{staticClass:"edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("<- Return")]),_vm._v(" "),_c('div',{staticClass:"images"},_vm._l((_vm.getGallery),function(image,index){return _c('div',{key:index,staticClass:"gallery-image"},[_c('img',{attrs:{"src":image}})])}),0)],1)}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-aad4f154"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return

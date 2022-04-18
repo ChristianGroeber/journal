@@ -75,10 +75,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* .edit-entry {
-  width: 80%;
-  min-height: 200px;
-} */
-</style>

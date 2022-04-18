@@ -20,15 +20,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* .month {
-  padding-left: 1rem;
-}
-
-@media screen and (max-width: 500px) {
-  .month {
-    padding-left: 0;
-  }
-} */
-</style>
