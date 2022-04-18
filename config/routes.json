@@ -1,7 +1,7 @@
 [
     {
         "route": "/",
-        "controller": "App\\Controllers\\HomeController",
+        "controller": "App\\Controllers\\NotFoundController",
         "function": "index"
     },
     {
