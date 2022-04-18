@@ -34,7 +34,7 @@ class ImageController extends AbstractController
             file_put_contents("${imagesDir}${entry}/${baseFileName}" . $file['name'], file_get_contents($file['tmp_name']));
             foreach ($imgHelper->getDefaultSizes() as $size) {
                 $imgHelper->compressImage("${imagesDir}${entry}/${baseFileName}" . $file['name'], $size);
-                if ($size === 500) {
+                if ($size === 1080) {
                     array_push($uploadedFiles, "/images${entry}/${size}/${baseFileName}" . $file['name']);
                 }
             }
