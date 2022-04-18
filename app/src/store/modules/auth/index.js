@@ -117,6 +117,12 @@ const actions = {
             commit('UPDATE_TOKEN', token);
         }
     },
+    logout({
+        commit
+    }) {
+        commit('UPDATE_TOKEN', null);
+        localStorage.removeItem('token');
+    },
 }
 
 const getters = {

@@ -696,9 +696,29 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 });
 
 ;require.register("src/components/auth/Auth.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Logout = require("./Logout");
+
+var _Logout2 = _interopRequireDefault(_Logout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  components: {
+    Logout: _Logout2.default
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"d-flex gap-1"},[_c('router-link',{staticClass:"btn",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/login"}},[_vm._v("Login")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/restore-password"}},[_vm._v("Restore Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/change-password"}},[_vm._v("Change Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/generate-new-token"}},[_vm._v("Generate New Token")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/request-new-password"}},[_vm._v("Request New Password")])],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"d-flex gap-1"},[_c('router-link',{staticClass:"btn",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/login"}},[_vm._v("Login")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/restore-password"}},[_vm._v("Restore Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/change-password"}},[_vm._v("Change Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/generate-new-token"}},[_vm._v("Generate New Token")]),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth/request-new-password"}},[_vm._v("Request New Password")]),_vm._v(" "),_c('Logout')],1)])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -842,6 +862,39 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-2610ee78", __vue__options__)
   } else {
     hotAPI.reload("data-v-2610ee78", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/Logout.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{on:{"click":_vm.logout}},[_vm._v("Logout")])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-01eacf82", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-01eacf82", __vue__options__)
   }
 })()}
 });
@@ -1312,6 +1365,11 @@ var actions = (_actions = {
     if (token) {
         commit('UPDATE_TOKEN', token);
     }
+}), _defineProperty(_actions, 'logout', function logout(_ref8) {
+    var commit = _ref8.commit;
+
+    commit('UPDATE_TOKEN', null);
+    localStorage.removeItem('token');
 }), _actions);
 
 var getters = {

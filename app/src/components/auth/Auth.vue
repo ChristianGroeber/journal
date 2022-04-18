@@ -16,6 +16,17 @@
       <router-link class="btn" to="/auth/request-new-password"
         >Request New Password</router-link
       >
+      <Logout></Logout>
     </div>
   </div>
 </template>
+
+<script>
+import Logout from "./Logout";
+
+export default {
+  components: {
+    Logout,
+  },
+};
+</script>
