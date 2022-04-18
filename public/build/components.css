@@ -150,10 +150,6 @@ footer * {
     padding-left: 0;
   }
 } */
-/* .edit-entry {
-  width: 80%;
-  min-height: 200px;
-} */
 /* .images {
   display: flex;
   flex-direction: row;
@@ -162,6 +158,10 @@ footer * {
 }
 .gallery-image {
   width: 40%;
+} */
+/* .edit-entry {
+  width: 80%;
+  min-height: 200px;
 } */
 label[data-v-bb5ce6fe] {
   display: block;

@@ -2,9 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from "./src/store";
 import {router} from "./src/routes";
+import VueAxios from 'vue-axios';
+import axios from 'axios';
 // import Editor from "v-markdown-editor";
 
 Vue.config.productionTip = false
+Vue.use(VueAxios, axios)
 
 // Vue.use(Editor);
 

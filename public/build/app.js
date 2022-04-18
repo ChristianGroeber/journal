@@ -156,18 +156,53 @@ require.register("App.vue", function(exports, require, module) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _promise = require("babel-runtime/core-js/promise");
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _Loading = require("./src/components/Loading");
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   name: "App",
+  components: {
+    Loading: _Loading2.default
+  },
+  computed: {
+    isLoading: function isLoading() {
+      return this.$store.getters.loading;
+    }
+  },
   created: function created() {
+    var _this = this;
+
     this.$store.dispatch("getToken");
     this.$store.dispatch("getEntries");
+    this.axios.interceptors.request.use(function (config) {
+      _this.$store.commit("LOADING", true);
+      return config;
+    }, function (error) {
+      _this.$store.commit("LOADING", false);
+      return _promise2.default.reject(error);
+    });
+    this.axios.interceptors.response.use(function (response) {
+      _this.$store.commit("LOADING", false);
+      return response;
+    }, function (error) {
+      _this.$store.commit("LOADING", false);
+      return _promise2.default.reject(error);
+    });
   }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._m(0),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('router-view')],1)}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -198,11 +233,20 @@ var _store2 = _interopRequireDefault(_store);
 
 var _routes = require('./src/routes');
 
+var _vueAxios = require('vue-axios');
+
+var _vueAxios2 = _interopRequireDefault(_vueAxios);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import Editor from "v-markdown-editor";
 
 _vue2.default.config.productionTip = false;
+_vue2.default.use(_vueAxios2.default, _axios2.default);
 
 // Vue.use(Editor);
 
@@ -1107,13 +1151,18 @@ var _auth = require('./modules/auth/');
 
 var _auth2 = _interopRequireDefault(_auth);
 
+var _main = require('./modules/main/');
+
+var _main2 = _interopRequireDefault(_main);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Module
 _vue2.default.use(_vuex2.default);
 
+// Module
 exports.default = new _vuex2.default.Store({
     modules: {
+        main: _main2.default,
         months: _months2.default,
         auth: _auth2.default
     }
@@ -1283,6 +1332,40 @@ var authModule = {
 };
 
 exports.default = authModule;
+});
+
+require.register("src/store/modules/main/index.js", function(exports, require, module) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var state = {
+    isLoading: false
+};
+
+var mutations = {
+    LOADING: function LOADING(state, isLoading) {
+        state.isLoading = isLoading;
+    }
+};
+
+var actions = {};
+
+var getters = {
+    loading: function loading(state) {
+        return state.isLoading;
+    }
+};
+
+var mainModule = {
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
+
+exports.default = mainModule;
 });
 
 require.register("src/store/modules/months/index.js", function(exports, require, module) {

@@ -6700,6 +6700,11 @@ vm-browserify@~0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-axios@2.*:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.5.tgz#1af4bf1218ed71309c76afb38d0f683e312c24a7"
+  integrity sha512-th5xVbInVoyIoe+qY+9GCflEVezxAvztD4xpFF39SRQYqpoKD2qkmX8yv08jJG9a2SgNOCjirjJGSwg/wTrbmA==
+
 vue-brunch@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-brunch/-/vue-brunch-2.0.3.tgz#13bb718da7cd1d2e3ba58c9edb81c61ed1085256"
