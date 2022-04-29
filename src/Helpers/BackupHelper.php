@@ -18,7 +18,7 @@ class BackupHelper
         ];
     }
 
-    public function generateBackup()
+    public function generateBackup(): string
     {
         $zip = new ZipArchive();
         $archiveName = $_SERVER['DOCUMENT_ROOT'] . '/backup/' . time() . '.zip';
@@ -27,8 +27,7 @@ class BackupHelper
                 $this->addToZipRecursive($zip, $strToBackup);
             }
         }
-
-        return $zip;
+        return substr($archiveName, strlen($_SERVER['DOCUMENT_ROOT']));
     }
 
     private function addToZipRecursive(ZipArchive $zip, string $toBackup)

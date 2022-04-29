@@ -172,9 +172,9 @@ class AdminController extends AbstractController
         }
         
         $backupHelper = new BackupHelper();
-        $backupHelper->generateBackup();
+        $zip = $backupHelper->generateBackup();
 
-        return $this->json(['success' => true]);
+        return $this->json(['file' => $zip]);
     }
 
     public function _server()
