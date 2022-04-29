@@ -13,8 +13,6 @@ class BackupHelper
         $this->toBackup = [
             $_SERVER['DOCUMENT_ROOT'] . '/content',
             $_SERVER['DOCUMENT_ROOT'] . '/images',
-            $_SERVER['DOCUMENT_ROOT'] . '/users.json',
-            $_SERVER['DOCUMENT_ROOT'] . '/secret',
         ];
     }
 

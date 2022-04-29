@@ -67,13 +67,13 @@ class AdminController extends AbstractController
         } elseif (key_exists('dir', $_REQUEST)) {
             $file = $_REQUEST['dir'];
         } else {
-        //    returnHome();
+            //    returnHome();
         }
         if (
             substr($file, 0, strlen($_SERVER['DOCUMENT_ROOT'])) !==
             $_SERVER['DOCUMENT_ROOT']
         ) {
-         //   returnHome();
+            //   returnHome();
         }
 
         function rmdirRecursive($dir)
@@ -170,7 +170,7 @@ class AdminController extends AbstractController
         if (!$user) {
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
-        
+
         $backupHelper = new BackupHelper();
         $zip = $backupHelper->generateBackup();
 
