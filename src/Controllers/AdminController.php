@@ -6,6 +6,7 @@ use DateTime;
 use App\Helpers\ImageHelper;
 use App\Helpers\NavRenderer;
 use App\Helpers\TokenHelper;
+use App\Helpers\BackupHelper;
 use Nacho\Controllers\AbstractController;
 use Nacho\Nacho;
 
@@ -156,6 +157,39 @@ class AdminController extends AbstractController
         file_put_contents("${contentDir}${file}", $content);
 
         return $this->json(['message' => 'Successfully appended Image']);
+    }
+
+    public function generateBackup()
+    {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+        
+        $backupHelper = new BackupHelper();
+        $backupHelper->generateBackup();
+
+        return $this->json(['success' => true]);
+    }
+
+    public function _server()
+    {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
+        return $this->json($_SERVER);
     }
 
     private function getCurrentFile()
