@@ -51,21 +51,4 @@ class BackupHelper
 
         return $zip;
     }
-
-    // private function endsWith($haystack, $needle)
-    // {
-    //     $length = strlen($needle);
-    //     if (!$length) {
-    //         return true;
-    //     }
-    //     return substr($haystack, -$length) === $needle;
-    // }
-
-    // private function addDirectoryToZip()
-
-    // private function getTopName(string $dir)
-    // {
-    //     $arrDir = explode($dir);
-    //     return end($arrDir);
-    // }
 }
