@@ -23,8 +23,6 @@ class BackupHelper
         $zip = new ZipArchive();
         $archiveName = $_SERVER['DOCUMENT_ROOT'] . '/backup/' . time() . '.zip';
         if ($zip->open($archiveName, ZipArchive::CREATE)) {
-            // $zip->addFile($_SERVER['DOCUMENT_ROOT'] . '/config/routes.json', '/config/routes.json');
-            // $zip->close();
             foreach ($this->toBackup as $strToBackup) {
                 $this->addToZipRecursive($zip, $strToBackup);
             }
