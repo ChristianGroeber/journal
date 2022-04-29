@@ -16,7 +16,7 @@ import editSpecificEntry from "./EditSpecificEntry.vue";
 export default {
   name: "AdminBar",
   components: {
-    editSpecificEntry,
+    editSpecificEntry,  
   },
   methods: {
     editCurrent() {
