@@ -1,5 +1,5 @@
 <template>
-<div class="main-content">
+  <div class="main-content">
     <div style="margin: 1rem 0">
       <router-link class="btn" :to="'/'">Return</router-link>
     </div>

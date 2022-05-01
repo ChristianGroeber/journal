@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <Editor></Editor>
+    <EditEntry></EditEntry>
   </div>
 </template>
 
