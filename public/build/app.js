@@ -458,12 +458,17 @@ var _EditSpecificEntry = require("./EditSpecificEntry.vue");
 
 var _EditSpecificEntry2 = _interopRequireDefault(_EditSpecificEntry);
 
+var _DownloadBackup = require("./DownloadBackup.vue");
+
+var _DownloadBackup2 = _interopRequireDefault(_DownloadBackup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: "AdminBar",
   components: {
-    editSpecificEntry: _EditSpecificEntry2.default
+    editSpecificEntry: _EditSpecificEntry2.default,
+    DownloadBackup: _DownloadBackup2.default
   },
   methods: {
     editCurrent: function editCurrent() {
@@ -479,7 +484,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"admin-bar"},[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")]),_vm._v(" "),_c('edit-specific-entry'),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Auth")])],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"admin-bar"},[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.editCurrent}},[_vm._v("Edit Current Entry")]),_vm._v(" "),_c('download-backup'),_vm._v(" "),_c('edit-specific-entry'),_vm._v(" "),_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Auth")])],1)])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -489,6 +494,53 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.createRecord("data-v-687af3c6", __vue__options__)
   } else {
     hotAPI.reload("data-v-687af3c6", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/DownloadBackup.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: {
+    downloadLink: ""
+  },
+  methods: {
+    generateBackup: function generateBackup() {
+      var _this = this;
+
+      _axios2.default.get("/api/admin/generate-backup?token=" + this.$store.getters.token).then(function (response) {
+        console.log(response.data);
+        _this.downloadLink = response.data.file;
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{on:{"click":function($event){return _vm.generateBackup()}}},[_vm._v("Backup")]),_vm._v(" "),_c('a',{attrs:{"href":_vm.downloadLink}},[_vm._v("Download")])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1dab336c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-1dab336c", __vue__options__)
   }
 })()}
 });
