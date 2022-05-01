@@ -3,6 +3,7 @@
     <h3>Welcome Admin</h3>
     <div class="actions">
       <button @click="editCurrent">Edit Current Entry</button>
+      <DownloadBackup/>
       <edit-specific-entry></edit-specific-entry>
       <router-link class="btn" to="/auth">Auth</router-link>
     </div>
@@ -12,11 +13,13 @@
 <script>
 import axios from "axios";
 import editSpecificEntry from "./EditSpecificEntry.vue";
+import DownloadBackup from './DownloadBackup.vue';
 
-export default {
+export default { 
   name: "AdminBar",
   components: {
-    editSpecificEntry,  
+    editSpecificEntry,
+    DownloadBackup,
   },
   methods: {
     editCurrent() {

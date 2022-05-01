@@ -96,6 +96,16 @@
         "function": "showInfo"
     },
     {
+        "route": "/api/admin/_server",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "_server"
+    },
+    {
+        "route": "/api/admin/generate-backup",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "generateBackup"
+    },
+    {
         "route": "/api/login",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "login"
