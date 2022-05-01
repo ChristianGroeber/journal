@@ -63,6 +63,10 @@ a {
     }
 }
 
+.month > div > h2.month {
+    margin: 1.5rem 5px;
+}
+
 .main-content {
     background-color: white;
     border-bottom-left-radius: 2px;
@@ -71,6 +75,7 @@ a {
 
 
 .article-head {
+    margin: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -79,11 +84,10 @@ a {
 }
 
 .article-body {
-    padding: 1rem;
-
+    margin: 5px;
     img {
         width: 100vw;
-        margin-left: -1rem;
+        margin-left: -5px;
     }
 }
 
