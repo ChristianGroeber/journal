@@ -303,13 +303,22 @@ exports.default = {
       }).join("&");
       return query;
     }
+  },
+  methods: {
+    deleteEntry: function deleteEntry() {
+      var _this = this;
+
+      this.$store.dispatch("deleteEntry", this.day.id).then(function (response) {
+        _this.$store.dispatch("getEntries");
+      });
+    }
   }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),(_vm.canEdit)?_c('router-link',{staticClass:"btn edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")]):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',[(_vm.canEdit)?_c('button',{staticClass:"btn btn-delete",on:{"click":_vm.deleteEntry}},[_vm._v("\n        Delete\n      ")]):_vm._e(),_vm._v(" "),(_vm.canEdit)?_c('router-link',{staticClass:"btn edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")]):_vm._e()],1)]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -1400,7 +1409,7 @@ require.register("src/store/modules/months/index.js", function(exports, require,
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _axios = require('axios');
@@ -1410,91 +1419,96 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var state = {
-    entries: [],
-    editingEntry: {},
-    editingGallery: {}
+  entries: [],
+  editingEntry: {},
+  editingGallery: {}
 };
 
 var mutations = {
-    UPDATE_EDITING_ENTRY: function UPDATE_EDITING_ENTRY(state, payload) {
-        state.editingEntry = payload;
-    },
-    UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
-        state.entries = payload;
-    },
-    UPDATE_EDITING_GALLERY: function UPDATE_EDITING_GALLERY(state, payload) {
-        state.editingGallery = payload;
-    }
+  UPDATE_EDITING_ENTRY: function UPDATE_EDITING_ENTRY(state, payload) {
+    state.editingEntry = payload;
+  },
+  UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
+    state.entries = payload;
+  },
+  UPDATE_EDITING_GALLERY: function UPDATE_EDITING_GALLERY(state, payload) {
+    state.editingGallery = payload;
+  }
 };
 
 var actions = {
-    getEntries: function getEntries(_ref) {
-        var commit = _ref.commit;
+  getEntries: function getEntries(_ref) {
+    var commit = _ref.commit;
 
-        _axios2.default.get('/api/entries').then(function (response) {
-            commit('UPDATE_ENTRIES', response.data);
-        });
-    },
-    updateEntry: function updateEntry(_ref2, payload) {
-        var commit = _ref2.commit;
+    _axios2.default.get('/api/entries').then(function (response) {
+      commit('UPDATE_ENTRIES', response.data);
+    });
+  },
+  updateEntry: function updateEntry(_ref2, payload) {
+    var commit = _ref2.commit;
 
-        commit('UPDATE_EDITING_ENTRY', payload.entry);
-        var data = {
-            token: payload.token,
-            content: btoa(payload.entry.raw_content),
-            entry: payload.entry.id
-        };
-        var queryString = Object.keys(data).map(function (key) {
-            return key + '=' + data[key];
-        }).join('&');
-        return (0, _axios2.default)({
-            method: 'post',
-            url: '/api/edit',
-            data: queryString,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-    },
-    getEntry: function getEntry(_ref3, payload) {
-        var commit = _ref3.commit;
+    commit('UPDATE_EDITING_ENTRY', payload.entry);
+    var data = {
+      token: payload.token,
+      content: btoa(payload.entry.raw_content),
+      entry: payload.entry.id
+    };
+    var queryString = Object.keys(data).map(function (key) {
+      return key + '=' + data[key];
+    }).join('&');
+    return (0, _axios2.default)({
+      method: 'post',
+      url: '/api/edit',
+      data: queryString,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  },
+  getEntry: function getEntry(_ref3, payload) {
+    var commit = _ref3.commit;
 
-        _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
-            commit('UPDATE_EDITING_ENTRY', response.data);
-        });
-    },
-    getGallery: function getGallery(_ref4, payload) {
-        var commit = _ref4.commit;
+    _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
+      commit('UPDATE_EDITING_ENTRY', response.data);
+    });
+  },
+  deleteEntry: function deleteEntry(_ref4, payload) {
+    var commit = _ref4.commit;
 
-        _axios2.default.get('/api/entry/gallery?page=' + payload.entry).then(function (response) {
-            commit('UPDATE_EDITING_GALLERY', response.data);
-        });
-    }
+    return _axios2.default.delete('/api/admin/delete?entryId=' + payload);
+  },
+  getGallery: function getGallery(_ref5, payload) {
+    var commit = _ref5.commit;
+
+    _axios2.default.get('/api/entry/gallery?page=' + payload.entry).then(function (response) {
+      commit('UPDATE_EDITING_GALLERY', response.data);
+    });
+  }
 };
 
 var getters = {
-    entries: function entries(state) {
-        return state.entries;
-    },
-    editingEntry: function editingEntry(state) {
-        return state.editingEntry;
-    },
-    gallery: function gallery(state) {
-        return state.editingGallery;
-    }
+  entries: function entries(state) {
+    return state.entries;
+  },
+  editingEntry: function editingEntry(state) {
+    return state.editingEntry;
+  },
+  gallery: function gallery(state) {
+    return state.editingGallery;
+  }
 };
 
 var monthsModule = {
-    state: state,
-    mutations: mutations,
-    actions: actions,
-    getters: getters
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
 };
 
 exports.default = monthsModule;
 });
 
-require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
+;require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 

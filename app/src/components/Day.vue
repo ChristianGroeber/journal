@@ -2,7 +2,17 @@
   <div class="article">
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
-      <router-link v-if="canEdit" :to="'/edit?' + query" class="btn edit-button">Edit</router-link>
+      <div>
+        <button class="btn btn-delete" v-if="canEdit" @click="deleteEntry">
+          Delete
+        </button>
+        <router-link
+          v-if="canEdit"
+          :to="'/edit?' + query"
+          class="btn edit-button"
+          >Edit</router-link
+        >
+      </div>
     </div>
     <div class="article-body">
       <p v-html="content"></p>
@@ -11,7 +21,7 @@
 </template>
 
 <script>
-import { marked } from 'marked';
+import { marked } from "marked";
 
 export default {
   name: "Day",
@@ -32,6 +42,13 @@ export default {
         .map(([key, val]) => `${key}=${val}`)
         .join("&");
       return query;
+    },
+  },
+  methods: {
+    deleteEntry() {
+      this.$store.dispatch("deleteEntry", this.day.id).then((response) => {
+        this.$store.dispatch("getEntries");
+      });
     },
   },
 };

@@ -62,43 +62,19 @@ class AdminController extends AbstractController
 
     public function delete($request)
     {
-        if (key_exists('file', $_REQUEST)) {
-            $file = $_REQUEST['file'];
-        } elseif (key_exists('dir', $_REQUEST)) {
-            $file = $_REQUEST['dir'];
-        } else {
-            //    returnHome();
-        }
-        if (
-            substr($file, 0, strlen($_SERVER['DOCUMENT_ROOT'])) !==
-            $_SERVER['DOCUMENT_ROOT']
-        ) {
-            //   returnHome();
+        if (!key_exists('entryId', $_GET)) {
+            return $this->json($_GET, 400);
         }
 
-        function rmdirRecursive($dir)
-        {
-            foreach (scandir($dir) as $sub) {
-                if ($sub !== '.' && $sub !== '..') {
-                    $newDir = $dir . '/' . $sub;
-                    if (is_file($newDir)) {
-                        echo "deleting ${dir}<br>";
-                        unlink($newDir);
-                    } elseif (is_dir($newDir)) {
-                        rmdirRecursive($newDir);
-                    }
-                }
-            }
-            rmdir($dir);
-        }
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/content' . $_GET['entryId'] . '.md';
 
         if (is_file($file)) {
-            echo "deleting ${file}<br>";
             unlink($file);
-        } elseif (is_dir($file)) {
-            rmdirRecursive($file);
+        } else {
+            return $this->json(['file' => $file], 404);
         }
-        //returnHome();
+
+        return $this->json(['message' => "successfully deleted ${file}"]);
     }
 
     public function uploadOriginal($request)
