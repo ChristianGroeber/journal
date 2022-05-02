@@ -664,28 +664,34 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 
 ;require.register("src/components/admin/Editor/Editor.vue", function(exports, require, module) {
 ;(function(){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _EditEntry = require('./EditEntry.vue');
+var _EditEntry = require("./EditEntry.vue");
 
 var _EditEntry2 = _interopRequireDefault(_EditEntry);
+
+var _ImageEditor = require("./Images/ImageEditor.vue");
+
+var _ImageEditor2 = _interopRequireDefault(_ImageEditor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    components: {
-        EditEntry: _EditEntry2.default
-    }
+  props: ["entry"],
+  components: {
+    EditEntry: _EditEntry2.default,
+    ImageEditor: _ImageEditor2.default
+  }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('EditEntry')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('EditEntry',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageEditor',{attrs:{"entry":_vm.entry}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -737,26 +743,31 @@ var _from = require("babel-runtime/core-js/array/from");
 
 var _from2 = _interopRequireDefault(_from);
 
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+  props: ["entry"],
   methods: {
     uploadImages: function uploadImages(e) {
       var _this = this;
 
-      console.log(e.target.files);
-      var formData = new FormData();
-      (0, _from2.default)(e.target.files).forEach(function (img) {
-        console.log(img);
-        formData.append((0, _from2.default)(e.target.files).indexOf(img), img);
-      });
-      formData.append("entry", this.entry);
-      formData.append("token", this.$store.getters.token);
-      console.log(formData);
-      axios.post("/api/entry/gallery/upload", formData).then(function (response) {
-        var images = response.data.files;
-        images.forEach(function (img) {
-          _this.$refs.editEntry.value += "![uploaded image](" + encodeURI(img) + ")";
+      var files = e.target.files;
+      console.log(files);
+      (0, _from2.default)(files).forEach(function (img) {
+        var formData = new FormData();
+        formData.append((0, _from2.default)(files).indexOf(img), img);
+        formData.append("entry", _this.entry);
+        formData.append("token", _this.$store.getters.token);
+        console.log(formData);
+        _axios2.default.post("/api/entry/gallery/upload", formData).then(function (response) {
+          var images = response.data.files;
+          images.forEach(function (img) {
+            _this.$refs.editEntry.value += "![uploaded image](" + encodeURI(img) + ")";
+          });
         });
       });
     }
