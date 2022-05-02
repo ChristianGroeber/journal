@@ -308,9 +308,12 @@ exports.default = {
     deleteEntry: function deleteEntry() {
       var _this = this;
 
-      this.$store.dispatch("deleteEntry", this.day.id).then(function (response) {
-        _this.$store.dispatch("getEntries");
-      });
+      var doDelete = confirm('Are you sure you want to delete this entry');
+      if (doDelete) {
+        this.$store.dispatch("deleteEntry", this.day.id).then(function (response) {
+          _this.$store.dispatch("getEntries");
+        });
+      }
     }
   }
 };

@@ -46,9 +46,12 @@ export default {
   },
   methods: {
     deleteEntry() {
-      this.$store.dispatch("deleteEntry", this.day.id).then((response) => {
-        this.$store.dispatch("getEntries");
-      });
+      const doDelete = confirm('Are you sure you want to delete this entry');
+      if (doDelete) {
+        this.$store.dispatch("deleteEntry", this.day.id).then((response) => {
+          this.$store.dispatch("getEntries");
+        });
+      }
     },
   },
 };
