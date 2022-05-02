@@ -40,6 +40,16 @@ input[type="file"]::file-selector-button,
     }
 }
 
+.btn-delete {
+    color: $danger;
+    border-color: $danger;
+
+    &:hover {
+        background-color: $danger;
+        color: white;
+    }
+}
+
 a {
     color: $primary;
 }

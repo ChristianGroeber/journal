@@ -21,6 +21,12 @@
         "function": "createSpecific"
     },
     {
+        "route": "/api/admin/delete",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "delete"
+    },
+    {
         "route": "/api/entry/gallery",
         "controller": "App\\Controllers\\ImageController",
         "function": "images"
@@ -70,12 +76,6 @@
         "min_role": "Guest",
         "controller": "App\\Controllers\\AdminController",
         "function": "testExif"
-    },
-    {
-        "route": "/admin/delete",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "delete"
     },
     {
         "route": "/admin/image/upload",
