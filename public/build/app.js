@@ -629,16 +629,22 @@ exports.default = {
     }
   },
   methods: {
-    save: function save() {
-      var _this = this;
-
+    updateContent: function updateContent() {
       var newContent = this.$refs.editEntry.value;
       var entry = this.$store.getters.editingEntry;
       entry.raw_content = newContent;
       this.$store.dispatch("updateEntry", {
-        entry: entry,
-        token: this.$store.getters.token
-      }).then(function () {
+        entry: entry
+      });
+
+      this.$store.dispatch("updateEntry", {
+        entry: entry
+      });
+    },
+    save: function save() {
+      var _this = this;
+
+      this.$store.dispatch("saveEntry", this.$store.getters.token).then(function () {
         _this.$store.dispatch("getEntries");
       });
     }
@@ -648,7 +654,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticStyle:{"margin":"1rem 0"}},[_c('router-link',{staticClass:"btn",attrs:{"to":'/'}},[_vm._v("Return")])],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticStyle:{"margin":"1rem 0"}},[_c('router-link',{staticClass:"btn",attrs:{"to":'/'}},[_vm._v("Return")])],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown},on:{"change":_vm.updateContent}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -756,20 +762,18 @@ exports.default = {
       var _this = this;
 
       var files = e.target.files;
-      console.log(files);
+      var editingEntry = this.$store.getters.editingEntry;
       (0, _from2.default)(files).forEach(function (img) {
         var formData = new FormData();
         formData.append((0, _from2.default)(files).indexOf(img), img);
         formData.append("entry", _this.entry);
         formData.append("token", _this.$store.getters.token);
-        console.log(formData);
         _axios2.default.post("/api/entry/gallery/upload", formData).then(function (response) {
-          var images = response.data.files;
-          images.forEach(function (img) {
-            _this.$refs.editEntry.value += "![uploaded image](" + encodeURI(img) + ")";
-          });
+          var img = response.data.files[0];
+          editingEntry.raw_content += "![uploaded image](" + encodeURI(img) + ")";
         });
       });
+      this.$store.dispatch('updateEntry', { entry: editingEntry });
     }
   }
 };
@@ -1576,10 +1580,14 @@ var actions = {
     var commit = _ref2.commit;
 
     commit('UPDATE_EDITING_ENTRY', payload.entry);
+  },
+  saveEntry: function saveEntry(_ref3, token) {
+    var commit = _ref3.commit;
+
     var data = {
-      token: payload.token,
-      content: btoa(payload.entry.raw_content),
-      entry: payload.entry.id
+      token: token,
+      content: btoa(getters.editingEntry(state).raw_content),
+      entry: getters.editingEntry(state).id
     };
     var queryString = Object.keys(data).map(function (key) {
       return key + '=' + data[key];
@@ -1593,20 +1601,20 @@ var actions = {
       }
     });
   },
-  getEntry: function getEntry(_ref3, payload) {
-    var commit = _ref3.commit;
+  getEntry: function getEntry(_ref4, payload) {
+    var commit = _ref4.commit;
 
     _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
       commit('UPDATE_EDITING_ENTRY', response.data);
     });
   },
-  deleteEntry: function deleteEntry(_ref4, payload) {
-    var commit = _ref4.commit;
+  deleteEntry: function deleteEntry(_ref5, payload) {
+    var commit = _ref5.commit;
 
     return _axios2.default.delete('/api/admin/delete?entryId=' + payload);
   },
-  getGallery: function getGallery(_ref5, payload) {
-    var commit = _ref5.commit;
+  getGallery: function getGallery(_ref6, payload) {
+    var commit = _ref6.commit;
 
     _axios2.default.get('/api/entry/gallery?page=' + payload.entry).then(function (response) {
       commit('UPDATE_EDITING_GALLERY', response.data);

@@ -11,27 +11,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   props: ["entry"],
   methods: {
     uploadImages(e) {
       const files = e.target.files;
-      console.log(files);
+      const editingEntry = this.$store.getters.editingEntry;
       Array.from(files).forEach((img) => {
         const formData = new FormData();
         formData.append(Array.from(files).indexOf(img), img);
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
-        console.log(formData);
         axios.post("/api/entry/gallery/upload", formData).then((response) => {
-          const images = response.data.files;
-          images.forEach((img) => {
-            this.$refs.editEntry.value +=
-              "![uploaded image](" + encodeURI(img) + ")";
-          });
+          const img = response.data.files[0];
+          editingEntry.raw_content +=
+            "![uploaded image](" + encodeURI(img) + ")";
         });
       });
+      this.$store.dispatch('updateEntry', {entry: editingEntry});
     },
   },
 };

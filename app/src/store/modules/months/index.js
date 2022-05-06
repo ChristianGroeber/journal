@@ -19,17 +19,25 @@ const mutations = {
 }
 
 const actions = {
-  getEntries({ commit }) {
+  getEntries({
+    commit
+  }) {
     axios.get('/api/entries').then((response) => {
       commit('UPDATE_ENTRIES', response.data)
     })
   },
-  updateEntry({ commit }, payload) {
+  updateEntry({
+    commit
+  }, payload) {
     commit('UPDATE_EDITING_ENTRY', payload.entry)
+  },
+  saveEntry({
+    commit
+  }, token) {
     const data = {
-      token: payload.token,
-      content: btoa(payload.entry.raw_content),
-      entry: payload.entry.id,
+      token: token,
+      content: btoa(getters.editingEntry(state).raw_content),
+      entry: getters.editingEntry(state).id,
     }
     const queryString = Object.keys(data)
       .map((key) => key + '=' + data[key])
@@ -43,17 +51,23 @@ const actions = {
       },
     })
   },
-  getEntry({ commit }, payload) {
+  getEntry({
+    commit
+  }, payload) {
     axios
       .get('/api/edit?entry=' + payload.entry + '&token=' + payload.token)
       .then((response) => {
         commit('UPDATE_EDITING_ENTRY', response.data)
       })
   },
-  deleteEntry({ commit }, payload) {
+  deleteEntry({
+    commit
+  }, payload) {
     return axios.delete('/api/admin/delete?entryId=' + payload)
   },
-  getGallery({ commit }, payload) {
+  getGallery({
+    commit
+  }, payload) {
     axios.get('/api/entry/gallery?page=' + payload.entry).then((response) => {
       commit('UPDATE_EDITING_GALLERY', response.data)
     })
