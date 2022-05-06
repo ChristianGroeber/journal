@@ -727,13 +727,28 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {};
+exports.default = {
+  props: ["img", "myId"],
+  methods: {
+    copyUrl: function copyUrl() {
+      var imgUrl = document.querySelector(".image#img-" + this.myId + " .url");
+      var range = document.createRange();
+      range.selectNode(imgUrl);
+      window.getSelection().addRange(range);
+
+      console.log(document.execCommand("copy"));
+
+      window.getSelection().removeAllRanges();
+    }
+  }
+};
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div')}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"image"},[_c('div',{staticClass:"img-controls"}),_vm._v(" "),_c('img',{attrs:{"src":_vm.img,"alt":"Image"},on:{"click":_vm.copyUrl}}),_vm._v(" "),_c('div',{staticClass:"url"},[_vm._v("![uploaded image]("+_vm._s(_vm.img)+")")])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-365b64d4"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -741,7 +756,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-365b64d4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-365b64d4", __vue__options__)
+    hotAPI.rerender("data-v-365b64d4", __vue__options__)
   }
 })()}
 });
@@ -812,8 +827,18 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _Image = require("./Image.vue");
+
+var _Image2 = _interopRequireDefault(_Image);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   props: ["entry"],
+  components: {
+    MyImage: _Image2.default
+  },
   data: function data() {
     return {
       images: this.$store.getters.gallery
@@ -833,9 +858,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('button',{on:{"click":_vm.getGallery}},[_vm._v("reload")])])]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('div',{key:index,staticClass:"image"},[_c('img',{attrs:{"src":img}})])}),0)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('button',{on:{"click":_vm.getGallery}},[_vm._v("reload")])])]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('MyImage',{key:index,staticClass:"image",attrs:{"id":'img-' + index,"myId":index,"img":img}})}),1)])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-d03106dc"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return

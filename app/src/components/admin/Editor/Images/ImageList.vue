@@ -7,16 +7,18 @@
       </div>
     </div>
     <div class="images-list d-flex">
-      <div class="image" v-for="(img, index) in images" :key="index">
-        <img :src="img" />
-      </div>
+      <MyImage class="image" v-for="(img, index) in images" :key="index" :id="'img-' + index" :myId="index" :img="img"></MyImage>
     </div>
   </div>
 </template>
 
 <script>
+import MyImage from "./Image.vue"
 export default {
   props: ["entry"],
+  components: {
+    MyImage,
+  },
   data: function () {
     return {
       images: this.$store.getters.gallery,
@@ -33,19 +35,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .image {
-    width: 50%;
-  }
-
-  .image img {
-    width: 100%;
-  }
-
-  @media screen and (min-width: 500px) {
-    .image {
-      width: 25%;
-    }
-  }
-</style>

@@ -71,16 +71,20 @@
 label[data-v-bb5ce6fe] {
   display: block;
 }
-.image[data-v-d03106dc] {
+.image[data-v-365b64d4] {
   width: 50%;
 }
 
-.image img[data-v-d03106dc] {
+.image img[data-v-365b64d4] {
   width: 100%;
 }
 
+.image .url[data-v-365b64d4] {
+  font-size: 1px;
+}
+
 @media screen and (min-width: 500px) {
-  .image[data-v-d03106dc] {
+  .image[data-v-365b64d4] {
     width: 25%;
   }
 }
