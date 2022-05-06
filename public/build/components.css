@@ -71,3 +71,16 @@
 label[data-v-bb5ce6fe] {
   display: block;
 }
+.image[data-v-d03106dc] {
+  width: 50%;
+}
+
+.image img[data-v-d03106dc] {
+  width: 100%;
+}
+
+@media screen and (min-width: 500px) {
+  .image[data-v-d03106dc] {
+    width: 25%;
+  }
+}

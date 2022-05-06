@@ -20,12 +20,6 @@
 <script>
 export default {
   props: ["entry"],
-  created() {
-    this.$store.dispatch("getEntry", {
-      entry: this.entry,
-      token: this.$store.getters.token,
-    });
-  },
   computed: {
     markdown() {
       return this.$store.getters.editingEntry.raw_content;

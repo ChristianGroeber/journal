@@ -90,6 +90,12 @@
         "function": "loadImages"
     },
     {
+        "route": "/api/admin/entry/images/load",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\ImageController",
+        "function": "loadImagesForEntry"
+    },
+    {
         "route": "/admin/phpinfo",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",

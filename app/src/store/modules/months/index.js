@@ -54,7 +54,7 @@ const actions = {
   getEntry({
     commit
   }, payload) {
-    axios
+    return axios
       .get('/api/edit?entry=' + payload.entry + '&token=' + payload.token)
       .then((response) => {
         commit('UPDATE_EDITING_ENTRY', response.data)
@@ -65,13 +65,11 @@ const actions = {
   }, payload) {
     return axios.delete('/api/admin/delete?entryId=' + payload)
   },
-  getGallery({
-    commit
-  }, payload) {
-    axios.get('/api/entry/gallery?page=' + payload.entry).then((response) => {
-      commit('UPDATE_EDITING_GALLERY', response.data)
+  loadImagesForEntry({commit}, payload) {
+    return axios.get('/api/admin/entry/images/load?entry=' + payload.entry).then((response) => {
+      commit('UPDATE_EDITING_GALLERY', response.data.images);
     })
-  },
+  }
 }
 
 const getters = {

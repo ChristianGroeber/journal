@@ -616,13 +616,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
   props: ["entry"],
-  created: function created() {
-    this.$store.dispatch("getEntry", {
-      entry: this.entry,
-      token: this.$store.getters.token
-    });
-  },
-
   computed: {
     markdown: function markdown() {
       return this.$store.getters.editingEntry.raw_content;
@@ -684,20 +677,36 @@ var _ImageEditor = require("./Images/ImageEditor.vue");
 
 var _ImageEditor2 = _interopRequireDefault(_ImageEditor);
 
+var _ImageList = require("./Images/ImageList.vue");
+
+var _ImageList2 = _interopRequireDefault(_ImageList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   props: ["entry"],
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("getEntry", {
+      entry: this.entry,
+      token: this.$store.getters.token
+    }).then(function () {
+      _this.$store.dispatch("loadImagesForEntry", { entry: _this.entry });
+    });
+  },
+
   components: {
     EditEntry: _EditEntry2.default,
-    ImageEditor: _ImageEditor2.default
+    ImageEditor: _ImageEditor2.default,
+    ImageList: _ImageList2.default
   }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('EditEntry',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageEditor',{attrs:{"entry":_vm.entry}})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('EditEntry',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageEditor',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageList',{attrs:{"entry":_vm.entry}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -706,7 +715,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-c8689646", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c8689646", __vue__options__)
+    hotAPI.rerender("data-v-c8689646", __vue__options__)
   }
 })()}
 });
@@ -773,7 +782,8 @@ exports.default = {
           editingEntry.raw_content += "![uploaded image](" + encodeURI(img) + ")";
         });
       });
-      this.$store.dispatch('updateEntry', { entry: editingEntry });
+      this.$store.dispatch("updateEntry", { entry: editingEntry });
+      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
     }
   }
 };
@@ -802,13 +812,30 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {};
+exports.default = {
+  props: ["entry"],
+  data: function data() {
+    return {
+      images: this.$store.getters.gallery
+    };
+  },
+  methods: {
+    getGallery: function getGallery() {
+      var _this = this;
+
+      this.$store.dispatch("loadImagesForEntry", { entry: this.entry }).then(function () {
+        _this.images = _this.$store.getters.gallery;
+      });
+    }
+  }
+};
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div')}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('button',{on:{"click":_vm.getGallery}},[_vm._v("reload")])])]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('div',{key:index,staticClass:"image"},[_c('img',{attrs:{"src":img}})])}),0)])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-d03106dc"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -816,7 +843,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-d03106dc", __vue__options__)
   } else {
-    hotAPI.reload("data-v-d03106dc", __vue__options__)
+    hotAPI.rerender("data-v-d03106dc", __vue__options__)
   }
 })()}
 });
@@ -1604,7 +1631,7 @@ var actions = {
   getEntry: function getEntry(_ref4, payload) {
     var commit = _ref4.commit;
 
-    _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
+    return _axios2.default.get('/api/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
       commit('UPDATE_EDITING_ENTRY', response.data);
     });
   },
@@ -1613,11 +1640,11 @@ var actions = {
 
     return _axios2.default.delete('/api/admin/delete?entryId=' + payload);
   },
-  getGallery: function getGallery(_ref6, payload) {
+  loadImagesForEntry: function loadImagesForEntry(_ref6, payload) {
     var commit = _ref6.commit;
 
-    _axios2.default.get('/api/entry/gallery?page=' + payload.entry).then(function (response) {
-      commit('UPDATE_EDITING_GALLERY', response.data);
+    return _axios2.default.get('/api/admin/entry/images/load?entry=' + payload.entry).then(function (response) {
+      commit('UPDATE_EDITING_GALLERY', response.data.images);
     });
   }
 };

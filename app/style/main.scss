@@ -110,6 +110,42 @@ a {
     }
 }
 
+.jc_space-between {
+    justify-content: space-between;
+}
+
+.jc_space-around {
+    justify-content: space-around;
+}
+
+.jc_space-evenly {
+    justify-content: space-evenly;
+}
+
+.js_center {
+    justify-content: center;
+}
+
+.js_end {
+    justify-content: end;
+}
+
+.ai_center {
+    align-items: center;
+}
+
+.ai_baseline {
+    align-items: baseline;
+}
+
+.ai_flex-end {
+    align-items: flex-end;
+}
+
+.ai_flex-start {
+    align-items: flex-start;
+}
+
 label {
     display: block;
 }

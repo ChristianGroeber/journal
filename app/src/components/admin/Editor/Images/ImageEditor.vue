@@ -29,7 +29,8 @@ export default {
             "![uploaded image](" + encodeURI(img) + ")";
         });
       });
-      this.$store.dispatch('updateEntry', {entry: editingEntry});
+      this.$store.dispatch("updateEntry", { entry: editingEntry });
+      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
     },
   },
 };
