@@ -202,8 +202,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('router-view')],1)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])]),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -218,6 +218,10 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 
 ;require.register("main.js", function(exports, require, module) {
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _vue = require('vue');
 
@@ -241,21 +245,34 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _vuetify = require('vuetify');
+
+var _vuetify2 = _interopRequireDefault(_vuetify);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import Editor from "v-markdown-editor";
 
 _vue2.default.config.productionTip = false;
 _vue2.default.use(_vueAxios2.default, _axios2.default);
+_vue2.default.use(_vuetify2.default);
 
 // Vue.use(Editor);
+
+exports.default = new _vuetify2.default({
+  icons: {
+    iconfont: 'mdi' // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+  }
+});
+
 
 new _vue2.default({
   store: _store2.default,
   router: _routes.router,
   render: function render(h) {
     return h(_App2.default);
-  }
+  },
+  vuetify: new _vuetify2.default()
 }).$mount('#app');
 });
 
@@ -321,7 +338,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',[(_vm.canEdit)?_c('button',{staticClass:"btn btn-delete",on:{"click":_vm.deleteEntry}},[_vm._v("\n        Delete\n      ")]):_vm._e(),_vm._v(" "),(_vm.canEdit)?_c('router-link',{staticClass:"btn edit-button",attrs:{"to":'/edit?' + _vm.query}},[_vm._v("Edit")]):_vm._e()],1)]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',[(_vm.canEdit)?_c('v-btn',{staticClass:"btn btn-delete",on:{"click":_vm.deleteEntry}},[_c('v-icon',[_vm._v("mdi-delete")])],1):_vm._e(),_vm._v(" "),(_vm.canEdit)?_c('router-link',{staticClass:"btn edit-button",attrs:{"to":'/edit?' + _vm.query}},[_c('v-icon',[_vm._v("mdi-pencil-outline")])],1):_vm._e()],1)]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

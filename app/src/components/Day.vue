@@ -3,14 +3,14 @@
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
       <div>
-        <button class="btn btn-delete" v-if="canEdit" @click="deleteEntry">
-          Delete
-        </button>
+        <v-btn class="btn btn-delete" v-if="canEdit" @click="deleteEntry">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
         <router-link
           v-if="canEdit"
           :to="'/edit?' + query"
           class="btn edit-button"
-          >Edit</router-link
+          ><v-icon>mdi-pencil-outline</v-icon></router-link
         >
       </div>
     </div>
