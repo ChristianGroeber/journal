@@ -78,6 +78,16 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
+"@vuikit/icons@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@vuikit/icons/-/icons-0.8.1.tgz#b53725e3b137ba7fc20fce792b95e957bef9410c"
+  integrity sha512-DiwUbbN8b3AyPxiW5llL0VZDOyM5P+U8YEnP+CLGzOL7KJ/bqrpPhskCDUOoDUy7+fBEYxsO7+oC0dYCXNYLRw==
+
+"@vuikit/theme@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@vuikit/theme/-/theme-0.8.1.tgz#d77f4c593cd5dc0c8bdb71c4f6b3ee95c8ffa9ea"
+  integrity sha512-L7ZceIkp8XTrctBSlCDjG3MTRhogOcis+6QSE6jqLerdKHFm+EwxOtLgYRY4XaBzfh+VfNpDu9l+9mGDf+u5pw==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -6822,7 +6832,7 @@ vue-template-es2015-compiler@^1.2.2:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.6.11, vue@^2.6.14:
+vue@^2.5.16, vue@^2.6.11, vue@^2.6.14:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
@@ -6856,6 +6866,13 @@ vuex@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.6.2.tgz#236bc086a870c3ae79946f107f16de59d5895e71"
   integrity sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==
+
+vuikit@^0.8.10:
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/vuikit/-/vuikit-0.8.10.tgz#3caeb0d8001d1af32930e31504bd63e8cd8b7ffe"
+  integrity sha512-M2gYsemUq73az1ZB5PuDvGUMzOxzOkPUEyiJE4UPzT3hZGYAprLD4tj++tbm5Aoph/T/4ZrJZE44TpZPPACPEw==
+  dependencies:
+    vue "^2.5.16"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

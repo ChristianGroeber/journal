@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@mdi/font": "^6.6.96",
+    "@vuikit/icons": "^0.8.1",
+    "@vuikit/theme": "^0.8.1",
     "axios": "^0.24.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "core-js": "^3.6.5",
@@ -25,7 +27,8 @@
     "vue-axios": "2.*",
     "vue-brunch": "^2.0.3",
     "vue-router": "^3.5.2",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuikit": "^0.8.10"
   },
   "devDependencies": {
     "auto-reload-brunch": "^2",

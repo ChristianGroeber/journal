@@ -1,21 +1,27 @@
 <template>
   <div class="admin-bar">
     <h3>Welcome Admin</h3>
-    <div class="actions">
-      <button @click="editCurrent">Edit Current Entry</button>
-      <DownloadBackup/>
+    <vk-navbar>
+      <vk-navbar-nav>
+        <vk-navbar-nav-item
+          @click="editCurrent"
+          title="Edit Current Entry"
+        ></vk-navbar-nav-item>
+        <vk-navbar-item></vk-navbar-item>
+      </vk-navbar-nav>
+      <DownloadBackup />
       <edit-specific-entry></edit-specific-entry>
       <router-link class="btn" to="/auth">Auth</router-link>
-    </div>
+    </vk-navbar>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import editSpecificEntry from "./EditSpecificEntry.vue";
-import DownloadBackup from './DownloadBackup.vue';
+import DownloadBackup from "./DownloadBackup.vue";
 
-export default { 
+export default {
   name: "AdminBar",
   components: {
     editSpecificEntry,

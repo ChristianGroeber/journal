@@ -2,6 +2,9 @@
 @import 'fonts';
 @import 'responsive';
 
+@import '../../node_modules/@vuikit/theme/dist/vuikit.min';
+
+
 html,
 body {
     overflow-x: hidden;

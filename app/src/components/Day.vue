@@ -3,15 +3,22 @@
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
       <div>
-        <v-btn class="btn btn-delete" v-if="canEdit" @click="deleteEntry">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+        <vk-button><vk-icons-more-vertical></vk-icons-more-vertical></vk-button>
+        <vk-dropdown>
+          <vk-nav-dropdown>
+            <vk-nav-item title="Delete">Delete</vk-nav-item>
+            <vk-nav-item title="Edit">Edit</vk-nav-item>
+          </vk-nav-dropdown>
+        </vk-dropdown>
+        <!-- <vk-button class="btn btn-delete" v-if="canEdit" @click="deleteEntry">
+          <vk-icons-trash></vk-icons-trash>
+        </vk-button>
         <router-link
           v-if="canEdit"
           :to="'/edit?' + query"
           class="btn edit-button"
-          ><v-icon>mdi-pencil-outline</v-icon></router-link
-        >
+          ><vk-icons-pencil></vk-icons-pencil></router-link
+        > -->
       </div>
     </div>
     <div class="article-body">
@@ -46,7 +53,7 @@ export default {
   },
   methods: {
     deleteEntry() {
-      const doDelete = confirm('Are you sure you want to delete this entry');
+      const doDelete = confirm("Are you sure you want to delete this entry");
       if (doDelete) {
         this.$store.dispatch("deleteEntry", this.day.id).then((response) => {
           this.$store.dispatch("getEntries");

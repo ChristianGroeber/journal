@@ -1,12 +1,12 @@
 <template>
-  <v-app>
+  <div>
     <!-- <router-link  to="/login"><button>Login</button></router-link>  -->
     <Loading v-if="isLoading"></Loading>
     <div class="header">
       <h1>2022</h1>
     </div>
     <router-view></router-view>
-  </v-app>
+  </div>
 </template>
 
 <script>
