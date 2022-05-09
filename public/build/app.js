@@ -219,10 +219,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 ;require.register("main.js", function(exports, require, module) {
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
@@ -245,34 +241,21 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _vuetify = require('vuetify');
-
-var _vuetify2 = _interopRequireDefault(_vuetify);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import Editor from "v-markdown-editor";
 
 _vue2.default.config.productionTip = false;
 _vue2.default.use(_vueAxios2.default, _axios2.default);
-_vue2.default.use(_vuetify2.default);
 
 // Vue.use(Editor);
-
-exports.default = new _vuetify2.default({
-  icons: {
-    iconfont: 'mdi' // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
-  }
-});
-
 
 new _vue2.default({
   store: _store2.default,
   router: _routes.router,
   render: function render(h) {
     return h(_App2.default);
-  },
-  vuetify: new _vuetify2.default()
+  }
 }).$mount('#app');
 });
 
