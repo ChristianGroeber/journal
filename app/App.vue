@@ -6,16 +6,19 @@
       <h1>2022</h1>
     </div>
     <router-view></router-view>
+    <specific-entry-popup></specific-entry-popup>
   </div>
 </template>
 
 <script>
 import Loading from './src/components/Loading';
+import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup';
 
 export default {
   name: "App",
   components: {
     Loading,
+    SpecificEntryPopup,
   },
   computed: {
     isLoading: function() {

@@ -33,7 +33,7 @@ export default {
         },
         {
           label: "Edit Specific Entry",
-          func: this.editSpecificEntry,
+          func: this.toggleEditSpecificPopup,
         },
         {
           label: "Auth",
@@ -43,24 +43,18 @@ export default {
     };
   },
   methods: {
-    handleClick(action) {
-      const item = this.nav[action];
-      console.log(item);
+    handleClick(itemId) {
+      const item = this.nav[itemId];
       if ("func" in item) {
         item.func();
+      } else if ("page" in item) {
+        this.$router.push(item.page);
+      } else {
+        console.error('I don\'t know what to do with item #' + itemId);
       }
     },
-    editSpecificEntry() {
-      axios
-        .get(
-          "/api/create?token=" +
-            this.$store.getters.token +
-            "&entry=" +
-            this.dateEntry
-        )
-        .then((response) => {
-          this.$router.push("/edit?entry=" + response.data.entryId);
-        });
+    toggleEditSpecificPopup() {
+      this.$store.commit('EDIT_SPECIFIC_POPUP', true);
     },
     generateBackup: function () {
       axios

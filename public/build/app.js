@@ -151,26 +151,31 @@ var __makeRelativeRequire = function(require, mappings, pref) {
 };
 require.register("App.vue", function(exports, require, module) {
 ;(function(){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _promise = require("babel-runtime/core-js/promise");
+var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _Loading = require("./src/components/Loading");
+var _Loading = require('./src/components/Loading');
 
 var _Loading2 = _interopRequireDefault(_Loading);
+
+var _SpecificEntryPopup = require('./src/components/Modals/SpecificEntryPopup');
+
+var _SpecificEntryPopup2 = _interopRequireDefault(_SpecificEntryPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: "App",
   components: {
-    Loading: _Loading2.default
+    Loading: _Loading2.default,
+    SpecificEntryPopup: _SpecificEntryPopup2.default
   },
   computed: {
     isLoading: function isLoading() {
@@ -202,7 +207,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('router-view'),_vm._v(" "),_c('specific-entry-popup')],1)}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("2022")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -375,6 +380,72 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })()}
 });
 
+;require.register("src/components/Modals/SpecificEntryPopup.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _moment = require("moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      dateEntry: (0, _moment2.default)().format("yyyy-MM-DD")
+    };
+  },
+  computed: {
+    show: {
+      get: function get() {
+        return this.$store.getters.showEditSpecificPopup;
+      },
+      set: function set(newValue) {
+        this.$store.commit("EDIT_SPECIFIC_POPUP", newValue);
+      }
+    }
+  },
+  methods: {
+    hidePopup: function hidePopup() {
+      this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+    },
+    editSpecificEntry: function editSpecificEntry() {
+      var _this = this;
+
+      _axios2.default.get("/api/create?token=" + this.$store.getters.token + "&entry=" + this.dateEntry).then(function (response) {
+        _this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+        _this.$router.push("/edit?entry=" + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vk-modal',{attrs:{"show":_vm.show},on:{"update:show":function($event){_vm.show=$event}}},[_c('vk-modal-close',{on:{"click":_vm.hidePopup}}),_vm._v(" "),_c('vk-modal-title',[_vm._v("Edit Specific Entry")]),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"date"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}})]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"},[_c('vk-button',{on:{"click":_vm.editSpecificEntry}},[_vm._v("Submit")])],1)],1)],1)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74c6e343", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-74c6e343", __vue__options__)
+  }
+})()}
+});
+
 ;require.register("src/components/Month.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -491,7 +562,7 @@ exports.default = {
         func: this.generateBackup
       }, {
         label: "Edit Specific Entry",
-        func: this.editSpecificEntry
+        func: this.toggleEditSpecificPopup
       }, {
         label: "Auth",
         page: "/auth"
@@ -499,19 +570,18 @@ exports.default = {
     };
   },
   methods: {
-    handleClick: function handleClick(action) {
-      var item = this.nav[action];
-      console.log(item);
+    handleClick: function handleClick(itemId) {
+      var item = this.nav[itemId];
       if ("func" in item) {
         item.func();
+      } else if ("page" in item) {
+        this.$router.push(item.page);
+      } else {
+        console.error('I don\'t know what to do with item #' + itemId);
       }
     },
-    editSpecificEntry: function editSpecificEntry() {
-      var _this = this;
-
-      _axios2.default.get("/api/create?token=" + this.$store.getters.token + "&entry=" + this.dateEntry).then(function (response) {
-        _this.$router.push("/edit?entry=" + response.data.entryId);
-      });
+    toggleEditSpecificPopup: function toggleEditSpecificPopup() {
+      this.$store.commit('EDIT_SPECIFIC_POPUP', true);
     },
 
     generateBackup: function generateBackup() {
@@ -520,10 +590,10 @@ exports.default = {
       });
     },
     editCurrent: function editCurrent() {
-      var _this2 = this;
+      var _this = this;
 
       _axios2.default.get("/api/edit/current?token=" + this.$store.getters.token).then(function (response) {
-        _this2.$router.push("/edit?entry=" + response.data.entryId);
+        _this.$router.push("/edit?entry=" + response.data.entryId);
       });
     }
   }
@@ -1597,12 +1667,16 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var state = {
-    isLoading: false
+    isLoading: false,
+    showEditSpecificPopup: false
 };
 
 var mutations = {
     LOADING: function LOADING(state, isLoading) {
         state.isLoading = isLoading;
+    },
+    EDIT_SPECIFIC_POPUP: function EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
+        state.showEditSpecificPopup = showEditSpecificPopup;
     }
 };
 
@@ -1611,6 +1685,9 @@ var actions = {};
 var getters = {
     loading: function loading(state) {
         return state.isLoading;
+    },
+    showEditSpecificPopup: function showEditSpecificPopup(state) {
+        return state.showEditSpecificPopup;
     }
 };
 
