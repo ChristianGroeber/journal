@@ -4,30 +4,71 @@
     <vk-navbar>
       <vk-navbar-nav>
         <vk-navbar-nav-item
-          @click="editCurrent"
-          title="Edit Current Entry"
+          v-for="(item, index) in nav"
+          :key="index"
+          @click="handleClick(index)"
+          :title="item.label"
         ></vk-navbar-nav-item>
         <vk-navbar-item></vk-navbar-item>
       </vk-navbar-nav>
-      <DownloadBackup />
-      <edit-specific-entry></edit-specific-entry>
-      <router-link class="btn" to="/auth">Auth</router-link>
     </vk-navbar>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import editSpecificEntry from "./EditSpecificEntry.vue";
-import DownloadBackup from "./DownloadBackup.vue";
 
 export default {
   name: "AdminBar",
-  components: {
-    editSpecificEntry,
-    DownloadBackup,
+  data: function () {
+    return {
+      nav: [
+        {
+          label: "Edit Current Entry",
+          func: this.editCurrent,
+        },
+        {
+          label: "Backup",
+          func: this.generateBackup,
+        },
+        {
+          label: "Edit Specific Entry",
+          func: this.editSpecificEntry,
+        },
+        {
+          label: "Auth",
+          page: "/auth",
+        },
+      ],
+    };
   },
   methods: {
+    handleClick(action) {
+      const item = this.nav[action];
+      console.log(item);
+      if ("func" in item) {
+        item.func();
+      }
+    },
+    editSpecificEntry() {
+      axios
+        .get(
+          "/api/create?token=" +
+            this.$store.getters.token +
+            "&entry=" +
+            this.dateEntry
+        )
+        .then((response) => {
+          this.$router.push("/edit?entry=" + response.data.entryId);
+        });
+    },
+    generateBackup: function () {
+      axios
+        .get("/api/admin/generate-backup?token=" + this.$store.getters.token)
+        .then((response) => {
+          location.href = response.data.file;
+        });
+    },
     editCurrent() {
       axios
         .get("/api/edit/current?token=" + this.$store.getters.token)
