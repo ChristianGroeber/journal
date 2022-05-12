@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "brunch watch",
-    "build": "brunch build",
+    "build": "brunch build --production",
     "serve": "vue-cli-service serve"
   },
   "dependencies": {
@@ -52,10 +52,5 @@
       "parser": "babel-eslint"
     },
     "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }
