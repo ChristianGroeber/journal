@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\Image;
+
 class ImageHelper
 {
     private array $defaultSizes = [100, 500, 1080];
@@ -9,6 +11,21 @@ class ImageHelper
     public function getDefaultSizes(): array
     {
         return $this->defaultSizes;
+    }
+
+    public function deleteImage(Image $image)
+    {
+        $basePath = $_SERVER['DOCUMENT_ROOT'] . '/images/' . $image->getMonth() . '/' . $image->getDay() . '/';
+        
+        unlink($basePath . $image->getName());
+        foreach ($this->defaultSizes as $size) {
+            $path = $basePath . $size . '/' . $image->getName();
+            if (is_file($path)) {
+                unlink($path);
+            }
+        }
+
+        return true;
     }
 
     public function storeEntryImage(string $imagePath, ?string $month = null, ?string $day = null)

@@ -1,15 +1,48 @@
 <template>
-  <div class="image">
-    <div class="img-controls"></div>
-    <img @click="copyUrl" :src="img" alt="Image" />
+  <div v-if="isShowing" class="image">
+    <div class="img-controls">
+      <vk-button class="btn btn-rounded" @click="copyUrl">
+        <vk-icons-copy></vk-icons-copy>
+      </vk-button>
+      <vk-button class="btn btn-rounded btn-danger" @click="deleteImage">
+        <vk-icons-trash></vk-icons-trash>
+      </vk-button>
+    </div>
+    <img :src="img" alt="Image" />
     <div class="url">![uploaded image]({{ img }})</div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: ["img", "myId"],
+  data: function() {
+    return {
+      isShowing: true,
+    };
+  },
   methods: {
+    deleteImage() {
+      if (!confirm('Are you sure you want to delete this image?')) {
+        return;
+      }
+      const data = {
+        image: this.img,
+        token: this.$store.getters.token,
+      };
+      let query = Object.entries(data)
+        .map(([key, val]) => `${key}=${val}`)
+        .join("&");
+
+      this.$store.commit('LOADING', true);
+
+      axios.delete('/api/admin/entry/image/delete?' + query)
+        .then((response) => {
+          this.isShowing = false;
+          this.$store.commit('LOADING', false);
+        });
+    },
     copyUrl() {
       const imgUrl = document.querySelector(
         ".image#img-" + this.myId + " .url"
@@ -26,17 +59,33 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .image {
   width: 50%;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .url {
+    font-size: 1px;
+  }
+
+  &:hover .img-controls {
+    display: flex;
+  }
 }
 
-.image img {
+.img-controls {
+  display: none;
+  height: 100%;
   width: 100%;
-}
-
-.image .url {
-  font-size: 1px;
+  background-color: rgba(116, 116, 116, 0.25);
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 500px) {

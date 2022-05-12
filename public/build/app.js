@@ -337,7 +337,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',[_c('vk-button',[_c('vk-icons-more-vertical')],1),_vm._v(" "),_c('vk-dropdown',[_c('vk-nav-dropdown',[_c('vk-nav-item',{attrs:{"title":"Delete"}},[_vm._v("Delete")]),_vm._v(" "),_c('vk-nav-item',{attrs:{"title":"Edit"}},[_vm._v("Edit")])],1)],1)],1)]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),_c('div',[_c('vk-button',[_c('vk-icons-more-vertical')],1),_vm._v(" "),_c('vk-dropdown',[_c('vk-nav-dropdown',[_c('vk-nav-item',{attrs:{"title":"Delete"},on:{"click":_vm.deleteEntry}},[_vm._v("Delete")]),_vm._v(" "),_c('vk-nav-item',{attrs:{"href":'/edit?' + _vm.query,"title":"Edit"}},[_vm._v("Edit")])],1)],1)],1)]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -432,7 +432,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vk-modal',{attrs:{"show":_vm.show},on:{"update:show":function($event){_vm.show=$event}}},[_c('vk-modal-close',{on:{"click":_vm.hidePopup}}),_vm._v(" "),_c('vk-modal-title',[_vm._v("Edit Specific Entry")]),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"date"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}})]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"},[_c('vk-button',{on:{"click":_vm.editSpecificEntry}},[_vm._v("Submit")])],1)],1)],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vk-modal',{attrs:{"show":_vm.show},on:{"update:show":function($event){_vm.show=$event}}},[_c('vk-modal-close',{on:{"click":_vm.hidePopup}}),_vm._v(" "),_c('vk-modal-title',[_vm._v("Edit Specific Entry")]),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"date"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}})]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"},[_c('div',{staticClass:"uk-text-right"},[_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.editSpecificEntry}},[_vm._v("Submit")])],1)])],1)],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -616,103 +616,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })()}
 });
 
-;require.register("src/components/admin/DownloadBackup.vue", function(exports, require, module) {
-;(function(){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _axios = require("axios");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  methods: {
-    generateBackup: function generateBackup() {
-      _axios2.default.get("/api/admin/generate-backup?token=" + this.$store.getters.token).then(function (response) {
-        location.href = response.data.file;
-      });
-    }
-  }
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{on:{"click":function($event){return _vm.generateBackup()}}},[_vm._v("Backup")])])}
-__vue__options__.staticRenderFns = []
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1dab336c", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-1dab336c", __vue__options__)
-  }
-})()}
-});
-
-;require.register("src/components/admin/EditSpecificEntry.vue", function(exports, require, module) {
-;(function(){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _axios = require("axios");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _moment = require("moment");
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  data: function data() {
-    return {
-      dateEntry: (0, _moment2.default)().format("yyyy-MM-DD"),
-      showDatePicker: false
-    };
-  },
-  methods: {
-    toggleShowDatePicker: function toggleShowDatePicker() {
-      this.showDatePicker = !this.showDatePicker;
-    },
-    editSpecificEntry: function editSpecificEntry() {
-      var _this = this;
-
-      _axios2.default.get("/api/create?token=" + this.$store.getters.token + '&entry=' + this.dateEntry).then(function (response) {
-        _this.$router.push("/edit?entry=" + response.data.entryId);
-      });
-    }
-  }
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(!_vm.showDatePicker)?_c('button',{on:{"click":function($event){return _vm.toggleShowDatePicker()}}},[_vm._v("Edit Specific Entry")]):_vm._e(),_vm._v(" "),(_vm.showDatePicker)?_c('div',{attrs:{"id":"date-picker"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"text"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}}),_vm._v(" "),_c('button',{on:{"click":function($event){return _vm.toggleShowDatePicker()}}},[_vm._v("X")]),_vm._v(" "),_c('button',{on:{"click":function($event){return _vm.editSpecificEntry()}}},[_vm._v("Submit")])]):_vm._e()])}
-__vue__options__.staticRenderFns = []
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-876f1338", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-876f1338", __vue__options__)
-  }
-})()}
-});
-
 ;require.register("src/components/admin/Editor/EditEntry.vue", function(exports, require, module) {
 ;(function(){
 "use strict";
@@ -753,7 +656,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticStyle:{"margin":"1rem 0"}},[_c('router-link',{staticClass:"btn",attrs:{"to":'/'}},[_vm._v("Return")])],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown},on:{"change":_vm.updateContent}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('button',{on:{"click":_vm.save}},[_vm._v("Save")])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":'/'}},[_c('vk-icons-arrow-left')],1)],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",domProps:{"value":_vm.markdown},on:{"change":_vm.updateContent}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('vk-button',{staticClass:"btn btn-primary btn-rounded",on:{"click":_vm.save}},[_c('vk-icons-push')],1)],1)])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -833,9 +736,54 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _entries = require("babel-runtime/core-js/object/entries");
+
+var _entries2 = _interopRequireDefault(_entries);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   props: ["img", "myId"],
+  data: function data() {
+    return {
+      isShowing: true
+    };
+  },
   methods: {
+    deleteImage: function deleteImage() {
+      var _this = this;
+
+      if (!confirm('Are you sure you want to delete this image?')) {
+        return;
+      }
+      var data = {
+        image: this.img,
+        token: this.$store.getters.token
+      };
+      var query = (0, _entries2.default)(data).map(function (_ref) {
+        var _ref2 = (0, _slicedToArray3.default)(_ref, 2),
+            key = _ref2[0],
+            val = _ref2[1];
+
+        return key + "=" + val;
+      }).join("&");
+
+      this.$store.commit('LOADING', true);
+
+      _axios2.default.delete('/api/admin/entry/image/delete?' + query).then(function (response) {
+        _this.isShowing = false;
+        _this.$store.commit('LOADING', false);
+      });
+    },
     copyUrl: function copyUrl() {
       var imgUrl = document.querySelector(".image#img-" + this.myId + " .url");
       var range = document.createRange();
@@ -852,7 +800,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"image"},[_c('div',{staticClass:"img-controls"}),_vm._v(" "),_c('img',{attrs:{"src":_vm.img,"alt":"Image"},on:{"click":_vm.copyUrl}}),_vm._v(" "),_c('div',{staticClass:"url"},[_vm._v("![uploaded image]("+_vm._s(_vm.img)+")")])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.isShowing)?_c('div',{staticClass:"image"},[_c('div',{staticClass:"img-controls"},[_c('vk-button',{staticClass:"btn btn-rounded",on:{"click":_vm.copyUrl}},[_c('vk-icons-copy')],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-rounded btn-danger",on:{"click":_vm.deleteImage}},[_c('vk-icons-trash')],1)],1),_vm._v(" "),_c('img',{attrs:{"src":_vm.img,"alt":"Image"}}),_vm._v(" "),_c('div',{staticClass:"url"},[_vm._v("![uploaded image]("+_vm._s(_vm.img)+")")])]):_vm._e()}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-365b64d4"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -964,7 +912,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('button',{on:{"click":_vm.getGallery}},[_vm._v("reload")])])]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('MyImage',{key:index,staticClass:"image",attrs:{"id":'img-' + index,"myId":index,"img":img}})}),1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('vk-button',{staticClass:"btn btn-primary btn-rounded",on:{"click":_vm.getGallery}},[_c('vk-icons-pull')],1)],1)]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('MyImage',{key:index,staticClass:"image",attrs:{"id":'img-' + index,"myId":index,"img":img}})}),1)])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

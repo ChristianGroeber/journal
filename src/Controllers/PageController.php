@@ -23,6 +23,9 @@ class PageController extends AbstractController
                     'days' => [],
                 ];
             }
+            if (!$page['raw_content']) {
+                continue;
+            }
             $page['content'] = base64_encode($this->nacho->renderPage($page));
             array_push($months[$month]['days'], $page);
         }

@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
-    <div style="margin: 1rem 0">
-      <router-link class="btn" :to="'/'">Return</router-link>
+    <div>
+      <router-link class="btn btn-primary" :to="'/'"><vk-icons-arrow-left></vk-icons-arrow-left></router-link>
     </div>
     <div class="container">
       <textarea
@@ -11,7 +11,7 @@
         :value="markdown"
       ></textarea>
       <div class="actions">
-        <button @click="save">Save</button>
+        <vk-button class="btn btn-primary btn-rounded" @click="save"><vk-icons-push></vk-icons-push></vk-button>
       </div>
     </div>
   </div>

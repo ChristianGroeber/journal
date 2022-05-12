@@ -7,7 +7,9 @@
         <input type="date" v-model="dateEntry" />
       </div>
       <div slot="footer">
-        <vk-button @click="editSpecificEntry">Submit</vk-button>
+        <div class="uk-text-right">
+          <vk-button class="btn btn-primary" @click="editSpecificEntry">Submit</vk-button>
+        </div>
       </div>
     </vk-modal>
   </div>
@@ -41,9 +43,9 @@ export default {
       axios
         .get(
           "/api/create?token=" +
-            this.$store.getters.token +
-            "&entry=" +
-            this.dateEntry
+          this.$store.getters.token +
+          "&entry=" +
+          this.dateEntry
         )
         .then((response) => {
           this.$store.commit("EDIT_SPECIFIC_POPUP", false);

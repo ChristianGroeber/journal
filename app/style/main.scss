@@ -26,29 +26,39 @@ body {
     background-color: rgb(243, 243, 243);
 }
 
-button,
-input[type="file"]::file-selector-button,
 .btn {
-    color: $primary;
-    background-color: transparent;
-    border: 2px solid $primary;
+    background-color: white;
     border-radius: 2px;
     padding: 0.25rem 0.5rem;
     text-decoration: none;
-    cursor: default;
+    border-width: 2px;
+    border-radius: 2px;
+}
+
+.btn-primary {
+    color: $primary;
+    border-color: $primary;
 
     &:hover {
         background-color: $primary;
         color: white;
+        border-color: $primary;
     }
 }
 
-.btn-delete {
+.btn-rounded {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+}
+
+.btn-danger {
     color: $danger;
     border-color: $danger;
 
     &:hover {
         background-color: $danger;
+        border-color: $danger;
         color: white;
     }
 }

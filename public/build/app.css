@@ -7345,30 +7345,38 @@ body {
   background-color: rgb(243, 243, 243);
 }
 
-button,
-input[type=file]::file-selector-button,
 .btn {
-  color: #00bb2f;
-  background-color: transparent;
-  border: 2px solid #00bb2f;
+  background-color: white;
   border-radius: 2px;
   padding: 0.25rem 0.5rem;
   text-decoration: none;
-  cursor: default;
-}
-button:hover,
-input[type=file]::file-selector-button:hover,
-.btn:hover {
-  background-color: #00bb2f;
-  color: white;
+  border-width: 2px;
+  border-radius: 2px;
 }
 
-.btn-delete {
+.btn-primary {
+  color: #00bb2f;
+  border-color: #00bb2f;
+}
+.btn-primary:hover {
+  background-color: #00bb2f;
+  color: white;
+  border-color: #00bb2f;
+}
+
+.btn-rounded {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+}
+
+.btn-danger {
   color: red;
   border-color: red;
 }
-.btn-delete:hover {
+.btn-danger:hover {
   background-color: red;
+  border-color: red;
   color: white;
 }
 

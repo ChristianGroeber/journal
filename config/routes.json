@@ -96,6 +96,12 @@
         "function": "loadImagesForEntry"
     },
     {
+        "route": "/api/admin/entry/image/delete",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\ImageController",
+        "function": "deleteImage"
+    },
+    {
         "route": "/admin/phpinfo",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",

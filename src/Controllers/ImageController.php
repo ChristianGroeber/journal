@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\ImageHelper;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
+use App\Models\Image;
 
 class ImageController extends AbstractController
 {
@@ -63,6 +64,29 @@ class ImageController extends AbstractController
         $images = array_reverse($images);
 
         return $this->json(["images" => $images]);
+    }
+
+    public function deleteImage()
+    {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
+        $img = $_GET['image'];
+
+        $splitImg = explode('/', $img);
+
+        $imgObj = new Image($splitImg[5], $splitImg[2], $splitImg[3]);
+        $imageHelper = new ImageHelper();
+        $imageHelper->deleteImage($imgObj);
+
+        return $this->json();
     }
 
     public function loadImages($request)
