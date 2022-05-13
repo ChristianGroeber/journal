@@ -1,9 +1,8 @@
 <template>
   <div>
-    <!-- <router-link  to="/login"><button>Login</button></router-link>  -->
     <Loading v-if="isLoading"></Loading>
     <div class="header">
-      <h1>2022</h1>
+      <h1 @click="reload" class="reloadable">{{ pageTitle }}</h1>
     </div>
     <router-view></router-view>
     <specific-entry-popup></specific-entry-popup>
@@ -21,9 +20,12 @@ export default {
     SpecificEntryPopup,
   },
   computed: {
-    isLoading: function() {
+    isLoading: function () {
       return this.$store.getters.loading;
-    }
+    },
+    pageTitle() {
+      return this.$store.getters.pageTitle;
+    },
   },
   created() {
     this.$store.dispatch("getToken");
@@ -48,6 +50,11 @@ export default {
         return Promise.reject(error);
       }
     );
+  },
+  methods: {
+    reload() {
+      this.$store.dispatch("getEntries");
+    },
   },
 };
 </script>

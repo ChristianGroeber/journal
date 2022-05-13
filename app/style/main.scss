@@ -1,8 +1,9 @@
 @import 'variables';
 @import 'fonts';
 @import 'responsive';
+@import 'font-awesome';
 
-@import '../../node_modules/@vuikit/theme/dist/vuikit.min';
+@import '../../node_modules/@vuikit/theme/dist/vuikit';
 
 
 html,
@@ -28,11 +29,24 @@ body {
 
 .btn {
     background-color: white;
-    border-radius: 2px;
     padding: 0.25rem 0.5rem;
     text-decoration: none;
     border-width: 2px;
     border-radius: 2px;
+    border-style: solid;
+    font-size: 14px;
+    line-height: 38px;
+    text-align: center;
+    text-transform: uppercase;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn-icon {
+    height: 3rem;
+    width: 3rem;
 }
 
 .btn-primary {
@@ -48,8 +62,6 @@ body {
 
 .btn-rounded {
     border-radius: 50%;
-    height: 3rem;
-    width: 3rem;
 }
 
 .btn-danger {
@@ -86,8 +98,8 @@ a {
     }
 }
 
-.month > div > h2.month {
-    margin: 1.5rem 5px;
+.month>div>h2.month {
+    margin: 0 5px 1.5rem 5px;
 }
 
 .main-content {
@@ -108,7 +120,9 @@ a {
 
 .article-body {
     margin: 5px;
+
     img {
+        max-width: unset;
         width: 100vw;
         margin-left: -5px;
     }

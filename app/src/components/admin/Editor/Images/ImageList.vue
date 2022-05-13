@@ -3,7 +3,7 @@
     <div class="d-flex gap-1 ai_center">
       <h3>Images</h3>
       <div>
-        <vk-button class="btn btn-primary btn-rounded" @click="getGallery"><vk-icons-pull></vk-icons-pull></vk-button>
+        <vk-button class="btn btn-primary btn-icon btn-rounded" @click="getGallery"><fa icon="download"></fa></vk-button>
       </div>
     </div>
     <div class="images-list d-flex">

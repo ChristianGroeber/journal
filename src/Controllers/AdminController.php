@@ -7,6 +7,7 @@ use App\Helpers\ImageHelper;
 use App\Helpers\NavRenderer;
 use App\Helpers\TokenHelper;
 use App\Helpers\BackupHelper;
+use App\Helpers\CacheHelper;
 use Nacho\Controllers\AbstractController;
 use Nacho\Nacho;
 
@@ -46,6 +47,8 @@ class AdminController extends AbstractController
 
         if (strtolower($request->requestMethod) === 'post') {
             file_put_contents($page['file'], $this->nacho->createMetaString($page['meta']) . base64_decode($_REQUEST['content']));
+            $cacheHelper = new CacheHelper($this->nacho);
+            $cacheHelper->build();
 
             return $this->json(['message' => 'successfully saved content', 'file' => $page['file']]);
         }
@@ -62,11 +65,20 @@ class AdminController extends AbstractController
 
     public function delete($request)
     {
-        if (!key_exists('entryId', $_GET)) {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+        if (!key_exists('entry', $_GET)) {
             return $this->json($_GET, 400);
         }
 
-        $file = $_SERVER['DOCUMENT_ROOT'] . '/content' . $_GET['entryId'] . '.md';
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/content' . $_GET['entry'] . '.md';
 
         if (is_file($file)) {
             unlink($file);
@@ -75,6 +87,22 @@ class AdminController extends AbstractController
         }
 
         return $this->json(['message' => "successfully deleted ${file}"]);
+    }
+
+    public function buildCache()
+    {
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $_REQUEST['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+        $cacheHelper = new CacheHelper($this->nacho);
+        $file = $cacheHelper->build();
+        return $this->json(['file' => $file]);
     }
 
     public function uploadOriginal($request)
@@ -151,21 +179,6 @@ class AdminController extends AbstractController
         $zip = $backupHelper->generateBackup();
 
         return $this->json(['file' => $zip]);
-    }
-
-    public function _server()
-    {
-        if (!key_exists('token', $_REQUEST)) {
-            return $this->json(['message' => 'You need to be authenticated'], 401);
-        }
-        $tokenHelper = new TokenHelper();
-        $token = $_REQUEST['token'];
-        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
-        if (!$user) {
-            return $this->json(['message' => 'The provided Token is invalid'], 401);
-        }
-
-        return $this->json($_SERVER);
     }
 
     private function getCurrentFile()

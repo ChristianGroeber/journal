@@ -42,7 +42,7 @@ export default {
     editSpecificEntry() {
       axios
         .get(
-          "/api/create?token=" +
+          "/api/admin/entry/create?token=" +
           this.$store.getters.token +
           "&entry=" +
           this.dateEntry

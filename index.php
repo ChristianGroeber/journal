@@ -7,9 +7,6 @@ use Nacho\Security\JsonUserHandler;
 use Nacho\Helpers\Route;
 use Nacho\Nacho;
 
-session_start();
-session_regenerate_id();
-
 define('VIEWS_DIR', $_SERVER['DOCUMENT_ROOT'] . '/src/Views');
 define('FILE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/users.json');
 define('MONTHS', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
@@ -62,11 +59,6 @@ function getContent($route)
     $request = new Request($route);
     $userHandler = new JsonUserHandler();
     $nacho = new Nacho($request, $userHandler);
-    if (!$nacho->isGranted($route->getMinRole())) {
-        header('Http/1.1 302');
-        header('Location: /login?required_page=' . $_SERVER['REDIRECT_URL']);
-        die();
-    }
     $controllerDir = $route->getController();
     $cnt = new $controllerDir($nacho);
     $function = $route->getFunction();
@@ -78,10 +70,6 @@ function getContent($route)
     return $cnt->$function($request);
 }
 
-// if (is_file($path)) {
-//     echo file_get_contents($path);
-//     return;
-// }
 if (!startsWith($path, '/api')) {
     echo file_get_contents('public/index.html');
     return '';

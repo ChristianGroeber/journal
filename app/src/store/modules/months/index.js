@@ -1,4 +1,7 @@
 import axios from 'axios'
+import {
+  queryFormatter
+} from '../../../helpers/queryFormatter'
 
 const state = {
   entries: [],
@@ -39,13 +42,10 @@ const actions = {
       content: btoa(getters.editingEntry(state).raw_content),
       entry: getters.editingEntry(state).id,
     }
-    const queryString = Object.keys(data)
-      .map((key) => key + '=' + data[key])
-      .join('&')
     return axios({
       method: 'post',
-      url: '/api/edit',
-      data: queryString,
+      url: '/api/admin/entry/edit',
+      data: queryFormatter(data),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -55,7 +55,7 @@ const actions = {
     commit
   }, payload) {
     return axios
-      .get('/api/edit?entry=' + payload.entry + '&token=' + payload.token)
+      .get('/api/admin/entry/edit?entry=' + payload.entry + '&token=' + payload.token)
       .then((response) => {
         commit('UPDATE_EDITING_ENTRY', response.data)
       })
@@ -63,9 +63,11 @@ const actions = {
   deleteEntry({
     commit
   }, payload) {
-    return axios.delete('/api/admin/delete?entryId=' + payload)
+    return axios.delete('/api/admin/entry/delete?' + queryFormatter(payload))
   },
-  loadImagesForEntry({commit}, payload) {
+  loadImagesForEntry({
+    commit
+  }, payload) {
     return axios.get('/api/admin/entry/images/load?entry=' + payload.entry).then((response) => {
       commit('UPDATE_EDITING_GALLERY', response.data.images);
     })

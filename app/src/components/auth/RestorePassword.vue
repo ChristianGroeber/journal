@@ -30,6 +30,9 @@ export default {
       password1: "",
       password2: "",
     };
+  },  
+  created() {
+    this.$store.dispatch('toolBar', {pateTitle: 'Restore password · 2022'});
   },
   methods: {
     submit() {

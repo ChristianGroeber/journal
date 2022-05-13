@@ -2,10 +2,10 @@
   <div v-if="isShowing" class="image">
     <div class="img-controls">
       <vk-button class="btn btn-rounded" @click="copyUrl">
-        <vk-icons-copy></vk-icons-copy>
+        <fa icon="clipboard"></fa>
       </vk-button>
       <vk-button class="btn btn-rounded btn-danger" @click="deleteImage">
-        <vk-icons-trash></vk-icons-trash>
+        <fa icon="trash"></fa>
       </vk-button>
     </div>
     <img :src="img" alt="Image" />
@@ -35,12 +35,9 @@ export default {
         .map(([key, val]) => `${key}=${val}`)
         .join("&");
 
-      this.$store.commit('LOADING', true);
-
       axios.delete('/api/admin/entry/image/delete?' + query)
         .then((response) => {
           this.isShowing = false;
-          this.$store.commit('LOADING', false);
         });
     },
     copyUrl() {

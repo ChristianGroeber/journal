@@ -16,3 +16,4 @@ images/December/*
 yarn-error.log
 .secret
 users.json
+cache/*

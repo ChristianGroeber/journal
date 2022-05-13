@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App\Controllers;
 
+use App\Helpers\CacheHelper;
 use Nacho\Controllers\AbstractController;
 
 /**
@@ -12,38 +12,13 @@ class PageController extends AbstractController
 {
     public function index()
     {
-        $pages = $this->nacho->getPages();
-        usort($pages, [$this, 'sortByDate']);
-        $months = [];
-        foreach ($pages as $page) {
-            $month = explode('/', $page['id'])[1];
-            if (!key_exists($month, $months)) {
-                $months[$month] = [
-                    'name' => $month,
-                    'days' => [],
-                ];
-            }
-            if (!$page['raw_content']) {
-                continue;
-            }
-            $page['content'] = base64_encode($this->nacho->renderPage($page));
-            array_push($months[$month]['days'], $page);
+        $cacheFile = $_SERVER['DOCUMENT_ROOT'] . '/cache/content.json';
+        if (!is_file($cacheFile)) {
+            $cacheHelper = new CacheHelper($this->nacho);
+            $cacheHelper->build();
         }
+        $content = json_decode(file_get_contents($cacheFile), true)['content'];
 
-        return $this->json($months);
-    }
-
-    public function sortByDate($a, $b)
-    {
-        if (is_int(array_search($a['meta']['title'], MONTHS))) {
-            return -1;
-        }
-        if (is_int(array_search($b['meta']['title'], MONTHS))) {
-            return 1;
-        }
-        $t1 = strtotime($a['meta']['title']);
-        $t2 = strtotime($b['meta']['title']);
-
-        return $t2 - $t1;
+        return $this->json($content);
     }
 }

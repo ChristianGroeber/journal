@@ -10,18 +10,28 @@
         "function": "index"
     },
     {
-        "route": "/api/edit",
+        "route": "/api/admin/build-cache",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "buildCache"
+    },
+    {
+        "route": "/api/admin/entry/edit",
         "controller": "App\\Controllers\\AdminController",
         "function": "edit"
     },
     {
-        "route": "/api/create",
+        "route": "/api/admin/entry/edit/current",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "editCurrent"
+    },
+    {
+        "route": "/api/admin/entry/create",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",
         "function": "createSpecific"
     },
     {
-        "route": "/api/admin/delete",
+        "route": "/api/admin/entry/delete",
         "min_role": "Editor",
         "controller": "App\\Controllers\\AdminController",
         "function": "delete"
@@ -37,59 +47,6 @@
         "function": "uploadImages"
     },
     {
-        "route": "/admin",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "index"
-    },
-    {
-        "route": "/admin/add",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "add"
-    },
-    {
-        "route": "/admin/edit/home/upload-original",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "uploadOriginal"
-    },
-    {
-        "route": "/api/edit/current",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "editCurrent"
-    },
-    {
-        "route": "/admin/edit/current/publish-status",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "publishStatus"
-    },
-    {
-        "route": "/admin/edit/current/append-image",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "appendImage"
-    },
-    {
-        "route": "/admin/test-exif",
-        "min_role": "Guest",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "testExif"
-    },
-    {
-        "route": "/admin/image/upload",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "uploadImage"
-    },
-    {
-        "route": "/admin/image/load",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "loadImages"
-    },
-    {
         "route": "/api/admin/entry/images/load",
         "min_role": "Editor",
         "controller": "App\\Controllers\\ImageController",
@@ -100,12 +57,6 @@
         "min_role": "Editor",
         "controller": "App\\Controllers\\ImageController",
         "function": "deleteImage"
-    },
-    {
-        "route": "/admin/phpinfo",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "showInfo"
     },
     {
         "route": "/api/admin/_server",
@@ -147,16 +98,5 @@
         "route": "/api/validate-token",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "validateToken"
-    },
-    {
-        "route": "/logout",
-        "controller": "App\\Controllers\\AuthenticationController",
-        "function": "logout"
-    },
-    {
-        "route": "/search",
-        "min_role": "Editor",
-        "controller": "App\\Controllers\\AdminController",
-        "function": "search"
     }
 ]

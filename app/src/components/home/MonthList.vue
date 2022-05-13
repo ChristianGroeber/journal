@@ -9,13 +9,21 @@
 
 <script>
 import Month from "./Month";
-import AdminBar from "./admin/AdminBar";
+import AdminBar from "../admin/AdminBar";
 
 export default {
   name: "MonthList",
   components: {
     Month,
     AdminBar,
+  },
+  data: function() {
+    return {
+      title: '2022'
+    }
+  },
+  created() {
+    this.$store.dispatch('setTitle', this.title);
   },
   computed: {
     months() {

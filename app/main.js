@@ -6,15 +6,16 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Vuikit from 'vuikit';
 import VuikitIcons from '@vuikit/icons';
-// import '@vuikit/theme';
-// import Editor from "v-markdown-editor";
+import VueMeta from 'vue-meta';
+import fa from './src/components/fa';
+
+Vue.component('fa', fa)
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 Vue.use(Vuikit)
 Vue.use(VuikitIcons)
-
-// Vue.use(Editor);
+Vue.use(VueMeta)
 
 new Vue({
   store,

@@ -1,17 +1,18 @@
 <template>
   <div class="main-content">
     <div>
-      <router-link class="btn" to="/auth">Return</router-link>
+      <vk-button class="btn btn-primary" @click="auth">Return</vk-button>
     </div>
-    <h1>LOGIN</h1>
     <form @submit.prevent="login">
-      <div class="form-row">
-        <input v-model="username" placeholder="username" />
-      </div>
-      <div class="form-row">
-        <input v-model="password" placeholder="password" type="password" />
-      </div>
-      <button type="submit">Login</button>
+      <fieldset class="uk-fieldset">
+        <div class="form-row">
+          <input class="uk-input" @keyup.enter="login" v-model="username" placeholder="username" />
+        </div>
+        <div class="form-row">
+          <input class="uk-input" @keyup.enter="login" v-model="password" placeholder="password" type="password" />
+        </div>
+      </fieldset>
+      <vk-button class="btn btn-primary" @click="login">Login</vk-button>
     </form>
   </div>
 </template>
@@ -21,7 +22,11 @@ export default {
     return {
       username: "",
       password: "",
+      title: "Login",
     };
+  },
+  created() {
+    this.$store.dispatch('setTitle', this.title);
   },
   methods: {
     login() {
@@ -34,6 +39,9 @@ export default {
           this.$router.push("/");
         });
     },
+    auth() {
+      this.$router.push("/auth");
+    }
   },
 };
 </script>

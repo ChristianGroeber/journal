@@ -3,7 +3,9 @@
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
       <div>
-        <vk-button><vk-icons-more-vertical></vk-icons-more-vertical></vk-button>
+        <vk-button class="btn btn-icon btn-rounded">
+          <fa icon="ellipsis-v"></fa>
+        </vk-button>
         <vk-dropdown>
           <vk-nav-dropdown>
             <vk-nav-item @click="deleteEntry" title="Delete">Delete</vk-nav-item>
@@ -29,7 +31,7 @@ export default {
       return this.day.meta.title;
     },
     content() {
-      return marked.parse(this.day.raw_content);
+      return this.day.content;
     },
     canEdit() {
       return this.$store.getters.token !== null;
@@ -46,7 +48,11 @@ export default {
     deleteEntry() {
       const doDelete = confirm("Are you sure you want to delete this entry");
       if (doDelete) {
-        this.$store.dispatch("deleteEntry", this.day.id).then((response) => {
+        const data = {
+          entry: this.day.id,
+          token: this.$store.getters.token,
+        }
+        this.$store.dispatch("deleteEntry", data).then((response) => {
           this.$store.dispatch("getEntries");
         });
       }

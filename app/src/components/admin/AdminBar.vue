@@ -39,6 +39,10 @@ export default {
           label: "Auth",
           page: "/auth",
         },
+        {
+          label: "Rebuild Cache",
+          func: this.rebuildCache,
+        },
       ],
     };
   },
@@ -65,11 +69,14 @@ export default {
     },
     editCurrent() {
       axios
-        .get("/api/edit/current?token=" + this.$store.getters.token)
+        .get("/api/admin/entry/edit/current?token=" + this.$store.getters.token)
         .then((response) => {
           this.$router.push("/edit?entry=" + response.data.entryId);
         });
     },
+    rebuildCache() {
+      this.$store.dispatch('buildCache', this.$store.getters.token);
+    }
   },
 };
 </script>

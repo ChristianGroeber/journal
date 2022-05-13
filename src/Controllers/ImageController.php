@@ -49,16 +49,12 @@ class ImageController extends AbstractController
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images';
         $entry = $_REQUEST['entry'];
 
-        if (!is_dir("${imagesDir}${entry}")) {
-            return $this->json(['message' => 'There are no images'], 404);
-        }
-
         $images = [];
-        foreach (scandir("${imagesDir}${entry}/500") as $img) {
-            if (is_dir("${imagesDir}${entry}/500/${img}")) {
+        foreach (scandir("${imagesDir}${entry}/1080") as $img) {
+            if (is_dir("${imagesDir}${entry}/1080/${img}")) {
                 continue;
             }
-            array_push($images, "/images${entry}/500/${img}");
+            array_push($images, "/images${entry}/1080/${img}");
         }
 
         $images = array_reverse($images);

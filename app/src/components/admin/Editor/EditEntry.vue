@@ -1,17 +1,16 @@
 <template>
   <div class="main-content">
     <div>
-      <router-link class="btn btn-primary" :to="'/'"><vk-icons-arrow-left></vk-icons-arrow-left></router-link>
+      <vk-button class="btn btn-icon btn-primary" @click="checkGoHome">
+        <fa icon="arrow-left"></fa>
+      </vk-button>
     </div>
     <div class="container">
-      <textarea
-        @change="updateContent"
-        ref="editEntry"
-        class="edit-entry"
-        :value="markdown"
-      ></textarea>
+      <textarea @change="updateContent" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
       <div class="actions">
-        <vk-button class="btn btn-primary btn-rounded" @click="save"><vk-icons-push></vk-icons-push></vk-button>
+        <vk-button class="btn btn-icon btn-primary" @click="save">
+          <fa icon="floppy-o"></fa>
+        </vk-button>
       </div>
     </div>
   </div>
@@ -20,6 +19,11 @@
 <script>
 export default {
   props: ["entry"],
+  data: function () {
+    return {
+      unsavedChanges: false,
+    }
+  },
   computed: {
     markdown() {
       return this.$store.getters.editingEntry.raw_content;
@@ -27,6 +31,7 @@ export default {
   },
   methods: {
     updateContent() {
+      this.unsavedChanges = true;
       const newContent = this.$refs.editEntry.value;
       const entry = this.$store.getters.editingEntry;
       entry.raw_content = newContent;
@@ -39,10 +44,22 @@ export default {
       });
     },
     save() {
-      this.$store.dispatch("saveEntry", this.$store.getters.token).then(() => {
-        this.$store.dispatch("getEntries");
-      });
+      this.unsavedChanges = false;
+      return this.$store.dispatch("saveEntry", this.$store.getters.token);
     },
+    checkGoHome() {
+      if (this.unsavedChanges && confirm('You\'ve go unsaved changes. Save first?')) {
+        this.save().then(() => {
+          this.doGoHome();
+        });
+      } else {
+        this.doGoHome();
+      }
+    },
+    doGoHome() {
+      this.$store.dispatch("getEntries");
+      this.$router.push('/');
+    }
   },
 };
 </script>

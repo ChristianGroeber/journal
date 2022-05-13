@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import MonthList from "./components/MonthList";
+import MonthList from "./components/home/MonthList";
 import Login from "./components/auth/Login";
 import RestorePassword from "./components/auth/RestorePassword";
 import RequestNewPassword from "./components/auth/RequestNewPassword";

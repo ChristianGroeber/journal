@@ -1,4 +1,7 @@
 import axios from 'axios';
+import {
+    queryFormatter
+} from '../../../helpers/queryFormatter';
 
 const state = {
     token: null,
@@ -13,11 +16,10 @@ const mutations = {
 
 const actions = {
     register(payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/auth/register',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -26,11 +28,10 @@ const actions = {
     changePassword({
         commit
     }, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/auth/change-password',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -38,12 +39,13 @@ const actions = {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    requestNewPassword({commit}, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
+    requestNewPassword({
+        commit
+    }, payload) {
         return axios({
             method: 'POST',
             url: '/api/auth/request-new-password',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -52,11 +54,10 @@ const actions = {
     restorePassword({
         commit
     }, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/auth/restore-password',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -67,11 +68,10 @@ const actions = {
     generateNewToken({
         commit
     }, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/auth/generate-new-token',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -82,11 +82,10 @@ const actions = {
     register({
         commit
     }, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/auth/register',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -97,11 +96,10 @@ const actions = {
     login({
         commit
     }, payload) {
-        const queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
         return axios({
             method: 'POST',
             url: '/api/login',
-            data: queryString,
+            data: queryFormatter(payload),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
