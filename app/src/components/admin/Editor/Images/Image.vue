@@ -1,10 +1,10 @@
 <template>
   <div v-if="isShowing" class="image">
     <div class="img-controls">
-      <vk-button class="btn btn-rounded" @click="copyUrl">
+      <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
         <fa icon="clipboard"></fa>
       </vk-button>
-      <vk-button class="btn btn-rounded btn-danger" @click="deleteImage">
+      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteImage">
         <fa icon="trash"></fa>
       </vk-button>
     </div>
