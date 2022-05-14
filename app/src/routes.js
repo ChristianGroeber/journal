@@ -13,6 +13,7 @@ import GenerateNewToken from "./components/auth/GenerateNewToken";
 import Auth from "./components/auth/Auth";
 import Editor from "./components/admin/Editor/Editor";
 import NotFound from './components/error/NotFound';
+import AdminTools from './components/admin/Tools/index';
 
 const routes = [
     {
@@ -60,6 +61,11 @@ const routes = [
         path: '/auth/generate-new-token',
         name: "Generate New Token",
         component: GenerateNewToken,
+    },
+    {
+        path: "/admin/tools",
+        name: "More Tools",
+        component: AdminTools,
     },
     {
         path: "*",

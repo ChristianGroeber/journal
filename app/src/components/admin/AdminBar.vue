@@ -28,10 +28,6 @@ export default {
           func: this.editCurrent,
         },
         {
-          label: "Backup",
-          func: this.generateBackup,
-        },
-        {
           label: "Edit Specific Entry",
           func: this.toggleEditSpecificPopup,
         },
@@ -40,8 +36,8 @@ export default {
           page: "/auth",
         },
         {
-          label: "Rebuild Cache",
-          func: this.rebuildCache,
+          label: "More...",
+          page: "/admin/tools",
         },
       ],
     };
@@ -60,13 +56,6 @@ export default {
     toggleEditSpecificPopup() {
       this.$store.commit('EDIT_SPECIFIC_POPUP', true);
     },
-    generateBackup: function () {
-      axios
-        .get("/api/admin/generate-backup?token=" + this.$store.getters.token)
-        .then((response) => {
-          location.href = response.data.file;
-        });
-    },
     editCurrent() {
       axios
         .get("/api/admin/entry/edit/current?token=" + this.$store.getters.token)
@@ -74,9 +63,6 @@ export default {
           this.$router.push("/edit?entry=" + response.data.entryId);
         });
     },
-    rebuildCache() {
-      this.$store.dispatch('buildCache', this.$store.getters.token);
-    }
   },
 };
 </script>
