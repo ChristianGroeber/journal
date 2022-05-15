@@ -2,13 +2,20 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use App\Helpers\CustomUserHelper;
 use Nacho\Helpers\Request;
 use Nacho\Security\JsonUserHandler;
 use Nacho\Helpers\Route;
 use Nacho\Nacho;
 
 define('VIEWS_DIR', $_SERVER['DOCUMENT_ROOT'] . '/src/Views');
-define('FILE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/users.json');
+if (is_file($_SERVER['DOCUMENT_ROOT'] . '/users.json')) {
+    define('FILE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/users.json');
+} elseif (getenv('USER_FILE')) {
+    define('FILE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/' . getenv('USER_FILE'));
+} else {
+    throw new \Exception('I don\'t know where the users are stored');
+}
 define('MONTHS', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
 
 if (isset($_SERVER['REDIRECT_URL'])) {
@@ -57,7 +64,7 @@ function getRoute($path)
 function getContent($route)
 {
     $request = new Request($route);
-    $userHandler = new JsonUserHandler();
+    $userHandler = new CustomUserHelper();
     $nacho = new Nacho($request, $userHandler);
     $controllerDir = $route->getController();
     $cnt = new $controllerDir($nacho);

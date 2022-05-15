@@ -10,6 +10,7 @@ import RequestNewPassword from "./components/auth/RequestNewPassword";
 import ChangePassword from "./components/auth/ChangePassword";
 import Register from "./components/auth/Register";
 import GenerateNewToken from "./components/auth/GenerateNewToken";
+import CreateAdmin from "./components/auth/CreateAdmin";
 import Auth from "./components/auth/Auth";
 import Editor from "./components/admin/Editor/Editor";
 import NotFound from './components/error/NotFound';
@@ -61,6 +62,11 @@ const routes = [
         path: '/auth/generate-new-token',
         name: "Generate New Token",
         component: GenerateNewToken,
+    },
+    {
+        path: '/auth/create-admin',
+        name: "Create Admin User",
+        component: CreateAdmin,
     },
     {
         path: "/admin/tools",

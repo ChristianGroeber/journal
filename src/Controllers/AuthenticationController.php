@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\CustomUserHelper;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
 
@@ -11,9 +12,10 @@ class AuthenticationController extends AbstractController
     {
         $tokenHelper = new TokenHelper();
         $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
         if (strtolower($request->requestMethod) === 'post') {
             $user = $this->nacho->userHandler->findUser($username);
-            if ($user && password_verify($_REQUEST['password'], $user['password'])) {
+            if ($this->nacho->userHandler->passwordVerify($username, $password)) {
                 $token = $tokenHelper->getToken($username);
                 return $this->json(['token' => $token]);
             } else {
@@ -123,5 +125,36 @@ class AuthenticationController extends AbstractController
         $newToken = $tokenHelper->generateToken($user['username']);
         
         return $this->json(['token' => $newToken]);
+    }
+
+    public function adminCreated()
+    {
+        return $this->json(['adminCreated' => is_file(FILE_PATH)]);
+    }
+
+    public function createAdmin()
+    {
+        if (is_file(FILE_PATH)) {
+            return $this->json(['message' => 'The users file already exists'], 400);
+        }
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+
+        $user = [
+            "username" => $username,
+            "role" => "Editor",
+            "password" => "",
+        ];
+        $guest = [
+            "username" => "Guest",
+            "role" => "Guest",
+            "password" => "",
+        ];
+
+        file_put_contents(FILE_PATH, json_encode([$user, $guest]));
+
+        $this->nacho->userHandler->setPassword($username, $password);
+
+        return $this->json(['adminCreated' => true]);
     }
 }

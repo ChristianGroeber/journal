@@ -12,6 +12,7 @@
 <script>
 import Loading from './src/components/Loading';
 import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup';
+import axios from 'axios';
 
 export default {
   name: "App",
@@ -50,6 +51,12 @@ export default {
         return Promise.reject(error);
       }
     );
+    axios.get('/api/auth/admin-created').then((response) => {
+      const adminCreated = response.data.adminCreated;
+      if (!adminCreated) {
+        this.$router.push('/auth/create-admin');
+      }
+    })
   },
   methods: {
     reload() {

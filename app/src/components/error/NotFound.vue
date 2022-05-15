@@ -1,9 +1,9 @@
 <template>
-  <div class="mt-3">
+  <div class="main-content">
     <div class="container h-100">
       <div class="row align-items-center h-100">
         <div class="col-8 mx-auto">
-          <div class="jumbotron h-100">
+          <div class="jumbotron -100">
             <h3>Sorry, this page could not be found :(</h3>
             <hr />
             <p class="lead">
