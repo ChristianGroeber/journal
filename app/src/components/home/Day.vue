@@ -2,7 +2,7 @@
   <div class="article">
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
-      <div>
+      <div v-if="canEdit">
         <vk-button class="btn btn-icon btn-rounded">
           <fa icon="ellipsis-v"></fa>
         </vk-button>
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { marked } from "marked";
-
 export default {
   name: "Day",
   props: ["day"],
