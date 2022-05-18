@@ -9,7 +9,7 @@ services:
         - UID=99
         - GID=100
     container_name: '2022_build'
-    image: christiangroeber/journal:2022
+    image: christiangroeber/journal:latest
     ports:
       - '88:80'
     environment:

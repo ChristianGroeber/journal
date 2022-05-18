@@ -3,7 +3,7 @@
         <div class="d-flex gap-1">
             <vk-button class="btn btn-icon btn-primary" @click="goHome"><fa icon="arrow-left"></fa></vk-button>
             <vk-button class="btn btn-primary" @click="generateBackup">Generate Backup</vk-button>
-            <vk-button class="btn btn-primary" @click="rebuildCache">Rebuild Cahce</vk-button>
+            <vk-button class="btn btn-primary" @click="rebuildCache">Rebuild Cache</vk-button>
         </div>
     </div>
 </template>

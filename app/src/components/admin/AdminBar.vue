@@ -36,7 +36,7 @@ export default {
           page: "/auth",
         },
         {
-          label: "More...",
+          label: "More",
           page: "/admin/tools",
         },
       ],
