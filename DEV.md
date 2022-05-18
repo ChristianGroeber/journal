@@ -22,3 +22,8 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+
+## Build for porductino
+```
+docker-compose -f docker-compose.build.yml build
+```
