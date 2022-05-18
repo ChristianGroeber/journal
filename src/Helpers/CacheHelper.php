@@ -24,6 +24,7 @@ class CacheHelper
 
     private function renderContent()
     {
+        $this->nacho->readPages();
         $pages = $this->nacho->getPages();
         usort($pages, [$this, 'sortByDate']);
         $months = [];

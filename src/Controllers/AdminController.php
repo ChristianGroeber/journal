@@ -13,16 +13,6 @@ use Nacho\Nacho;
 
 class AdminController extends AbstractController
 {
-    public function __construct(Nacho $nacho)
-    {
-        parent::__construct($nacho);
-        // if (!$this->isGranted('Editor')) {
-        //     header('Http/1.1 302');
-        //     header('Location: /login?required_page=' . $_SERVER['REDIRECT_URL']);
-        //     die();
-        // }
-    }
-
     /**
      * GET:  fetch the markdown for a file
      * POST: save edited file
@@ -85,6 +75,8 @@ class AdminController extends AbstractController
         } else {
             return $this->json(['file' => $file], 404);
         }
+        $cacheHelper = new CacheHelper($this->nacho);
+        $cacheHelper->build();
 
         return $this->json(['message' => "successfully deleted ${file}"]);
     }
