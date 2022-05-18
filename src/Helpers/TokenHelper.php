@@ -16,7 +16,7 @@ class TokenHelper
 
     function getToken($username)
     {
-        $secret = $this->getSecret();
+        $secret = self::getSecret();
 
         return md5($username . $this->userHandler->findUser($username)['tokenStamp'] . $secret);
     }
@@ -41,8 +41,9 @@ class TokenHelper
         return $this->getToken($username);
     }
 
-    private function getSecret()
+    public static function getSecret()
     {
-        return file_get_contents('.secret');
+        $secretHelper = new SecretHelper();
+        return $secretHelper->getSecret();
     }
 }

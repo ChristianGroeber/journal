@@ -95,6 +95,18 @@
         "min_role": "Reader"
     },
     {
+        "route": "/api/auth/admin-created",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "adminCreated",
+        "min_role": "Reader"
+    },
+    {
+        "route": "/api/auth/create-admin",
+        "controller": "App\\Controllers\\AuthenticationController",
+        "function": "createAdmin",
+        "min_role": "Reader"
+    },
+    {
         "route": "/api/validate-token",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "validateToken"

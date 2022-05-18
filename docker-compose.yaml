@@ -2,11 +2,8 @@ version: "3"
 
 services:
     '2022':
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: christiannxtlvl/php-server:7.4
         container_name: '2022'
-        image: nacho/2021
         ports:
             - '86:80'
         volumes: 
