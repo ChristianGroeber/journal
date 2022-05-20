@@ -24,11 +24,11 @@ export default {
     return {
       nav: [
         {
-          label: "Edit Current Entry",
+          label: "Today",
           func: this.editCurrent,
         },
         {
-          label: "Edit Specific Entry",
+          label: "Edit Specific",
           func: this.toggleEditSpecificPopup,
         },
         {
