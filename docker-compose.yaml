@@ -2,7 +2,7 @@ version: "3"
 
 services:
     '2022':
-        image: christiannxtlvl/php-server:7.4
+        image: christiangroeber/php-server:7.4.1
         container_name: '2022'
         ports:
             - '86:80'
