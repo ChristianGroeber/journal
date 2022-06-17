@@ -6,7 +6,7 @@
       </vk-button>
     </div>
     <div class="container">
-      <textarea @change="updateContent" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
+      <textarea @change="updateContent" id="edit-entry" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
       <div class="actions">
         <vk-button class="btn btn-icon btn-primary" @click="save">
           <fa icon="floppy-o"></fa>
@@ -32,7 +32,12 @@ export default {
   methods: {
     updateContent() {
       this.unsavedChanges = true;
-      const newContent = this.$refs.editEntry.value;
+      const newContentField = document.getElementById('edit-entry');
+      let newContent = newContentField.value;
+      newContent = newContent.replace(/…/g, '...');
+      newContent = newContent.replace(/’/g, '\'');
+      newContentField.value = newContent;
+      console.log(newContent);
       const entry = this.$store.getters.editingEntry;
       entry.raw_content = newContent;
       this.$store.dispatch("updateEntry", {
