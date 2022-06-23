@@ -53,6 +53,12 @@
         "function": "loadImagesForEntry"
     },
     {
+        "route": "/api/admin/entry/image/rotate",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\ImageController",
+        "function": "rotateImage"
+    },
+    {
         "route": "/api/admin/entry/image/delete",
         "min_role": "Editor",
         "controller": "App\\Controllers\\ImageController",

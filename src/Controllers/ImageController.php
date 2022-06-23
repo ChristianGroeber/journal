@@ -106,6 +106,13 @@ class ImageController extends AbstractController
         return $this->json(['message' => 'I should be loading your images now', 'images' => $images]);
     }
 
+    public function rotateImage($request)
+    {
+        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
+
+        return $this->json([]);
+    }
+
     /**
      * GET: get a list of images for a selected entry
      */
@@ -119,7 +126,7 @@ class ImageController extends AbstractController
             if (is_file($imagesDir . '/' . $imgPath)) {
                 $images[] = '/images' . $strPage . '/' . $imgPath;
             }
-        } 
+        }
 
         return $this->json($images);
     }

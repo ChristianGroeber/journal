@@ -1,11 +1,28 @@
 <template>
   <div v-if="isShowing" class="image">
-    <div class="img-controls">
+    <div class="img-controls" v-if="!isEditing">
       <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
         <fa icon="clipboard"></fa>
       </vk-button>
+      <vk-button class="btn btn-rounded btn-icon" @click="toggleEditing">
+        <fa icon="edit"></fa>
+      </vk-button>
       <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteImage">
         <fa icon="trash"></fa>
+      </vk-button>
+    </div>
+    <div class="img-controls" v-else>
+      <vk-button class="btn btn-rounded btn-icon" @click="rotateLeft">
+        <fa icon="rotate-left"></fa>
+      </vk-button>
+      <vk-button class="btn btn-rounded btn-icon" @click="toggleEditing">
+        <fa icon="close"></fa>
+      </vk-button>
+      <vk-button class="btn btn-rounded btn-icon" @click="rotateRight">
+        <fa icon="rotate-right"></fa>
+      </vk-button>
+      <vk-button v-if="hasChanges" class="btn btn-rounded btn-icon" @click="submitChanges">
+        <fa icon="floppy-o"></fa>
       </vk-button>
     </div>
     <img :src="img" alt="Image" />
@@ -16,10 +33,12 @@
 <script>
 import axios from 'axios';
 export default {
-  props: ["img", "myId"],
-  data: function() {
+  props: ["img", "myId", "srcImg"],
+  data: function () {
     return {
       isShowing: true,
+      isEditing: false,
+      hasChanges: false,
     };
   },
   methods: {
@@ -51,6 +70,23 @@ export default {
       console.log(document.execCommand("copy"));
 
       window.getSelection().removeAllRanges();
+    },
+    toggleEditing() {
+      this.isEditing = !this.isEditing
+    },
+    rotateLeft() {
+      this.hasChanges = true;
+      this.rotate('l');
+    },
+    rotateRight() {
+      this.hasChanges = true;
+      this.rotate('r');
+    },
+    rotate(direction) {
+      axios.post('/api/admin/entry/image/rotate', { 'direction': direction, 'img': this.img })
+        .then((response) => {
+          console.log(response);
+        })
     },
   },
 };

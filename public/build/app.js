@@ -1,2 +1,2002 @@
-!function(){"use strict";var e="undefined"==typeof global?self:global;if("function"!=typeof e.require){var t={},r={},n={},o={}.hasOwnProperty,s=/^\.\.?(\/|$)/,a=function(e,t){for(var r,n=[],o=(s.test(t)?e+"/"+t:t).split("/"),a=0,i=o.length;a<i;a++)r=o[a],".."===r?n.pop():"."!==r&&""!==r&&n.push(r);return n.join("/")},i=function(e){return e.split("/").slice(0,-1).join("/")},u=function(t){return function(r){var n=a(i(t),r);return e.require(n,t)}},d=function(e,t){var n=h&&h.createHot(e),o={id:e,exports:{},hot:n};return r[e]=o,t(o.exports,u(e),o),o.exports},c=function(e){var t=n[e];return t&&e!==t?c(t):e},l=function(e,t){return c(a(i(e),t))},p=function(e,n){null==n&&(n="/");var s=c(e);if(o.call(r,s))return r[s].exports;if(o.call(t,s))return d(s,t[s]);throw new Error("Cannot find module '"+e+"' from '"+n+"'")};p.alias=function(e,t){n[t]=e};var m=/\.[^.\/]+$/,f=/\/index(\.[^\/]+)?$/,v=function(e){if(m.test(e)){var t=e.replace(m,"");o.call(n,t)&&n[t].replace(m,"")!==t+"/index"||(n[t]=e)}if(f.test(e)){var r=e.replace(f,"");o.call(n,r)||(n[r]=e)}};p.register=p.define=function(e,n){if(e&&"object"==typeof e)for(var s in e)o.call(e,s)&&p.register(s,e[s]);else t[e]=n,delete r[e],v(e)},p.list=function(){var e=[];for(var r in t)o.call(t,r)&&e.push(r);return e};var h=e._hmr&&new e._hmr(l,p,t,r);p._cache=r,p.hmr=h&&h.wrap,p.brunch=!0,e.require=p}}(),function(){var e;"undefined"==typeof window?this:window;require.register("App.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("babel-runtime/core-js/promise"),o=r(n),s=t("./src/components/Loading"),a=r(s),i=t("./src/components/Modals/SpecificEntryPopup"),u=r(i),d=t("axios"),c=r(d);e["default"]={name:"App",components:{Loading:a["default"],SpecificEntryPopup:u["default"]},computed:{isLoading:function(){return this.$store.getters.loading},pageTitle:function(){return this.$store.getters.pageTitle}},created:function(){var e=this;this.$store.dispatch("getToken"),this.$store.dispatch("getEntries"),this.axios.interceptors.request.use(function(t){return e.$store.commit("LOADING",!0),t},function(t){return e.$store.commit("LOADING",!1),o["default"].reject(t)}),this.axios.interceptors.response.use(function(t){return e.$store.commit("LOADING",!1),t},function(t){return e.$store.commit("LOADING",!1),o["default"].reject(t)}),c["default"].get("/api/auth/admin-created").then(function(t){var r=t.data.adminCreated;r||e.$router.push("/auth/create-admin")})},methods:{reload:function(){this.$store.dispatch("getEntries")}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[e.isLoading?r("Loading"):e._e(),e._v(" "),r("div",{staticClass:"header"},[r("h1",{staticClass:"reloadable",on:{click:e.reload}},[e._v(e._s(e.pageTitle))])]),e._v(" "),r("router-view"),e._v(" "),r("specific-entry-popup")],1)},n.staticRenderFns=[]}),require.register("main.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}var o=t("vue"),s=n(o),a=t("./App.vue"),i=n(a),u=t("./src/store"),d=n(u),c=t("./src/routes"),l=t("vue-axios"),p=n(l),m=t("axios"),f=n(m),v=t("vuikit"),h=n(v),_=t("@vuikit/icons"),g=n(_),y=t("vue-meta"),w=n(y),x=t("./src/components/fa"),b=n(x);s["default"].component("fa",b["default"]),s["default"].config.productionTip=!1,s["default"].use(p["default"],f["default"]),s["default"].use(h["default"]),s["default"].use(g["default"]),s["default"].use(w["default"]),new s["default"]({store:d["default"],router:c.router,render:function(e){return e(i["default"])}}).$mount("#app")}),require.register("src/components/Loading.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"Loading"}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement;e._self._c||t;return e._m(0)},n.staticRenderFns=[function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"loader"},[r("div",{staticClass:"loading-wrapper"},[r("div",{staticClass:"lds-ellipsis"},[r("div"),e._v(" "),r("div"),e._v(" "),r("div"),e._v(" "),r("div")])])])}],n._scopeId="data-v-c1a3922c"}),require.register("src/components/Modals/SpecificEntryPopup.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("axios"),o=r(n),s=t("moment"),a=r(s);e["default"]={data:function(){return{dateEntry:(0,a["default"])().format("yyyy-MM-DD")}},computed:{show:{get:function(){return this.$store.getters.showEditSpecificPopup},set:function(e){this.$store.commit("EDIT_SPECIFIC_POPUP",e)}}},methods:{hidePopup:function(){this.$store.commit("EDIT_SPECIFIC_POPUP",!1)},editSpecificEntry:function(){var e=this;o["default"].get("/api/admin/entry/create?token="+this.$store.getters.token+"&entry="+this.dateEntry).then(function(t){e.$store.commit("EDIT_SPECIFIC_POPUP",!1),e.$router.push("/edit?entry="+t.data.entryId)})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[r("vk-modal",{attrs:{show:e.show},on:{"update:show":function(t){e.show=t}}},[r("vk-modal-close",{on:{click:e.hidePopup}}),e._v(" "),r("vk-modal-title",[e._v("Edit Specific Entry")]),e._v(" "),r("div",[r("input",{directives:[{name:"model",rawName:"v-model",value:e.dateEntry,expression:"dateEntry"}],attrs:{type:"date"},domProps:{value:e.dateEntry},on:{input:function(t){t.target.composing||(e.dateEntry=t.target.value)}}})]),e._v(" "),r("div",{attrs:{slot:"footer"},slot:"footer"},[r("div",{staticClass:"uk-text-right"},[r("vk-button",{staticClass:"btn btn-primary",on:{click:e.editSpecificEntry}},[e._v("Submit")])],1)])],1)],1)},n.staticRenderFns=[]}),require.register("src/components/admin/AdminBar.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("axios"),o=r(n);e["default"]={name:"AdminBar",data:function(){return{nav:[{label:"Today",func:this.editCurrent},{label:"Edit Specific",func:this.toggleEditSpecificPopup},{label:"Auth",page:"/auth"},{label:"More",page:"/admin/tools"}]}},methods:{handleClick:function(e){var t=this.nav[e];"func"in t?t.func():"page"in t?this.$router.push(t.page):console.error("I don't know what to do with item #"+e)},toggleEditSpecificPopup:function(){this.$store.commit("EDIT_SPECIFIC_POPUP",!0)},editCurrent:function(){var e=this;o["default"].get("/api/admin/entry/edit/current?token="+this.$store.getters.token).then(function(t){e.$router.push("/edit?entry="+t.data.entryId)})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"admin-bar"},[r("h3",[e._v("Welcome Admin")]),e._v(" "),r("vk-navbar",[r("vk-navbar-nav",[e._l(e.nav,function(t,n){return r("vk-navbar-nav-item",{key:n,attrs:{title:t.label},on:{click:function(t){return e.handleClick(n)}}})}),e._v(" "),r("vk-navbar-item")],2)],1)],1)},n.staticRenderFns=[]}),require.register("src/components/admin/Editor/EditEntry.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={props:["entry"],data:function(){return{unsavedChanges:!1}},computed:{markdown:function(){return this.$store.getters.editingEntry.raw_content}},methods:{updateContent:function(){this.unsavedChanges=!0;var e=this.$refs.editEntry.value,t=this.$store.getters.editingEntry;t.raw_content=e,this.$store.dispatch("updateEntry",{entry:t}),this.$store.dispatch("updateEntry",{entry:t})},save:function(){return this.unsavedChanges=!1,this.$store.dispatch("saveEntry",this.$store.getters.token)},checkGoHome:function(){var e=this;this.unsavedChanges&&confirm("You've go unsaved changes. Save first?")?this.save().then(function(){e.doGoHome()}):this.doGoHome()},doGoHome:function(){this.$store.dispatch("getEntries"),this.$router.push("/")}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("vk-button",{staticClass:"btn btn-icon btn-primary",on:{click:e.checkGoHome}},[r("fa",{attrs:{icon:"arrow-left"}})],1)],1),e._v(" "),r("div",{staticClass:"container"},[r("textarea",{ref:"editEntry",staticClass:"edit-entry",domProps:{value:e.markdown},on:{change:e.updateContent}}),e._v(" "),r("div",{staticClass:"actions"},[r("vk-button",{staticClass:"btn btn-icon btn-primary",on:{click:e.save}},[r("fa",{attrs:{icon:"floppy-o"}})],1)],1)])])},n.staticRenderFns=[]}),require.register("src/components/admin/Editor/Editor.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("./EditEntry.vue"),o=r(n),s=t("./Images/ImageEditor.vue"),a=r(s),i=t("./Images/ImageList.vue"),u=r(i);e["default"]={props:["entry"],data:function(){return{title:"Edit "+this.entry}},created:function(){var e=this;this.$store.dispatch("getEntry",{entry:this.entry,token:this.$store.getters.token}).then(function(){e.$store.dispatch("setTitle","Edit "+e.$store.getters.editingEntry.meta.title),e.$store.dispatch("loadImagesForEntry",{entry:e.entry})})},components:{EditEntry:o["default"],ImageEditor:a["default"],ImageList:u["default"]}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("EditEntry",{attrs:{entry:e.entry}}),e._v(" "),r("ImageEditor",{attrs:{entry:e.entry}}),e._v(" "),r("ImageList",{attrs:{entry:e.entry}})],1)},n.staticRenderFns=[]}),require.register("src/components/admin/Editor/Images/Image.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("babel-runtime/helpers/slicedToArray"),o=r(n),s=t("babel-runtime/core-js/object/entries"),a=r(s),i=t("axios"),u=r(i);e["default"]={props:["img","myId"],data:function(){return{isShowing:!0}},methods:{deleteImage:function(){var e=this;if(confirm("Are you sure you want to delete this image?")){var t={image:this.img,token:this.$store.getters.token},r=(0,a["default"])(t).map(function(e){var t=(0,o["default"])(e,2),r=t[0],n=t[1];return r+"="+n}).join("&");u["default"]["delete"]("/api/admin/entry/image/delete?"+r).then(function(t){e.isShowing=!1})}},copyUrl:function(){var e=document.querySelector(".image#img-"+this.myId+" .url"),t=document.createRange();t.selectNode(e),window.getSelection().addRange(t),console.log(document.execCommand("copy")),window.getSelection().removeAllRanges()}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return e.isShowing?r("div",{staticClass:"image"},[r("div",{staticClass:"img-controls"},[r("vk-button",{staticClass:"btn btn-rounded btn-icon",on:{click:e.copyUrl}},[r("fa",{attrs:{icon:"clipboard"}})],1),e._v(" "),r("vk-button",{staticClass:"btn btn-rounded btn-danger btn-icon",on:{click:e.deleteImage}},[r("fa",{attrs:{icon:"trash"}})],1)],1),e._v(" "),r("img",{attrs:{src:e.img,alt:"Image"}}),e._v(" "),r("div",{staticClass:"url"},[e._v("![uploaded image]("+e._s(e.img)+")")])]):e._e()},n.staticRenderFns=[],n._scopeId="data-v-365b64d4"}),require.register("src/components/admin/Editor/Images/ImageEditor.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("babel-runtime/core-js/array/from"),o=r(n),s=t("axios"),a=r(s);e["default"]={props:["entry"],methods:{uploadImages:function(e){var t=this,r=e.target.files,n=this.$store.getters.editingEntry;(0,o["default"])(r).forEach(function(e){var s=new FormData;s.append((0,o["default"])(r).indexOf(e),e),s.append("entry",t.entry),s.append("token",t.$store.getters.token),a["default"].post("/api/entry/gallery/upload",s).then(function(e){var t=e.data.files[0];n.raw_content+="![uploaded image]("+encodeURI(t)+")"})}),this.$store.dispatch("updateEntry",{entry:n}),this.$store.dispatch("loadImagesForEntry",{entry:n.id})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[r("input",{attrs:{accept:"image/*",type:"file",label:"Upload Images",multiple:""},on:{change:e.uploadImages}})])},n.staticRenderFns=[]}),require.register("src/components/admin/Editor/Images/ImageList.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("./Image.vue"),o=r(n);e["default"]={props:["entry"],components:{MyImage:o["default"]},data:function(){return{images:this.$store.getters.gallery}},methods:{getGallery:function(){var e=this;this.$store.dispatch("loadImagesForEntry",{entry:this.entry}).then(function(){e.images=e.$store.getters.gallery})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[r("div",{staticClass:"d-flex gap-1 ai_center"},[r("h3",[e._v("Images")]),e._v(" "),r("div",[r("vk-button",{staticClass:"btn btn-primary btn-icon btn-rounded",on:{click:e.getGallery}},[r("fa",{attrs:{icon:"download"}})],1)],1)]),e._v(" "),r("div",{staticClass:"images-list d-flex"},e._l(e.images,function(e,t){return r("MyImage",{key:t,staticClass:"image",attrs:{id:"img-"+t,myId:t,img:e}})}),1)])},n.staticRenderFns=[]}),require.register("src/components/admin/Tools/index.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("axios"),o=r(n);e["default"]={methods:{generateBackup:function(){o["default"].get("/api/admin/generate-backup?token="+this.$store.getters.token).then(function(e){location.href=e.data.file})},rebuildCache:function(){this.$store.dispatch("buildCache",this.$store.getters.token)},goHome:function(){this.$router.push("/")}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",{staticClass:"d-flex gap-1"},[r("vk-button",{staticClass:"btn btn-icon btn-primary",on:{click:e.goHome}},[r("fa",{attrs:{icon:"arrow-left"}})],1),e._v(" "),r("vk-button",{staticClass:"btn btn-primary",on:{click:e.generateBackup}},[e._v("Generate Backup")]),e._v(" "),r("vk-button",{staticClass:"btn btn-primary",on:{click:e.rebuildCache}},[e._v("Rebuild Cache")])],1)])},n.staticRenderFns=[]}),require.register("src/components/auth/Auth.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{pageTitle:"Auth"}},created:function(){this.$store.dispatch("setTitle",this.pageTitle)},methods:{logout:function(){this.$store.dispatch("logout"),this.$router.push("/")}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",{staticClass:"d-flex gap-1"},[r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/"}},[e._v("Home")]),e._v(" "),r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/auth/login"}},[e._v("Login")]),e._v(" "),r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/auth/restore-password"}},[e._v("Restore Password")]),e._v(" "),r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/auth/change-password"}},[e._v("Change Password")]),e._v(" "),r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/auth/generate-new-token"}},[e._v("Generate New Token")]),e._v(" "),r("router-link",{staticClass:"btn btn-primary",attrs:{to:"/auth/request-new-password"}},[e._v("Request New Password")]),e._v(" "),r("vk-button",{staticClass:"btn btn-primary",on:{click:e.logout}},[e._v("Logout")])],1)])},n.staticRenderFns=[]}),require.register("src/components/auth/ChangePassword.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:"",currentPassword:"",newPassword1:"",newPassword2:""}},methods:{submit:function(){var e=this;this.$store.dispatch("changePassword",{username:this.username,currentPassword:this.currentPassword,newPassword1:this.newPassword1,newPassword2:this.newPassword2}).then(function(){e.$router.push("/")})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("router-link",{staticClass:"btn",attrs:{to:"/auth"}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.submit.apply(null,arguments)}}},[r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],attrs:{placeholder:"Username",type:"text"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.currentPassword,expression:"currentPassword"}],attrs:{placeholder:"Current Password",type:"password"},domProps:{value:e.currentPassword},on:{input:function(t){t.target.composing||(e.currentPassword=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.newPassword1,expression:"newPassword1"}],attrs:{placeholder:"Password",type:"password"},domProps:{value:e.newPassword1},on:{input:function(t){t.target.composing||(e.newPassword1=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.newPassword2,expression:"newPassword2"}],attrs:{placeholder:"Repeat Password",type:"password"},domProps:{value:e.newPassword2},on:{input:function(t){t.target.composing||(e.newPassword2=t.target.value)}}})]),e._v(" "),r("button",{staticClass:"mt-1",attrs:{type:"submit"}},[e._v("Submit")])])])},n.staticRenderFns=[]}),require.register("src/components/auth/CreateAdmin.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("axios"),o=r(n),s=t("../../helpers/queryFormatter");e["default"]={data:function(){return{username:"",password:""}},methods:{submit:function(){var e=this,t={username:this.username,password:this.password};(0,o["default"])({method:"POST",url:"/api/auth/create-admin",data:(0,s.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(t){t.data.adminCreated&&e.$router.push("/auth/login")})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("form",[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],staticClass:"uk-input",attrs:{type:"text",placeholder:"Admin Username"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}}),e._v(" "),r("input",{directives:[{name:"model",rawName:"v-model",value:e.password,expression:"password"}],staticClass:"uk-input",attrs:{type:"text",placeholder:"Admin Password"},domProps:{value:e.password},on:{input:function(t){t.target.composing||(e.password=t.target.value)}}}),e._v(" "),r("vk-button",{staticClass:"btn btn-primary",on:{click:e.submit}},[e._v("Submit")])],1)])},n.staticRenderFns=[]}),require.register("src/components/auth/GenerateNewToken.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:""}},methods:{submit:function(){this.$store.dispatch("generateNewToken",{username:this.username,token:this.$store.getters.getToken})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("router-link",{staticClass:"btn",attrs:{to:"/auth"}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.submit.apply(null,arguments)}}},[r("div",[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],attrs:{placeholder:"Username",type:"text"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}}),e._v(" "),r("br")]),e._v(" "),r("button",{staticClass:"mt-1",attrs:{type:"submit"}},[e._v("Submit")])])])},n.staticRenderFns=[]}),require.register("src/components/auth/Login.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:"",password:"",title:"Login"}},created:function(){this.$store.dispatch("setTitle",this.title)},methods:{login:function(){var e=this;this.$store.dispatch("login",{username:this.username,password:this.password}).then(function(){e.$router.push("/")})},auth:function(){this.$router.push("/auth")}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("vk-button",{staticClass:"btn btn-primary",on:{click:e.auth}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.login.apply(null,arguments)}}},[r("fieldset",{staticClass:"uk-fieldset"},[r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],staticClass:"uk-input",attrs:{placeholder:"username"},domProps:{value:e.username},on:{keyup:function(t){return!t.type.indexOf("key")&&e._k(t.keyCode,"enter",13,t.key,"Enter")?null:e.login.apply(null,arguments)},input:function(t){t.target.composing||(e.username=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.password,expression:"password"}],staticClass:"uk-input",attrs:{placeholder:"password",type:"password"},domProps:{value:e.password},on:{keyup:function(t){return!t.type.indexOf("key")&&e._k(t.keyCode,"enter",13,t.key,"Enter")?null:e.login.apply(null,arguments)},input:function(t){t.target.composing||(e.password=t.target.value)}}})])]),e._v(" "),r("vk-button",{staticClass:"btn btn-primary",on:{click:e.login}},[e._v("Login")])],1)])},n.staticRenderFns=[]}),require.register("src/components/auth/Register.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:"",email:"",password1:"",password2:""}},methods:{submit:function(){console.log(this.username,this.email,this.password1,this.password2)}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("router-link",{staticClass:"btn",attrs:{to:"/auth"}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.submit.apply(null,arguments)}}},[r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],attrs:{placeholder:"Username",type:"text"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.email,expression:"email"}],attrs:{placeholder:"Email",type:"email"},domProps:{value:e.email},on:{input:function(t){t.target.composing||(e.email=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.password1,expression:"password1"}],attrs:{placeholder:"Password",type:"password"},domProps:{value:e.password1},on:{input:function(t){t.target.composing||(e.password1=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.password2,expression:"password2"}],attrs:{placeholder:"Repeat Password",type:"password"},domProps:{value:e.password2},on:{input:function(t){t.target.composing||(e.password2=t.target.value)}}})]),e._v(" "),r("button",{staticClass:"mt-1",attrs:{type:"submit"}},[e._v("Submit")])])])},n.staticRenderFns=[]}),require.register("src/components/auth/RequestNewPassword.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:""}},methods:{submit:function(){this.$store.dispatch("requestNewPassword",{username:this.username})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("router-link",{staticClass:"btn",attrs:{to:"/auth"}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.submit.apply(null,arguments)}}},[r("div",[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],attrs:{placeholder:"Username",id:"username",type:"text"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}}),e._v(" "),r("br")]),e._v(" "),r("button",{staticClass:"mt-1",attrs:{type:"submit"}},[e._v("Submit")])])])},n.staticRenderFns=[],n._scopeId="data-v-bb5ce6fe"}),require.register("src/components/auth/RestorePassword.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={data:function(){return{username:"",password1:"",password2:""}},created:function(){this.$store.dispatch("toolBar",{pateTitle:"Restore password · 2022"})},methods:{submit:function(){var e=this,t=window.location.search,r=new URLSearchParams(t);this.$store.dispatch("restorePassword",{username:this.username,password1:this.password1,password2:this.password2,token:r.get("token")}).then(function(){e.$router.push("/")})}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",[r("router-link",{staticClass:"btn",attrs:{to:"/auth"}},[e._v("Return")])],1),e._v(" "),r("form",{on:{submit:function(t){return t.preventDefault(),e.submit.apply(null,arguments)}}},[r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.username,expression:"username"}],attrs:{placeholder:"Username",type:"text"},domProps:{value:e.username},on:{input:function(t){t.target.composing||(e.username=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.password1,expression:"password1"}],attrs:{placeholder:"New Password",type:"password"},domProps:{value:e.password1},on:{input:function(t){t.target.composing||(e.password1=t.target.value)}}})]),e._v(" "),r("div",{staticClass:"form-row"},[r("input",{directives:[{name:"model",rawName:"v-model",value:e.password2,expression:"password2"}],attrs:{placeholder:"Repeat New Password",type:"password"},domProps:{value:e.password2},on:{input:function(t){t.target.composing||(e.password2=t.target.value)}}})]),e._v(" "),r("button",{staticClass:"mt-1",attrs:{type:"submit"}},[e._v("Submit")])])])},n.staticRenderFns=[]}),require.register("src/components/error/NotFound.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"NotFound"}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[r("div",{staticClass:"container h-100"},[r("div",{staticClass:"row align-items-center h-100"},[r("div",{staticClass:"col-8 mx-auto"},[r("div",{staticClass:"jumbotron -100"},[r("h3",[e._v("Sorry, this page could not be found :(")]),e._v(" "),r("hr"),e._v(" "),r("p",{staticClass:"lead"},[e._v("\n            Return "),r("router-link",{attrs:{to:"/"}},[e._v("Home")])],1)])])])])])},n.staticRenderFns=[]}),require.register("src/components/fa.vue",function(e,t,r){!function(){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"fa",props:{icon:""}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("i",{"class":"fa fa-fw fa-"+e.icon})},n.staticRenderFns=[]}),require.register("src/components/home/Day.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("babel-runtime/helpers/slicedToArray"),o=r(n),s=t("babel-runtime/core-js/object/entries"),a=r(s);e["default"]={name:"Day",props:["day"],computed:{formattedDate:function(){return this.day.meta.title},content:function(){return this.day.content},canEdit:function(){return null!==this.$store.getters.token},query:function i(){var e={entry:this.day.id},i=(0,a["default"])(e).map(function(e){var t=(0,o["default"])(e,2),r=t[0],n=t[1];return r+"="+n}).join("&");return i}},methods:{deleteEntry:function(){var e=this,t=confirm("Are you sure you want to delete this entry");if(t){var r={entry:this.day.id,token:this.$store.getters.token};this.$store.dispatch("deleteEntry",r).then(function(t){e.$store.dispatch("getEntries")})}}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"article"},[r("div",{staticClass:"article-head"},[r("h3",[e._v(e._s(e.formattedDate))]),e._v(" "),e.canEdit?r("div",[r("vk-button",{staticClass:"btn btn-icon btn-rounded"},[r("fa",{attrs:{icon:"ellipsis-v"}})],1),e._v(" "),r("vk-dropdown",[r("vk-nav-dropdown",[r("vk-nav-item",{attrs:{title:"Delete"},on:{click:e.deleteEntry}},[e._v("Delete")]),e._v(" "),r("vk-nav-item",{attrs:{href:"/edit?"+e.query,title:"Edit"}},[e._v("Edit")])],1)],1)],1):e._e()]),e._v(" "),r("div",{staticClass:"article-body"},[r("p",{domProps:{innerHTML:e._s(e.content)}})])])},n.staticRenderFns=[]}),require.register("src/components/home/Month.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("./Day"),o=r(n);e["default"]={name:"Month",
-props:["month"],components:{Day:o["default"]}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",[r("h2",{staticClass:"month"},[e._v(e._s(e.month.name))]),e._v(" "),r("div",{staticClass:"article-list container"},e._l(e.month.days,function(e,t){return r("div",{key:t},[r("Day",{attrs:{day:e}})],1)}),0)])},n.staticRenderFns=[]}),require.register("src/components/home/MonthList.vue",function(e,t,r){!function(){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var n=t("./Month"),o=r(n),s=t("../admin/AdminBar"),a=r(s);e["default"]={name:"MonthList",components:{Month:o["default"],AdminBar:a["default"]},data:function(){return{title:"2022"}},created:function(){this.$store.dispatch("setTitle",this.title)},computed:{months:function(){return this.$store.getters.entries},canEdit:function(){return null!==this.$store.getters.token}}}}(),r.exports.__esModule&&(r.exports=r.exports["default"]);var n="function"==typeof r.exports?r.exports.options:r.exports;n.render=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:"main-content"},[e.canEdit?r("AdminBar"):e._e(),e._v(" "),e._l(e.months,function(e){return r("div",{key:e.id,staticClass:"month"},[r("Month",{attrs:{month:e}})],1)})],2)},n.staticRenderFns=[]}),require.register("src/helpers/queryFormatter.js",function(e,t,r){"use strict";function n(e){return Object.keys(e).map(function(t){return t+"="+e[t]}).join("&")}Object.defineProperty(e,"__esModule",{value:!0}),e.queryFormatter=n}),require.register("src/routes.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0}),e.router=void 0;var o=t("vue"),s=n(o),a=t("vue-router"),i=n(a),u=t("./components/home/MonthList"),d=n(u),c=t("./components/auth/Login"),l=n(c),p=t("./components/auth/RestorePassword"),m=n(p),f=t("./components/auth/RequestNewPassword"),v=n(f),h=t("./components/auth/ChangePassword"),_=n(h),g=t("./components/auth/Register"),y=n(g),w=t("./components/auth/GenerateNewToken"),x=n(w),b=t("./components/auth/CreateAdmin"),E=n(b),P=t("./components/auth/Auth"),C=n(P),k=t("./components/admin/Editor/Editor"),$=n(k),M=t("./components/error/NotFound"),T=n(M),I=t("./components/admin/Tools/index"),q=n(I);s["default"].use(i["default"]);var O=[{path:"/",name:"Home",component:d["default"]},{path:"/edit",name:"Edit",props:function(e){return{entry:e.query.entry}},component:$["default"]},{path:"/auth",name:"Auth",component:C["default"]},{path:"/auth/login",name:"Login",component:l["default"]},{path:"/auth/register",name:"Register",component:y["default"]},{path:"/auth/restore-password",name:"Restore Password",component:m["default"]},{path:"/auth/request-new-password",name:"Request New Password",component:v["default"]},{path:"/auth/change-password",name:"Change Password",component:_["default"]},{path:"/auth/generate-new-token",name:"Generate New Token",component:x["default"]},{path:"/auth/create-admin",name:"Create Admin User",component:E["default"]},{path:"/admin/tools",name:"More Tools",component:q["default"]},{path:"*",name:"notFound",component:T["default"]}];e.router=new i["default"]({mode:"history",routes:O})}),require.register("src/store/index.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var o=t("vue"),s=n(o),a=t("vuex"),i=n(a),u=t("./modules/months/"),d=n(u),c=t("./modules/auth/"),l=n(c),p=t("./modules/main/"),m=n(p);s["default"].use(i["default"]),e["default"]=new i["default"].Store({modules:{main:m["default"],months:d["default"],auth:l["default"]}})}),require.register("src/store/modules/auth/index.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function o(e,t,r){return t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}Object.defineProperty(e,"__esModule",{value:!0});var s,a=t("axios"),i=n(a),u=t("../../../helpers/queryFormatter"),d={token:null},c={UPDATE_TOKEN:function(e,t){localStorage.setItem("token",t),e.token=t}},l=(s={register:function(e){return(0,i["default"])({method:"POST",url:"/api/auth/register",data:(0,u.queryFormatter)(e),headers:{"Content-Type":"application/x-www-form-urlencoded"}})},changePassword:function(e,t){var r=e.commit;return(0,i["default"])({method:"POST",url:"/api/auth/change-password",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){r("UPDATE_TOKEN",e.data.token)})},requestNewPassword:function(e,t){e.commit;return(0,i["default"])({method:"POST",url:"/api/auth/request-new-password",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}})},restorePassword:function(e,t){var r=e.commit;return(0,i["default"])({method:"POST",url:"/api/auth/restore-password",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){r("UPDATE_TOKEN",e.data.token)})},generateNewToken:function(e,t){var r=e.commit;return(0,i["default"])({method:"POST",url:"/api/auth/generate-new-token",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){r("UPDATE_TOKEN",e.data.token)})}},o(s,"register",function(e,t){var r=e.commit;return(0,i["default"])({method:"POST",url:"/api/auth/register",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){r("UPDATE_TOKEN",e.data.token)})}),o(s,"login",function(e,t){var r=e.commit;return(0,i["default"])({method:"POST",url:"/api/login",data:(0,u.queryFormatter)(t),headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(e){r("UPDATE_TOKEN",e.data.token)})}),o(s,"getToken",function(e){var t=e.commit,r=localStorage.getItem("token");r&&t("UPDATE_TOKEN",r)}),o(s,"logout",function(e){var t=e.commit;t("UPDATE_TOKEN",null),localStorage.removeItem("token")}),s),p={token:function(e){return e.token}},m={state:d,mutations:c,actions:l,getters:p};e["default"]=m}),require.register("src/store/modules/main/index.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var o=t("axios"),s=n(o),a={isLoading:!1,showEditSpecificPopup:!1,pageTitle:"2022"},i={LOADING:function(e,t){e.isLoading=t},EDIT_SPECIFIC_POPUP:function(e,t){e.showEditSpecificPopup=t}},u={setTitle:function(e,t){e.commit;"2022"===t?document.title="2022":document.title=t+" · 2022",a.pageTitle=t},buildCache:function(e,t){s["default"].post("/api/admin/build-cache?token="+t)}},d={loading:function(e){return e.isLoading},showEditSpecificPopup:function(e){return e.showEditSpecificPopup},pageTitle:function(e){return e.pageTitle}},c={state:a,mutations:i,actions:u,getters:d};e["default"]=c}),require.register("src/store/modules/months/index.js",function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(e,"__esModule",{value:!0});var o=t("axios"),s=n(o),a=t("../../../helpers/queryFormatter"),i={entries:[],editingEntry:{},editingGallery:{}},u={UPDATE_EDITING_ENTRY:function(e,t){e.editingEntry=t},UPDATE_ENTRIES:function(e,t){e.entries=t},UPDATE_EDITING_GALLERY:function(e,t){e.editingGallery=t}},d={getEntries:function(e){var t=e.commit;s["default"].get("/api/entries").then(function(e){t("UPDATE_ENTRIES",e.data)})},updateEntry:function(e,t){var r=e.commit;r("UPDATE_EDITING_ENTRY",t.entry)},saveEntry:function(e,t){var r=(e.commit,{token:t,content:btoa(c.editingEntry(i).raw_content),entry:c.editingEntry(i).id});return(0,s["default"])({method:"post",url:"/api/admin/entry/edit",data:(0,a.queryFormatter)(r),headers:{"Content-Type":"application/x-www-form-urlencoded"}})},getEntry:function(e,t){var r=e.commit;return s["default"].get("/api/admin/entry/edit?entry="+t.entry+"&token="+t.token).then(function(e){r("UPDATE_EDITING_ENTRY",e.data)})},deleteEntry:function(e,t){e.commit;return s["default"]["delete"]("/api/admin/entry/delete?"+(0,a.queryFormatter)(t))},loadImagesForEntry:function(e,t){var r=e.commit;return s["default"].get("/api/admin/entry/images/load?entry="+t.entry).then(function(e){r("UPDATE_EDITING_GALLERY",e.data.images)})}},c={entries:function(e){return e.entries},editingEntry:function(e){return e.editingEntry},gallery:function(e){return e.editingGallery}},l={state:i,mutations:u,actions:d,getters:c};e["default"]=l}),require.alias("process/browser.js","process"),e=require("process"),require.register("___globals___",function(e,t,r){})}(),require("___globals___");
+(function() {
+  'use strict';
+
+  var globals = typeof global === 'undefined' ? self : global;
+  if (typeof globals.require === 'function') return;
+
+  var modules = {};
+  var cache = {};
+  var aliases = {};
+  var has = {}.hasOwnProperty;
+
+  var expRe = /^\.\.?(\/|$)/;
+  var expand = function(root, name) {
+    var results = [], part;
+    var parts = (expRe.test(name) ? root + '/' + name : name).split('/');
+    for (var i = 0, length = parts.length; i < length; i++) {
+      part = parts[i];
+      if (part === '..') {
+        results.pop();
+      } else if (part !== '.' && part !== '') {
+        results.push(part);
+      }
+    }
+    return results.join('/');
+  };
+
+  var dirname = function(path) {
+    return path.split('/').slice(0, -1).join('/');
+  };
+
+  var localRequire = function(path) {
+    return function expanded(name) {
+      var absolute = expand(dirname(path), name);
+      return globals.require(absolute, path);
+    };
+  };
+
+  var initModule = function(name, definition) {
+    var hot = hmr && hmr.createHot(name);
+    var module = {id: name, exports: {}, hot: hot};
+    cache[name] = module;
+    definition(module.exports, localRequire(name), module);
+    return module.exports;
+  };
+
+  var expandAlias = function(name) {
+    var val = aliases[name];
+    return (val && name !== val) ? expandAlias(val) : name;
+  };
+
+  var _resolve = function(name, dep) {
+    return expandAlias(expand(dirname(name), dep));
+  };
+
+  var require = function(name, loaderPath) {
+    if (loaderPath == null) loaderPath = '/';
+    var path = expandAlias(name);
+
+    if (has.call(cache, path)) return cache[path].exports;
+    if (has.call(modules, path)) return initModule(path, modules[path]);
+
+    throw new Error("Cannot find module '" + name + "' from '" + loaderPath + "'");
+  };
+
+  require.alias = function(from, to) {
+    aliases[to] = from;
+  };
+
+  var extRe = /\.[^.\/]+$/;
+  var indexRe = /\/index(\.[^\/]+)?$/;
+  var addExtensions = function(bundle) {
+    if (extRe.test(bundle)) {
+      var alias = bundle.replace(extRe, '');
+      if (!has.call(aliases, alias) || aliases[alias].replace(extRe, '') === alias + '/index') {
+        aliases[alias] = bundle;
+      }
+    }
+
+    if (indexRe.test(bundle)) {
+      var iAlias = bundle.replace(indexRe, '');
+      if (!has.call(aliases, iAlias)) {
+        aliases[iAlias] = bundle;
+      }
+    }
+  };
+
+  require.register = require.define = function(bundle, fn) {
+    if (bundle && typeof bundle === 'object') {
+      for (var key in bundle) {
+        if (has.call(bundle, key)) {
+          require.register(key, bundle[key]);
+        }
+      }
+    } else {
+      modules[bundle] = fn;
+      delete cache[bundle];
+      addExtensions(bundle);
+    }
+  };
+
+  require.list = function() {
+    var list = [];
+    for (var item in modules) {
+      if (has.call(modules, item)) {
+        list.push(item);
+      }
+    }
+    return list;
+  };
+
+  var hmr = globals._hmr && new globals._hmr(_resolve, require, modules, cache);
+  require._cache = cache;
+  require.hmr = hmr && hmr.wrap;
+  require.brunch = true;
+  globals.require = require;
+})();
+
+(function() {
+var global = typeof window === 'undefined' ? this : window;
+var process;
+var __makeRelativeRequire = function(require, mappings, pref) {
+  var none = {};
+  var tryReq = function(name, pref) {
+    var val;
+    try {
+      val = require(pref + '/node_modules/' + name);
+      return val;
+    } catch (e) {
+      if (e.toString().indexOf('Cannot find module') === -1) {
+        throw e;
+      }
+
+      if (pref.indexOf('node_modules') !== -1) {
+        var s = pref.split('/');
+        var i = s.lastIndexOf('node_modules');
+        var newPref = s.slice(0, i).join('/');
+        return tryReq(name, newPref);
+      }
+    }
+    return none;
+  };
+  return function(name) {
+    if (name in mappings) name = mappings[name];
+    if (!name) return;
+    if (name[0] !== '.' && pref) {
+      var val = tryReq(name, pref);
+      if (val !== none) return val;
+    }
+    return require(name);
+  }
+};
+require.register("App.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _Loading = require('./src/components/Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
+var _SpecificEntryPopup = require('./src/components/Modals/SpecificEntryPopup');
+
+var _SpecificEntryPopup2 = _interopRequireDefault(_SpecificEntryPopup);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "App",
+  components: {
+    Loading: _Loading2.default,
+    SpecificEntryPopup: _SpecificEntryPopup2.default
+  },
+  computed: {
+    isLoading: function isLoading() {
+      return this.$store.getters.loading;
+    },
+    pageTitle: function pageTitle() {
+      return this.$store.getters.pageTitle;
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("getToken");
+    this.$store.dispatch("getEntries");
+    this.axios.interceptors.request.use(function (config) {
+      _this.$store.commit("LOADING", true);
+      return config;
+    }, function (error) {
+      _this.$store.commit("LOADING", false);
+      return _promise2.default.reject(error);
+    });
+    this.axios.interceptors.response.use(function (response) {
+      _this.$store.commit("LOADING", false);
+      return response;
+    }, function (error) {
+      _this.$store.commit("LOADING", false);
+      return _promise2.default.reject(error);
+    });
+    _axios2.default.get('/api/auth/admin-created').then(function (response) {
+      var adminCreated = response.data.adminCreated;
+      if (!adminCreated) {
+        _this.$router.push('/auth/create-admin');
+      }
+    });
+  },
+
+  methods: {
+    reload: function reload() {
+      this.$store.dispatch("getEntries");
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.isLoading)?_c('Loading'):_vm._e(),_vm._v(" "),_c('div',{staticClass:"header"},[_c('h1',{staticClass:"reloadable",on:{"click":_vm.reload}},[_vm._v(_vm._s(_vm.pageTitle))])]),_vm._v(" "),_c('router-view'),_vm._v(" "),_c('specific-entry-popup')],1)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e015f16", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2e015f16", __vue__options__)
+  }
+})()}
+});
+
+;require.register("main.js", function(exports, require, module) {
+'use strict';
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _App = require('./App.vue');
+
+var _App2 = _interopRequireDefault(_App);
+
+var _store = require('./src/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+var _routes = require('./src/routes');
+
+var _vueAxios = require('vue-axios');
+
+var _vueAxios2 = _interopRequireDefault(_vueAxios);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _vuikit = require('vuikit');
+
+var _vuikit2 = _interopRequireDefault(_vuikit);
+
+var _icons = require('@vuikit/icons');
+
+var _icons2 = _interopRequireDefault(_icons);
+
+var _vueMeta = require('vue-meta');
+
+var _vueMeta2 = _interopRequireDefault(_vueMeta);
+
+var _fa = require('./src/components/fa');
+
+var _fa2 = _interopRequireDefault(_fa);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.component('fa', _fa2.default);
+
+_vue2.default.config.productionTip = false;
+_vue2.default.use(_vueAxios2.default, _axios2.default);
+_vue2.default.use(_vuikit2.default);
+_vue2.default.use(_icons2.default);
+_vue2.default.use(_vueMeta2.default);
+
+new _vue2.default({
+  store: _store2.default,
+  router: _routes.router,
+  render: function render(h) {
+    return h(_App2.default);
+  }
+}).$mount('#app');
+});
+
+;require.register("src/components/Loading.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "Loading"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"loader"},[_c('div',{staticClass:"loading-wrapper"},[_c('div',{staticClass:"lds-ellipsis"},[_c('div'),_vm._v(" "),_c('div'),_vm._v(" "),_c('div'),_vm._v(" "),_c('div')])])])}]
+__vue__options__._scopeId = "data-v-c1a3922c"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c1a3922c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-c1a3922c", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/Modals/SpecificEntryPopup.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _moment = require("moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      dateEntry: (0, _moment2.default)().format("yyyy-MM-DD")
+    };
+  },
+  computed: {
+    show: {
+      get: function get() {
+        return this.$store.getters.showEditSpecificPopup;
+      },
+      set: function set(newValue) {
+        this.$store.commit("EDIT_SPECIFIC_POPUP", newValue);
+      }
+    }
+  },
+  methods: {
+    hidePopup: function hidePopup() {
+      this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+    },
+    editSpecificEntry: function editSpecificEntry() {
+      var _this = this;
+
+      _axios2.default.get("/api/admin/entry/create?token=" + this.$store.getters.token + "&entry=" + this.dateEntry).then(function (response) {
+        _this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+        _this.$router.push("/edit?entry=" + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('vk-modal',{attrs:{"show":_vm.show},on:{"update:show":function($event){_vm.show=$event}}},[_c('vk-modal-close',{on:{"click":_vm.hidePopup}}),_vm._v(" "),_c('vk-modal-title',[_vm._v("Edit Specific Entry")]),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateEntry),expression:"dateEntry"}],attrs:{"type":"date"},domProps:{"value":(_vm.dateEntry)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateEntry=$event.target.value}}})]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"},[_c('div',{staticClass:"uk-text-right"},[_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.editSpecificEntry}},[_vm._v("Submit")])],1)])],1)],1)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74c6e343", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-74c6e343", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/AdminBar.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "AdminBar",
+  data: function data() {
+    return {
+      nav: [{
+        label: "Today",
+        func: this.editCurrent
+      }, {
+        label: "Edit Specific",
+        func: this.toggleEditSpecificPopup
+      }, {
+        label: "Auth",
+        page: "/auth"
+      }, {
+        label: "More",
+        page: "/admin/tools"
+      }]
+    };
+  },
+  methods: {
+    handleClick: function handleClick(itemId) {
+      var item = this.nav[itemId];
+      if ("func" in item) {
+        item.func();
+      } else if ("page" in item) {
+        this.$router.push(item.page);
+      } else {
+        console.error('I don\'t know what to do with item #' + itemId);
+      }
+    },
+    toggleEditSpecificPopup: function toggleEditSpecificPopup() {
+      this.$store.commit('EDIT_SPECIFIC_POPUP', true);
+    },
+    editCurrent: function editCurrent() {
+      var _this = this;
+
+      _axios2.default.get("/api/admin/entry/edit/current?token=" + this.$store.getters.token).then(function (response) {
+        _this.$router.push("/edit?entry=" + response.data.entryId);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"admin-bar"},[_c('h3',[_vm._v("Welcome Admin")]),_vm._v(" "),_c('vk-navbar',[_c('vk-navbar-nav',[_vm._l((_vm.nav),function(item,index){return _c('vk-navbar-nav-item',{key:index,attrs:{"title":item.label},on:{"click":function($event){return _vm.handleClick(index)}}})}),_vm._v(" "),_c('vk-navbar-item')],2)],1)],1)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-687af3c6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-687af3c6", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Editor/EditEntry.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  props: ["entry"],
+  data: function data() {
+    return {
+      unsavedChanges: false
+    };
+  },
+  computed: {
+    markdown: function markdown() {
+      return this.$store.getters.editingEntry.raw_content;
+    }
+  },
+  methods: {
+    updateContent: function updateContent() {
+      this.unsavedChanges = true;
+      var newContentField = document.getElementById('edit-entry');
+      var newContent = newContentField.value;
+      newContent = newContent.replace(/…/g, '...');
+      newContent = newContent.replace(/’/g, '\'');
+      newContent = newContent.replace(/“/g, '"');
+      newContent = newContent.replace(/”/g, '"');
+      newContentField.value = newContent;
+      console.log(newContent);
+      var entry = this.$store.getters.editingEntry;
+      entry.raw_content = newContent;
+      this.$store.dispatch("updateEntry", {
+        entry: entry
+      });
+
+      this.$store.dispatch("updateEntry", {
+        entry: entry
+      });
+    },
+    save: function save() {
+      this.unsavedChanges = false;
+      return this.$store.dispatch("saveEntry", this.$store.getters.token);
+    },
+    checkGoHome: function checkGoHome() {
+      var _this = this;
+
+      if (this.unsavedChanges && confirm('You\'ve go unsaved changes. Save first?')) {
+        this.save().then(function () {
+          _this.doGoHome();
+        });
+      } else {
+        this.doGoHome();
+      }
+    },
+    doGoHome: function doGoHome() {
+      this.$store.dispatch("getEntries");
+      this.$router.push('/');
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('vk-button',{staticClass:"btn btn-icon btn-primary",on:{"click":_vm.checkGoHome}},[_c('fa',{attrs:{"icon":"arrow-left"}})],1)],1),_vm._v(" "),_c('div',{staticClass:"container"},[_c('textarea',{ref:"editEntry",staticClass:"edit-entry",attrs:{"id":"edit-entry"},domProps:{"value":_vm.markdown},on:{"change":_vm.updateContent}}),_vm._v(" "),_c('div',{staticClass:"actions"},[_c('vk-button',{staticClass:"btn btn-icon btn-primary",on:{"click":_vm.save}},[_c('fa',{attrs:{"icon":"floppy-o"}})],1)],1)])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c7e15e70", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-c7e15e70", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Editor/Editor.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _EditEntry = require("./EditEntry.vue");
+
+var _EditEntry2 = _interopRequireDefault(_EditEntry);
+
+var _ImageEditor = require("./Images/ImageEditor.vue");
+
+var _ImageEditor2 = _interopRequireDefault(_ImageEditor);
+
+var _ImageList = require("./Images/ImageList.vue");
+
+var _ImageList2 = _interopRequireDefault(_ImageList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  props: ["entry"],
+  data: function data() {
+    return {
+      title: "Edit " + this.entry
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("getEntry", {
+      entry: this.entry,
+      token: this.$store.getters.token
+    }).then(function () {
+      _this.$store.dispatch('setTitle', "Edit " + _this.$store.getters.editingEntry.meta.title);
+      _this.$store.dispatch("loadImagesForEntry", { entry: _this.entry });
+    });
+  },
+
+  components: {
+    EditEntry: _EditEntry2.default,
+    ImageEditor: _ImageEditor2.default,
+    ImageList: _ImageList2.default
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('EditEntry',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageEditor',{attrs:{"entry":_vm.entry}}),_vm._v(" "),_c('ImageList',{attrs:{"entry":_vm.entry}})],1)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c8689646", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-c8689646", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Editor/Images/Image.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _entries = require("babel-runtime/core-js/object/entries");
+
+var _entries2 = _interopRequireDefault(_entries);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  props: ["img", "myId", "srcImg"],
+  data: function data() {
+    return {
+      isShowing: true,
+      isEditing: false,
+      hasChanges: false
+    };
+  },
+  methods: {
+    deleteImage: function deleteImage() {
+      var _this = this;
+
+      if (!confirm('Are you sure you want to delete this image?')) {
+        return;
+      }
+      var data = {
+        image: this.img,
+        token: this.$store.getters.token
+      };
+      var query = (0, _entries2.default)(data).map(function (_ref) {
+        var _ref2 = (0, _slicedToArray3.default)(_ref, 2),
+            key = _ref2[0],
+            val = _ref2[1];
+
+        return key + "=" + val;
+      }).join("&");
+
+      _axios2.default.delete('/api/admin/entry/image/delete?' + query).then(function (response) {
+        _this.isShowing = false;
+      });
+    },
+    copyUrl: function copyUrl() {
+      var imgUrl = document.querySelector(".image#img-" + this.myId + " .url");
+      var range = document.createRange();
+      range.selectNode(imgUrl);
+      window.getSelection().addRange(range);
+
+      console.log(document.execCommand("copy"));
+
+      window.getSelection().removeAllRanges();
+    },
+    toggleEditing: function toggleEditing() {
+      this.isEditing = !this.isEditing;
+    },
+    rotateLeft: function rotateLeft() {
+      this.hasChanges = true;
+      this.rotate('l');
+    },
+    rotateRight: function rotateRight() {
+      this.hasChanges = true;
+      this.rotate('r');
+    },
+    rotate: function rotate(direction) {
+      _axios2.default.post('/api/admin/entry/image/rotate', { 'direction': direction, 'img': this.img }).then(function (response) {
+        console.log(response);
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.isShowing)?_c('div',{staticClass:"image"},[(!_vm.isEditing)?_c('div',{staticClass:"img-controls"},[_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.copyUrl}},[_c('fa',{attrs:{"icon":"clipboard"}})],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.toggleEditing}},[_c('fa',{attrs:{"icon":"edit"}})],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-rounded btn-danger btn-icon",on:{"click":_vm.deleteImage}},[_c('fa',{attrs:{"icon":"trash"}})],1)],1):_c('div',{staticClass:"img-controls"},[_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.rotateLeft}},[_c('fa',{attrs:{"icon":"rotate-left"}})],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.toggleEditing}},[_c('fa',{attrs:{"icon":"close"}})],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.rotateRight}},[_c('fa',{attrs:{"icon":"rotate-right"}})],1),_vm._v(" "),(_vm.hasChanges)?_c('vk-button',{staticClass:"btn btn-rounded btn-icon",on:{"click":_vm.submitChanges}},[_c('fa',{attrs:{"icon":"floppy-o"}})],1):_vm._e()],1),_vm._v(" "),_c('img',{attrs:{"src":_vm.img,"alt":"Image"}}),_vm._v(" "),_c('div',{staticClass:"url"},[_vm._v("![uploaded image]("+_vm._s(_vm.img)+")")])]):_vm._e()}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-365b64d4"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-365b64d4", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-365b64d4", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Editor/Images/ImageEditor.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _from = require("babel-runtime/core-js/array/from");
+
+var _from2 = _interopRequireDefault(_from);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  props: ["entry"],
+  methods: {
+    uploadImages: function uploadImages(e) {
+      var _this = this;
+
+      var files = e.target.files;
+      var editingEntry = this.$store.getters.editingEntry;
+      (0, _from2.default)(files).forEach(function (img) {
+        var formData = new FormData();
+        formData.append((0, _from2.default)(files).indexOf(img), img);
+        formData.append("entry", _this.entry);
+        formData.append("token", _this.$store.getters.token);
+        _axios2.default.post("/api/entry/gallery/upload", formData).then(function (response) {
+          var img = response.data.files[0];
+          editingEntry.raw_content += "![uploaded image](" + encodeURI(img) + ")";
+        });
+      });
+      this.$store.dispatch("updateEntry", { entry: editingEntry });
+      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('input',{attrs:{"accept":"image/*","type":"file","label":"Upload Images","multiple":""},on:{"change":_vm.uploadImages}})])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-086946e1", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-086946e1", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Editor/Images/ImageList.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Image = require("./Image.vue");
+
+var _Image2 = _interopRequireDefault(_Image);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  props: ["entry"],
+  components: {
+    MyImage: _Image2.default
+  },
+  data: function data() {
+    return {
+      images: this.$store.getters.gallery
+    };
+  },
+  methods: {
+    getGallery: function getGallery() {
+      var _this = this;
+
+      this.$store.dispatch("loadImagesForEntry", { entry: this.entry }).then(function () {
+        _this.images = _this.$store.getters.gallery;
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"d-flex gap-1 ai_center"},[_c('h3',[_vm._v("Images")]),_vm._v(" "),_c('div',[_c('vk-button',{staticClass:"btn btn-primary btn-icon btn-rounded",on:{"click":_vm.getGallery}},[_c('fa',{attrs:{"icon":"download"}})],1)],1)]),_vm._v(" "),_c('div',{staticClass:"images-list d-flex"},_vm._l((_vm.images),function(img,index){return _c('MyImage',{key:index,staticClass:"image",attrs:{"id":'img-' + index,"myId":index,"img":img}})}),1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d03106dc", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-d03106dc", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/admin/Tools/index.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    methods: {
+        generateBackup: function generateBackup() {
+            _axios2.default.get("/api/admin/generate-backup?token=" + this.$store.getters.token).then(function (response) {
+                location.href = response.data.file;
+            });
+        },
+        rebuildCache: function rebuildCache() {
+            this.$store.dispatch('buildCache', this.$store.getters.token);
+        },
+        goHome: function goHome() {
+            this.$router.push('/');
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"d-flex gap-1"},[_c('vk-button',{staticClass:"btn btn-icon btn-primary",on:{"click":_vm.goHome}},[_c('fa',{attrs:{"icon":"arrow-left"}})],1),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.generateBackup}},[_vm._v("Generate Backup")]),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.rebuildCache}},[_vm._v("Rebuild Cache")])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b5747be8", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-b5747be8", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/Auth.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      pageTitle: 'Auth'
+    };
+  },
+  created: function created() {
+    this.$store.dispatch('setTitle', this.pageTitle);
+  },
+
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"d-flex gap-1"},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/auth/login"}},[_vm._v("Login")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/auth/restore-password"}},[_vm._v("Restore Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/auth/change-password"}},[_vm._v("Change Password")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/auth/generate-new-token"}},[_vm._v("Generate New Token")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/auth/request-new-password"}},[_vm._v("Request New Password")]),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.logout}},[_vm._v("Logout")])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-aad876c6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-aad876c6", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/ChangePassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      currentPassword: "",
+      newPassword1: "",
+      newPassword2: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      this.$store.dispatch("changePassword", {
+        username: this.username,
+        currentPassword: this.currentPassword,
+        newPassword1: this.newPassword1,
+        newPassword2: this.newPassword2
+      }).then(function () {
+        _this.$router.push('/');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.currentPassword),expression:"currentPassword"}],attrs:{"placeholder":"Current Password","type":"password"},domProps:{"value":(_vm.currentPassword)},on:{"input":function($event){if($event.target.composing){ return; }_vm.currentPassword=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newPassword1),expression:"newPassword1"}],attrs:{"placeholder":"Password","type":"password"},domProps:{"value":(_vm.newPassword1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.newPassword1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.newPassword2),expression:"newPassword2"}],attrs:{"placeholder":"Repeat Password","type":"password"},domProps:{"value":(_vm.newPassword2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.newPassword2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-628f3fa0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-628f3fa0", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/CreateAdmin.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _queryFormatter = require('../../helpers/queryFormatter');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            username: '',
+            password: ''
+        };
+    },
+    methods: {
+        submit: function submit() {
+            var _this = this;
+
+            var data = {
+                username: this.username,
+                password: this.password
+            };
+            (0, _axios2.default)({
+                method: "POST",
+                url: '/api/auth/create-admin',
+                data: (0, _queryFormatter.queryFormatter)(data),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function (response) {
+                if (response.data.adminCreated) {
+                    _this.$router.push('/auth/login');
+                }
+            });
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('form',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],staticClass:"uk-input",attrs:{"type":"text","placeholder":"Admin Username"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"uk-input",attrs:{"type":"text","placeholder":"Admin Password"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}}),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.submit}},[_vm._v("Submit")])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0b4e55ce", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-0b4e55ce", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/GenerateNewToken.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      this.$store.dispatch("generateNewToken", {
+        username: this.username,
+        token: this.$store.getters.getToken
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br')]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d56cd7a", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-5d56cd7a", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/Login.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      password: "",
+      title: "Login"
+    };
+  },
+  created: function created() {
+    this.$store.dispatch('setTitle', this.title);
+  },
+
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      this.$store.dispatch("login", {
+        username: this.username,
+        password: this.password
+      }).then(function () {
+        _this.$router.push("/");
+      });
+    },
+    auth: function auth() {
+      this.$router.push("/auth");
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.auth}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.login.apply(null, arguments)}}},[_c('fieldset',{staticClass:"uk-fieldset"},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],staticClass:"uk-input",attrs:{"placeholder":"username"},domProps:{"value":(_vm.username)},on:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.login.apply(null, arguments)},"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"uk-input",attrs:{"placeholder":"password","type":"password"},domProps:{"value":(_vm.password)},on:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.login.apply(null, arguments)},"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}})])]),_vm._v(" "),_c('vk-button',{staticClass:"btn btn-primary",on:{"click":_vm.login}},[_vm._v("Login")])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2610ee78", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2610ee78", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/Register.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      email: "",
+      password1: "",
+      password2: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      console.log(this.username, this.email, this.password1, this.password2);
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],attrs:{"placeholder":"Email","type":"email"},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password1),expression:"password1"}],attrs:{"placeholder":"Password","type":"password"},domProps:{"value":(_vm.password1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password2),expression:"password2"}],attrs:{"placeholder":"Repeat Password","type":"password"},domProps:{"value":(_vm.password2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4fb4acd0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-4fb4acd0", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/RequestNewPassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: ""
+    };
+  },
+  methods: {
+    submit: function submit() {
+      this.$store.dispatch("requestNewPassword", { username: this.username });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","id":"username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}}),_vm._v(" "),_c('br')]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-bb5ce6fe"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bb5ce6fe", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-bb5ce6fe", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/auth/RestorePassword.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      username: "",
+      password1: "",
+      password2: ""
+    };
+  },
+  created: function created() {
+    this.$store.dispatch('toolBar', { pateTitle: 'Restore password · 2022' });
+  },
+
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      this.$store.dispatch("restorePassword", {
+        username: this.username,
+        password1: this.password1,
+        password2: this.password2,
+        token: urlParams.get('token')
+      }).then(function () {
+        _this.$router.push('/');
+      });
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',[_c('router-link',{staticClass:"btn",attrs:{"to":"/auth"}},[_vm._v("Return")])],1),_vm._v(" "),_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.submit.apply(null, arguments)}}},[_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.username),expression:"username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.username=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password1),expression:"password1"}],attrs:{"placeholder":"New Password","type":"password"},domProps:{"value":(_vm.password1)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password1=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-row"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password2),expression:"password2"}],attrs:{"placeholder":"Repeat New Password","type":"password"},domProps:{"value":(_vm.password2)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password2=$event.target.value}}})]),_vm._v(" "),_c('button',{staticClass:"mt-1",attrs:{"type":"submit"}},[_vm._v("Submit")])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2a0b9638", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2a0b9638", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/error/NotFound.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: "NotFound"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[_c('div',{staticClass:"container h-100"},[_c('div',{staticClass:"row align-items-center h-100"},[_c('div',{staticClass:"col-8 mx-auto"},[_c('div',{staticClass:"jumbotron -100"},[_c('h3',[_vm._v("Sorry, this page could not be found :(")]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("\n            Return "),_c('router-link',{attrs:{"to":"/"}},[_vm._v("Home")])],1)])])])])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-282a4a58", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-282a4a58", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/fa.vue", function(exports, require, module) {
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'fa',
+  props: {
+    icon: ''
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('i',{class:("fa fa-fw fa-" + _vm.icon)})}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-04fe86dd", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-04fe86dd", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/home/Day.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _entries = require("babel-runtime/core-js/object/entries");
+
+var _entries2 = _interopRequireDefault(_entries);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "Day",
+  props: ["day"],
+  computed: {
+    formattedDate: function formattedDate() {
+      return this.day.meta.title;
+    },
+    content: function content() {
+      return this.day.content;
+    },
+    canEdit: function canEdit() {
+      return this.$store.getters.token !== null;
+    },
+    query: function query() {
+      var q = { entry: this.day.id };
+      var query = (0, _entries2.default)(q).map(function (_ref) {
+        var _ref2 = (0, _slicedToArray3.default)(_ref, 2),
+            key = _ref2[0],
+            val = _ref2[1];
+
+        return key + "=" + val;
+      }).join("&");
+      return query;
+    }
+  },
+  methods: {
+    deleteEntry: function deleteEntry() {
+      var _this = this;
+
+      var doDelete = confirm("Are you sure you want to delete this entry");
+      if (doDelete) {
+        var data = {
+          entry: this.day.id,
+          token: this.$store.getters.token
+        };
+        this.$store.dispatch("deleteEntry", data).then(function (response) {
+          _this.$store.dispatch("getEntries");
+        });
+      }
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"article"},[_c('div',{staticClass:"article-head"},[_c('h3',[_vm._v(_vm._s(_vm.formattedDate))]),_vm._v(" "),(_vm.canEdit)?_c('div',[_c('vk-button',{staticClass:"btn btn-icon btn-rounded"},[_c('fa',{attrs:{"icon":"ellipsis-v"}})],1),_vm._v(" "),_c('vk-dropdown',[_c('vk-nav-dropdown',[_c('vk-nav-item',{attrs:{"title":"Delete"},on:{"click":_vm.deleteEntry}},[_vm._v("Delete")]),_vm._v(" "),_c('vk-nav-item',{attrs:{"href":'/edit?' + _vm.query,"title":"Edit"}},[_vm._v("Edit")])],1)],1)],1):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"article-body"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.content)}})])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e949f24", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2e949f24", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/home/Month.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Day = require("./Day");
+
+var _Day2 = _interopRequireDefault(_Day);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "Month",
+  props: ["month"],
+  components: {
+    Day: _Day2.default
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"month"},[_vm._v(_vm._s(_vm.month.name))]),_vm._v(" "),_c('div',{staticClass:"article-list container"},_vm._l((_vm.month.days),function(day,index){return _c('div',{key:index},[_c('Day',{attrs:{"day":day}})],1)}),0)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b125d25c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-b125d25c", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/components/home/MonthList.vue", function(exports, require, module) {
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Month = require("./Month");
+
+var _Month2 = _interopRequireDefault(_Month);
+
+var _AdminBar = require("../admin/AdminBar");
+
+var _AdminBar2 = _interopRequireDefault(_AdminBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: "MonthList",
+  components: {
+    Month: _Month2.default,
+    AdminBar: _AdminBar2.default
+  },
+  data: function data() {
+    return {
+      title: '2022'
+    };
+  },
+  created: function created() {
+    this.$store.dispatch('setTitle', this.title);
+  },
+
+  computed: {
+    months: function months() {
+      return this.$store.getters.entries;
+    },
+    canEdit: function canEdit() {
+      return this.$store.getters.token !== null;
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-content"},[(_vm.canEdit)?_c('AdminBar'):_vm._e(),_vm._v(" "),_vm._l((_vm.months),function(month){return _c('div',{key:month.id,staticClass:"month"},[_c('Month',{attrs:{"month":month}})],1)})],2)}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-369800e0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-369800e0", __vue__options__)
+  }
+})()}
+});
+
+;require.register("src/helpers/queryFormatter.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function queryFormatter(data) {
+    return Object.keys(data).map(function (key) {
+        return key + '=' + data[key];
+    }).join('&');
+}
+
+exports.queryFormatter = queryFormatter;
+});
+
+;require.register("src/routes.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.router = undefined;
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRouter = require('vue-router');
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _MonthList = require('./components/home/MonthList');
+
+var _MonthList2 = _interopRequireDefault(_MonthList);
+
+var _Login = require('./components/auth/Login');
+
+var _Login2 = _interopRequireDefault(_Login);
+
+var _RestorePassword = require('./components/auth/RestorePassword');
+
+var _RestorePassword2 = _interopRequireDefault(_RestorePassword);
+
+var _RequestNewPassword = require('./components/auth/RequestNewPassword');
+
+var _RequestNewPassword2 = _interopRequireDefault(_RequestNewPassword);
+
+var _ChangePassword = require('./components/auth/ChangePassword');
+
+var _ChangePassword2 = _interopRequireDefault(_ChangePassword);
+
+var _Register = require('./components/auth/Register');
+
+var _Register2 = _interopRequireDefault(_Register);
+
+var _GenerateNewToken = require('./components/auth/GenerateNewToken');
+
+var _GenerateNewToken2 = _interopRequireDefault(_GenerateNewToken);
+
+var _CreateAdmin = require('./components/auth/CreateAdmin');
+
+var _CreateAdmin2 = _interopRequireDefault(_CreateAdmin);
+
+var _Auth = require('./components/auth/Auth');
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
+var _Editor = require('./components/admin/Editor/Editor');
+
+var _Editor2 = _interopRequireDefault(_Editor);
+
+var _NotFound = require('./components/error/NotFound');
+
+var _NotFound2 = _interopRequireDefault(_NotFound);
+
+var _index = require('./components/admin/Tools/index');
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vueRouter2.default);
+
+var routes = [{
+    path: '/',
+    name: "Home",
+    component: _MonthList2.default
+}, {
+    path: '/edit',
+    name: "Edit",
+    props: function props(route) {
+        return { entry: route.query.entry };
+    },
+    component: _Editor2.default
+}, {
+    path: '/auth',
+    name: "Auth",
+    component: _Auth2.default
+}, {
+    path: '/auth/login',
+    name: "Login",
+    component: _Login2.default
+}, {
+    path: '/auth/register',
+    name: "Register",
+    component: _Register2.default
+}, {
+    path: '/auth/restore-password',
+    name: "Restore Password",
+    component: _RestorePassword2.default
+}, {
+    path: '/auth/request-new-password',
+    name: "Request New Password",
+    component: _RequestNewPassword2.default
+}, {
+    path: '/auth/change-password',
+    name: "Change Password",
+    component: _ChangePassword2.default
+}, {
+    path: '/auth/generate-new-token',
+    name: "Generate New Token",
+    component: _GenerateNewToken2.default
+}, {
+    path: '/auth/create-admin',
+    name: "Create Admin User",
+    component: _CreateAdmin2.default
+}, {
+    path: "/admin/tools",
+    name: "More Tools",
+    component: _index2.default
+}, {
+    path: "*",
+    name: "notFound",
+    component: _NotFound2.default
+}];
+
+var router = exports.router = new _vueRouter2.default({
+    mode: 'history',
+    routes: routes
+});
+});
+
+;require.register("src/store/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vuex = require('vuex');
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+var _months = require('./modules/months/');
+
+var _months2 = _interopRequireDefault(_months);
+
+var _auth = require('./modules/auth/');
+
+var _auth2 = _interopRequireDefault(_auth);
+
+var _main = require('./modules/main/');
+
+var _main2 = _interopRequireDefault(_main);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vuex2.default);
+
+// Module
+exports.default = new _vuex2.default.Store({
+    modules: {
+        main: _main2.default,
+        months: _months2.default,
+        auth: _auth2.default
+    }
+});
+});
+
+;require.register("src/store/modules/auth/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions;
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _queryFormatter = require('../../../helpers/queryFormatter');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var state = {
+    token: null
+};
+
+var mutations = {
+    UPDATE_TOKEN: function UPDATE_TOKEN(state, payload) {
+        localStorage.setItem('token', payload);
+        state.token = payload;
+    }
+};
+
+var actions = (_actions = {
+    register: function register(payload) {
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/register',
+            data: (0, _queryFormatter.queryFormatter)(payload),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    },
+    changePassword: function changePassword(_ref, payload) {
+        var commit = _ref.commit;
+
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/change-password',
+            data: (0, _queryFormatter.queryFormatter)(payload),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
+    },
+    requestNewPassword: function requestNewPassword(_ref2, payload) {
+        var commit = _ref2.commit;
+
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/request-new-password',
+            data: (0, _queryFormatter.queryFormatter)(payload),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    },
+    restorePassword: function restorePassword(_ref3, payload) {
+        var commit = _ref3.commit;
+
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/restore-password',
+            data: (0, _queryFormatter.queryFormatter)(payload),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
+    },
+    generateNewToken: function generateNewToken(_ref4, payload) {
+        var commit = _ref4.commit;
+
+        return (0, _axios2.default)({
+            method: 'POST',
+            url: '/api/auth/generate-new-token',
+            data: (0, _queryFormatter.queryFormatter)(payload),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (response) {
+            commit('UPDATE_TOKEN', response.data.token);
+        });
+    }
+}, _defineProperty(_actions, 'register', function register(_ref5, payload) {
+    var commit = _ref5.commit;
+
+    return (0, _axios2.default)({
+        method: 'POST',
+        url: '/api/auth/register',
+        data: (0, _queryFormatter.queryFormatter)(payload),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function (response) {
+        commit('UPDATE_TOKEN', response.data.token);
+    });
+}), _defineProperty(_actions, 'login', function login(_ref6, payload) {
+    var commit = _ref6.commit;
+
+    return (0, _axios2.default)({
+        method: 'POST',
+        url: '/api/login',
+        data: (0, _queryFormatter.queryFormatter)(payload),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function (response) {
+        commit('UPDATE_TOKEN', response.data.token);
+    });
+}), _defineProperty(_actions, 'getToken', function getToken(_ref7) {
+    var commit = _ref7.commit;
+
+    var token = localStorage.getItem('token');
+    if (token) {
+        commit('UPDATE_TOKEN', token);
+    }
+}), _defineProperty(_actions, 'logout', function logout(_ref8) {
+    var commit = _ref8.commit;
+
+    commit('UPDATE_TOKEN', null);
+    localStorage.removeItem('token');
+}), _actions);
+
+var getters = {
+    token: function token(state) {
+        return state.token;
+    }
+};
+
+var authModule = {
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
+
+exports.default = authModule;
+});
+
+require.register("src/store/modules/main/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var state = {
+    isLoading: false,
+    showEditSpecificPopup: false,
+    pageTitle: '2022'
+};
+
+var mutations = {
+    LOADING: function LOADING(state, isLoading) {
+        state.isLoading = isLoading;
+    },
+    EDIT_SPECIFIC_POPUP: function EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
+        state.showEditSpecificPopup = showEditSpecificPopup;
+    }
+};
+
+var actions = {
+    setTitle: function setTitle(_ref, title) {
+        var commit = _ref.commit;
+
+        if (title === '2022') {
+            document.title = '2022';
+        } else {
+            document.title = title + ' · 2022';
+        }
+        state.pageTitle = title;
+    },
+    buildCache: function buildCache(asdf, token) {
+        _axios2.default.post('/api/admin/build-cache?token=' + token);
+    }
+};
+
+var getters = {
+    loading: function loading(state) {
+        return state.isLoading;
+    },
+    showEditSpecificPopup: function showEditSpecificPopup(state) {
+        return state.showEditSpecificPopup;
+    },
+    pageTitle: function pageTitle(state) {
+        return state.pageTitle;
+    }
+};
+
+var mainModule = {
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
+
+exports.default = mainModule;
+});
+
+require.register("src/store/modules/months/index.js", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _queryFormatter = require('../../../helpers/queryFormatter');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var state = {
+  entries: [],
+  editingEntry: {},
+  editingGallery: {}
+};
+
+var mutations = {
+  UPDATE_EDITING_ENTRY: function UPDATE_EDITING_ENTRY(state, payload) {
+    state.editingEntry = payload;
+  },
+  UPDATE_ENTRIES: function UPDATE_ENTRIES(state, payload) {
+    state.entries = payload;
+  },
+  UPDATE_EDITING_GALLERY: function UPDATE_EDITING_GALLERY(state, payload) {
+    state.editingGallery = payload;
+  }
+};
+
+var actions = {
+  getEntries: function getEntries(_ref) {
+    var commit = _ref.commit;
+
+    _axios2.default.get('/api/entries').then(function (response) {
+      commit('UPDATE_ENTRIES', response.data);
+    });
+  },
+  updateEntry: function updateEntry(_ref2, payload) {
+    var commit = _ref2.commit;
+
+    commit('UPDATE_EDITING_ENTRY', payload.entry);
+  },
+  saveEntry: function saveEntry(_ref3, token) {
+    var commit = _ref3.commit;
+
+    var data = {
+      token: token,
+      content: btoa(getters.editingEntry(state).raw_content),
+      entry: getters.editingEntry(state).id
+    };
+    return (0, _axios2.default)({
+      method: 'post',
+      url: '/api/admin/entry/edit',
+      data: (0, _queryFormatter.queryFormatter)(data),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  },
+  getEntry: function getEntry(_ref4, payload) {
+    var commit = _ref4.commit;
+
+    return _axios2.default.get('/api/admin/entry/edit?entry=' + payload.entry + '&token=' + payload.token).then(function (response) {
+      commit('UPDATE_EDITING_ENTRY', response.data);
+    });
+  },
+  deleteEntry: function deleteEntry(_ref5, payload) {
+    var commit = _ref5.commit;
+
+    return _axios2.default.delete('/api/admin/entry/delete?' + (0, _queryFormatter.queryFormatter)(payload));
+  },
+  loadImagesForEntry: function loadImagesForEntry(_ref6, payload) {
+    var commit = _ref6.commit;
+
+    return _axios2.default.get('/api/admin/entry/images/load?entry=' + payload.entry).then(function (response) {
+      commit('UPDATE_EDITING_GALLERY', response.data.images);
+    });
+  }
+};
+
+var getters = {
+  entries: function entries(state) {
+    return state.entries;
+  },
+  editingEntry: function editingEntry(state) {
+    return state.editingEntry;
+  },
+  gallery: function gallery(state) {
+    return state.editingGallery;
+  }
+};
+
+var monthsModule = {
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+};
+
+exports.default = monthsModule;
+});
+
+;require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
+  
+});})();require('___globals___');
+
+
+//# sourceMappingURL=app.js.map
