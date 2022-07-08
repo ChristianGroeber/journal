@@ -38,6 +38,7 @@ export default {
       newContent = newContent.replace(/’/g, '\'');
       newContent = newContent.replace(/“/g, '"');
       newContent = newContent.replace(/”/g, '"');
+      newContent = newContent.replace(/„/g, '"');
       newContentField.value = newContent;
       console.log(newContent);
       const entry = this.$store.getters.editingEntry;
