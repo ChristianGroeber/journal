@@ -1,4 +1,4 @@
-FROM christiangroeber/php-server:7.4.1
+FROM christiangroeber/php-server:7.4.2
 
 ARG UID
 ARG GID
