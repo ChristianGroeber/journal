@@ -21,9 +21,10 @@ class ImageController extends AbstractController
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
         $now = new \DateTime();
-        $baseFileName = $now->getTimestamp();
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
         $entry = $_REQUEST['entry'];
+        $month = explode('/', $entry)[1];
+        $day = explode('/', $entry)[2];
 
         if (!is_dir("${imagesDir}${entry}")) {
             mkdir("${imagesDir}${entry}", 0777, true);
@@ -32,13 +33,7 @@ class ImageController extends AbstractController
         $imgHelper = new ImageHelper();
         $uploadedFiles = [];
         foreach ($_FILES as $file) {
-            file_put_contents("${imagesDir}${entry}/${baseFileName}" . $file['name'], file_get_contents($file['tmp_name']));
-            foreach ($imgHelper->getDefaultSizes() as $size) {
-                $imgHelper->compressImage("${imagesDir}${entry}/${baseFileName}" . $file['name'], $size);
-                if ($size === 1080) {
-                    array_push($uploadedFiles, "/images${entry}/${size}/${baseFileName}" . $file['name']);
-                }
-            }
+            array_push($uploadedFiles, $imgHelper->storeEntryImage($file['tmp_name'], $month, $day));
         }
 
         return $this->json(['message' => 'uploaded files', 'files' => $uploadedFiles]);

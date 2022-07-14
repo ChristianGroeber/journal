@@ -16,7 +16,7 @@ class ImageHelper
     public function deleteImage(Image $image)
     {
         $basePath = $_SERVER['DOCUMENT_ROOT'] . '/images/' . $image->getMonth() . '/' . $image->getDay() . '/';
-        
+
         unlink($basePath . $image->getName());
         foreach ($this->defaultSizes as $size) {
             $path = $basePath . $size . '/' . $image->getName();
@@ -35,7 +35,7 @@ class ImageHelper
             $month = $now->format('F');
         }
         if (!$day) {
-            $day = $now->format('d.m.Y');
+            $day = $now->format('Y-m-d');
         }
         $fileName = explode('/', $imagePath);
         $fileName = array_pop($fileName);
@@ -51,7 +51,6 @@ class ImageHelper
         // Rotate Image
         $image = imagecreatefromjpeg($imagePath);
         $exif = exif_read_data($imagePath);
-        print_r($exif);
         if (!empty($exif['Orientation'])) {
             switch ($exif['Orientation']) {
                 case 8:
