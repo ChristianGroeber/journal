@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import MonthList from "./components/home/MonthList";
 import Login from "./components/auth/Login";
+import LoginRedirector from "./components/auth/LoginRedirector";
 import RestorePassword from "./components/auth/RestorePassword";
 import RequestNewPassword from "./components/auth/RequestNewPassword";
 import ChangePassword from "./components/auth/ChangePassword";
@@ -37,6 +38,11 @@ const routes = [
         path: '/auth/login',
         name: "Login",
         component: Login,
+    },
+    {
+        path: '/auth/login-if-not-logged-in',
+        name: 'Login if not logged in',
+        component: LoginRedirector,
     },
     {
         path: '/auth/register',
