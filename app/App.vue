@@ -4,6 +4,7 @@
     <div class="header">
       <h1 @click="reload" class="reloadable">{{ pageTitle }}</h1>
     </div>
+    a test change
     <router-view></router-view>
     <specific-entry-popup></specific-entry-popup>
   </div>
