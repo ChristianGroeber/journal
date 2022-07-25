@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: christiangroeber/2022:latest
+          tags: christiangroeber/journal:latest
