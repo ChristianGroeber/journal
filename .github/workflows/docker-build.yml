@@ -28,5 +28,5 @@ jobs:
           push: true
           tags: christiangroeber/2022:latest
           build-args:
-            - UID: 99
-            - GID: 100
+            UID: 99
+            GID: 100
