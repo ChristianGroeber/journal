@@ -26,4 +26,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          UID: 99
+          GID: 100
           tags: christiangroeber/2022:latest
