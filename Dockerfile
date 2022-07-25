@@ -4,6 +4,8 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 
+RUN composer install
+
 RUN groupadd -o -g 100 journal_group
 RUN useradd -M -N -u 99 -g 100 journal_user
 
