@@ -24,7 +24,8 @@ export default {
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
         axios.post("/api/entry/gallery/upload", formData).then((response) => {
-          const img = response.data.files[0];
+          const img = response.data.files[0][1080];
+          console.log(img);
           editingEntry.raw_content +=
             "![uploaded image](" + encodeURI(img) + ")";
         });

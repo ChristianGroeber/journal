@@ -37,11 +37,7 @@ class ImageHelper
         if (!$day) {
             $day = $now->format('Y-m-d');
         }
-        $fileName = explode('/', $imagePath);
-        $fileName = array_pop($fileName);
-        if (!endswith($fileName, '.jpg')) {
-            $fileName .= '.jpg';
-        }
+        $fileName = sha1_file($imagePath) . '.jpg';
         $baseFileName = $now->getTimestamp();
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
         if (!is_dir("${imagesDir}${month}/${day}")) {
@@ -67,12 +63,12 @@ class ImageHelper
 
         // Save rotated image
         $uploadedFiles = [];
-        imagejpeg($image, "${imagesDir}${month}/${day}/${baseFileName}_${fileName}");
+        imagejpeg($image, "${imagesDir}${month}/${day}/${baseFileName}-${fileName}");
 
         // create scaled versions of image
         foreach ($this->getDefaultSizes() as $size) {
-            $this->compressImage("${imagesDir}${month}/${day}/${baseFileName}_${fileName}", $size);
-            array_push($uploadedFiles, "/images/${month}/${day}/${size}/${baseFileName}_${fileName}");
+            $this->compressImage("${imagesDir}${month}/${day}/${baseFileName}-${fileName}", $size);
+            $uploadedFiles[$size] = "/images/${month}/${day}/${size}/${baseFileName}-${fileName}";
         }
 
         return $uploadedFiles;
