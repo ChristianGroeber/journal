@@ -3,7 +3,7 @@
     "lang": "en",
     "name": "2022",
     "scope": "/",
-    "display": "fullscreen",
+    "display": "standalone",
     "start_url": "/auth/login-if-not-logged-in",
     "short_name": "2022",
     "theme_color": "#ce54d6",
