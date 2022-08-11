@@ -27,13 +27,13 @@ jobs:
         name: yarn Install
         with:
           args: install
-      - runs: yarn
+        run: yarn
       -
         uses: docker://node:16
         name: yarn Build
         with:
           args: build
-      - runs: yarn
+        run: yarn
       -
         name: Build and push
         uses: docker/build-push-action@v3
