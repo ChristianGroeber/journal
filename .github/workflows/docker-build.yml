@@ -23,17 +23,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        uses: docker://node:16
-        name: yarn Install
-        with:
-          args: install
-        run: yarn
-      -
-        uses: docker://node:16
-        name: yarn Build
-        with:
-          args: build
-        run: yarn
+        uses: actions/setup-node@v2
+        name: Setup Node
+      - run: yarn install
+      - run: yarn build
       -
         name: Build and push
         uses: docker/build-push-action@v3
