@@ -22,6 +22,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        uses: actions/setup-node@v3
+        name: yarn Install
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile # optional, --immutable
+      -
         name: Build and push
         uses: docker/build-push-action@v3
         with:

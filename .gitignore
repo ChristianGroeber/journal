@@ -12,6 +12,7 @@ images/Septempber/*
 images/October/*
 images/November/*
 images/December/*
+public/build/*
 .idea
 yarn-error.log
 .secret
