@@ -23,15 +23,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        uses: borales/actions-yarn@v3.0.0
+        uses: docker://node:16
         name: yarn Install
         with:
-          cmd: install
+          args: install
+        runs: yarn
       -
-        uses: borales/actions-yarn@v3.0.0
+        uses: docker://node:16
         name: yarn Build
         with:
-          cmd: build
+          args: build
+        runs: yarn
       -
         name: Build and push
         uses: docker/build-push-action@v3
