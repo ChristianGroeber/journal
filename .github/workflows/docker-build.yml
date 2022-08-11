@@ -9,6 +9,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -22,12 +23,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        uses: actions/setup-node@v3
+        uses: borales/actions-yarn@v3.0.0
         name: yarn Install
         with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile # optional, --immutable
+          cmd: install
+      -
+        uses: borales/actions-yarn@v3.0.0
+        name: yarn Build
+        with:
+          cmd: build
       -
         name: Build and push
         uses: docker/build-push-action@v3
