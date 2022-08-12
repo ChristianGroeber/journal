@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  "2022":
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: christiangroeber/journal:latest

@@ -27,6 +27,7 @@ jobs:
         name: Setup Node
       - run: yarn install
       - run: yarn build
+      - run: ls
       -
         name: Build and push
         uses: docker/build-push-action@v3
