@@ -37,7 +37,7 @@ class ImageHelper
         if (!$day) {
             $day = $now->format('Y-m-d');
         }
-        $fileName = sha1_file($imagePath) . '.jpg';
+        $fileName = sha1_file($imagePath) . '.webp';
         $baseFileName = $now->getTimestamp();
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
         if (!is_dir("${imagesDir}${month}/${day}")) {
@@ -63,7 +63,7 @@ class ImageHelper
 
         // Save rotated image
         $uploadedFiles = [];
-        imagejpeg($image, "${imagesDir}${month}/${day}/${baseFileName}-${fileName}");
+        imagewebp($image, "${imagesDir}${month}/${day}/${baseFileName}-${fileName}");
 
         // create scaled versions of image
         foreach ($this->getDefaultSizes() as $size) {
@@ -97,7 +97,7 @@ class ImageHelper
         }
 
         // Save scaled down version in new path
-        imagejpeg($scaled, "${targetPath}/${fileName}");
+        imagewebp($scaled, "${targetPath}/${fileName}");
 
         return "${targetPath}/${fileName}";
     }
