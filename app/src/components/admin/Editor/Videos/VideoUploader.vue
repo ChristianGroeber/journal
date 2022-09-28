@@ -1,11 +1,10 @@
 <template>
   <div>
     <input
-      accept="image/*,video/*"
-      @change="uploadImages"
+      accept="video/*"
+      @change="uploadVideo"
       type="file"
-      label="Upload Images"
-      multiple
+      label="Upload Video"
     />
   </div>
 </template>
@@ -15,19 +14,19 @@ import axios from "axios";
 export default {
   props: ["entry"],
   methods: {
-    uploadImages(e) {
+    uploadVideo(e) {
       const files = e.target.files;
       const editingEntry = this.$store.getters.editingEntry;
-      Array.from(files).forEach((img) => {
+      Array.from(files).forEach((vid) => {
         const formData = new FormData();
-        formData.append(Array.from(files).indexOf(img), img);
+        formData.append(Array.from(files).indexOf(vid), vid);
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
         axios.post("/api/entry/gallery/upload", formData).then((response) => {
-          const img = response.data.files[0][1080];
-          console.log(img);
+          const vid = response.data.files[0][1080];
+          console.log(vid);
           editingEntry.raw_content +=
-            "![uploaded image](" + encodeURI(img) + ")";
+            "![uploaded video](" + encodeURI(vid) + ")";
         });
       });
       this.$store.dispatch("updateEntry", { entry: editingEntry });
