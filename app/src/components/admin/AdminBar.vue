@@ -1,6 +1,5 @@
 <template>
   <div class="admin-bar">
-    <h3>Welcome Admin</h3>
     <vk-navbar>
       <vk-navbar-nav>
         <vk-navbar-nav-item
