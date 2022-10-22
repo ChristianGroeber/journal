@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use Nacho\Security\JsonUserHandler;
-use Nacho\Security\UserHandlerInterface;
+use Nacho\Contracts\UserHandlerInterface;
 
 class TokenHelper 
 {

@@ -39,7 +39,7 @@ const actions = {
   }, token) {
     const data = {
       token: token,
-      content: btoa(getters.editingEntry(state).raw_content),
+      content: getters.editingEntry(state).raw_content,
       entry: getters.editingEntry(state).id,
     }
     return axios({
@@ -68,6 +68,7 @@ const actions = {
   loadImagesForEntry({
     commit
   }, payload) {
+    console.log(payload);
     return axios.get('/api/admin/entry/images/load?entry=' + payload.entry).then((response) => {
       commit('UPDATE_EDITING_GALLERY', response.data.images);
     })
