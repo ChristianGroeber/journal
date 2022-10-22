@@ -14,6 +14,7 @@
         </vk-dropdown>
       </div>
     </div>
+    <RaceReport entry="asdf"></RaceReport>
     <div class="article-body">
       <p v-html="content"></p>
     </div>
@@ -21,9 +22,14 @@
 </template>
 
 <script>
+import RaceReport from "./RaceReport";
+
 export default {
   name: "Day",
   props: ["day"],
+  components: {
+    RaceReport,
+  },
   computed: {
     formattedDate() {
       return this.day.meta.title;
