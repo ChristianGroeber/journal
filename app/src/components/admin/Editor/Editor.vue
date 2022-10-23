@@ -10,6 +10,7 @@
 import EditEntry from "./EditEntry.vue";
 import ImageEditor from "./Images/ImageEditor.vue";
 import ImageList from "./Images/ImageList.vue";
+
 export default {
   props: ["entry"],
   data: function () {

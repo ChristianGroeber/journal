@@ -72,6 +72,16 @@ const actions = {
     return axios.get('/api/admin/entry/images/load?entry=' + payload.entry).then((response) => {
       commit('UPDATE_EDITING_GALLERY', response.data.images);
     })
+  },
+  uploadRaceReport({commit}, data) {
+    return axios({
+      method: "POST",
+      url: "/api/admin/entry/race-report",
+      data: queryFormatter(data),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
   }
 }
 

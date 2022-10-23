@@ -1,15 +1,18 @@
 <template>
   <div class="main-content">
-    <div>
+    <div class="d-flex jc_space-between">
       <vk-button class="btn btn-icon btn-primary" @click="checkGoHome">
         <fa icon="arrow-left"></fa>
+      </vk-button>
+      <vk-button class="btn btn-icon btn-primary" @click="addRaceReport">
+        <fa icon="file-waveform" />
       </vk-button>
     </div>
     <div class="container">
       <textarea @change="updateContent" id="edit-entry" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
       <div class="actions">
         <vk-button class="btn btn-icon btn-primary" @click="save">
-          <fa icon="floppy-o"></fa>
+          <fa icon="floppy-disk"></fa>
         </vk-button>
       </div>
     </div>
@@ -63,6 +66,9 @@ export default {
       } else {
         this.doGoHome();
       }
+    },
+    addRaceReport() {
+      this.$store.commit('EDIT_RACE_REPORT_POPUP', true);
     },
     doGoHome() {
       this.$store.dispatch("getEntries");
