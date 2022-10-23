@@ -38,15 +38,15 @@ export default ({
         },
         {
           label: 'Pace',
-          value: '5:10/km',
+          value: this.entry.meta.raceReport.pace + '/km',
         },
         {
           label: 'BPM',
-          value: '173',
+          value: this.entry.meta.raceReport.bpm,
         },
         {
           label: 'Calories',
-          value: 1079,
+          value: this.entry.meta.raceReport.calories,
         },
       ]
     }

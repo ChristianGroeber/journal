@@ -36,7 +36,7 @@ class CacheHelper
                     'days' => [],
                 ];
             }
-            if (!$page->raw_content) {
+            if (!$page->raw_content && !key_exists('raceReport', (array) $page->meta)) {
                 continue;
             }
             $page->content = $this->nacho->getMarkdownHelper()->renderPage($page);
