@@ -3,18 +3,11 @@
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
       <div v-if="canEdit">
-        <vk-button class="btn btn-icon btn-rounded">
-          <fa icon="ellipsis-v"></fa>
-        </vk-button>
-        <vk-dropdown>
-          <vk-nav-dropdown>
-            <vk-nav-item @click="deleteEntry" title="Delete">Delete</vk-nav-item>
-            <vk-nav-item :href="'/edit?' + query" title="Edit">Edit</vk-nav-item>
-          </vk-nav-dropdown>
-        </vk-dropdown>
+        <vk-button class="btn btn-icon btn-danger" @click="deleteEntry" title="Delete"><fa icon="trash" /></vk-button>
+        <vk-button class="btn btn-icon btn-primary" @click="editEntry" title="Edit"><fa icon="edit" /></vk-button>
       </div>
     </div>
-    <RaceReport entry="asdf"></RaceReport>
+    <RaceReport v-if="hasRaceReport" :entry="day"></RaceReport>
     <div class="article-body">
       <p v-html="content"></p>
     </div>
@@ -22,7 +15,7 @@
 </template>
 
 <script>
-import RaceReport from "./RaceReport";
+import RaceReport from './RaceReport';
 
 export default {
   name: "Day",
@@ -47,6 +40,9 @@ export default {
         .join("&");
       return query;
     },
+    hasRaceReport() {
+      return 'raceReport' in this.day.meta;
+    },
   },
   methods: {
     deleteEntry() {
@@ -60,6 +56,9 @@ export default {
           this.$store.dispatch("getEntries");
         });
       }
+    },
+    editEntry() {
+      this.$router.push('/edit?' + this.query);
     },
   },
 };

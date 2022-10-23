@@ -7,6 +7,7 @@ use App\Helpers\ImageHelper;
 use App\Helpers\TokenHelper;
 use App\Helpers\BackupHelper;
 use App\Helpers\CacheHelper;
+use App\Models\RaceReport;
 use Nacho\Controllers\AbstractController;
 use Nacho\Models\HttpMethod;
 use Nacho\Models\HttpResponseCode;
@@ -45,6 +46,27 @@ class AdminController extends AbstractController
         }
 
         return $this->json((array) $page);
+    }
+
+    public function uploadRaceReport(Request $request)
+    {
+        if (!key_exists('token', $request->getBody()) || !key_exists('raceReport', $request->getBody()) || !key_exists('entry', $request->getBody())) {
+            return $this->json(['message' => 'You need to provide a token, raceReport and the entry'], 400);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $request->getBody()['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+        $raceReport = new RaceReport($request->getBody()['raceReport']);
+        $entry = $this->nacho->getMarkdownHelper()->getPage($request->getBody()['entry']);
+        if (!$entry) {
+            $this->createSpecific();
+        }
+        $this->nacho->getMarkdownHelper()->editPage($entry->id, '', ['raceReport' => (array) $raceReport]);
+
+        return $this->json(['message' => 'Successfully stored Race Report']);
     }
 
     function createSpecific()
