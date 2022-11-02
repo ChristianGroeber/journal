@@ -3,8 +3,13 @@
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
       <div v-if="canEdit">
-        <vk-button class="btn btn-icon btn-danger" @click="deleteEntry" title="Delete"><fa icon="trash" /></vk-button>
-        <vk-button class="btn btn-icon btn-primary" @click="editEntry" title="Edit"><fa icon="edit" /></vk-button>
+        <vk-button class="btn btn-icon btn-rounded"><fa icon="ellipsis-vertical"/></vk-button>
+        <vk-dropdown>
+          <vk-nav-dropdown>
+            <vk-nav-item title="Edit" @click="editEntry"></vk-nav-item>
+            <vk-nav-item title="Delete" @click="deleteEntry"></vk-nav-item>
+          </vk-nav-dropdown>
+        </vk-dropdown>
       </div>
     </div>
     <RaceReport v-if="hasRaceReport" :entry="day"></RaceReport>
