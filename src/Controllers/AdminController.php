@@ -196,6 +196,26 @@ class AdminController extends AbstractController
         return $this->json(['file' => $zip]);
     }
 
+    public function restoreFromBackup(Request $request)
+    {
+        if (!key_exists('token', $request->getBody())) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $request->getBody()['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
+        $zipPath = $_FILES['backup']['tmp_name'];
+        print($zipPath);
+        $backupHelper = new BackupHelper();
+        $success = $backupHelper->restoreFromBackup($zipPath);
+
+        return $this->json(['success' => $success]);
+    }
+
     private function getCurrentFile()
     {
         $now = new \DateTime();

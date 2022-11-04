@@ -18,3 +18,6 @@
 
 # Prevent file browsing
 Options -Indexes -MultiViews
+
+php_value upload_max_filesize 2G
+php_value post_max_size 2G

@@ -75,6 +75,11 @@
         "function": "generateBackup"
     },
     {
+        "route": "/api/admin/restore-backup",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "restoreFromBackup"
+    },
+    {
         "route": "/api/login",
         "controller": "App\\Controllers\\AuthenticationController",
         "function": "login"

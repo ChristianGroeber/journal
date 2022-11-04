@@ -7,6 +7,8 @@ use ZipArchive;
 class BackupHelper
 {
     private array $toBackup;
+    const IMAGES_DIR = '/var/www/html/images';
+    const CONTENT_DIR = '/var/www/html/content';
 
     public function __construct()
     {
@@ -26,6 +28,47 @@ class BackupHelper
             }
         }
         return substr($archiveName, strlen($_SERVER['DOCUMENT_ROOT']));
+    }
+
+    public function restoreFromBackup(string $backupPath): bool
+    {
+        $outDir = '/tmp/' . md5(time());
+        $zip = new ZipArchive();
+        $zip->open($backupPath);
+        $zip->extractTo($outDir);
+        $zip->close();
+        self::clearDirectory(self::IMAGES_DIR);
+        self::clearDirectory(self::CONTENT_DIR);
+
+        move_uploaded_file($outDir . '/content', self::CONTENT_DIR);
+        move_uploaded_file($outDir . '/images', self::IMAGES_DIR);
+
+        return true;
+    }
+
+    private static function clearDirectory(string $dir)
+    {
+        foreach (scandir($dir) as $path) {
+            self::rmdir_recursive($path);
+        }
+    }
+
+    private static function rmdir_recursive(string $dir)
+    {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (is_dir($dir. DIRECTORY_SEPARATOR .$object) && !is_link($dir."/".$object))
+                        self::rmdir_recursive($dir. DIRECTORY_SEPARATOR .$object);
+                    else
+                        unlink($dir. DIRECTORY_SEPARATOR .$object);
+                }
+            }
+            rmdir($dir);
+        } elseif (is_file($dir)) {
+            unlink($dir);
+        }
     }
 
     private function addToZipRecursive(ZipArchive $zip, string $toBackup)
