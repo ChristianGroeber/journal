@@ -209,9 +209,10 @@ class AdminController extends AbstractController
         }
 
         $zipPath = $_FILES['backup']['tmp_name'];
-        print($zipPath);
         $backupHelper = new BackupHelper();
         $success = $backupHelper->restoreFromBackup($zipPath);
+        $cacheHelper = new CacheHelper($this->nacho);
+        $cacheHelper->build();
 
         return $this->json(['success' => $success]);
     }
