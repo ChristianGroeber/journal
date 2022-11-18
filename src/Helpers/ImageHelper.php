@@ -2,51 +2,49 @@
 
 namespace App\Helpers;
 
-use App\Models\Image;
+use App\Contracts\MediaProcessor;
+use App\Models\Media;
 
-class ImageHelper
+class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 {
-    private array $defaultSizes = [100, 500, 1080];
+    protected array $defaultSizes = [100, 500, 1080];
 
     public function getDefaultSizes(): array
     {
         return $this->defaultSizes;
     }
 
-    public function deleteImage(Image $image)
+    public static function getMimeType(): string
     {
-        $basePath = $_SERVER['DOCUMENT_ROOT'] . '/images/' . $image->getMonth() . '/' . $image->getDay() . '/';
-
-        unlink($basePath . $image->getName());
-        foreach ($this->defaultSizes as $size) {
-            $path = $basePath . $size . '/' . $image->getName();
-            if (is_file($path)) {
-                unlink($path);
-            }
-        }
-
-        return true;
+        return 'image/*';
     }
 
-    public function storeEntryImage(string $imagePath, ?string $month = null, ?string $day = null)
+    public function deleteMedia(Media $media): bool
     {
-        $now = new \DateTime();
-        if (!$month) {
-            $month = $now->format('F');
-        }
-        if (!$day) {
-            $day = $now->format('Y-m-d');
-        }
-        $fileName = sha1_file($imagePath) . '.webp';
-        $baseFileName = $now->getTimestamp();
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
-        if (!is_dir("${imagesDir}${month}/${day}")) {
-            mkdir("${imagesDir}${month}/${day}", 0777, true);
+        return parent::deleteMedia($media);
+    }
+
+    public function loadMedia(string $month, string $day): array
+    {
+        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images';
+        $entry = $_REQUEST['entry'];
+
+        $images = [];
+        foreach (scandir("${imagesDir}${entry}/1080") as $img) {
+            if (!is_file("${imagesDir}${entry}/1080/${img}")) {
+                continue;
+            }
+            $images[] = "/images${entry}/1080/${img}";
         }
 
+        return $images;
+    }
+
+    protected function outputFile(string $mediaPath, Media $media)
+    {
         // Rotate Image
-        $image = imagecreatefromjpeg($imagePath);
-        $exif = exif_read_data($imagePath);
+        $image = imagecreatefromjpeg($mediaPath);
+        $exif = exif_read_data($mediaPath);
         if (!empty($exif['Orientation'])) {
             switch ($exif['Orientation']) {
                 case 8:
@@ -62,30 +60,29 @@ class ImageHelper
         }
 
         // Save rotated image
-        $uploadedFiles = [];
-        imagewebp($image, "${imagesDir}${month}/${day}/${baseFileName}-${fileName}");
-
-        // create scaled versions of image
-        foreach ($this->getDefaultSizes() as $size) {
-            $this->compressImage("${imagesDir}${month}/${day}/${baseFileName}-${fileName}", $size);
-            $uploadedFiles[$size] = "/images/${month}/${day}/${size}/${baseFileName}-${fileName}";
-        }
-
-        return $uploadedFiles;
+        imagewebp($image, $media->getAbsolutePath());
     }
 
-    public function compressImage(string $imagePath, int $size, string $targetPath = '', string $fileName = '')
+    protected function scale(Media $media): array
     {
-        if (!$targetPath) {
-            // Find out path of original image
-            $splImgPath = explode('/', $imagePath);
-            array_pop($splImgPath);
-            $targetPath = implode('/', $splImgPath) . "/${size}";
+        $scaled = [];
+        // create scaled versions of image
+        foreach ($this->getDefaultSizes() as $size) {
+            $this->compressImage($media->getAbsolutePath(), $size);
+            $scaled[$size] = $media->getMediaPath($size);
         }
-        if (!$fileName) {
-            $splImgPath = explode('/', $imagePath);
-            $fileName = array_pop($splImgPath);
-        }
+
+        return $scaled;
+    }
+
+    private function compressImage(string $imagePath, int $size): void
+    {
+        // Find out path of original image
+        $splImgPath = explode('/', $imagePath);
+        array_pop($splImgPath);
+        $targetPath = implode('/', $splImgPath) . "/${size}";
+        $splImgPath = explode('/', $imagePath);
+        $fileName = array_pop($splImgPath);
 
         // Scale down image
         $imgObject = imagecreatefromstring(file_get_contents($imagePath));
@@ -98,17 +95,5 @@ class ImageHelper
 
         // Save scaled down version in new path
         imagewebp($scaled, "${targetPath}/${fileName}");
-
-        return "${targetPath}/${fileName}";
-    }
-
-    public static function base64_to_jpeg($base64_string)
-    {
-        // split the string on commas
-        // $data[ 0 ] == "data:image/png;base64"
-        // $data[ 1 ] == <actual base64 string>
-        $data = explode(',', $base64_string);
-
-        return base64_decode($data[1]);
     }
 }

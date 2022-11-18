@@ -1,10 +1,10 @@
 <template>
   <div>
     <input
-      accept="image/*,video/*"
-      @change="uploadImages"
+      :accept="mimeTypes"
+      @change="uploadMedia"
       type="file"
-      label="Upload Images"
+      label="Upload Media"
       multiple
     />
   </div>
@@ -12,10 +12,21 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: ["entry"],
+  data() {
+    return {
+      mediaTypes: this.$store.getters.mediaTypes,
+    }
+  },
+  computed: {
+    mimeTypes() {
+      return this.mediaTypes.map(media => media.mime);
+    }
+  },
   methods: {
-    uploadImages(e) {
+    uploadMedia(e) {
       const files = e.target.files;
       const editingEntry = this.$store.getters.editingEntry;
       Array.from(files).forEach((img) => {

@@ -1,15 +1,15 @@
 <template>
   <div class="main-content">
     <EditEntry :entry="entry"></EditEntry>
-    <ImageEditor :entry="entry"></ImageEditor>
-    <ImageList :entry="entry"></ImageList>
+    <MediaUploader :entry="entry"></MediaUploader>
+    <MediaList :entry="entry"></MediaList>
   </div>
 </template>
 
 <script>
 import EditEntry from "./EditEntry.vue";
-import ImageEditor from "./Images/ImageEditor.vue";
-import ImageList from "./Images/ImageList.vue";
+import MediaUploader from "./Media/MediaUploader.vue";
+import MediaList from "./Media/MediaList.vue";
 
 export default {
   props: ["entry"],
@@ -31,8 +31,8 @@ export default {
   },
   components: {
     EditEntry,
-    ImageEditor,
-    ImageList,
+    MediaUploader,
+    MediaList,
   },
 };
 </script>

@@ -2,14 +2,31 @@
 
 namespace App\Controllers;
 
+use App\Contracts\MediaProcessor;
+use App\Helpers\EncoderQueue;
 use App\Helpers\ImageHelper;
+use App\Helpers\JournalConfiguration;
+use App\Helpers\VideoHelper;
+use App\Models\Media;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
-use App\Models\Image;
+use Nacho\Models\Request;
+use Nacho\Nacho;
 
-class ImageController extends AbstractController
+class MediaController extends AbstractController
 {
-    public function uploadImages($request)
+    /** @var array|MediaProcessor[] $mediaHelpers */
+    private array $mediaHelpers = [];
+
+    public function __construct(Nacho $nacho)
+    {
+        parent::__construct($nacho);
+        $this->mediaHelpers['img'] = new ImageHelper();
+        $this->mediaHelpers['vid'] = new VideoHelper();
+    }
+
+    // /api/entry/gallery/upload
+    public function uploadMedia(Request $request)
     {
         if (!key_exists('token', $_REQUEST)) {
             return $this->json(['message' => 'You need to be authenticated'], 401);
@@ -20,44 +37,43 @@ class ImageController extends AbstractController
         if (!$user) {
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
-        $now = new \DateTime();
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
+
+        $mediaDir = JournalConfiguration::mediaDir();
         $entry = $_REQUEST['entry'];
         $month = explode('/', $entry)[1];
         $day = explode('/', $entry)[2];
 
-        if (!is_dir("${imagesDir}${entry}")) {
-            mkdir("${imagesDir}${entry}", 0777, true);
+        if (!is_dir("${mediaDir}/${entry}")) {
+            mkdir("${mediaDir}${entry}", 0777, true);
         }
 
-        $imgHelper = new ImageHelper();
         $uploadedFiles = [];
+        EncoderQueue::readJobs();
         foreach ($_FILES as $file) {
-            array_push($uploadedFiles, $imgHelper->storeEntryImage($file['tmp_name'], $month, $day));
+            $helper = $this->getMediaHelper($file['type']);
+            $uploadedFiles[] = $helper->storeMedia($file['tmp_name'], $file, $month, $day);
         }
+        EncoderQueue::writeJobs();
 
         return $this->json(['message' => 'uploaded files', 'files' => $uploadedFiles]);
     }
 
-    public function loadImagesForEntry($request)
+    // /api/admin/entry/media/load
+    public function loadMediaForEntry(Request $request)
     {
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images';
-        $entry = $_REQUEST['entry'];
+        $media = [];
+        $month = explode('/', $_REQUEST['entry'])[1];
+        $day = explode('/', $_REQUEST['entry'])[2];
 
-        $images = [];
-        foreach (scandir("${imagesDir}${entry}/1080") as $img) {
-            if (is_dir("${imagesDir}${entry}/1080/${img}")) {
-                continue;
-            }
-            array_push($images, "/images${entry}/1080/${img}");
+        foreach ($this->mediaHelpers as $slug => $helper) {
+            $media[$slug] = $helper->loadMedia($month, $day);
         }
 
-        $images = array_reverse($images);
-
-        return $this->json(["images" => $images]);
+        return $this->json(["media" => $media]);
     }
 
-    public function deleteImage()
+    // /api/admin/entry/media/delete
+    public function deleteMedia()
     {
         if (!key_exists('token', $_REQUEST)) {
             return $this->json(['message' => 'You need to be authenticated'], 401);
@@ -73,14 +89,15 @@ class ImageController extends AbstractController
 
         $splitImg = explode('/', $img);
 
-        $imgObj = new Image($splitImg[5], $splitImg[2], $splitImg[3]);
+        $imgObj = new Media($splitImg[5], $splitImg[2], $splitImg[3]);
         $imageHelper = new ImageHelper();
-        $imageHelper->deleteImage($imgObj);
+        $imageHelper->deleteMedia($imgObj);
 
         return $this->json();
     }
 
-    public function loadImages($request)
+    //
+    public function loadMedia(Request $request)
     {
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
         $month = $_REQUEST['month'];
@@ -95,7 +112,7 @@ class ImageController extends AbstractController
             if (is_dir("${imagesDir}${month}/${day}/${img}")) {
                 continue;
             }
-            array_push($images, "/images/${month}/${day}/${img}");
+            $images[] = "/images/${month}/${day}/${img}";
         }
 
         return $this->json(['message' => 'I should be loading your images now', 'images' => $images]);
@@ -103,8 +120,9 @@ class ImageController extends AbstractController
 
     /**
      * GET: get a list of images for a selected entry
+     * Route: /api/entry/gallery
      */
-    function images()
+    function media()
     {
         $strPage = $_REQUEST['page'];
 
@@ -114,8 +132,24 @@ class ImageController extends AbstractController
             if (is_file($imagesDir . '/' . $imgPath)) {
                 $images[] = '/images' . $strPage . '/' . $imgPath;
             }
-        } 
+        }
 
         return $this->json($images);
+    }
+
+    private function getMediaHelper(string $mimeType): MediaProcessor
+    {
+        foreach ($this->mediaHelpers as $mediaHelper) {
+            if (self::compareMimeTypes($mimeType, $mediaHelper::getMimeType())) {
+                return $mediaHelper;
+            }
+        }
+
+        throw new \Exception('The Mime Type ' . $mimeType . ' is not supported');
+    }
+
+    private static function compareMimeTypes(string $in, string $compare): bool
+    {
+        return explode('/', $in)[0] === explode('/', $compare)[0];
     }
 }

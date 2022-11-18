@@ -4,12 +4,12 @@
       <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
         <fa icon="clipboard"></fa>
       </vk-button>
-      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteImage">
+      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
         <fa icon="trash"></fa>
       </vk-button>
     </div>
-    <img :src="img" alt="Image" />
-    <div class="url">![uploaded image]({{ img }})</div>
+    <img :src="img" alt="Media" />
+    <div class="url">![uploaded media]({{ img }})</div>
   </div>
 </template>
 
@@ -23,8 +23,8 @@ export default {
     };
   },
   methods: {
-    deleteImage() {
-      if (!confirm('Are you sure you want to delete this image?')) {
+    deleteMedia() {
+      if (!confirm('Are you sure you want to delete this Image/ Video?')) {
         return;
       }
       const data = {
@@ -35,20 +35,20 @@ export default {
         .map(([key, val]) => `${key}=${val}`)
         .join("&");
 
-      axios.delete('/api/admin/entry/image/delete?' + query)
+      axios.delete('/api/admin/entry/media/delete?' + query)
         .then((response) => {
           this.isShowing = false;
         });
     },
     copyUrl() {
-      const imgUrl = document.querySelector(
+      const mediaUrl = document.querySelector(
         ".image#img-" + this.myId + " .url"
       );
       const range = document.createRange();
-      range.selectNode(imgUrl);
+      range.selectNode(mediaUrl);
       window.getSelection().addRange(range);
 
-      console.log(document.execCommand("copy"));
+      document.execCommand("copy");
 
       window.getSelection().removeAllRanges();
     },

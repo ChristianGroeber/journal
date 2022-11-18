@@ -5,6 +5,16 @@ const state = {
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
     pageTitle: '2022',
+    mediaTypes: [
+        {
+            'name': 'Video',
+            'mime': 'video/*',
+        },
+        {
+            'name': 'Image',
+            'mime': 'image/*'
+        }
+    ],
 };
 
 const mutations = {
@@ -40,6 +50,7 @@ const getters = {
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,
+    mediaTypes: state => state.mediaTypes,
 }
 
 const mainModule = {

@@ -120,22 +120,6 @@ class AdminController extends AbstractController
         return $this->json(['file' => $file]);
     }
 
-    public function uploadOriginal($request)
-    {
-        if (strtoupper($request->requestMethod) !== 'POST') {
-            return $this->json(['only post allowed'], 405);
-        }
-        $imagesDir = $request->documentRoot . '/images/home';
-        $month = $_REQUEST['month'];
-        $original = $_FILES['original'];
-        $key = array_search($month, MONTHS);
-
-        $imageHelper = new ImageHelper();
-        $imageHelper->compressImage($original['tmp_name'], 1000, "${imagesDir}/${key}_${month}", 'tmp.original.jpg');
-
-        return $this->json(['file' => "/images/home/${key}_${month}/tmp.original.jpg"]);
-    }
-
     public function editCurrent($request)
     {
         $file = $this->getCurrentFile();
