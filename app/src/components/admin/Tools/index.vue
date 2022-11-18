@@ -3,6 +3,7 @@
         <div class="d-flex gap-1">
             <vk-button class="btn btn-icon btn-primary" @click="goHome"><fa icon="arrow-left"></fa></vk-button>
             <vk-button class="btn btn-primary" @click="generateBackup">Generate Backup</vk-button>
+            <vk-button class="btn btn-primary" @click="restoreBackup">Restore Backup</vk-button>
             <vk-button class="btn btn-primary" @click="rebuildCache">Rebuild Cache</vk-button>
         </div>
     </div>
@@ -22,6 +23,9 @@ export default {
         },
         rebuildCache() {
             this.$store.dispatch('buildCache', this.$store.getters.token);
+        },
+        restoreBackup() {
+            this.$router.push('/admin/tools/restore-backup');
         },
         goHome() {
             this.$router.push('/');

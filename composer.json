@@ -1,6 +1,8 @@
 {
     "require": {
-        "christiangroeber/nacho": "*"
+        "ext-json": "*",
+        "christiangroeber/nacho": "*",
+        "ext-zip": "*"
     },
     "autoload": {
         "psr-4": {

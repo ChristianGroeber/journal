@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use DateTime;
 use App\Helpers\ImageHelper;
-use App\Helpers\NavRenderer;
 use App\Helpers\TokenHelper;
 use App\Helpers\BackupHelper;
 use App\Helpers\CacheHelper;
+use App\Models\RaceReport;
 use Nacho\Controllers\AbstractController;
-use Nacho\Nacho;
+use Nacho\Models\HttpMethod;
+use Nacho\Models\HttpResponseCode;
+use Nacho\Models\Request;
 
 class AdminController extends AbstractController
 {
@@ -17,7 +19,7 @@ class AdminController extends AbstractController
      * GET:  fetch the markdown for a file
      * POST: save edited file
      */
-    function edit($request)
+    function edit(Request $request)
     {
         if (!key_exists('token', $_REQUEST)) {
             return $this->json(['message' => 'You need to be authenticated'], 401);
@@ -29,21 +31,42 @@ class AdminController extends AbstractController
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
         $strPage = $_REQUEST['entry'];
-        $page = $this->nacho->getPage($strPage);
+        $page = $this->nacho->getMarkdownHelper()->getPage($strPage);
 
-        if (!$page || !is_file($page['file'])) {
+        if (!$page || !is_file($page->file)) {
             return $this->json(['message' => 'Unable to find this file']);
         }
 
-        if (strtolower($request->requestMethod) === 'post') {
-            file_put_contents($page['file'], $this->nacho->createMetaString($page['meta']) . base64_decode($_REQUEST['content']));
+        if (strtoupper($request->requestMethod) === HttpMethod::POST) {
+            $this->nacho->getMarkdownHelper()->editPage($page->id, $request->getBody()['content'], []);
             $cacheHelper = new CacheHelper($this->nacho);
             $cacheHelper->build();
 
-            return $this->json(['message' => 'successfully saved content', 'file' => $page['file']]);
+            return $this->json(['message' => 'successfully saved content', 'file' => $page->file]);
         }
 
-        return $this->json($page);
+        return $this->json((array) $page);
+    }
+
+    public function uploadRaceReport(Request $request)
+    {
+        if (!key_exists('token', $request->getBody()) || !key_exists('raceReport', $request->getBody()) || !key_exists('entry', $request->getBody())) {
+            return $this->json(['message' => 'You need to provide a token, raceReport and the entry'], 400);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $request->getBody()['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+        $raceReport = new RaceReport($request->getBody()['raceReport']);
+        $entry = $this->nacho->getMarkdownHelper()->getPage($request->getBody()['entry']);
+        if (!$entry) {
+            $this->createSpecific();
+        }
+        $this->nacho->getMarkdownHelper()->editPage($entry->id, '', ['raceReport' => (array) $raceReport]);
+
+        return $this->json(['message' => 'Successfully stored Race Report']);
     }
 
     function createSpecific()
@@ -171,6 +194,27 @@ class AdminController extends AbstractController
         $zip = $backupHelper->generateBackup();
 
         return $this->json(['file' => $zip]);
+    }
+
+    public function restoreFromBackup(Request $request)
+    {
+        if (!key_exists('token', $request->getBody())) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $request->getBody()['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
+        $zipPath = $_FILES['backup']['tmp_name'];
+        $backupHelper = new BackupHelper();
+        $success = $backupHelper->restoreFromBackup($zipPath);
+        $cacheHelper = new CacheHelper($this->nacho);
+        $cacheHelper->build();
+
+        return $this->json(['success' => $success]);
     }
 
     private function getCurrentFile()

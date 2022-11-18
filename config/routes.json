@@ -37,6 +37,12 @@
         "function": "delete"
     },
     {
+        "route": "/api/admin/entry/race-report",
+        "min_role": "Editor",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "uploadRaceReport"
+    },
+    {
         "route": "/api/entry/gallery",
         "controller": "App\\Controllers\\ImageController",
         "function": "images"
@@ -67,6 +73,11 @@
         "route": "/api/admin/generate-backup",
         "controller": "App\\Controllers\\AdminController",
         "function": "generateBackup"
+    },
+    {
+        "route": "/api/admin/restore-backup",
+        "controller": "App\\Controllers\\AdminController",
+        "function": "restoreFromBackup"
     },
     {
         "route": "/api/login",

@@ -16,6 +16,7 @@ import Auth from "./components/auth/Auth";
 import Editor from "./components/admin/Editor/Editor";
 import NotFound from './components/error/NotFound';
 import AdminTools from './components/admin/Tools/index';
+import RestoreBackup from "./components/admin/Tools/RestoreBackup";
 
 const routes = [
     {
@@ -78,6 +79,11 @@ const routes = [
         path: "/admin/tools",
         name: "More Tools",
         component: AdminTools,
+    },
+    {
+        path: '/admin/tools/restore-backup',
+        name: 'Restore Backup',
+        component: RestoreBackup,
     },
     {
         path: "*",

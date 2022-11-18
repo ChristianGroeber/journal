@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = {
     isLoading: false,
     showEditSpecificPopup: false,
+    showRaceReportPopup: false,
     pageTitle: '2022',
 };
 
@@ -12,6 +13,9 @@ const mutations = {
     },
     EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
         state.showEditSpecificPopup = showEditSpecificPopup;
+    },
+    EDIT_RACE_REPORT_POPUP(state, showRaceReportPopup) {
+        state.showRaceReportPopup = showRaceReportPopup;
     },
 }
 
@@ -27,13 +31,14 @@ const actions = {
         state.pageTitle = title;
     },
     buildCache(asdf, token) {
-        axios.post('/api/admin/build-cache?token=' + token);
+        return axios.post('/api/admin/build-cache?token=' + token);
     },
 }
 
 const getters = {
     loading: state => state.isLoading,
     showEditSpecificPopup: state => state.showEditSpecificPopup,
+    showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,
 }
 

@@ -2,23 +2,28 @@
   <div>
     <Loading v-if="isLoading"></Loading>
     <div class="header">
-      <h1 @click="reload" class="reloadable">{{ pageTitle }}</h1>
+      <h1>{{ pageTitle }}</h1>
     </div>
     <router-view></router-view>
-    <specific-entry-popup></specific-entry-popup>
+    <div class="modals">
+      <add-race-report></add-race-report>
+      <specific-entry-popup></specific-entry-popup>
+    </div>
   </div>
 </template>
 
 <script>
 import Loading from './src/components/Loading';
-import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup';
 import axios from 'axios';
+import AddRaceReport from './src/components/Modals/AddRaceReport'
+import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
 
 export default {
   name: "App",
   components: {
     Loading,
-    SpecificEntryPopup,
+    AddRaceReport,
+    SpecificEntryPopup
   },
   computed: {
     isLoading: function () {
@@ -57,11 +62,6 @@ export default {
         this.$router.push('/auth/create-admin');
       }
     })
-  },
-  methods: {
-    reload() {
-      this.$store.dispatch("getEntries");
-    },
   },
 };
 </script>

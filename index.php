@@ -3,9 +3,8 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Helpers\CustomUserHelper;
-use Nacho\Helpers\Request;
-use Nacho\Security\JsonUserHandler;
-use Nacho\Helpers\Route;
+use Nacho\Models\Request;
+use Nacho\Models\Route;
 use Nacho\Nacho;
 
 define('VIEWS_DIR', $_SERVER['DOCUMENT_ROOT'] . '/src/Views');
