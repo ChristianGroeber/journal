@@ -42,7 +42,18 @@ class AbstractMediaHelper
         $media = new Media($baseFileName . '-' . $fileName, $month, $day);
 
         $this->outputFile($mediaPath, $media);
+        $this->generateScaleDirs($media);
         return $this->scale($media);
+    }
+
+    protected function generateScaleDirs(Media $media): void
+    {
+        foreach ($this->defaultSizes as $size) {
+            $dir = $media->getAbsoluteDirectory($size);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0777, true);
+            }
+        }
     }
 
     protected function outputFile(string $mediaPath, Media $media)

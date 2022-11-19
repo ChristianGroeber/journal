@@ -88,11 +88,6 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
         $imgObject = imagecreatefromstring(file_get_contents($imagePath));
         $scaled = imagescale($imgObject, $size);
 
-        // Create new path if it does not exist yet
-        if (!is_dir($targetPath)) {
-            mkdir($targetPath, 0777, true);
-        }
-
         // Save scaled down version in new path
         imagewebp($scaled, "${targetPath}/${fileName}");
     }

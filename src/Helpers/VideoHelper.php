@@ -12,7 +12,7 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
     const DEFAULT_HEIGHT = 720;
     const DEFAULT_FPS = 30;
     const ENCODED_DIR = 'encode';
-    protected static string $fileExtension = 'webp';
+    protected array $defaultSizes = [self::ENCODED_DIR];
 
     public static function getMimeType(): string
     {
@@ -38,7 +38,7 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
         $mediainfo = new MediaInfo();
         $mic = $mediainfo->getInfo($media->getAbsolutePath());
 
-        $encodingJob = new EncodingJob($media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR));
+        $encodingJob = new EncodingJob($media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.webm');
 
         foreach ($mic->getVideos() as $video) {
             $height = $video->get('height')->getAbsoluteValue();

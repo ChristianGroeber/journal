@@ -37,6 +37,9 @@ class MediaController extends AbstractController
         if (!$user) {
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
+        if (!key_exists('entry', $_REQUEST)) {
+            return $this->json(['message' => 'Please define the Entry'], 400);
+        }
 
         $mediaDir = JournalConfiguration::mediaDir();
         $entry = $_REQUEST['entry'];

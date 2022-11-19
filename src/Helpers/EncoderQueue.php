@@ -19,7 +19,12 @@ class EncoderQueue
         if (!is_file(self::getJobsFile())) {
             self::$jobs = [];
         } else {
-            self::$jobs = json_decode(file_get_contents(self::getJobsFile()), true);
+            $strQueue = file_get_contents(self::getJobsFile());
+            if (!$strQueue) {
+                self::$jobs = [];
+            } else {
+                self::$jobs = json_decode($strQueue, true);
+            }
         }
     }
 
