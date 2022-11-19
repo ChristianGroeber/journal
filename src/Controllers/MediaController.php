@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Contracts\MediaProcessor;
+use App\Helpers\AbstractMediaHelper;
 use App\Helpers\EncoderQueue;
 use App\Helpers\ImageHelper;
 use App\Helpers\JournalConfiguration;
@@ -143,16 +144,11 @@ class MediaController extends AbstractController
     private function getMediaHelper(string $mimeType): MediaProcessor
     {
         foreach ($this->mediaHelpers as $mediaHelper) {
-            if (self::compareMimeTypes($mimeType, $mediaHelper::getMimeType())) {
+            if (AbstractMediaHelper::compareMimeTypes($mimeType, $mediaHelper::getMimeType())) {
                 return $mediaHelper;
             }
         }
 
         throw new \Exception('The Mime Type ' . $mimeType . ' is not supported');
-    }
-
-    private static function compareMimeTypes(string $in, string $compare): bool
-    {
-        return explode('/', $in)[0] === explode('/', $compare)[0];
     }
 }

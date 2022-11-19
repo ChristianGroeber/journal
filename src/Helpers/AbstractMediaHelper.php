@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Contracts\MediaProcessor;
 use App\Models\Media;
 
 class AbstractMediaHelper
@@ -44,6 +45,22 @@ class AbstractMediaHelper
         $this->outputFile($mediaPath, $media);
         $this->generateScaleDirs($media);
         return $this->scale($media);
+    }
+
+    public static function compareMimeTypes(string $in, string $compare): bool
+    {
+        return explode('/', $in)[0] === explode('/', $compare)[0];
+    }
+
+    protected function isApplicableMediaMime(string $path): bool
+    {
+        if (!($this instanceof MediaProcessor)) {
+            throw new \Exception('This Class needs to implement the MediaProcessor Interface');
+        }
+
+        $mime = mime_content_type($path);
+
+        return self::compareMimeTypes($mime, static::getMimeType());
     }
 
     protected function generateScaleDirs(Media $media): void

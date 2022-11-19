@@ -21,7 +21,18 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
 
     public function loadMedia(string $month, string $day): array
     {
-        // TODO: Implement loadMedia() method.
+        $mediaDir = JournalConfiguration::mediaDir();
+        $media = [];
+        foreach (scandir("${mediaDir}/${month}/${day}") as $file) {
+            if ($file === '.' || $file === '..' || is_dir("${mediaDir}/${month}/${day}/${file}")) {
+                continue;
+            }
+            if ($this->isApplicableMediaMime("${mediaDir}/${month}/${day}/${file}")) {
+                $media[] = JournalConfiguration::mediaBaseUrl() . "/${month}/${day}/${file}";
+            }
+        }
+
+        return $media;
     }
 
     protected function scale(Media $media): array
@@ -30,7 +41,7 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
 
         EncoderQueue::addJob($encode);
 
-        return [self::ENCODED_DIR => $media->getMediaPath(self::ENCODED_DIR)];
+        return [self::ENCODED_DIR => $media->getMediaPath(self::ENCODED_DIR) . '.webm'];
     }
 
     private function getEncoderSettings(Media $media): EncodingJob

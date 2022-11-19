@@ -26,15 +26,18 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 
     public function loadMedia(string $month, string $day): array
     {
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images';
+        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/media';
         $entry = $_REQUEST['entry'];
 
         $images = [];
+        if (!is_dir("${imagesDir}${entry}/1080")) {
+            return [];
+        }
         foreach (scandir("${imagesDir}${entry}/1080") as $img) {
             if (!is_file("${imagesDir}${entry}/1080/${img}")) {
                 continue;
             }
-            $images[] = "/images${entry}/1080/${img}";
+            $images[] = JournalConfiguration::mediaBaseUrl() . "${entry}/1080/${img}";
         }
 
         return $images;
