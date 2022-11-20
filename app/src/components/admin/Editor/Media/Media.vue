@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isShowing" class="image">
-    <div class="img-controls">
+  <div v-if="isShowing" class="media">
+    <div class="media-meta-controls">
       <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
         <fa icon="clipboard"></fa>
       </vk-button>
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image {
+.media {
   width: 50%;
   position: relative;
 
@@ -83,12 +83,12 @@ export default {
     font-size: 1px;
   }
 
-  &:hover .img-controls {
+  &:hover .media-meta-controls {
     display: flex;
   }
 }
 
-.img-controls {
+.media-meta-controls {
   display: none;
   height: 100%;
   width: 100%;
@@ -100,7 +100,7 @@ export default {
 }
 
 @media screen and (min-width: 500px) {
-  .image {
+  .media {
     width: 25%;
   }
 }

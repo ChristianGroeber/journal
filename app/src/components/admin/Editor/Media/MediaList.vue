@@ -8,7 +8,7 @@
         </vk-button>
       </div>
     </div>
-    <div class="images-list" v-for="(mediaList, i) in media" :key="i">
+    <div v-for="(mediaList, i) in media" :key="i">
       <h4>{{ mediaList.name }}</h4>
       <div class="d-flex">
         <Media v-for="(med, y) in mediaList.media" :key="y" :id="'med-' + y" :myId="y"
