@@ -69,8 +69,20 @@ class MediaController extends AbstractController
         $month = explode('/', $_REQUEST['entry'])[1];
         $day = explode('/', $_REQUEST['entry'])[2];
 
+        if (!key_exists('token', $_REQUEST)) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $user = $tokenHelper->isTokenValid($_REQUEST['token'], $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
         foreach ($this->mediaHelpers as $slug => $helper) {
-            $media[$slug] = $helper->loadMedia($month, $day);
+            $media[] = [
+                'name' => $helper::getName(),
+                'media' => $helper->loadMedia($month, $day),
+            ];
         }
 
         return $this->json(["media" => $media]);

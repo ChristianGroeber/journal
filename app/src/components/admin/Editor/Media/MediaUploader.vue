@@ -4,7 +4,6 @@
       :accept="mimeTypes"
       @change="uploadMedia"
       type="file"
-      label="Upload Media"
       multiple
     />
   </div>
@@ -42,7 +41,7 @@ export default {
         });
       });
       this.$store.dispatch("updateEntry", { entry: editingEntry });
-      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
+      this.$store.dispatch("loadMediaForEntry", { entry: editingEntry.id, token: this.$store.getters.token});
     },
   },
 };

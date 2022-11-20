@@ -8,19 +8,33 @@
         <fa icon="trash"></fa>
       </vk-button>
     </div>
-    <img :src="img" alt="Media" />
-    <div class="url">![uploaded media]({{ img }})</div>
+    <template v-if="amVideo">
+      <video :src="media" />
+    </template>
+    <template v-else-if="amImage">
+      <img :src="media" alt="Image" />
+    </template>
+    <div class="url">![uploaded media]({{ media }})</div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import {getFileExtension} from "../../../../helpers/files";
 export default {
-  props: ["img", "myId"],
+  props: ["media", "myId"],
   data: function() {
     return {
       isShowing: true,
     };
+  },
+  computed: {
+    amVideo() {
+      return ['webm', 'mp4', 'mov', 'avi', 'mkv'].includes(getFileExtension(this.media).pop());
+    },
+    amImage() {
+      return ['jpg', 'jpeg', 'png', 'webp'].includes(getFileExtension(this.media).pop());
+    },
   },
   methods: {
     deleteMedia() {

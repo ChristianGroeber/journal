@@ -19,6 +19,11 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
         return 'image/*';
     }
 
+    public static function getName(): string
+    {
+        return 'Images';
+    }
+
     public function deleteMedia(Media $media): bool
     {
         return parent::deleteMedia($media);

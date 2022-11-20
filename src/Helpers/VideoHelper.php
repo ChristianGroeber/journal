@@ -19,6 +19,11 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
         return 'video/*';
     }
 
+    public static function getName(): string
+    {
+        return 'Videos';
+    }
+
     public function loadMedia(string $month, string $day): array
     {
         $mediaDir = JournalConfiguration::mediaDir();

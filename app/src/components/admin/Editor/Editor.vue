@@ -26,7 +26,7 @@ export default {
       })
       .then(() => {
         this.$store.dispatch('setTitle', "Edit " + this.$store.getters.editingEntry.meta.title);
-        this.$store.dispatch("loadImagesForEntry", { entry: this.entry });
+        this.$store.dispatch("loadMediaForEntry", { entry: this.entry, token: this.$store.getters.token});
       });
   },
   components: {

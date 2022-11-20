@@ -3,17 +3,24 @@
     <div class="d-flex gap-1 ai_center">
       <h3>Media</h3>
       <div>
-        <vk-button class="btn btn-primary btn-icon btn-rounded" @click="getGallery"><fa icon="download"></fa></vk-button>
+        <vk-button class="btn btn-primary btn-icon btn-rounded" @click="getGallery">
+          <fa icon="download"></fa>
+        </vk-button>
       </div>
     </div>
-    <div class="images-list d-flex">
-      <Media class="image" v-for="(img, index) in images" :key="index" :id="'img-' + index" :myId="index" :img="img"></Media>
+    <div class="images-list" v-for="(mediaList, i) in media" :key="i">
+      <h4>{{ mediaList.name }}</h4>
+      <div class="d-flex">
+        <Media v-for="(med, y) in mediaList.media" :key="y" :id="'med-' + y" :myId="y"
+               :media="med"></Media>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Media from "./Media.vue"
+
 export default {
   props: ["entry"],
   components: {
@@ -21,16 +28,16 @@ export default {
   },
   data: function () {
     return {
-      images: this.$store.getters.gallery,
+      media: this.$store.getters.gallery,
     };
   },
   methods: {
     getGallery() {
       this.$store
-        .dispatch("loadImagesForEntry", { entry: this.entry })
-        .then(() => {
-          this.images = this.$store.getters.gallery;
-        });
+          .dispatch("loadMediaForEntry", {entry: this.entry, token: this.$store.getters.token})
+          .then(() => {
+            this.media = this.$store.getters.gallery;
+          });
     },
   },
 };

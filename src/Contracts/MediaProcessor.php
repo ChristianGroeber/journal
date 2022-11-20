@@ -8,6 +8,8 @@ interface MediaProcessor
 {
     public static function getMimeType(): string;
 
+    public static function getName(): string;
+
     public function deleteMedia(Media $media): bool;
 
     public function storeMedia(string $mediaPath, array $file, ?string $month = null, ?string $day = null): array;
