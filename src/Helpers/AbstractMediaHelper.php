@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Contracts\MediaProcessor;
 use App\Models\Media;
 
+// TODO: Media Files need to work independently of their file extensions.
 class AbstractMediaHelper
 {
     protected array $defaultSizes = [];
