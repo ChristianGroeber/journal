@@ -81,6 +81,7 @@ class MediaController extends AbstractController
         foreach ($this->mediaHelpers as $slug => $helper) {
             $media[] = [
                 'name' => $helper::getName(),
+                'slug' => $slug,
                 'media' => $helper->loadMedia($month, $day),
             ];
         }

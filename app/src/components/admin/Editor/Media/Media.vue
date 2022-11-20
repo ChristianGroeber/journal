@@ -22,7 +22,7 @@
 import axios from 'axios';
 import {getFileExtension} from "../../../../helpers/files";
 export default {
-  props: ["media", "myId"],
+  props: ["media", "myId", "slug"],
   data: function() {
     return {
       isShowing: true,
@@ -56,7 +56,7 @@ export default {
     },
     copyUrl() {
       const mediaUrl = document.querySelector(
-        ".image#img-" + this.myId + " .url"
+        ".media#" + this.slug + "-" + this.myId + " .url"
       );
       const range = document.createRange();
       range.selectNode(mediaUrl);

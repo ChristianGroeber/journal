@@ -11,7 +11,7 @@
     <div v-for="(mediaList, i) in media" :key="i">
       <h4>{{ mediaList.name }}</h4>
       <div class="d-flex">
-        <Media v-for="(med, y) in mediaList.media" :key="y" :id="'med-' + y" :myId="y"
+        <Media v-for="(med, y) in mediaList.media" :slug="mediaList.slug" :key="y" :id="mediaList.slug + '-' + y" :myId="y"
                :media="med"></Media>
       </div>
     </div>
