@@ -3,44 +3,16 @@
 namespace App\Helpers;
 
 use App\Models\EncodingJob;
+use Nacho\Helpers\DataHandler;
 
 class EncoderQueue
 {
-    private static array $jobs = [];
-    const JOBS_FILE = '/data/encode_jobs.json';
-
-    public static function writeJobs(): void
-    {
-        file_put_contents(self::getJobsFile(), json_encode(self::$jobs));
-    }
-
-    public static function readJobs(): void
-    {
-        if (!is_file(self::getJobsFile())) {
-            self::$jobs = [];
-        } else {
-            $strQueue = file_get_contents(self::getJobsFile());
-            if (!$strQueue) {
-                self::$jobs = [];
-            } else {
-                self::$jobs = json_decode($strQueue, true);
-            }
-        }
-    }
-
-    public static function clearJobs(): void
-    {
-        self::$jobs = [];
-        self::writeJobs();
-    }
+    const DATA_NAME = 'encode_jobs';
 
     public static function addJob(EncodingJob $job): void
     {
-        self::$jobs[] = $job->toArray();
-    }
-
-    private static function getJobsFile(): string
-    {
-        return $_SERVER['DOCUMENT_ROOT'] . self::JOBS_FILE;
+        $jobs = DataHandler::getInstance()->readData(self::DATA_NAME);
+        $jobs[] = $job->toArray();
+        DataHandler::getInstance()->writeData(self::DATA_NAME, $jobs);
     }
 }
