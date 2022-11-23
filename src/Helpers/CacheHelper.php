@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Nacho\Helpers\DataHandler;
 use Nacho\Nacho;
 
 class CacheHelper
@@ -12,14 +13,16 @@ class CacheHelper
         $this->nacho = $nacho;
     }
 
-    public function build(): string
+    public function build(): void
     {
         $content = $this->renderContent();
         $renderDate = date('Y-m-d H:i:s', time());
-        $fileName = $_SERVER['DOCUMENT_ROOT'] . '/cache/content.json';
-        file_put_contents($fileName, json_encode(['renderDate' => $renderDate, 'content' => $content]));
+        DataHandler::getInstance()->writeData('cache', ['renderDate' => $renderDate, 'content' => $content]);
+    }
 
-        return $fileName;
+    public function read(): array
+    {
+        return DataHandler::getInstance()->readData('cache');
     }
 
     private function renderContent(): array
