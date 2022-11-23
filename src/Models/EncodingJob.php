@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class EncodingJob
+use Nacho\Contracts\ArrayableInterface;
+
+class EncodingJob implements ArrayableInterface
 {
     private bool $completed;
     private ?int $framerate;

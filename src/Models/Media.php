@@ -3,20 +3,22 @@
 namespace App\Models;
 
 use App\Helpers\JournalConfiguration;
+use Nacho\Contracts\ArrayableInterface;
 
-class Media
+class Media implements ArrayableInterface
 {
     private string $name;
     private string $month;
     private string $day;
-    private array $sizes;
+    /** @var array|ScaledMedia[] */
+    private array $scaled;
 
-    public function __construct(string $name, string $month, string $day, array $sizes = [])
+    public function __construct(string $name, string $month, string $day, array $scaled = [])
     {
         $this->name = $name;
         $this->month = $month;
         $this->day = $day;
-        $this->sizes = $sizes;
+        $this->scaled = $scaled;
     }
 
     public function getName(): string
@@ -34,19 +36,25 @@ class Media
         return $this->day;
     }
 
-    public function addSize(string $size): void
+    public function addScaled(ScaledMedia $scaled): void
     {
-        $this->sizes[] = $size;
+        $this->scaled[] = $scaled;
     }
 
-    public function getSizes(): array
+    public function getScaled(string $size): ?ScaledMedia
     {
-        return $this->sizes;
+        foreach ($this->scaled as $scaled) {
+            if ($scaled->getScaleName() === $size) {
+                return $scaled;
+            }
+        }
+
+        return null;
     }
 
     public function getMediaPath(?string $size = null): string
     {
-        return JournalConfiguration::mediaBaseUrl(). DIRECTORY_SEPARATOR . $this->month . DIRECTORY_SEPARATOR . $this->day . DIRECTORY_SEPARATOR . ($size ? $size . DIRECTORY_SEPARATOR : '') . $this->name;
+        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $this->name . ($size ? $size . '.' . $this->getScaled($size)->getFileExtension() : '')]);
     }
 
     public function getAbsolutePath(?string $size = null): string
@@ -56,11 +64,20 @@ class Media
 
     public function getDirectory(?string $size = null): string
     {
-        return JournalConfiguration::mediaBaseUrl() . DIRECTORY_SEPARATOR . $this->month . DIRECTORY_SEPARATOR . $this->day . DIRECTORY_SEPARATOR . ($size ? $size . DIRECTORY_SEPARATOR: '');
+        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size ?: '']);
     }
 
     public function getAbsoluteDirectory(?string $size = null): string
     {
         return $_SERVER['DOCUMENT_ROOT'] . $this->getDirectory($size);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'month' => $this->month,
+            'day' => $this->day,
+            'name' => $this->name,
+        ];
     }
 }

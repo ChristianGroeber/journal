@@ -135,6 +135,22 @@ class MediaController extends AbstractController
         return $this->json(['message' => 'I should be loading your images now', 'images' => $images]);
     }
 
+    // /api/admin/media/index
+    public function indexMedia(Request $request)
+    {
+        if (!key_exists('token', $request->getBody())) {
+            return $this->json(['message' => 'You need to be authenticated'], 401);
+        }
+        $tokenHelper = new TokenHelper();
+        $token = $request->getBody()['token'];
+        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
+        if (!$user) {
+            return $this->json(['message' => 'The provided Token is invalid'], 401);
+        }
+
+
+    }
+
     /**
      * GET: get a list of images for a selected entry
      * Route: /api/entry/gallery
