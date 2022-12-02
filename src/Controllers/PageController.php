@@ -18,7 +18,7 @@ class PageController extends AbstractController
             $cacheHelper->build();
             $cache = $cacheHelper->read();
         }
-        $content = $cache['content'];
+        $content = $cache->getContent();
 
         return $this->json($content);
     }
