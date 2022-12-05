@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Helpers\CustomUserHelper;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
+use Nacho\Exceptions\UserDoesNotExistException;
 
 class AuthenticationController extends AbstractController
 {
@@ -14,11 +14,14 @@ class AuthenticationController extends AbstractController
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
         if (strtolower($request->requestMethod) === 'post') {
-            $user = $this->nacho->userHandler->findUser($username);
-            if ($this->nacho->userHandler->passwordVerify($username, $password)) {
-                $token = $tokenHelper->getToken($username);
-                return $this->json(['token' => $token]);
-            } else {
+            try {
+                if ($this->nacho->userHandler->passwordVerify($username, $password)) {
+                    $token = $tokenHelper->getToken($username);
+                    return $this->json(['token' => $token]);
+                } else {
+                    return $this->json(['message' => 'This password/ username is not valid'], 400);
+                }
+            } catch (UserDoesNotExistException $e) {
                 return $this->json(['message' => 'This password/ username is not valid'], 400);
             }
         }

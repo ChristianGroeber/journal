@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use Nacho\Security\JsonUserHandler;
 use Nacho\Contracts\UserHandlerInterface;
+use Nacho\Security\UserInterface;
 
 class TokenHelper 
 {
@@ -14,14 +15,15 @@ class TokenHelper
         $this->userHandler = new JsonUserHandler();
     }
 
-    function getToken($username)
+    function getToken($username): string
     {
         $secret = self::getSecret();
+        $user = $this->userHandler->findUser($username);
 
         return md5($username . $this->userHandler->findUser($username)['tokenStamp'] . $secret);
     }
 
-    function isTokenValid($token, $users)
+    public function isTokenValid($token, $users): bool|UserInterface
     {
         foreach ($users as $user) {
             if ($token === $this->getToken($user['username'])) {
