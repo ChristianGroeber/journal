@@ -3,7 +3,7 @@ name: Docker Build
 on:
   push:
     branches:
-      - 'main'
+      - '2022'
 
 jobs:
   docker:
@@ -33,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: christiangroeber/journal:latest
+          tags: christiangroeber/journal:2022
