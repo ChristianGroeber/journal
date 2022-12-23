@@ -4,7 +4,7 @@ const state = {
     isLoading: false,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
-    pageTitle: '2022',
+    pageTitle: '2023',
 };
 
 const mutations = {
@@ -23,10 +23,10 @@ const actions = {
     setTitle({
         commit
     }, title) {
-        if (title === '2022') {
-            document.title = '2022';
+        if (title === '2023') {
+            document.title = '2023';
         } else {
-            document.title = title + ' · 2022';
+            document.title = title + ' · 2023';
         }
         state.pageTitle = title;
     },

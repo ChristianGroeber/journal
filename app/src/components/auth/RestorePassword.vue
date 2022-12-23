@@ -32,7 +32,7 @@ export default {
     };
   },  
   created() {
-    this.$store.dispatch('toolBar', {pateTitle: 'Restore password · 2022'});
+    this.$store.dispatch('toolBar', {pateTitle: 'Restore password · 2023'});
   },
   methods: {
     submit() {

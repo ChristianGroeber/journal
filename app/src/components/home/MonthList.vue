@@ -19,7 +19,7 @@ export default {
   },
   data: function() {
     return {
-      title: '2022'
+      title: '2023'
     }
   },
   created() {
