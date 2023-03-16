@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Nacho\Contracts\ArrayableInterface;
+use Nacho\ORM\AbstractModel;
+use Nacho\ORM\ModelInterface;
+use Nacho\ORM\TemporaryModel;
 
-class EncodingJob implements ArrayableInterface
+class EncodingJob extends AbstractModel implements ArrayableInterface, ModelInterface
 {
     private bool $completed;
     private ?int $framerate;
@@ -13,14 +16,21 @@ class EncodingJob implements ArrayableInterface
     private string $inFile;
     private string $outFile;
 
-    public function __construct(string $inFile, string $outFile, ?int $framerate = null, ?int $height = null, ?int $width = null, bool $completed = false)
+    // TODO @refactor: make this use the MediaSize Class
+    public function __construct(int $id, string $inFile, string $outFile, ?int $framerate = null, ?int $height = null, ?int $width = null, bool $completed = false)
     {
+        $this->id = $id;
         $this->framerate = $framerate;
         $this->height = $height;
         $this->width = $width;
         $this->inFile = $inFile;
         $this->outFile = $outFile;
         $this->completed = $completed;
+    }
+
+    public static function init(TemporaryModel $data, int $id): ModelInterface
+    {
+        return new EncodingJob($id, $data->get('framerate'). $data->get('height'), $data->get('width'), $data->get('inFile'), $data->get('outFile'), $data->get('completed'));
     }
 
     public function isCompleted(): bool

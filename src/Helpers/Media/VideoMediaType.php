@@ -2,33 +2,33 @@
 
 namespace App\Helpers\Media;
 
+use App\Contracts\MediaProcessor;
 use App\Models\Media;
+use App\Models\MediaDirectory;
 
-class VideoMediaType extends AbstractMediaTypeService implements \App\Contracts\MediaProcessor
+class VideoMediaType extends AbstractMediaTypeService implements MediaProcessor
 {
+    const DEFAULT_HEIGHT = 720;
+    const DEFAULT_FPS = 30;
+    const ENCODED_DIR = 'encode';
+    protected array $defaultSizes = [self::ENCODED_DIR];
 
     public static function getMimeType(): string
     {
-        // TODO: Implement getMimeType() method.
+        return 'video/*';
     }
 
     public static function getName(): string
     {
-        // TODO: Implement getName() method.
+        return 'Videos';
     }
 
     public function deleteMedia(Media $media): bool
     {
-        // TODO: Implement deleteMedia() method.
     }
 
-    public function storeMedia(string $mediaPath, array $file, ?string $month = null, ?string $day = null): array
+    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array
     {
         // TODO: Implement storeMedia() method.
-    }
-
-    public function loadMedia(string $month, string $day): array
-    {
-        // TODO: Implement loadMedia() method.
     }
 }

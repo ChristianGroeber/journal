@@ -9,6 +9,7 @@ use App\Helpers\ImageHelper;
 use App\Helpers\JournalConfiguration;
 use App\Helpers\VideoHelper;
 use App\Models\Media;
+use App\Models\MediaDirectory;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
 use Nacho\Models\Request;
@@ -46,6 +47,7 @@ class MediaController extends AbstractController
         $entry = $_REQUEST['entry'];
         $month = explode('/', $entry)[1];
         $day = explode('/', $entry)[2];
+        $mediaDirectory = new MediaDirectory($month, $day);
 
         if (!is_dir("${mediaDir}/${entry}")) {
             mkdir("${mediaDir}${entry}", 0777, true);
@@ -55,7 +57,7 @@ class MediaController extends AbstractController
         EncoderQueue::readJobs();
         foreach ($_FILES as $file) {
             $helper = $this->getMediaHelper($file['type']);
-            $uploadedFiles[] = $helper->storeMedia($file['tmp_name'], $file, $month, $day);
+            $uploadedFiles[] = $helper->storeMedia($file['tmp_name'], $file, $mediaDirectory);
         }
         EncoderQueue::writeJobs();
 

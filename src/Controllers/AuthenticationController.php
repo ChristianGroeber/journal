@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\TokenUser;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
 use Nacho\Exceptions\UserDoesNotExistException;
+use Nacho\ORM\RepositoryManager;
+use Nacho\Security\UserRepository;
 
 class AuthenticationController extends AbstractController
 {
@@ -44,17 +47,24 @@ class AuthenticationController extends AbstractController
         }
         $username = $_REQUEST['username'];
         $resetLink = md5(random_bytes(100));
+
+        /** @var TokenUser $user */
         $user = $this->nacho->userHandler->findUser($username);
 
         if (!$user) {
             return $this->json([], 400);
         }
 
-        $this->nacho->userHandler->modifyUser($username, 'resetLink', $resetLink);
+        $user->setResetLink($resetLink);
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
+
+        if (!$user->getEmail()) {
+            return $this->json(['This user has no E-Mail Address'], 400);
+        }
 
         $message = "Click <a href='" . $_SERVER['SERVER_NAME'] . '/auth/restore-password?token=' . $resetLink . "'>here</a> to set a new Password";
 
-        $success = mail($user['email'], 'Reset Password', $message);
+        $success = mail($user->getEmail(), 'Reset Password', $message);
 
         return $this->json(['success' => $success]);
     }
@@ -70,18 +80,21 @@ class AuthenticationController extends AbstractController
         $password1 = $_REQUEST['password1'];
         $password2 = $_REQUEST['password2'];
 
+        /** @var TokenUser $user */
         $user = $this->nacho->userHandler->findUser($username);
 
-        if ($password1 !== $password2 || !$user || $token !== $user['resetLink'] || $user['resetLink'] === '') {
+        if ($password1 !== $password2 || !$user || $token !== $user->getResetLink() || $user->getResetLink() === '') {
             return $this->json([], 400);
         }
 
-        $user = $this->nacho->userHandler->setPassword($username, $password1);
+        /** @var TokenUser $user */
+        $user = $this->nacho->userHandler->setPasswordForUser($user, $password1);
         $tokenHelper = new TokenHelper();
 
         $token = $tokenHelper->generateToken($username);
 
-        $this->nacho->userHandler->modifyUser($username, 'resetLink', '');
+        $user->setResetLink('');
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
         return $this->json(['token' => $token]);
     }
@@ -114,7 +127,7 @@ class AuthenticationController extends AbstractController
 
         $user = $this->nacho->userHandler->findUser($_REQUEST['username']);
 
-        if (!password_verify($_REQUEST['currentPassword'], $user['password'])) {
+        if (!password_verify($_REQUEST['currentPassword'], $user->getPassword())) {
             return $this->json(['message' => 'Invalid Password'], 400);
         }
 
@@ -130,16 +143,15 @@ class AuthenticationController extends AbstractController
         return $this->json(['token' => $newToken]);
     }
 
+    // TODO: fix
     public function adminCreated()
     {
-        return $this->json(['adminCreated' => is_file(FILE_PATH)]);
+//        return $this->json(['adminCreated' => is_file(FILE_PATH)]);
+        return $this->json(['adminCreated' => true]);
     }
 
     public function createAdmin()
     {
-        if (is_file(FILE_PATH)) {
-            return $this->json(['message' => 'The users file already exists'], 400);
-        }
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
 
@@ -154,7 +166,8 @@ class AuthenticationController extends AbstractController
             "password" => "",
         ];
 
-        file_put_contents(FILE_PATH, json_encode([$user, $guest]));
+        // TODO: fix
+//        file_put_contents(FILE_PATH, json_encode([$user, $guest]));
 
         $this->nacho->userHandler->setPassword($username, $password);
 

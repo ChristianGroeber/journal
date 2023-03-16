@@ -5,15 +5,16 @@ namespace App\Models;
 use Nacho\Contracts\ArrayableInterface;
 use Nacho\ORM\AbstractModel;
 use Nacho\ORM\ModelInterface;
+use Nacho\ORM\TemporaryModel;
 
 class Cache extends AbstractModel implements ModelInterface, ArrayableInterface
 {
     private string $renderDate;
     private array $content = [];
 
-    public static function init(array $data, int $id): ModelInterface
+    public static function init(TemporaryModel $data, int $id): ModelInterface
     {
-        return new Cache($data['renderDate'], $data['content']);
+        return new Cache($data->get('renderDate'), $data->get('content')->asArray());
     }
 
     public function __construct(string $renderDate, array $content)

@@ -4,8 +4,11 @@ namespace App\Models;
 
 use App\Helpers\JournalConfiguration;
 use Nacho\Contracts\ArrayableInterface;
+use Nacho\ORM\AbstractModel;
+use Nacho\ORM\ModelInterface;
+use Nacho\ORM\TemporaryModel;
 
-class Media implements ArrayableInterface
+class Media extends AbstractModel implements ArrayableInterface, ModelInterface
 {
     private string $name;
     private string $month;
@@ -13,12 +16,25 @@ class Media implements ArrayableInterface
     /** @var array|ScaledMedia[] */
     private array $scaled;
 
-    public function __construct(string $name, string $month, string $day, array $scaled = [])
+    // TODO @refactor: Make the media model use the MediaDirectory Class
+    public function __construct(int $id, string $name, MediaDirectory $directory, array $scaled = [])
     {
+        $this->id = $id;
         $this->name = $name;
-        $this->month = $month;
-        $this->day = $day;
+        $this->month = $directory->getMonth();
+        $this->day = $directory->getDay();
         $this->scaled = $scaled;
+    }
+
+    public static function init(TemporaryModel $data, int $id): ModelInterface
+    {
+        $scaled = array_map(function(array $scale) {
+            return new ScaledMedia($scale->get('scaleName'), $scale->get('fileExtension'));
+        }, $data->get('scaled'));
+
+        $mediaDirectory = new MediaDirectory($data->get('month'), $data->get('day'));
+
+        return new Media($id, $data->get('name'), $mediaDirectory, $scaled);
     }
 
     public function getName(): string
@@ -78,6 +94,7 @@ class Media implements ArrayableInterface
             'month' => $this->month,
             'day' => $this->day,
             'name' => $this->name,
+            'scaled' => $this->scaled,
         ];
     }
 }

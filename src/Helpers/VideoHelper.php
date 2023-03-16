@@ -5,7 +5,13 @@ namespace App\Helpers;
 use App\Contracts\MediaProcessor;
 use App\Models\EncodingJob;
 use App\Models\Media;
+use App\Models\MediaSize;
+use App\Repository\EncodingJobRepository;
+use Mhor\MediaInfo\Container\MediaInfoContainer;
 use Mhor\MediaInfo\MediaInfo;
+use Mhor\MediaInfo\Type\Video;
+use Nacho\ORM\RepositoryInterface;
+use Nacho\ORM\RepositoryManager;
 
 class VideoHelper extends AbstractMediaHelper implements MediaProcessor
 {
@@ -44,7 +50,7 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
     {
         $encode = $this->getEncoderSettings($media);
 
-        EncoderQueue::addJob($encode);
+        self::getEncoderQueueRepository()->set($encode);
 
         return [self::ENCODED_DIR => $media->getMediaPath(self::ENCODED_DIR) . '.webm'];
     }
@@ -54,27 +60,39 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
         $mediainfo = new MediaInfo();
         $mic = $mediainfo->getInfo($media->getAbsolutePath());
 
-        $encodingJob = new EncodingJob($media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.webm');
+        $encodingJob = new EncodingJob(-1, $media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.webm');
+        $video = $this->getVideo($mic);
 
-        foreach ($mic->getVideos() as $video) {
-            $height = $video->get('height')->getAbsoluteValue();
-            $width = $video->get('width')->getAbsoluteValue();
-            $aspectRatio = $video->get('display_aspect_ratio')->getAbsoluteValue();
-            $fps = $video->get('frame_rate')->getAbsoluteValue();
+        $size = new MediaSize($video->get('height')->getAbsoluteValue(), $video->get('width')->getAbsoluteValue());
+        $aspectRatio = $video->get('display_aspect_ratio')->getAbsoluteValue();
+        $fps = $video->get('frame_rate')->getAbsoluteValue();
 
-            if ($fps > self::DEFAULT_FPS) {
-                $fps = self::DEFAULT_FPS;
-            }
-            if ($height > self::DEFAULT_HEIGHT) {
-                $height = self::DEFAULT_HEIGHT;
-                $width = round($height * $aspectRatio);
-            }
-
-            $encodingJob->setFramerate($fps);
-            $encodingJob->setHeight($height);
-            $encodingJob->setWidth($width);
+        if ($fps > self::DEFAULT_FPS) {
+            $fps = self::DEFAULT_FPS;
+        }
+        if ($size->getHeight() > self::DEFAULT_HEIGHT) {
+            $size->setHeight(self::DEFAULT_HEIGHT);
+            $size->setWidth(round($size->getHeight() * $aspectRatio));
         }
 
+        $encodingJob->setFramerate($fps);
+        $encodingJob->setHeight($size->getHeight());
+        $encodingJob->setWidth($size->getWidth());
+
         return $encodingJob;
+    }
+
+    private function getVideo(MediaInfoContainer $mic): ?Video
+    {
+        foreach ($mic->getVideos() as $video) {
+            return $video;
+        }
+
+        return null;
+    }
+
+    private static function getEncoderQueueRepository(): EncodingJobRepository|RepositoryInterface
+    {
+        return RepositoryManager::getInstance()->getRepository(EncodingJobRepository::class);
     }
 }

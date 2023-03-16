@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\Models\Media;
+use App\Models\MediaDirectory;
 
 interface MediaProcessor
 {
@@ -12,7 +13,8 @@ interface MediaProcessor
 
     public function deleteMedia(Media $media): bool;
 
-    public function storeMedia(string $mediaPath, array $file, ?string $month = null, ?string $day = null): array;
+    // TODO @refactor: either $sourceMediaPath or $file have to go as they partially store the same information
+    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array;
 
-    public function loadMedia(string $month, string $day): array;
+    public function loadMedia(string $day): Media;
 }

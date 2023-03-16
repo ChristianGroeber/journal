@@ -2,9 +2,12 @@
 
 namespace App\Helpers;
 
+use App\Models\TokenUser;
+use Nacho\ORM\RepositoryManager;
 use Nacho\Security\JsonUserHandler;
 use Nacho\Contracts\UserHandlerInterface;
 use Nacho\Security\UserInterface;
+use Nacho\Security\UserRepository;
 
 class TokenHelper 
 {
@@ -18,9 +21,8 @@ class TokenHelper
     function getToken($username): string
     {
         $secret = self::getSecret();
-        $user = $this->userHandler->findUser($username);
 
-        return md5($username . $this->userHandler->findUser($username)['tokenStamp'] . $secret);
+        return md5($username . $this->userHandler->findUser($username)->getTokenStamp() . $secret);
     }
 
     public function isTokenValid($token, $users): bool|UserInterface
@@ -38,7 +40,12 @@ class TokenHelper
     public function generateToken($username)
     {
         $tokenStamp = md5(random_bytes(100));
-        $this->userHandler->modifyUser($username, 'tokenStamp', $tokenStamp);
+
+        /** @var TokenUser $user */
+        $user = $this->userHandler->findUser($username);
+        $user->setTokenStamp($tokenStamp);
+
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
         return $this->getToken($username);
     }
