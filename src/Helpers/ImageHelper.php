@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Contracts\MediaProcessor;
 use App\Models\Media;
+use App\Models\MediaDirectory;
 
 class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 {
@@ -29,20 +30,25 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
         return parent::deleteMedia($media);
     }
 
-    public function loadMedia(string $month, string $day): array
+    /**
+     * @param string $day
+     * @return array|Media[]
+     * TODO: don't throw error if directory does not exist
+     */
+    public function loadMedia(MediaDirectory $directory): array
     {
         $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/media';
-        $entry = $_REQUEST['entry'];
+        $dir = $directory->printDirectory();
 
         $images = [];
-        if (!is_dir("${imagesDir}${entry}/1080")) {
+        if (!is_dir("${imagesDir}/${dir}/1080")) {
             return [];
         }
-        foreach (scandir("${imagesDir}${entry}/1080") as $img) {
-            if (!is_file("${imagesDir}${entry}/1080/${img}")) {
+        foreach (scandir("${imagesDir}/${dir}/1080") as $img) {
+            if (!is_file("${imagesDir}/${dir}/1080/${img}")) {
                 continue;
             }
-            $images[] = JournalConfiguration::mediaBaseUrl() . "${entry}/1080/${img}";
+            $images[] = JournalConfiguration::mediaBaseUrl() . "/${dir}/1080/${img}";
         }
 
         return $images;
@@ -98,5 +104,10 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 
         // Save scaled down version in new path
         imagewebp($scaled, "${targetPath}/${fileName}");
+    }
+
+    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array
+    {
+        // TODO: Implement storeMedia() method.
     }
 }

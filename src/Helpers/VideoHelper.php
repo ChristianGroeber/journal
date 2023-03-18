@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Contracts\MediaProcessor;
 use App\Models\EncodingJob;
 use App\Models\Media;
+use App\Models\MediaDirectory;
 use App\Models\MediaSize;
 use App\Repository\EncodingJobRepository;
 use Mhor\MediaInfo\Container\MediaInfoContainer;
@@ -30,16 +31,17 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
         return 'Videos';
     }
 
-    public function loadMedia(string $month, string $day): array
+    public function loadMedia(MediaDirectory $directory): array
     {
         $mediaDir = JournalConfiguration::mediaDir();
         $media = [];
-        foreach (scandir("${mediaDir}/${month}/${day}") as $file) {
-            if ($file === '.' || $file === '..' || is_dir("${mediaDir}/${month}/${day}/${file}")) {
+        $dir = $directory->printDirectory();
+        foreach (scandir("${mediaDir}/${dir}") as $file) {
+            if ($file === '.' || $file === '..' || is_dir("${mediaDir}/${dir}/${file}")) {
                 continue;
             }
-            if ($this->isApplicableMediaMime("${mediaDir}/${month}/${day}/${file}")) {
-                $media[] = JournalConfiguration::mediaBaseUrl() . "/${month}/${day}/${file}";
+            if ($this->isApplicableMediaMime("${mediaDir}/${dir}/${file}")) {
+                $media[] = JournalConfiguration::mediaBaseUrl() . "/${dir}/${file}";
             }
         }
 
@@ -94,5 +96,15 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
     private static function getEncoderQueueRepository(): EncodingJobRepository|RepositoryInterface
     {
         return RepositoryManager::getInstance()->getRepository(EncodingJobRepository::class);
+    }
+
+    public function deleteMedia(Media $media): bool
+    {
+        // TODO: Implement deleteMedia() method.
+    }
+
+    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array
+    {
+        // TODO: Implement storeMedia() method.
     }
 }

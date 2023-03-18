@@ -23,4 +23,9 @@ class MediaDirectory
     {
         return $this->day;
     }
+
+    public function printDirectory(): string
+    {
+        return $this->month . DIRECTORY_SEPARATOR . $this->day;
+    }
 }

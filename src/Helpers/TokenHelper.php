@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\TokenUser;
 use Nacho\ORM\RepositoryManager;
+use Nacho\ORM\TemporaryModel;
 use Nacho\Security\JsonUserHandler;
 use Nacho\Contracts\UserHandlerInterface;
 use Nacho\Security\UserInterface;
@@ -29,7 +30,7 @@ class TokenHelper
     {
         foreach ($users as $user) {
             if ($token === $this->getToken($user['username'])) {
-                return $user;
+                return TokenUser::init(new TemporaryModel($user), 0);
             }
         }
         

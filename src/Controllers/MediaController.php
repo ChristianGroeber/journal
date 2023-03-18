@@ -68,8 +68,9 @@ class MediaController extends AbstractController
     public function loadMediaForEntry(Request $request)
     {
         $media = [];
-        $month = explode('/', $_REQUEST['entry'])[1];
-        $day = explode('/', $_REQUEST['entry'])[2];
+        $entryStr = ltrim($_REQUEST['entry'], DIRECTORY_SEPARATOR);
+        $entry = explode(DIRECTORY_SEPARATOR, $entryStr);
+        $directory = new MediaDirectory($entry[0], $entry[1]);
 
         if (!key_exists('token', $_REQUEST)) {
             return $this->json(['message' => 'You need to be authenticated'], 401);
@@ -84,7 +85,7 @@ class MediaController extends AbstractController
             $media[] = [
                 'name' => $helper::getName(),
                 'slug' => $slug,
-                'media' => $helper->loadMedia($month, $day),
+                'media' => $helper->loadMedia($directory),
             ];
         }
 
@@ -151,25 +152,6 @@ class MediaController extends AbstractController
         }
 
 
-    }
-
-    /**
-     * GET: get a list of images for a selected entry
-     * Route: /api/entry/gallery
-     */
-    function media()
-    {
-        $strPage = $_REQUEST['page'];
-
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images' . $strPage;
-        $images = [];
-        foreach (scandir($imagesDir) as $imgPath) {
-            if (is_file($imagesDir . '/' . $imgPath)) {
-                $images[] = '/images' . $strPage . '/' . $imgPath;
-            }
-        }
-
-        return $this->json($images);
     }
 
     private function getMediaHelper(string $mimeType): MediaProcessor
