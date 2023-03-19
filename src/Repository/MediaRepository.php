@@ -7,6 +7,9 @@ use Nacho\ORM\AbstractRepository;
 use Nacho\ORM\ModelInterface;
 use Nacho\ORM\RepositoryInterface;
 
+/**
+ * @deprecated Do not use MediaRepository as the file system is the DB in this case
+ */
 class MediaRepository extends AbstractRepository implements RepositoryInterface
 {
     public static function getDataName(): string
