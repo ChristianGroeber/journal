@@ -16,7 +16,6 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
     /** @var array|ScaledMedia[] */
     private array $scaled;
 
-    // TODO @refactor: Make the media model use the MediaDirectory Class
     public function __construct(int $id, string $name, MediaDirectory $directory, array $scaled = [])
     {
         $this->id = $id;
@@ -70,7 +69,10 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
 
     public function getMediaPath(?string $size = null): string
     {
-        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $this->name . ($size ? $size . '.' . $this->getScaled($size)->getFileExtension() : '')]);
+        if ($size) {
+            return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size, $this->name . $this->getScaled($size)->getFileExtension()]);
+        }
+        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $this->name]);
     }
 
     public function getAbsolutePath(?string $size = null): string
@@ -80,7 +82,10 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
 
     public function getDirectory(?string $size = null): string
     {
-        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size ?: '']);
+        if ($size) {
+            return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size]);
+        }
+        return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day]);
     }
 
     public function getAbsoluteDirectory(?string $size = null): string

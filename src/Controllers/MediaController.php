@@ -7,9 +7,11 @@ use App\Helpers\AbstractMediaHelper;
 use App\Helpers\EncoderQueue;
 use App\Helpers\ImageHelper;
 use App\Helpers\JournalConfiguration;
+use App\Helpers\Media\MimeHelper;
 use App\Helpers\VideoHelper;
 use App\Models\Media;
 use App\Models\MediaDirectory;
+use App\Models\Mime;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
 use Nacho\Models\Request;
@@ -54,12 +56,11 @@ class MediaController extends AbstractController
         }
 
         $uploadedFiles = [];
-        EncoderQueue::readJobs();
+
         foreach ($_FILES as $file) {
-            $helper = $this->getMediaHelper($file['type']);
-            $uploadedFiles[] = $helper->storeMedia($file['tmp_name'], $file, $mediaDirectory);
+            $helper = $this->getMediaHelper(Mime::init($file['type']));
+            $uploadedFiles[] = $helper->storeMedia($file, $mediaDirectory)->getMediaPath();
         }
-        EncoderQueue::writeJobs();
 
         return $this->json(['message' => 'uploaded files', 'files' => $uploadedFiles]);
     }
@@ -154,10 +155,10 @@ class MediaController extends AbstractController
 
     }
 
-    private function getMediaHelper(string $mimeType): MediaProcessor
+    private function getMediaHelper(Mime $mime): MediaProcessor
     {
         foreach ($this->mediaHelpers as $mediaHelper) {
-            if (AbstractMediaHelper::compareMimeTypes($mimeType, $mediaHelper::getMimeType())) {
+            if (MimeHelper::compareMimeTypes(Mime::init($mediaHelper::getMimeType()), $mime)) {
                 return $mediaHelper;
             }
         }

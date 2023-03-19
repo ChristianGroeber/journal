@@ -15,6 +15,11 @@ class AbstractMediaHelper
         return MimeHelper::compareMimeTypes(Mime::init(mime_content_type($file)), Mime::init(static::getMimeType()));
     }
 
+    public static function generateFileName(array $file)
+    {
+        return sha1_file($file['tmp_name']) . $file['name'];
+    }
+
     public static function getMimeType(): string
     {
         throw new Exception('Mime Type not defined');

@@ -5,6 +5,8 @@ namespace App\Helpers;
 use App\Contracts\MediaProcessor;
 use App\Models\Media;
 use App\Models\MediaDirectory;
+use App\Repository\MediaRepository;
+use Nacho\ORM\RepositoryManager;
 
 class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 {
@@ -31,7 +33,6 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
     }
 
     /**
-     * @param string $day
      * @return array|Media[]
      * TODO: don't throw error if directory does not exist
      */
@@ -52,6 +53,17 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
         }
 
         return $images;
+    }
+
+    public function storeMedia(array $file, MediaDirectory $directory): Media
+    {
+        $media = new Media(-1, self::generateFileName($file), $directory);
+
+        $this->outputFile($file['tmp_name'], $media);
+
+        $this->scale($media);
+
+        return $media;
     }
 
     protected function outputFile(string $mediaPath, Media $media)
@@ -104,10 +116,5 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 
         // Save scaled down version in new path
         imagewebp($scaled, "${targetPath}/${fileName}");
-    }
-
-    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array
-    {
-        // TODO: Implement storeMedia() method.
     }
 }

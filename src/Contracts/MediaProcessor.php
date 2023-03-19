@@ -13,8 +13,7 @@ interface MediaProcessor
 
     public function deleteMedia(Media $media): bool;
 
-    // TODO @refactor: either $sourceMediaPath or $file have to go as they partially store the same information
-    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array;
+    public function storeMedia(array $file, MediaDirectory $directory): Media;
 
     public function loadMedia(MediaDirectory $directory): array;
 }

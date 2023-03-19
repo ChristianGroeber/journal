@@ -7,7 +7,9 @@ use App\Models\EncodingJob;
 use App\Models\Media;
 use App\Models\MediaDirectory;
 use App\Models\MediaSize;
+use App\Models\ScaledMedia;
 use App\Repository\EncodingJobRepository;
+use App\Repository\MediaRepository;
 use Mhor\MediaInfo\Container\MediaInfoContainer;
 use Mhor\MediaInfo\MediaInfo;
 use Mhor\MediaInfo\Type\Video;
@@ -44,6 +46,18 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
                 $media[] = JournalConfiguration::mediaBaseUrl() . "/${dir}/${file}";
             }
         }
+
+        return $media;
+    }
+
+    public function storeMedia(array $file, MediaDirectory $directory): Media
+    {
+        $media = new Media(-1, self::generateFileName($file), $directory);
+        $media->addScaled(new ScaledMedia(self::ENCODED_DIR, 'webm'));
+
+        move_uploaded_file($file['tmp_name'], $media->getAbsolutePath());
+
+        $this->scale($media);
 
         return $media;
     }
@@ -101,10 +115,5 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
     public function deleteMedia(Media $media): bool
     {
         // TODO: Implement deleteMedia() method.
-    }
-
-    public function storeMedia(string $sourceMediaPath, array $file, ?MediaDirectory $directory = null): array
-    {
-        // TODO: Implement storeMedia() method.
     }
 }
