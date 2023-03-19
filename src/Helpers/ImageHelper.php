@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Contracts\MediaProcessor;
 use App\Models\Media;
 use App\Models\MediaDirectory;
+use App\Models\ScaledMedia;
 use App\Repository\MediaRepository;
 use Nacho\ORM\RepositoryManager;
 
@@ -61,7 +62,7 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 
         $this->outputFile($file['tmp_name'], $media);
 
-        $this->scale($media);
+        $media = $this->scale($media);
 
         return $media;
     }
@@ -89,32 +90,31 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
         imagewebp($image, $media->getAbsolutePath());
     }
 
-    protected function scale(Media $media): array
+    protected function scale(Media $media): Media
     {
-        $scaled = [];
-        // create scaled versions of image
         foreach ($this->getDefaultSizes() as $size) {
-            $this->compressImage($media->getAbsolutePath(), $size);
-            $scaled[$size] = $media->getMediaPath($size);
+            $media->addScaled(new ScaledMedia($size, 'webp'));
+            $this->compressImage($media, $size);
         }
 
-        return $scaled;
+        return $media;
     }
 
-    private function compressImage(string $imagePath, int $size): void
+    private function compressImage(Media $media, int $size): void
     {
-        // Find out path of original image
-        $splImgPath = explode('/', $imagePath);
-        array_pop($splImgPath);
-        $targetPath = implode('/', $splImgPath) . "/${size}";
-        $splImgPath = explode('/', $imagePath);
-        $fileName = array_pop($splImgPath);
+        $targetDirectory = $media->getAbsoluteDirectory($size);
+
+        if (!is_dir($targetDirectory)) {
+            mkdir($targetDirectory, 0777, true);
+        }
+
+        $targetPath = implode(DIRECTORY_SEPARATOR, [$targetDirectory, $media->getName() . '.' . $media->getScaled($size)->getFileExtension()]);
 
         // Scale down image
-        $imgObject = imagecreatefromstring(file_get_contents($imagePath));
+        $imgObject = imagecreatefromstring(file_get_contents($media->getAbsolutePath()));
         $scaled = imagescale($imgObject, $size);
 
         // Save scaled down version in new path
-        imagewebp($scaled, "${targetPath}/${fileName}");
+        imagewebp($scaled, $targetPath);
     }
 }
