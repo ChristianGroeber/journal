@@ -28,6 +28,17 @@ class Job:
         return "/usr/bin/ffmpeg -i \"" + self.in_file + "\" -s " + str(self.width) + "x" + str(self.height) + " -r " + \
                str(self.framerate) + " \"" + self.out_file + "\""
 
+    def get_target_directory(self):
+        print(self.out_file)
+        spl_path = self.out_file.split('/')
+        print(spl_path)
+        spl_path.pop(len(spl_path) - 1)
+        return '/'.join(spl_path)
+
+    def create_target_directory(self):
+        if not os.path.isdir(self.get_target_directory()):
+            os.mkdir(self.get_target_directory())
+
     def transcode(self):
         with subprocess.Popen(self.transcode_command(), stdout=subprocess.PIPE, shell=True) as proc:
             print(proc.stdout.read())
@@ -49,7 +60,7 @@ def get_env():
     return ret
 
 
-file_dir = '/var/www/html/data/encode_jobs.json'
+file_dir = '/var/www/html/data/encoding-job.json'
 jobs_file = open(file_dir, 'r')
 jobs = json.loads(jobs_file.read())
 jobs_file.close()
@@ -64,6 +75,7 @@ jobs_executed = 0
 for arr_job in jobs:
     job = Job(arr_job['height'], arr_job['width'], arr_job['framerate'], arr_job['in_file'], arr_job['out_file'], arr_job['is_completed'])
     if os.path.isfile(job.in_file) and not job.is_completed:
+        job.create_target_directory()
         job.transcode()
         fix_permissions(job.out_file)
         jobs_executed += 1
