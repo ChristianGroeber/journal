@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule ^(src|.vscode|content|node_modules|CHANGELOG\.md|.secret|users.json|composer\.(json|lock|phar))(/|$) index.php
+    RewriteRule ^(src|.vscode|content|node_modules|CHANGELOG\.md|.secret|data|composer\.(json|lock|phar))(/|$) index.php
     # Enable URL rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
