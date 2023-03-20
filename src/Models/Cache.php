@@ -19,7 +19,7 @@ class Cache extends AbstractModel implements ModelInterface, ArrayableInterface
 
     public function __construct(string $renderDate, array $content)
     {
-        $this->id = 0;
+        $this->id = 1;
         $this->renderDate = $renderDate;
         $this->content = $content;
     }

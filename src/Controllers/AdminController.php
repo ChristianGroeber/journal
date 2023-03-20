@@ -116,6 +116,7 @@ class AdminController extends AbstractController
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
         $cacheHelper = new CacheHelper($this->nacho);
+        $cacheHelper->build();
         return $this->json(['success' => true]);
     }
 

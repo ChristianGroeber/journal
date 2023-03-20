@@ -31,7 +31,7 @@ class CacheHelper
 
     public function read(): ?Cache
     {
-        return $this->repository->getById(0);
+        return $this->repository->getById(1);
     }
 
     private function renderContent(): array
