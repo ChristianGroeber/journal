@@ -6,8 +6,6 @@ use App\Contracts\MediaProcessor;
 use App\Models\Media;
 use App\Models\MediaDirectory;
 use App\Models\ScaledMedia;
-use App\Repository\MediaRepository;
-use Nacho\ORM\RepositoryManager;
 
 class ImageHelper extends AbstractMediaHelper implements MediaProcessor
 {
@@ -26,6 +24,11 @@ class ImageHelper extends AbstractMediaHelper implements MediaProcessor
     public static function getName(): string
     {
         return 'Images';
+    }
+
+    public function getDefaultScaled(): string
+    {
+        return '1080';
     }
 
     public function deleteMedia(Media $media): bool

@@ -33,6 +33,11 @@ class VideoHelper extends AbstractMediaHelper implements MediaProcessor
         return 'Videos';
     }
 
+    public function getDefaultScaled(): string
+    {
+        return self::ENCODED_DIR;
+    }
+
     public function loadMedia(MediaDirectory $directory): array
     {
         $mediaDir = JournalConfiguration::mediaDir();

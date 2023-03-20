@@ -29,7 +29,9 @@ class MediaController extends AbstractController
         $this->mediaHelpers['vid'] = new VideoHelper();
     }
 
-    // /api/entry/gallery/upload
+    /**
+     * GET: /api/entry/gallery/upload
+     */
     public function uploadMedia(Request $request)
     {
         if (!key_exists('token', $_REQUEST)) {
@@ -59,7 +61,10 @@ class MediaController extends AbstractController
 
         foreach ($_FILES as $file) {
             $helper = $this->getMediaHelper(Mime::init($file['type']));
-            $uploadedFiles[] = $helper->storeMedia($file, $mediaDirectory)->getMediaPath();
+            $media = $helper->storeMedia($file, $mediaDirectory);
+            $tmpArr = $media->toFrontendArray();
+            $tmpArr['scaled']['default'] = $media->getMediaPath($helper->getDefaultScaled());
+            $uploadedFiles[] = $tmpArr;
         }
 
         return $this->json(['message' => 'uploaded files', 'files' => $uploadedFiles]);

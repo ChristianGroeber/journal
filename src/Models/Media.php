@@ -70,7 +70,7 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
     public function getMediaPath(?string $size = null): string
     {
         if ($size) {
-            return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size, $this->name . $this->getScaled($size)->getFileExtension()]);
+            return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $size, $this->name . '.' . $this->getScaled($size)->getFileExtension()]);
         }
         return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $this->name]);
     }
@@ -99,7 +99,19 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
             'month' => $this->month,
             'day' => $this->day,
             'name' => $this->name,
-            'scaled' => $this->scaled,
+            'scaled' => array_map(function (ScaledMedia $s) {return $s->toArray();}, $this->scaled),
+        ];
+    }
+
+    public function toFrontendArray(): array
+    {
+        $scaledArray = [];
+        foreach ($this->scaled as $s) {
+            $scaledArray[$s->getScaleName()] = $this->getMediaPath($s->getScaleName());
+        }
+        return [
+            'path' => $this->getMediaPath(),
+            'scaled' => $scaledArray,
         ];
     }
 }

@@ -11,6 +11,8 @@ interface MediaProcessor
 
     public static function getName(): string;
 
+    public function getDefaultScaled(): string;
+
     public function deleteMedia(Media $media): bool;
 
     public function storeMedia(array $file, MediaDirectory $directory): Media;
