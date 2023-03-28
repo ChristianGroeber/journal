@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Hooks;
+namespace Tests\unit\Hooks;
 
 use App\Controllers\FrontendController;
 use App\Hooks\RouteCheckHook;

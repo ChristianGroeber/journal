@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Models;
+namespace Tests\unit\Models;
 
-use PHPUnit\Framework\TestCase;
 use App\Models\Mime;
+use PHPUnit\Framework\TestCase;
 
 class MimeTest extends TestCase
 {

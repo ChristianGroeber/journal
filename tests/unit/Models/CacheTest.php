@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Models;
+namespace Tests\unit\Models;
 
 use App\Models\Cache;
 use Nacho\ORM\TemporaryModel;
