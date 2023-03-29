@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use App\Models\TokenUser;
+use Nacho\Exceptions\UserDoesNotExistException;
+use Nacho\ORM\ModelInterface;
 use Nacho\ORM\RepositoryManager;
 use Nacho\ORM\TemporaryModel;
 use Nacho\Security\JsonUserHandler;
@@ -10,50 +12,42 @@ use Nacho\Contracts\UserHandlerInterface;
 use Nacho\Security\UserInterface;
 use Nacho\Security\UserRepository;
 
-class TokenHelper 
+class TokenHelper
 {
-    private UserHandlerInterface $userHandler;
-
-    public function __construct()
+    public function getToken(TokenUser $user): string
     {
-        $this->userHandler = new JsonUserHandler();
+        $secret = SecretHelper::getSecret();
+        $tokenStamp = $user->getTokenStamp();
+
+        return md5($tokenStamp . $secret);
     }
 
-    function getToken($username): string
+    public function isTokenValid($token, $users): bool
     {
-        $secret = self::getSecret();
-
-        return md5($username . $this->userHandler->findUser($username)->getTokenStamp() . $secret);
+        try {
+            $this->getUserByToken($token, $users);
+            return true;
+        } catch (UserDoesNotExistException $e) {
+        }
+        return false;
     }
 
-    public function isTokenValid($token, $users): bool|UserInterface
+    // TODO: Unit test this function
+    public function getUserByToken(string $token, array $users): UserInterface|ModelInterface
     {
         foreach ($users as $user) {
             if ($token === $this->getToken($user['username'])) {
                 return TokenUser::init(new TemporaryModel($user), 0);
             }
         }
-        
-        return false;
+
+        throw new UserDoesNotExistException('This User does not exist or the provided token is invalid');
     }
 
-    // Generate a fresh token
-    public function generateToken($username)
+    public function generateNewTokenStamp(TokenUser &$user): void
     {
         $tokenStamp = md5(random_bytes(100));
 
-        /** @var TokenUser $user */
-        $user = $this->userHandler->findUser($username);
         $user->setTokenStamp($tokenStamp);
-
-        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
-
-        return $this->getToken($username);
-    }
-
-    public static function getSecret()
-    {
-        $secretHelper = new SecretHelper();
-        return $secretHelper->getSecret();
     }
 }

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "christiangroeber/nacho",
-            "version": "0.36",
+            "version": "0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianGroeber/Nacho.git",
-                "reference": "3d8138d9c10be9cd4fa57a94099499d0a4d21897"
+                "reference": "0b8ffb72d950eb63c052a064e243d5c260852ef1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianGroeber/Nacho/zipball/3d8138d9c10be9cd4fa57a94099499d0a4d21897",
-                "reference": "3d8138d9c10be9cd4fa57a94099499d0a4d21897",
+                "url": "https://api.github.com/repos/ChristianGroeber/Nacho/zipball/0b8ffb72d950eb63c052a064e243d5c260852ef1",
+                "reference": "0b8ffb72d950eb63c052a064e243d5c260852ef1",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "description": "My own Lightweight PHP Framework",
             "support": {
                 "issues": "https://github.com/ChristianGroeber/Nacho/issues",
-                "source": "https://github.com/ChristianGroeber/Nacho/tree/0.36"
+                "source": "https://github.com/ChristianGroeber/Nacho/tree/0.37"
             },
-            "time": "2023-03-16T16:50:19+00:00"
+            "time": "2023-03-29T19:14:31+00:00"
         },
         {
             "name": "erusev/parsedown",

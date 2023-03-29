@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\TokenUser;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
-use Nacho\Exceptions\UserDoesNotExistException;
 use Nacho\ORM\RepositoryManager;
 use Nacho\Security\UserRepository;
 
@@ -17,14 +16,11 @@ class AuthenticationController extends AbstractController
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
         if (strtolower($request->requestMethod) === 'post') {
-            try {
-                if ($this->nacho->userHandler->passwordVerify($username, $password)) {
-                    $token = $tokenHelper->getToken($username);
-                    return $this->json(['token' => $token]);
-                } else {
-                    return $this->json(['message' => 'This password/ username is not valid'], 400);
-                }
-            } catch (UserDoesNotExistException $e) {
+            $user = $this->nacho->userHandler->findUser($username);
+            if ($this->nacho->userHandler->passwordVerify($user, $password)) {
+                $token = $tokenHelper->getToken($user);
+                return $this->json(['token' => $token]);
+            } else {
                 return $this->json(['message' => 'This password/ username is not valid'], 400);
             }
         }
@@ -91,9 +87,9 @@ class AuthenticationController extends AbstractController
         $user = $this->nacho->userHandler->setPasswordForUser($user, $password1);
         $tokenHelper = new TokenHelper();
 
-        $token = $tokenHelper->generateToken($username);
-
+        $tokenHelper->generateNewTokenStamp($user);
         $user->setResetLink('');
+        $token = $tokenHelper->getToken($user);
         RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
         return $this->json(['token' => $token]);
@@ -114,7 +110,12 @@ class AuthenticationController extends AbstractController
             return $this->json([], 400);
         }
 
-        $newToken = $tokenHelper->generateToken($username);
+        /** @var TokenUser $user */
+        $user = $this->nacho->userHandler->findUser($username);
+
+        $tokenHelper->generateNewTokenStamp($user);
+        $newToken = $tokenHelper->getToken($user);
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
         return $this->json(['token' => $newToken]);
     }
@@ -125,6 +126,7 @@ class AuthenticationController extends AbstractController
             return $this->json([], 405);
         }
 
+        /** @var TokenUser $user */
         $user = $this->nacho->userHandler->findUser($_REQUEST['username']);
 
         if (!password_verify($_REQUEST['currentPassword'], $user->getPassword())) {
@@ -138,8 +140,11 @@ class AuthenticationController extends AbstractController
         }
 
         $tokenHelper = new TokenHelper();
-        $newToken = $tokenHelper->generateToken($user['username']);
-        
+        $tokenHelper->generateNewTokenStamp($user);
+        $newToken = $tokenHelper->getToken($user);
+
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
+
         return $this->json(['token' => $newToken]);
     }
 

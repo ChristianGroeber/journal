@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class SecretHelper
 {
-    public function getSecret()
+    public static function getSecret(): string
     {
         if (is_file('.secret')) {
             return file_get_contents('.secret');
