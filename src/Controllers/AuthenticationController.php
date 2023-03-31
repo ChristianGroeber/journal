@@ -160,19 +160,11 @@ class AuthenticationController extends AbstractController
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
 
-        $user = [
-            "username" => $username,
-            "role" => "Editor",
-            "password" => "",
-        ];
-        $guest = [
-            "username" => "Guest",
-            "role" => "Guest",
-            "password" => "",
-        ];
+        $user = new TokenUser(0, $username, 'Editor', null, null, null, null);
+        $guest = new TokenUser(0, 'Guest', 'Guest', null, null, null, null);
 
-        // TODO: fix
-//        file_put_contents(FILE_PATH, json_encode([$user, $guest]));
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($guest);
 
         $this->nacho->userHandler->setPassword($username, $password);
 
