@@ -5,19 +5,18 @@ namespace App\Helpers;
 use App\Models\TokenUser;
 use Nacho\Exceptions\UserDoesNotExistException;
 use Nacho\ORM\ModelInterface;
-use Nacho\ORM\RepositoryManager;
 use Nacho\ORM\TemporaryModel;
-use Nacho\Security\JsonUserHandler;
-use Nacho\Contracts\UserHandlerInterface;
 use Nacho\Security\UserInterface;
-use Nacho\Security\UserRepository;
 
 class TokenHelper
 {
-    public function getToken(TokenUser $user): string
+    public function getToken($user): string
     {
+        if ($user instanceof TokenUser) {
+            $user = $user->toArray();
+        }
         $secret = SecretHelper::getSecret();
-        $tokenStamp = $user->getTokenStamp();
+        $tokenStamp = $user['tokenStamp'];
 
         return md5($tokenStamp . $secret);
     }
@@ -32,11 +31,10 @@ class TokenHelper
         return false;
     }
 
-    // TODO: Unit test this function
     public function getUserByToken(string $token, array $users): UserInterface|ModelInterface
     {
         foreach ($users as $user) {
-            if ($token === $this->getToken($user['username'])) {
+            if ($token === $this->getToken($user)) {
                 return TokenUser::init(new TemporaryModel($user), 0);
             }
         }
