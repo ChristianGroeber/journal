@@ -3,12 +3,10 @@
 namespace App\Controllers;
 
 use App\Contracts\MediaProcessor;
-use App\Helpers\AbstractMediaHelper;
-use App\Helpers\EncoderQueue;
-use App\Helpers\ImageHelper;
 use App\Helpers\JournalConfiguration;
+use App\Helpers\Media\ImageMediaType;
 use App\Helpers\Media\MimeHelper;
-use App\Helpers\VideoHelper;
+use App\Helpers\Media\VideoMediaType;
 use App\Models\Media;
 use App\Models\MediaDirectory;
 use App\Models\Mime;
@@ -25,8 +23,8 @@ class MediaController extends AbstractController
     public function __construct(Nacho $nacho)
     {
         parent::__construct($nacho);
-        $this->mediaHelpers['img'] = new ImageHelper();
-        $this->mediaHelpers['vid'] = new VideoHelper();
+        $this->mediaHelpers['img'] = new ImageMediaType();
+        $this->mediaHelpers['vid'] = new VideoMediaType();
     }
 
     /**
@@ -116,7 +114,7 @@ class MediaController extends AbstractController
         $splitImg = explode('/', $img);
 
         $imgObj = new Media($splitImg[5], $splitImg[2], $splitImg[3]);
-        $imageHelper = new ImageHelper();
+        $imageHelper = new ImageMediaType();
         $imageHelper->deleteMedia($imgObj);
 
         return $this->json();
@@ -163,11 +161,12 @@ class MediaController extends AbstractController
     private function getMediaHelper(Mime $mime): MediaProcessor
     {
         foreach ($this->mediaHelpers as $mediaHelper) {
-            if (MimeHelper::compareMimeTypes(Mime::init($mediaHelper::getMimeType()), $mime)) {
+            $testMime = Mime::init($mediaHelper::getMimeType());
+            if (MimeHelper::compareMimeTypes($testMime, $mime)) {
                 return $mediaHelper;
             }
         }
 
-        throw new \Exception('The Mime Type ' . $mimeType . ' is not supported');
+        throw new \Exception('The Mime Type ' . $mime->printMime() . ' is not supported');
     }
 }

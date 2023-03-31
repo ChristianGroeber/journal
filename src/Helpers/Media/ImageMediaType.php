@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\Media;
 
 use App\Contracts\MediaProcessor;
+use App\Helpers\JournalConfiguration;
 use App\Models\Media;
 use App\Models\MediaDirectory;
 use App\Models\ScaledMedia;
 
-class ImageHelper extends AbstractMediaHelper implements MediaProcessor
+class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
 {
     protected array $defaultSizes = [100, 500, 1080];
 

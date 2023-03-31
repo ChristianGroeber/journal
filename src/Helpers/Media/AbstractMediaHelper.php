@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\Media;
 
-use App\Contracts\MediaProcessor;
-use App\Helpers\Media\MimeHelper;
-use App\Models\Media;
 use App\Models\Mime;
 use Exception;
 
-class AbstractMediaHelper
+abstract class AbstractMediaHelper
 {
     protected function isApplicableMediaMime(string $file): bool
     {

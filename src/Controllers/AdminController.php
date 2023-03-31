@@ -2,15 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Media\ImageMediaType;
 use DateTime;
-use App\Helpers\ImageHelper;
 use App\Helpers\TokenHelper;
 use App\Helpers\BackupHelper;
 use App\Helpers\CacheHelper;
 use App\Models\RaceReport;
 use Nacho\Controllers\AbstractController;
 use Nacho\Models\HttpMethod;
-use Nacho\Models\HttpResponseCode;
 use Nacho\Models\Request;
 
 class AdminController extends AbstractController
@@ -150,7 +149,7 @@ class AdminController extends AbstractController
         }
 
         $image = $_FILES['image'];
-        $imageHelper = new ImageHelper();
+        $imageHelper = new ImageMediaType();
         $generated = $imageHelper->storeEntryImage($image['tmp_name']);
 
         $contentDir = $_SERVER['DOCUMENT_ROOT'] . '/content';
