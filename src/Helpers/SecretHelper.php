@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class SecretHelper
 {
-    private static string $secret;
+    private static ?string $secret = null;
 
     public static function getSecret(): string
     {
