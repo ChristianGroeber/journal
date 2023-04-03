@@ -16,9 +16,9 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
     /** @var array|ScaledMedia[] */
     private array $scaled;
 
-    public function __construct(int $id, string $name, MediaDirectory $directory, array $scaled = [])
+    public function __construct(string $name, MediaDirectory $directory, array $scaled = [])
     {
-        $this->id = $id;
+        $this->id = 0;
         $this->name = $name;
         $this->month = $directory->getMonth();
         $this->day = $directory->getDay();
@@ -33,7 +33,7 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
 
         $mediaDirectory = new MediaDirectory($data->get('month'), $data->get('day'));
 
-        return new Media($id, $data->get('name'), $mediaDirectory, $scaled);
+        return new Media($data->get('name'), $mediaDirectory, $scaled);
     }
 
     public function getName(): string
@@ -67,6 +67,14 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
         return null;
     }
 
+    public function getAllScaled(): array
+    {
+        return $this->scaled;
+    }
+
+    /**
+     * Relative Path for use inside the browser
+     */
     public function getMediaPath(?string $size = null): string
     {
         if ($size) {
@@ -75,11 +83,17 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
         return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day, $this->name]);
     }
 
+    /**
+     * Absolute File Path
+     */
     public function getAbsolutePath(?string $size = null): string
     {
         return $_SERVER['DOCUMENT_ROOT'] . $this->getMediaPath($size);
     }
 
+    /**
+     * Relative Path of the directory the media is in
+     */
     public function getDirectory(?string $size = null): string
     {
         if ($size) {
@@ -88,6 +102,9 @@ class Media extends AbstractModel implements ArrayableInterface, ModelInterface
         return implode(DIRECTORY_SEPARATOR, [JournalConfiguration::mediaBaseUrl(), $this->month, $this->day]);
     }
 
+    /**
+     * Absolute Path of the directory the media is in
+     */
     public function getAbsoluteDirectory(?string $size = null): string
     {
         return $_SERVER['DOCUMENT_ROOT'] . $this->getDirectory($size);

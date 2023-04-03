@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// TODO @refactor: Pick a more suited name for this class
 class MediaDirectory
 {
     private string $month;

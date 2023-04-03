@@ -109,13 +109,15 @@ class MediaController extends AbstractController
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
 
-        $img = $_GET['image'];
+        $img = $_GET['media'];
 
-        $splitImg = explode('/', $img);
+        $splitMedia = explode('/', $img);
 
-        $imgObj = new Media($splitImg[5], $splitImg[2], $splitImg[3]);
-        $imageHelper = new ImageMediaType();
-        $imageHelper->deleteMedia($imgObj);
+        // TODO: write index function that takes the relative (or absolute) path as argument and returns a media object alongside all its scaled media
+        $media = new Media($splitMedia[5], $splitMedia[2], $splitMedia[3]);
+        foreach ($this->mediaHelpers as $helper) {
+            $helper->deleteMedia($media);
+        }
 
         return $this->json();
     }

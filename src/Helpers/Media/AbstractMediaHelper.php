@@ -2,14 +2,27 @@
 
 namespace App\Helpers\Media;
 
+use App\Models\Media;
 use App\Models\Mime;
 use Exception;
 
 abstract class AbstractMediaHelper
 {
-    protected function isApplicableMediaMime(string $file): bool
+    public function deleteMedia(Media $media): bool
     {
-        return MimeHelper::compareMimeTypes(Mime::init(mime_content_type($file)), Mime::init(static::getMimeType()));
+        if (!is_file($media->getAbsolutePath())) {
+            return false;
+        }
+
+        unlink($media->getAbsolutePath());
+
+        foreach ($media->getAllScaled() as $scaled) {
+            if (is_file($media->getAbsolutePath($scaled->getScaleName()))) {
+                unlink($media->getAbsolutePath($scaled->getScaleName()));
+            }
+        }
+
+        return true;
     }
 
     public static function generateFileName(array $file)
@@ -20,5 +33,13 @@ abstract class AbstractMediaHelper
     public static function getMimeType(): string
     {
         throw new Exception('Mime Type not defined');
+    }
+
+    protected function isApplicableMediaMime(string $file): bool
+    {
+        $fileMime = Mime::init(mime_content_type($file));
+        $testMime = Mime::init(static::getMimeType());
+
+        return MimeHelper::compareMimeTypes($fileMime, $testMime);
     }
 }

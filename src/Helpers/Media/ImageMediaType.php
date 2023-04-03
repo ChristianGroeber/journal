@@ -10,11 +10,9 @@ use App\Models\ScaledMedia;
 
 class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
 {
-    protected array $defaultSizes = [100, 500, 1080];
-
-    public function getDefaultSizes(): array
+    public static function getDefaultSizes(): array
     {
-        return $this->defaultSizes;
+        return [100, 500, 1080];
     }
 
     public static function getMimeType(): string
@@ -30,6 +28,16 @@ class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
     public function getDefaultScaled(): string
     {
         return '1080';
+    }
+
+    public static function getScaledExtension(): string
+    {
+        return 'webp';
+    }
+
+    public static function getApplicableExtensions(): array
+    {
+        return ['jpg', 'jpeg', 'webp', 'png'];
     }
 
     public function deleteMedia(Media $media): bool
@@ -62,7 +70,7 @@ class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
 
     public function storeMedia(array $file, MediaDirectory $directory): Media
     {
-        $media = new Media(-1, self::generateFileName($file), $directory);
+        $media = new Media(self::generateFileName($file), $directory);
 
         $this->outputFile($file['tmp_name'], $media);
 
@@ -96,7 +104,7 @@ class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
 
     protected function scale(Media $media): Media
     {
-        foreach ($this->getDefaultSizes() as $size) {
+        foreach ($this::getDefaultSizes() as $size) {
             $media->addScaled(new ScaledMedia($size, 'webp'));
             $this->compressImage($media, $size);
         }

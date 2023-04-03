@@ -3,6 +3,7 @@
 namespace App\Helpers\Media;
 
 use App\Contracts\MediaProcessor;
+use App\Helpers\JournalConfiguration;
 use App\Models\EncodingJob;
 use App\Models\Media;
 use App\Models\MediaDirectory;
@@ -20,7 +21,16 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
     const DEFAULT_HEIGHT = 720;
     const DEFAULT_FPS = 30;
     const ENCODED_DIR = 'encode';
-    protected array $defaultSizes = [self::ENCODED_DIR];
+
+    public static function getDefaultSizes(): array
+    {
+        return [self::ENCODED_DIR];
+    }
+
+    public static function getScaledExtension(): string
+    {
+        return 'webm';
+    }
 
     public static function getMimeType(): string
     {
@@ -30,6 +40,11 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
     public static function getName(): string
     {
         return 'Videos';
+    }
+
+    public static function getApplicableExtensions(): array
+    {
+        return ['mov', 'webm', 'mp4', 'mkv'];
     }
 
     public function getDefaultScaled(): string
@@ -56,7 +71,7 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
 
     public function storeMedia(array $file, MediaDirectory $directory): Media
     {
-        $media = new Media(-1, self::generateFileName($file), $directory);
+        $media = new Media(self::generateFileName($file), $directory);
         $media->addScaled(new ScaledMedia(self::ENCODED_DIR, 'webm'));
 
         move_uploaded_file($file['tmp_name'], $media->getAbsolutePath());
@@ -80,7 +95,7 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
         $mediainfo = new MediaInfo();
         $mic = $mediainfo->getInfo($media->getAbsolutePath());
 
-        $encodingJob = new EncodingJob(-1, $media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.webm');
+        $encodingJob = new EncodingJob(-1, $media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.' . self::getScaledExtension());
         $video = $this->getVideo($mic);
 
         $size = new MediaSize($video->get('height')->getAbsoluteValue(), $video->get('width')->getAbsoluteValue());

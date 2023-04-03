@@ -11,6 +11,12 @@ interface MediaProcessor
 
     public static function getName(): string;
 
+    public static function getApplicableExtensions(): array;
+
+    public static function getDefaultSizes(): array;
+
+    public static function getScaledExtension(): string;
+
     public function getDefaultScaled(): string;
 
     public function deleteMedia(Media $media): bool;

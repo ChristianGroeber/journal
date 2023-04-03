@@ -48,7 +48,7 @@ class AbstractMediaTypeService
             mkdir($finalMediaDir, 0777, true);
         }
 
-        $media = new Media(-1, $baseFileName . '-' . $fileName, $directory);
+        $media = new Media( $baseFileName . '-' . $fileName, $directory);
 
         $this->outputFile($sourceMediaPath, $media);
         $this->generateScaleDirs($media);
