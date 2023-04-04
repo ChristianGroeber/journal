@@ -71,7 +71,6 @@ class MediaController extends AbstractController
     }
 
     // /api/admin/entry/media/load
-    // TODO: rewrite this function. It should now also return the source media, as well as the thumbnail
     public function loadMediaForEntry(Request $request): string
     {
         if (!key_exists('token', $_REQUEST)) {
