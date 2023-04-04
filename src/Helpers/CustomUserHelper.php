@@ -2,41 +2,37 @@
 
 namespace App\Helpers;
 
+use App\Models\TokenUser;
+use Nacho\ORM\RepositoryManager;
 use Nacho\Security\JsonUserHandler;
 use Nacho\Contracts\UserHandlerInterface;
+use Nacho\Security\UserInterface;
+use Nacho\Security\UserRepository;
 
 class CustomUserHelper extends JsonUserHandler implements UserHandlerInterface
 {
     public function setPassword(string $username, string $newPassword)
     {
+        /** @var TokenUser $user */
         $user = $this->findUser($username);
-        $user['password'] = password_hash(TokenHelper::getSecret() . $newPassword, PASSWORD_DEFAULT);
-        $this->changeUser($user);
+        $this->setPasswordForUser($user, $newPassword);
 
         return $user;
     }
 
-    public function passwordVerify(string $username, string $password): bool
+    public function setPasswordForUser(TokenUser $user, string $newPassword): TokenUser
     {
-        $secret = TokenHelper::getSecret();
-        $user = $this->findUser($username);
+        $passwordHash = password_hash(SecretHelper::getSecret() . $newPassword, PASSWORD_DEFAULT);
+        $user->setPassword($passwordHash);
+        RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
-        if (!$user) {
-            throw new \Exception('Unable to find this user');
-        }
-
-        return password_verify($secret . $password, $user['password']);
+        return $user;
     }
 
-    private function changeUser(array $newUser): void
+    public function passwordVerify(UserInterface $user, string $password): bool
     {
-        $json = $this->getUsers();
-        foreach ($json as $key => $user) {
-            if ($user['username'] === $newUser['username']) {
-                $json[$key] = $newUser;
-                break;
-            }
-        }
-        file_put_contents(FILE_PATH, json_encode($json));
+        $secret = SecretHelper::getSecret();
+
+        return password_verify($secret . $password, $user->getPassword());
     }
 }

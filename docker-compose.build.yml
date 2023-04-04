@@ -3,6 +3,9 @@ version: "3"
 services:
   "2022":
     build:
-      dockerfile: Dockerfile
+      dockerfile: docker/prod.Dockerfile
       context: .
+      args:
+        UID: 99
+        GID: 100
     image: christiangroeber/journal:latest

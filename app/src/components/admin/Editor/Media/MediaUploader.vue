@@ -1,10 +1,9 @@
 <template>
   <div>
     <input
-      accept="image/*"
-      @change="uploadImages"
+      :accept="mimeTypes"
+      @change="uploadMedia"
       type="file"
-      label="Upload Images"
       multiple
     />
   </div>
@@ -12,10 +11,21 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: ["entry"],
+  data() {
+    return {
+      mediaTypes: this.$store.getters.mediaTypes,
+    }
+  },
+  computed: {
+    mimeTypes() {
+      return this.mediaTypes.map(media => media.mime);
+    }
+  },
   methods: {
-    uploadImages(e) {
+    uploadMedia(e) {
       const files = e.target.files;
       const editingEntry = this.$store.getters.editingEntry;
       Array.from(files).forEach((img) => {
@@ -24,14 +34,14 @@ export default {
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
         axios.post("/api/entry/gallery/upload", formData).then((response) => {
-          const img = response.data.files[0][1080];
+          const img = response.data.files[0]['scaled']['default'];
           console.log(img);
           editingEntry.raw_content +=
-            "![uploaded image](" + encodeURI(img) + ")";
+            "![uploaded media](" + encodeURI(img) + ")";
         });
       });
       this.$store.dispatch("updateEntry", { entry: editingEntry });
-      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
+      this.$store.dispatch("loadMediaForEntry", { entry: editingEntry.id, token: this.$store.getters.token});
     },
   },
 };
