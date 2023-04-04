@@ -19,7 +19,7 @@ interface MediaProcessor
 
     public function getDefaultScaled(): string;
 
-    public function deleteMedia(Media $media): bool;
+    public function deleteMedia(Media $media, bool $dryRun): bool|array;
 
     public function storeMedia(array $file, MediaDirectory $directory): Media;
 

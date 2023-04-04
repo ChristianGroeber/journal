@@ -7,12 +7,15 @@
       <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
         <fa icon="trash"></fa>
       </vk-button>
+      <vk-button v-if="amVideo" class="btn btn-rounded btn-icon" @click="openVideo">
+        <fa icon="external-link"></fa>
+      </vk-button>
     </div>
     <template v-if="amVideo">
-      <video :src="media" />
+      <img src="/public/assets/video-thumbnail.png" alt="Thumbnail">
     </template>
     <template v-else-if="amImage">
-      <img :src="media" alt="Image" />
+      <img :src="media" alt="Image"/>
     </template>
     <div class="url">![uploaded media]({{ media }})</div>
   </div>
@@ -21,9 +24,10 @@
 <script>
 import axios from 'axios';
 import {getFileExtension} from "../../../../helpers/files";
+
 export default {
-  props: ["media", "myId", "slug"],
-  data: function() {
+  props: ["media", "myId", "slug", "srcMedia"],
+  data: function () {
     return {
       isShowing: true,
     };
@@ -37,26 +41,29 @@ export default {
     },
   },
   methods: {
+    openVideo() {
+      window.open('/video?video=' + this.srcMedia, '_blank');
+    },
     deleteMedia() {
       if (!confirm('Are you sure you want to delete this Image/ Video?')) {
         return;
       }
       const data = {
-        image: this.img,
+        media: this.media,
         token: this.$store.getters.token,
       };
       let query = Object.entries(data)
-        .map(([key, val]) => `${key}=${val}`)
-        .join("&");
+          .map(([key, val]) => `${key}=${val}`)
+          .join("&");
 
       axios.delete('/api/admin/entry/media/delete?' + query)
-        .then((response) => {
-          this.isShowing = false;
-        });
+          .then((response) => {
+            this.isShowing = false;
+          });
     },
     copyUrl() {
       const mediaUrl = document.querySelector(
-        ".media#" + this.slug + "-" + this.myId + " .url"
+          ".media#" + this.slug + "-" + this.myId + " .url"
       );
       const range = document.createRange();
       range.selectNode(mediaUrl);

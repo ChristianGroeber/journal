@@ -17,6 +17,7 @@ import Editor from "./components/admin/Editor/Editor";
 import NotFound from './components/error/NotFound';
 import AdminTools from './components/admin/Tools/index';
 import RestoreBackup from "./components/admin/Tools/RestoreBackup";
+import VideoViewer from "./components/media/VideoViewer.vue";
 
 const routes = [
     {
@@ -84,6 +85,11 @@ const routes = [
         path: '/admin/tools/restore-backup',
         name: 'Restore Backup',
         component: RestoreBackup,
+    },
+    {
+        path: '/video',
+        name: 'View Video',
+        component: VideoViewer,
     },
     {
         path: "*",

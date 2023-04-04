@@ -40,32 +40,17 @@ class ImageMediaType extends AbstractMediaHelper implements MediaProcessor
         return ['jpg', 'jpeg', 'webp', 'png'];
     }
 
-    public function deleteMedia(Media $media): bool
+    public function deleteMedia(Media $media, bool $dryRun = false): bool|array
     {
-        return parent::deleteMedia($media);
+        return parent::deleteMedia($media, $dryRun);
     }
 
     /**
      * @return array|Media[]
-     * TODO: don't throw error if directory does not exist
      */
     public function loadMedia(MediaDirectory $directory): array
     {
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/media';
-        $dir = $directory->printDirectory();
-
-        $images = [];
-        if (!is_dir("${imagesDir}/${dir}/1080")) {
-            return [];
-        }
-        foreach (scandir("${imagesDir}/${dir}/1080") as $img) {
-            if (!is_file("${imagesDir}/${dir}/1080/${img}")) {
-                continue;
-            }
-            $images[] = JournalConfiguration::mediaBaseUrl() . "/${dir}/1080/${img}";
-        }
-
-        return $images;
+        return parent::loadMedia($directory);
     }
 
     public function storeMedia(array $file, MediaDirectory $directory): Media

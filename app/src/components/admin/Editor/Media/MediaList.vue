@@ -12,7 +12,7 @@
       <h4>{{ mediaList.name }}</h4>
       <div class="d-flex">
         <Media v-for="(med, y) in mediaList.media" :slug="mediaList.slug" :key="y" :id="mediaList.slug + '-' + y" :myId="y"
-               :media="med"></Media>
+               :media="med.default" :src-media="med.source"></Media>
       </div>
     </div>
   </div>

@@ -54,19 +54,7 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
 
     public function loadMedia(MediaDirectory $directory): array
     {
-        $mediaDir = JournalConfiguration::mediaDir();
-        $media = [];
-        $dir = $directory->printDirectory();
-        foreach (scandir("${mediaDir}/${dir}") as $file) {
-            if ($file === '.' || $file === '..' || is_dir("${mediaDir}/${dir}/${file}")) {
-                continue;
-            }
-            if ($this->isApplicableMediaMime("${mediaDir}/${dir}/${file}")) {
-                $media[] = JournalConfiguration::mediaBaseUrl() . "/${dir}/${file}";
-            }
-        }
-
-        return $media;
+        return parent::loadMedia($directory);
     }
 
     public function storeMedia(array $file, MediaDirectory $directory): Media
@@ -131,8 +119,8 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
         return RepositoryManager::getInstance()->getRepository(EncodingJobRepository::class);
     }
 
-    public function deleteMedia(Media $media): bool
+    public function deleteMedia(Media $media, bool $dryRun = false): bool|array
     {
-        // TODO: Implement deleteMedia() method.
+        return parent::deleteMedia($media, $dryRun);
     }
 }

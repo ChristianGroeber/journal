@@ -3,13 +3,11 @@
 namespace App\Helpers\Media;
 
 use App\Contracts\MediaProcessor;
-use App\Helpers\JournalConfiguration;
 use App\Models\Media;
 use App\Models\MediaDirectory;
 use App\Models\ScaledMedia;
-use PHPUnit\TextUI\Configuration\File;
 
-class MediaIndexer
+class MediaFactory
 {
     private string $mediaPath;
     /** @var array|MediaProcessor[]  */
@@ -23,7 +21,7 @@ class MediaIndexer
 
     public static function run(string $mediaPath, array $mediaHelpers = []): Media
     {
-        $indexer = new MediaIndexer($mediaPath, $mediaHelpers);
+        $indexer = new MediaFactory($mediaPath, $mediaHelpers);
         return $indexer->findMedia();
     }
 

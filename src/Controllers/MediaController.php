@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Contracts\MediaProcessor;
 use App\Helpers\JournalConfiguration;
+use App\Helpers\Media\EntryMediaLoader;
 use App\Helpers\Media\ImageMediaType;
+use App\Helpers\Media\MediaFactory;
 use App\Helpers\Media\MimeHelper;
 use App\Helpers\Media\VideoMediaType;
 use App\Models\Media;
@@ -69,13 +71,9 @@ class MediaController extends AbstractController
     }
 
     // /api/admin/entry/media/load
-    public function loadMediaForEntry(Request $request)
+    // TODO: rewrite this function. It should now also return the source media, as well as the thumbnail
+    public function loadMediaForEntry(Request $request): string
     {
-        $media = [];
-        $entryStr = ltrim($_REQUEST['entry'], DIRECTORY_SEPARATOR);
-        $entry = explode(DIRECTORY_SEPARATOR, $entryStr);
-        $directory = new MediaDirectory($entry[0], $entry[1]);
-
         if (!key_exists('token', $_REQUEST)) {
             return $this->json(['message' => 'You need to be authenticated'], 401);
         }
@@ -85,11 +83,12 @@ class MediaController extends AbstractController
             return $this->json(['message' => 'The provided Token is invalid'], 401);
         }
 
+        $media = [];
         foreach ($this->mediaHelpers as $slug => $helper) {
             $media[] = [
                 'name' => $helper::getName(),
                 'slug' => $slug,
-                'media' => $helper->loadMedia($directory),
+                'media' => EntryMediaLoader::run($_REQUEST['entry'], $helper),
             ];
         }
 
@@ -111,53 +110,13 @@ class MediaController extends AbstractController
 
         $img = $_GET['media'];
 
-        $splitMedia = explode('/', $img);
-
-        // TODO: write index function that takes the relative (or absolute) path as argument and returns a media object alongside all its scaled media
-        $media = new Media($splitMedia[5], $splitMedia[2], $splitMedia[3]);
+        $media = MediaFactory::run($img, $this->mediaHelpers);
+        $delete = [];
         foreach ($this->mediaHelpers as $helper) {
-            $helper->deleteMedia($media);
+            $delete[] = $helper->deleteMedia($media, true);
         }
 
-        return $this->json();
-    }
-
-    //
-    public function loadMedia(Request $request)
-    {
-        $imagesDir = $_SERVER['DOCUMENT_ROOT'] . '/images/';
-        $month = $_REQUEST['month'];
-        $day = $_REQUEST['day'];
-
-        if (!is_dir("${imagesDir}${month}/${day}")) {
-            return $this->json(['message' => 'There are no images'], 404);
-        }
-
-        $images = [];
-        foreach (scandir("${imagesDir}${month}/${day}") as $img) {
-            if (is_dir("${imagesDir}${month}/${day}/${img}")) {
-                continue;
-            }
-            $images[] = "/images/${month}/${day}/${img}";
-        }
-
-        return $this->json(['message' => 'I should be loading your images now', 'images' => $images]);
-    }
-
-    // /api/admin/media/index
-    public function indexMedia(Request $request)
-    {
-        if (!key_exists('token', $request->getBody())) {
-            return $this->json(['message' => 'You need to be authenticated'], 401);
-        }
-        $tokenHelper = new TokenHelper();
-        $token = $request->getBody()['token'];
-        $user = $tokenHelper->isTokenValid($token, $this->nacho->getUserHandler()->getUsers());
-        if (!$user) {
-            return $this->json(['message' => 'The provided Token is invalid'], 401);
-        }
-
-
+        return $this->json($delete);
     }
 
     private function getMediaHelper(Mime $mime): MediaProcessor
