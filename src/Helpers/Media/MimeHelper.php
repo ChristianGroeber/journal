@@ -13,12 +13,12 @@ class MimeHelper
             return true;
         }
 
-        if (!self::isSameType($controlMime, $toCheckMime)) {
-            return false;
-        }
-
         if ($controlMime->isAnyType()) {
             return true;
+        }
+
+        if (!self::isSameType($controlMime, $toCheckMime)) {
+            return false;
         }
 
         if ($controlMime->getType() === $toCheckMime->getType()) {
