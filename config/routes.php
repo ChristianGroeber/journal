@@ -116,4 +116,9 @@ return [
         'controller' => App\Controllers\AuthenticationController::class,
         'function' => 'validateToken',
     ],
+    [
+        'route' => '/api/init',
+        'controller' => \App\Controllers\InitController::class,
+        'function' => 'init',
+    ],
 ];

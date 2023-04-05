@@ -2,15 +2,27 @@
 
 namespace App\Helpers;
 
+use Nacho\Helpers\ConfigurationHelper;
+
 class JournalConfiguration
 {
     public static function mediaDir(): string
     {
-        return $_SERVER['DOCUMENT_ROOT'] . self::mediaBaseUrl();
+        return self::getConfigValue('mediaDir');
     }
 
     public static function mediaBaseUrl(): string
     {
-        return DIRECTORY_SEPARATOR . 'media';
+        return self::getConfigValue('mediaBaseUrl');
+    }
+
+    public static function year(): string|int
+    {
+        return self::getConfigValue('year');
+    }
+
+    private static function getConfigValue(string $confName): mixed
+    {
+        return ConfigurationHelper::getInstance()->getCustomConfig('journal')[$confName];
     }
 }
