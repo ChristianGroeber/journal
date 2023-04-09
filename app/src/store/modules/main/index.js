@@ -7,8 +7,11 @@ const state = {
     isLoading: false,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
+    meta: {
+        journalYear: '',
+        adminCreated: true,
+    },
     pageTitle: 'Loading',
-    journalYear: '',
     mediaTypes: [
         {
             'name': 'Video',
@@ -32,14 +35,14 @@ const mutations = {
         state.showRaceReportPopup = showRaceReportPopup;
     },
     UPDATE_METADATA(state, metaData) {
-        state.journalYear = metaData.year;
+        state.meta = metaData;
     }
 }
 
 const actions = {
     setTitle({
-        commit
-    }, title) {
+                 commit
+             }, title) {
         if (title == state.journalYear || state.journalYear === '') {
             document.title = state.journalYear;
         } else {
@@ -73,6 +76,7 @@ const getters = {
     showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,
     mediaTypes: state => state.mediaTypes,
+    meta: state => state.meta,
 }
 
 const mainModule = {

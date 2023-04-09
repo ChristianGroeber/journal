@@ -102,11 +102,6 @@ return [
         'function' => 'changePassword',
     ],
     [
-        'route' => '/api/auth/admin-created',
-        'controller' => App\Controllers\AuthenticationController::class,
-        'function' => 'adminCreated',
-    ],
-    [
         'route' => '/api/auth/create-admin',
         'controller' => App\Controllers\AuthenticationController::class,
         'function' => 'createAdmin',
@@ -118,7 +113,7 @@ return [
     ],
     [
         'route' => '/api/init',
-        'controller' => \App\Controllers\InitController::class,
+        'controller' => App\Controllers\InitController::class,
         'function' => 'init',
     ],
 ];

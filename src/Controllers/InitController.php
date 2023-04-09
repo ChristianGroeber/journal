@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\JournalConfiguration;
 use App\Helpers\TokenHelper;
 use Nacho\Controllers\AbstractController;
+use Nacho\Security\JsonUserHandler;
 
 class InitController extends AbstractController
 {
@@ -18,7 +19,9 @@ class InitController extends AbstractController
 
         $year = JournalConfiguration::year();
 
-        return $this->json(['is_token_valid' => $isTokenValid, 'year' => $year]);
+        $isAdminCreated = $this->isAdminCreated();
+
+        return $this->json(['is_token_valid' => $isTokenValid, 'journalYear' => $year, 'adminCreated' => $isAdminCreated]);
     }
 
     private function isTokenValid(): string
@@ -36,5 +39,18 @@ class InitController extends AbstractController
         }
 
         return self::TOKEN_INVALID;
+    }
+
+    private function isAdminCreated(): bool
+    {
+        $userHandler = new JsonUserHandler();
+        $users = $userHandler->getUsers();
+        foreach ($users as $user) {
+            if ($user['role'] === 'Editor') {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

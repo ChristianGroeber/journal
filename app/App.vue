@@ -35,7 +35,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getToken").then((token) => {
-      this.$store.dispatch("init", {token: token});
+      this.$store.dispatch("init", {token: token}).then(() => {
+        if (!this.$store.getters.meta.adminCreated) {
+          this.$router.push('/auth/create-admin');
+        }
+      });
     });
     this.$store.dispatch("getEntries");
     this.axios.interceptors.request.use(
@@ -58,12 +62,6 @@ export default {
           return Promise.reject(error);
         }
     );
-    axios.get('/api/auth/admin-created').then((response) => {
-      const adminCreated = response.data.adminCreated;
-      if (!adminCreated) {
-        this.$router.push('/auth/create-admin');
-      }
-    })
   },
 };
 </script>

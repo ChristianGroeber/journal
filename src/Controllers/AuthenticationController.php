@@ -28,14 +28,6 @@ class AuthenticationController extends AbstractController
         return $this->json([], 405);
     }
 
-    public function validateToken()
-    {
-        $tokenHelper = new TokenHelper();
-        $isValid = $tokenHelper->isTokenValid($_REQUEST['token'], $this->nacho->userHandler->getUsers());
-
-        return $this->json(['success' => $isValid !== false]);
-    }
-
     public function requestNewPassword($request)
     {
         if (strtolower($request->requestMethod) !== 'post') {
@@ -146,13 +138,6 @@ class AuthenticationController extends AbstractController
         RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
 
         return $this->json(['token' => $newToken]);
-    }
-
-    // TODO: fix
-    public function adminCreated()
-    {
-//        return $this->json(['adminCreated' => is_file(FILE_PATH)]);
-        return $this->json(['adminCreated' => true]);
     }
 
     public function createAdmin()
