@@ -1,10 +1,14 @@
 import axios from 'axios';
+import {
+    queryFormatter
+} from '../../../helpers/queryFormatter';
 
 const state = {
     isLoading: false,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
-    pageTitle: '2023',
+    pageTitle: 'Loading',
+    journalYear: '',
     mediaTypes: [
         {
             'name': 'Video',
@@ -27,21 +31,39 @@ const mutations = {
     EDIT_RACE_REPORT_POPUP(state, showRaceReportPopup) {
         state.showRaceReportPopup = showRaceReportPopup;
     },
+    UPDATE_METADATA(state, metaData) {
+        state.journalYear = metaData.year;
+    }
 }
 
 const actions = {
     setTitle({
         commit
     }, title) {
-        if (title === '2023') {
-            document.title = '2023';
+        if (title == state.journalYear || state.journalYear === '') {
+            document.title = state.journalYear;
         } else {
-            document.title = title + ' · 2023';
+            document.title = title + ' · ' + state.journalYear;
         }
         state.pageTitle = title;
     },
     buildCache(asdf, token) {
         return axios.post('/api/admin/build-cache?token=' + token);
+    },
+    init({commit}, data) {
+        axios({
+            method: 'POST',
+            url: '/api/init',
+            data: queryFormatter(data),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        }).then((response) => {
+            if (response.data.is_token_valid !== 'token_valid') {
+                commit('UPDATE_TOKEN', null);
+            }
+            commit('UPDATE_METADATA', response.data);
+        });
     },
 }
 

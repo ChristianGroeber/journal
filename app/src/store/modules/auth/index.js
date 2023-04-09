@@ -104,6 +104,7 @@ const actions = {
         if (token) {
             commit('UPDATE_TOKEN', token);
         }
+        return token;
     },
     logout({
         commit
