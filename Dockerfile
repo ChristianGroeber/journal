@@ -3,7 +3,7 @@ FROM christiangroeber/php-server:8.1.2
 ARG UID
 ARG GID
 
-COPY . /var/www/html
+COPY docker /var/www/html
 
 WORKDIR /var/www/html
 

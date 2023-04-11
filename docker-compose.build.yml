@@ -3,7 +3,7 @@ version: "3"
 services:
   "2022":
     build:
-      dockerfile: docker/prod.Dockerfile
+      dockerfile: Dockerfile
       context: .
       args:
         UID: 99
