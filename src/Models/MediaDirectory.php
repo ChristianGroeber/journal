@@ -2,22 +2,15 @@
 
 namespace App\Models;
 
-class Image
+class MediaDirectory
 {
-    private string $name;
     private string $month;
     private string $day;
 
-    public function __construct(string $name, string $month, string $day)
+    public function __construct(string $month, string $day)
     {
-        $this->name = $name;
         $this->month = $month;
         $this->day = $day;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function getMonth(): string
@@ -30,8 +23,8 @@ class Image
         return $this->day;
     }
 
-    public function getImagePath()
+    public function printDirectory(): string
     {
-        return $this->month . '/' . $this->day . '/' . $this->name;
+        return $this->month . DIRECTORY_SEPARATOR . $this->day;
     }
 }

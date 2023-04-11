@@ -12,12 +12,13 @@ class PageController extends AbstractController
 {
     public function index()
     {
-        $cacheFile = $_SERVER['DOCUMENT_ROOT'] . '/cache/content.json';
-        if (!is_file($cacheFile)) {
-            $cacheHelper = new CacheHelper($this->nacho);
+        $cacheHelper = new CacheHelper($this->nacho);
+        $cache = $cacheHelper->read();
+        if (!$cache) {
             $cacheHelper->build();
+            $cache = $cacheHelper->read();
         }
-        $content = json_decode(file_get_contents($cacheFile), true)['content'];
+        $content = $cache->getContent();
 
         return $this->json($content);
     }

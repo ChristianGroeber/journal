@@ -17,13 +17,8 @@ export default {
     Month,
     AdminBar,
   },
-  data: function() {
-    return {
-      title: '2023'
-    }
-  },
   created() {
-    this.$store.dispatch('setTitle', this.title);
+    this.$store.dispatch('setTitle', this.$store.getters.meta.journalYear);
   },
   computed: {
     months() {
