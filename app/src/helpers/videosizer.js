@@ -2,7 +2,6 @@
 // Maybe check if it's a child element of a day element
 function resizeVideos() {
     const videos = getVideoElements();
-    console.log(videos);
     videos.map(renderVideo)
 }
 
@@ -36,12 +35,7 @@ function getVideoElements() {
     return videos;
 }
 
-function getVideoExtension(srcName) {
-
-}
-
 function isVideo(srcName) {
-    console.log(srcName);
     const videoExtensions = ['mkv', 'mov', 'webm', 'mp4'];
     for (const ext of videoExtensions) {
         if (srcName.endsWith(ext)) {
