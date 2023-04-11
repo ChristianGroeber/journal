@@ -37,6 +37,7 @@ export default {
   created() {
     this.$store.dispatch("getToken").then((token) => {
       this.$store.dispatch("init", {token: token}).then(() => {
+        this.$store.dispatch('setTitle', this.$store.getters.meta.journalYear);
         if (!this.$store.getters.meta.adminCreated) {
           this.$router.push('/auth/create-admin');
         }

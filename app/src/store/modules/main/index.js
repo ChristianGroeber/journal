@@ -43,10 +43,10 @@ const actions = {
     setTitle({
                  commit
              }, title) {
-        if (title == state.journalYear || state.journalYear === '') {
-            document.title = state.journalYear;
+        if (title == state.meta.journalYear || state.meta.journalYear === '') {
+            document.title = state.meta.journalYear;
         } else {
-            document.title = title + ' · ' + state.journalYear;
+            document.title = title + ' · ' + state.meta.journalYear;
         }
         state.pageTitle = title;
     },
@@ -54,7 +54,7 @@ const actions = {
         return axios.post('/api/admin/build-cache?token=' + token);
     },
     init({commit}, data) {
-        axios({
+        return axios({
             method: 'POST',
             url: '/api/init',
             data: queryFormatter(data),
