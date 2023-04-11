@@ -37,7 +37,7 @@ export default {
   created() {
     this.$store.dispatch("getToken");
     this.$store.dispatch("getEntries").then(() =>  {
-      // resizeVideos();
+      resizeVideos();
     });
     this.axios.interceptors.request.use(
       (config) => {
