@@ -44,8 +44,8 @@ class TokenHelper
 
     public function generateNewTokenStamp(TokenUser &$user): void
     {
-        $tokenStamp = md5(random_bytes(100));
+        $strTokenStamp = random_bytes(100) . time();
 
-        $user->setTokenStamp($tokenStamp);
+        $user->setTokenStamp(sha1($strTokenStamp));
     }
 }
