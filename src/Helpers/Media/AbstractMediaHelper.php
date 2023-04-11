@@ -13,7 +13,6 @@ abstract class AbstractMediaHelper
     public function deleteMedia(Media $media, bool $dryRun = false): bool|array
     {
         $files = $this->getFilesToDelete($media);
-        print_r($media);
 
         if ($dryRun) {
             return $files;
@@ -29,11 +28,11 @@ abstract class AbstractMediaHelper
     private function getFilesToDelete(Media $media): array
     {
         $ret = [];
-//        if (!is_file($media->getAbsolutePath())) {
-//            return $ret;
-//        } else {
+        if (!is_file($media->getAbsolutePath())) {
+            return $ret;
+        } else {
             $ret[] = $media->getAbsolutePath();
-//        }
+        }
 
         foreach ($media->getAllScaled() as $scaled) {
             if (is_file($media->getAbsolutePath($scaled->getScaleName()))) {

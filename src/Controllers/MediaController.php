@@ -112,7 +112,7 @@ class MediaController extends AbstractController
         $media = MediaFactory::run($img, $this->mediaHelpers);
         $delete = [];
         foreach ($this->mediaHelpers as $helper) {
-            $delete[] = $helper->deleteMedia($media, true);
+            $delete[] = $helper->deleteMedia($media);
         }
 
         return $this->json($delete);

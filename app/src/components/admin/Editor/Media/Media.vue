@@ -49,7 +49,7 @@ export default {
         return;
       }
       const data = {
-        media: this.media,
+        media: this.srcMedia,
         token: this.$store.getters.token,
       };
       let query = Object.entries(data)
