@@ -41,6 +41,7 @@ body {
 
     &:hover {
         text-decoration: none;
+        background-color: rgb(204, 204, 204);
     }
 }
 
@@ -133,7 +134,7 @@ a {
     flex-wrap: wrap;
 
     &.gap-1 {
-        gap: 1px;
+        gap: 1rem;
     }
 }
 

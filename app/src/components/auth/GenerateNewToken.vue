@@ -24,7 +24,7 @@ export default {
     submit() {
       this.$store.dispatch("generateNewToken", {
         username: this.username,
-        token: this.$store.getters.getToken,
+        token: this.$store.getters.token,
       });
     },
   },

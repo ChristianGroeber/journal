@@ -1,9 +1,14 @@
 version: "3"
 
 services:
-    '2022':
-        image: christiangroeber/php-server:7.4.2
-        container_name: '2022'
+    journal:
+        build:
+            context: .
+            dockerfile: docker/local.Dockerfile
+            args:
+                UID: 33
+                GID: 33
+        container_name: journal
         ports:
             - '86:80'
         volumes: 
