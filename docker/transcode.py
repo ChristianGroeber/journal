@@ -31,13 +31,13 @@ class Job:
     def get_target_directory(self):
         print(self.out_file)
         spl_path = self.out_file.split('/')
-        print(spl_path)
         spl_path.pop(len(spl_path) - 1)
         return '/'.join(spl_path)
 
     def create_target_directory(self):
         if not os.path.isdir(self.get_target_directory()):
             os.mkdir(self.get_target_directory())
+            fix_permissions(self.get_target_directory())
 
     def transcode(self):
         with subprocess.Popen(self.transcode_command(), stdout=subprocess.PIPE, shell=True) as proc:
