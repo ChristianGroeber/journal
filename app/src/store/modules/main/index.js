@@ -10,6 +10,7 @@ const state = {
     meta: {
         journalYear: '',
         adminCreated: true,
+        version: 0,
     },
     pageTitle: 'Loading',
     mediaTypes: [

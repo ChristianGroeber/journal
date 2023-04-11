@@ -5,6 +5,7 @@
       <h1>{{ pageTitle }}</h1>
     </div>
     <router-view></router-view>
+    <Footer></Footer>
     <div class="modals">
       <add-race-report></add-race-report>
       <specific-entry-popup></specific-entry-popup>
@@ -18,13 +19,15 @@ import axios from 'axios';
 import AddRaceReport from './src/components/Modals/AddRaceReport'
 import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
 import {resizeVideos} from "src/helpers/videosizer";
+import Footer from "./src/components/home/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Loading,
     AddRaceReport,
-    SpecificEntryPopup
+    SpecificEntryPopup,
+    Footer,
   },
   computed: {
     isLoading: function () {

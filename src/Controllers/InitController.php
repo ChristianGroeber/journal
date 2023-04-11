@@ -21,7 +21,9 @@ class InitController extends AbstractController
 
         $isAdminCreated = $this->isAdminCreated();
 
-        return $this->json(['is_token_valid' => $isTokenValid, 'journalYear' => $year, 'adminCreated' => $isAdminCreated]);
+        $version = JournalConfiguration::version();
+
+        return $this->json(['is_token_valid' => $isTokenValid, 'journalYear' => $year, 'version' => $version, 'adminCreated' => $isAdminCreated]);
     }
 
     private function isTokenValid(): string

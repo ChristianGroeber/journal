@@ -21,6 +21,11 @@ class JournalConfiguration
         return self::getConfigValue('year');
     }
 
+    public static function version(): string|int
+    {
+        return self::getConfigValue('version');
+    }
+
     private static function getConfigValue(string $confName): mixed
     {
         return ConfigurationHelper::getInstance()->getCustomConfig('journal')[$confName];
