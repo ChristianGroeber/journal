@@ -75,7 +75,7 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
 
         self::getEncoderQueueRepository()->set($encode);
 
-        return [self::ENCODED_DIR => $media->getMediaPath(self::ENCODED_DIR) . '.webm'];
+        return [self::ENCODED_DIR => $media->getMediaPath(self::ENCODED_DIR)];
     }
 
     private function getEncoderSettings(Media $media): EncodingJob
@@ -83,7 +83,7 @@ class VideoMediaType extends AbstractMediaHelper implements MediaProcessor
         $mediainfo = new MediaInfo();
         $mic = $mediainfo->getInfo($media->getAbsolutePath());
 
-        $encodingJob = new EncodingJob(-1, $media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR) . '.' . self::getScaledExtension());
+        $encodingJob = new EncodingJob(-1, $media->getAbsolutePath(), $media->getAbsolutePath(self::ENCODED_DIR));
         $video = $this->getVideo($mic);
 
         $size = new MediaSize($video->get('height')->getAbsoluteValue(), $video->get('width')->getAbsoluteValue());

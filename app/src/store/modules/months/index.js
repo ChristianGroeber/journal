@@ -25,7 +25,7 @@ const actions = {
   getEntries({
     commit
   }) {
-    axios.get('/api/entries').then((response) => {
+    return axios.get('/api/entries').then((response) => {
       commit('UPDATE_ENTRIES', response.data)
     })
   },

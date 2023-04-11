@@ -17,6 +17,7 @@ import Loading from './src/components/Loading';
 import axios from 'axios';
 import AddRaceReport from './src/components/Modals/AddRaceReport'
 import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
+import {resizeVideos} from "src/helpers/videosizer";
 
 export default {
   name: "App",
@@ -41,7 +42,9 @@ export default {
         }
       });
     });
-    this.$store.dispatch("getEntries");
+    this.$store.dispatch("getEntries").then(() => {
+      resizeVideos();
+    });
     this.axios.interceptors.request.use(
         (config) => {
           this.$store.commit("LOADING", true);

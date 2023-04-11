@@ -62,11 +62,6 @@ return [
         'function' => 'deleteMedia',
     ],
     [
-        'route' => '/api/admin/_server',
-        'controller' => App\Controllers\AdminController::class,
-        'function' => '_server',
-    ],
-    [
         'route' => '/api/admin/generate-backup',
         'controller' => App\Controllers\AdminController::class,
         'function' => 'generateBackup',
