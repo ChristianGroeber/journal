@@ -148,6 +148,10 @@ class AuthenticationController extends AbstractController
         $user = new TokenUser(0, $username, 'Editor', null, null, null, null);
         $guest = new TokenUser(0, 'Guest', 'Guest', null, null, null, null);
 
+        $tokenHelper = new TokenHelper();
+
+        $tokenHelper->generateNewTokenStamp($user);
+
         RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($user);
         RepositoryManager::getInstance()->getRepository(UserRepository::class)->set($guest);
 

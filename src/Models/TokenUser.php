@@ -10,7 +10,7 @@ use Nacho\Security\UserInterface;
 
 class TokenUser extends AbstractUser implements UserInterface, ModelInterface, ArrayableInterface
 {
-    private string $tokenStamp = '';
+    private ?string $tokenStamp = '';
     private ?string $resetLink = null;
     private ?string $email = null;
 
