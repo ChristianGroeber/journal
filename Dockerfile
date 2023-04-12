@@ -1,7 +1,7 @@
 FROM christiangroeber/php-server:8.1.2
 
-ARG UID
-ARG GID
+ARG UID=99
+ARG GID=100
 
 RUN apt update && apt install -y mediainfo cron ffmpeg python3
 
