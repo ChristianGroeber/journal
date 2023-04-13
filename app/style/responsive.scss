@@ -6,8 +6,6 @@
     }
 
     .main-content {
-        margin: 0 auto;
-        max-width: 1000px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 
         .article-body {
@@ -17,5 +15,10 @@
                 max-width: 1000px;
             }
         }
+    }
+
+    footer, .main-content {
+        margin: 0 auto;
+        max-width: 1000px;
     }
 }
