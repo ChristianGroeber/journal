@@ -8,7 +8,7 @@
 export default {
     created() {
         const token = this.$store.getters.token;
-        if (token === null) {
+        if (token === null || token === 'null') {
             this.$router.push('/auth/login');
         } else {
             this.$router.push('/');
