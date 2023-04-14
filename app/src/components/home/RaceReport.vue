@@ -1,25 +1,18 @@
 <template>
   <div class="rr_card">
-    <div class="rr_card_header d-flex jc_space-between">
-      <span>Running</span>
-      <fa icon="signal"></fa>
+    <div>
+      <h3 class="rr_distance">
+        <fa icon="person-running"></fa>
+        {{ entry.meta.raceReport.distance }}
+        Km
+      </h3>
     </div>
-    <div class="d-flex jc_space-between">
-      <div>
-        <h3 class="rr_distance">{{ entry.meta.raceReport.distance }}</h3>
-        <p class="rr_distance_subtitle">Kilometer</p>
-      </div>
-      <div>
-        <table>
-          <tr v-for="(stat, index) in stats" :key="index">
-            <td class="rr_data_label">
-              {{ stat.label }}
-            </td>
-            <td class="rr_data_value">
-              {{ stat.value }}
-            </td>
-          </tr>
-        </table>
+    <div class="rr_data_table">
+      <div v-for="(stat, index) in stats" :key="index">
+        <div class="rr_data_value" :title="stat.label">
+          <fa :icon="stat.icon"></fa>
+          {{ stat.value }}
+        </div>
       </div>
     </div>
   </div>
@@ -34,18 +27,22 @@ export default ({
       stats: [
         {
           label: 'Time',
+          icon: 'clock',
           value: this.entry.meta.raceReport.time,
         },
         {
           label: 'Pace',
+          icon: 'gauge',
           value: this.entry.meta.raceReport.pace + '/km',
         },
         {
+          icon: 'heart-pulse',
           label: 'BPM',
           value: this.entry.meta.raceReport.bpm,
         },
         {
           label: 'Calories',
+          icon: 'fire',
           value: this.entry.meta.raceReport.calories,
         },
       ]
@@ -55,13 +52,9 @@ export default ({
 </script>
 
 <style scoped lang="scss">
-.rr_card {
-  max-width: 80%;
-  background: rgba(244, 127, 54, 1);
-  background: linear-gradient(90deg, rgba(244, 127, 54, 1) 0%, rgba(255, 171, 0, 1) 100%);
-  border-radius: 1.25rem;
-  margin: 1rem;
-  padding: 1rem;
+.rr_data_table, .rr_distance {
+  text-align: center;
+  justify-content: center;
 }
 
 .rr_data_label {
@@ -77,9 +70,14 @@ export default ({
   margin: 0;
 }
 
+.rr_data_table {
+  display: flex;
+  gap: 1rem;
+}
+
 @media screen and (min-width: 600px) {
   .rr_card {
-    max-width: 40%;
+    // max-width: 40%;
     margin: 1rem;
   }
 }
