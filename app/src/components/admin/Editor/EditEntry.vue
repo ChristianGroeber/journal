@@ -5,11 +5,13 @@
         <fa icon="arrow-left"></fa>
       </vk-button>
       <vk-button class="btn btn-icon btn-primary" @click="addRaceReport">
-        <fa icon="file-waveform" />
+        <fa icon="file-waveform"/>
       </vk-button>
     </div>
     <div class="container">
-      <textarea @change="updateContent" id="edit-entry" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
+      <div class="textarea-wrapper">
+        <textarea @change="updateContent" id="edit-entry" ref="editEntry" class="edit-entry" :value="markdown"></textarea>
+      </div>
       <div class="actions">
         <vk-button class="btn btn-icon btn-primary" @click="save">
           <fa icon="floppy-disk"></fa>
@@ -77,3 +79,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.textarea-wrapper {
+  width: 95%;
+  margin: 1rem auto;
+}
+
+textarea {
+  border-radius: .5rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  padding: 0;
+}
+</style>
