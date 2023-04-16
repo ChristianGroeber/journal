@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Helpers\AdminHelper;
 use App\Models\TokenUser;
 use Nacho\Controllers\AbstractController;
 use App\Helpers\TokenHelper;
+use Nacho\Models\Request;
 use Nacho\ORM\RepositoryManager;
 use Nacho\Security\UserRepository;
 
@@ -140,8 +142,16 @@ class AuthenticationController extends AbstractController
         return $this->json(['token' => $newToken]);
     }
 
-    public function createAdmin()
+    public function createAdmin(Request $request)
     {
+        if (AdminHelper::isAdminCreated()) {
+            return $this->json(['message' => 'An Admin already exists'], 400);
+        }
+
+        if (strtolower($request->requestMethod) === 'get') {
+            return $this->json(['message' => 'Create your admin']);
+        }
+
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
 

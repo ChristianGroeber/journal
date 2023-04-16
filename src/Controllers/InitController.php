@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\AdminHelper;
 use App\Helpers\JournalConfiguration;
 use App\Helpers\TokenHelper;
 use Nacho\Controllers\AbstractController;
@@ -19,7 +20,7 @@ class InitController extends AbstractController
 
         $year = JournalConfiguration::year();
 
-        $isAdminCreated = $this->isAdminCreated();
+        $isAdminCreated = AdminHelper::isAdminCreated();
 
         $version = JournalConfiguration::version();
 
@@ -41,18 +42,5 @@ class InitController extends AbstractController
         }
 
         return self::TOKEN_INVALID;
-    }
-
-    private function isAdminCreated(): bool
-    {
-        $userHandler = new JsonUserHandler();
-        $users = $userHandler->getUsers();
-        foreach ($users as $user) {
-            if ($user['role'] === 'Editor') {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
