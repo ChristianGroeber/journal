@@ -6,7 +6,7 @@
     <form @submit.prevent="login">
       <fieldset class="uk-fieldset">
         <div class="form-row">
-          <input class="uk-input" @keyup.enter="login" v-model="username" placeholder="username" />
+          <input class="uk-input" ref="autofocus" @keyup.enter="login" v-model="username" placeholder="username" />
         </div>
         <div class="form-row">
           <input class="uk-input" @keyup.enter="login" v-model="password" placeholder="password" type="password" />
@@ -27,6 +27,9 @@ export default {
   },
   created() {
     this.$store.dispatch('setTitle', this.title);
+  },
+  mounted() {
+    this.$refs.autofocus.focus();
   },
   methods: {
     login() {
