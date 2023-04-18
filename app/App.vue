@@ -15,7 +15,6 @@
 
 <script>
 import Loading from './src/components/Loading';
-import axios from 'axios';
 import AddRaceReport from './src/components/Modals/AddRaceReport'
 import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
 import {resizeVideos} from "src/helpers/videosizer";

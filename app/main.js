@@ -8,6 +8,7 @@ import Vuikit from 'vuikit';
 import VuikitIcons from '@vuikit/icons';
 import VueMeta from 'vue-meta';
 import fa from './src/components/fa';
+import VueToast from 'vue-toast-notification';
 
 Vue.component('fa', fa)
 
@@ -16,6 +17,7 @@ Vue.use(VueAxios, axios)
 Vue.use(Vuikit)
 Vue.use(VuikitIcons)
 Vue.use(VueMeta)
+Vue.use(VueToast)
 
 new Vue({
   store,
