@@ -10,6 +10,7 @@
 <script>
 import Month from "./Month";
 import AdminBar from "../admin/AdminBar";
+import {resizeVideos} from "../../helpers/videosizer";
 
 export default {
   name: "MonthList",
@@ -19,6 +20,7 @@ export default {
   },
   created() {
     this.$store.dispatch('setTitle', this.$store.getters.meta.journalYear);
+    window.setTimeout(resizeVideos, 100);
   },
   computed: {
     months() {
