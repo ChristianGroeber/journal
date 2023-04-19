@@ -1,101 +1,76 @@
-import axios from 'axios'
-import {
-  queryFormatter
-} from '../../../helpers/queryFormatter'
+import xhr from "../../../helpers/xhr";
 
 const state = {
-  entries: [],
-  editingEntry: {},
-  editingGallery: {},
+    entries: [],
+    editingEntry: {},
+    editingGallery: {},
 }
 
 const mutations = {
-  UPDATE_EDITING_ENTRY(state, payload) {
-    state.editingEntry = payload
-  },
-  UPDATE_ENTRIES(state, payload) {
-    state.entries = payload
-  },
-  UPDATE_EDITING_GALLERY(state, payload) {
-    state.editingGallery = payload
-  },
+    UPDATE_EDITING_ENTRY(state, payload) {
+        state.editingEntry = payload
+    },
+    UPDATE_ENTRIES(state, payload) {
+        state.entries = payload
+    },
+    UPDATE_EDITING_GALLERY(state, payload) {
+        state.editingGallery = payload
+    },
 }
 
 const actions = {
-  getEntries({
-    commit
-  }) {
-    return axios.get('/api/entries').then((response) => {
-      commit('UPDATE_ENTRIES', response.data)
-    })
-  },
-  updateEntry({
-    commit
-  }, payload) {
-    commit('UPDATE_EDITING_ENTRY', payload.entry)
-  },
-  saveEntry({
-    commit
-  }, token) {
-    const data = {
-      token: token,
-      content: getters.editingEntry(state).raw_content,
-      entry: getters.editingEntry(state).id,
+    getEntries({commit}) {
+        const request = xhr.buildRequest('/api/entries');
+        return xhr.send(request).then((response) => {
+            commit('UPDATE_ENTRIES', response.data);
+        });
+    },
+    updateEntry({commit}, payload) {
+        commit('UPDATE_EDITING_ENTRY', payload.entry)
+    },
+    saveEntry({commit}, token) {
+        const data = {
+            token: token,
+            content: getters.editingEntry(state).raw_content,
+            entry: getters.editingEntry(state).id,
+        }
+        const request = xhr.buildRequest('/api/admin/entry/edit', data, 'POST');
+
+        return xhr.send(request);
+    },
+    getEntry({commit}, payload) {
+        const request = xhr.buildRequest('/api/admin/entry/edit', payload);
+        return xhr.send(request).then((response) => {
+            commit('UPDATE_EDITING_ENTRY', response.data);
+        });
+    },
+    deleteEntry({commit}, payload) {
+        const request = xhr.buildRequest('/api/admin/entry/delete', payload, 'DELETE');
+        return xhr.send(request);
+    },
+    loadMediaForEntry({commit}, payload) {
+        const request = xhr.buildRequest('/api/admin/entry/media/load', payload);
+        return xhr.send(request).then((response) => {
+            commit('UPDATE_EDITING_GALLERY', response.data.media);
+        });
+    },
+    uploadRaceReport({commit}, data) {
+        const request = xhr.buildRequest('/api/admin/entry/race-report', data, 'POST');
+        return xhr.send(request);
     }
-    return axios({
-      method: 'post',
-      url: '/api/admin/entry/edit',
-      data: queryFormatter(data),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-  },
-  getEntry({
-    commit
-  }, payload) {
-    return axios
-      .get('/api/admin/entry/edit?entry=' + payload.entry + '&token=' + payload.token)
-      .then((response) => {
-        commit('UPDATE_EDITING_ENTRY', response.data)
-      })
-  },
-  deleteEntry({
-    commit
-  }, payload) {
-    return axios.delete('/api/admin/entry/delete?' + queryFormatter(payload))
-  },
-  loadMediaForEntry({
-    commit
-  }, payload) {
-    const data = queryFormatter(payload);
-    return axios.get('/api/admin/entry/media/load?' + data).then((response) => {
-      commit('UPDATE_EDITING_GALLERY', response.data.media);
-    })
-  },
-  uploadRaceReport({commit}, data) {
-    return axios({
-      method: "POST",
-      url: "/api/admin/entry/race-report",
-      data: queryFormatter(data),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-  }
 }
 
 const getters = {
-  entries: (state) => state.entries,
-  editingEntry: (state) => state.editingEntry,
-  gallery: (state) => state.editingGallery,
+    entries: (state) => state.entries,
+    editingEntry: (state) => state.editingEntry,
+    gallery: (state) => state.editingGallery,
 }
 
 const monthsModule = {
-  state,
-  mutations,
-  actions,
-  getters,
+    state,
+    mutations,
+    actions,
+    getters,
 }
 
 export default monthsModule

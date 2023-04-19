@@ -56,28 +56,17 @@ const actions = {
         state.pageTitle = title;
     },
     buildCache(asdf, token) {
-        return xhr.post('/api/admin/build-cache', {token: token});
+        const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
+        return xhr.send(request);
     },
     init({commit}, data) {
-        return xhr.post('/api/init', data).then((response) => {
+        const request = xhr.buildRequest('/api/init', data, 'POST');
+        return xhr.send(request).then((response) => {
             if (response.data.is_token_valid !== 'token_valid') {
                 commit('UPDATE_TOKEN', null);
             }
             commit('UPDATE_METADATA', response.data);
         })
-        // return axios({
-        //     method: 'POST',
-        //     url: '/api/init',
-        //     data: queryFormatter(data),
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        // }).then((response) => {
-        //     if (response.data.is_token_valid !== 'token_valid') {
-        //         commit('UPDATE_TOKEN', null);
-        //     }
-        //     commit('UPDATE_METADATA', response.data);
-        // });
     },
 }
 

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import xhr from "../../helpers/xhr";
 
 export default {
   name: "AdminBar",
@@ -56,11 +56,10 @@ export default {
       this.$store.commit('EDIT_SPECIFIC_POPUP', true);
     },
     editCurrent() {
-      axios
-        .get("/api/admin/entry/edit/current?token=" + this.$store.getters.token)
-        .then((response) => {
-          this.$router.push("/edit?entry=" + response.data.entryId);
-        });
+      const request = xhr.buildRequest('/api/admin/entry/edit/current', {token: this.$store.getters.token});
+      xhr.send(request).then(response => {
+        this.$router.push("/edit?entry=" + response.data.entryId);
+      });
     },
   },
 };

@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import {getFileExtension} from "../../../../helpers/files";
+import xhr from "../../../../helpers/xhr";
 
 export default {
   props: ["media", "myId", "slug", "srcMedia"],
@@ -52,14 +52,11 @@ export default {
         media: this.srcMedia,
         token: this.$store.getters.token,
       };
-      let query = Object.entries(data)
-          .map(([key, val]) => `${key}=${val}`)
-          .join("&");
 
-      axios.delete('/api/admin/entry/media/delete?' + query)
-          .then((response) => {
-            this.isShowing = false;
-          });
+      const request = xhr.buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
+      xhr.send(request).then(response => {
+        this.isShowing = false;
+      });
     },
     copyUrl() {
       const mediaUrl = document.querySelector(

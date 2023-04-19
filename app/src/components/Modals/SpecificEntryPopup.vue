@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import moment from "moment";
+import xhr from "../../helpers/xhr";
 
 export default {
   data: function () {
@@ -40,17 +40,12 @@ export default {
       this.$store.commit("EDIT_SPECIFIC_POPUP", false);
     },
     editSpecificEntry() {
-      axios
-        .get(
-          "/api/admin/entry/create?token=" +
-          this.$store.getters.token +
-          "&entry=" +
-          this.dateEntry
-        )
-        .then((response) => {
-          this.$store.commit("EDIT_SPECIFIC_POPUP", false);
-          this.$router.push("/edit?entry=" + response.data.entryId);
-        });
+      const data = {token: this.$store.getters.token, entry: this.dateEntry};
+      const request = xhr.buildRequest('/api/admin/entry/create', data);
+      xhr.send(request).then(response => {
+        this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+        this.$router.push("/edit?entry=" + response.data.entryId);
+      })
     },
   },
 };

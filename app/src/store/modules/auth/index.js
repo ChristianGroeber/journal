@@ -1,7 +1,4 @@
-import axios from 'axios';
-import {
-    queryFormatter
-} from '../../../helpers/queryFormatter';
+import xhr from "../../../helpers/xhr";
 
 const state = {
     token: null,
@@ -15,100 +12,48 @@ const mutations = {
 }
 
 const actions = {
-    changePassword({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/change-password',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+    changePassword({commit}, payload) {
+        const request = xhr.buildRequest('/api/auth/change-password', payload, 'POST');
+        return xhr.send(request).then((response) => {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    requestNewPassword({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/request-new-password',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        });
+    requestNewPassword({commit}, payload) {
+        const request = xhr.buildRequest('/api/auth/request-new-password', payload, 'POST');
+        return xhr.send(request);
     },
-    restorePassword({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/restore-password',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+    restorePassword({commit}, payload) {
+        const request = xhr.buildRequest('/api/auth/restore-password', payload, 'POST');
+        return xhr.send(request).then((response) => {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    generateNewToken({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/generate-new-token',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+    generateNewToken({commit}, payload) {
+        const request = xhr.buildRequest('/api/auth/generate-new-token', payload, 'POST');
+        return xhr.send(request).then(response => {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    register({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/register',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+    register({commit}, payload) {
+        const request = xhr.buildRequest('/api/auth/register', payload, 'POST');
+        return xhr.send(request).then(response => {
+            commit('UPDATE_TOKEN', response.data.token);
+        })
+    },
+    login({commit}, payload) {
+        const request = xhr.buildRequest('/api/login', payload, 'POST');
+        return xhr.send(request).then(response =>  {
             commit('UPDATE_TOKEN', response.data.token);
         });
     },
-    login({
-        commit
-    }, payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/login',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
-            commit('UPDATE_TOKEN', response.data.token);
-        });
-    },
-    getToken({
-        commit
-    }) {
+    getToken({commit}) {
         const token = localStorage.getItem('token');
         if (token) {
             commit('UPDATE_TOKEN', token);
         }
         return token;
     },
-    logout({
-        commit
-    }) {
+    logout({commit}) {
         commit('UPDATE_TOKEN', null);
         localStorage.removeItem('token');
     },

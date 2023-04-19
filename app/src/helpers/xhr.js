@@ -23,15 +23,26 @@ async function post(url, data) {
     return send(request);
 }
 
-function buildPostRequest(url, data, method = 'POST') {
-    return {
+function buildRequest(url, data = {}, method = 'GET') {
+    method = method.toUpperCase();
+    const request = {
         url: url,
-        data: queryFormatter(data),
         method: method,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-    };
+    }
+    if (method === 'GET') {
+        request.url = url + '?' + queryFormatter(data);
+    } else {
+        if (data instanceof FormData) {
+            request.data = data;
+        } else {
+            request.data = queryFormatter(data);
+            request.headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            };
+        }
+    }
+
+    return request;
 }
 
 function send(request) {
@@ -48,5 +59,5 @@ function send(request) {
 }
 
 export default {
-    get, del, post
-}
+    buildRequest, send,
+};

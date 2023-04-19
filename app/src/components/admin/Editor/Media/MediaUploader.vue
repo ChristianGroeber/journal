@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import xhr from "../../../../helpers/xhr";
 
 export default {
   props: ["entry"],
@@ -33,11 +33,12 @@ export default {
         formData.append(Array.from(files).indexOf(img), img);
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
-        axios.post("/api/entry/gallery/upload", formData).then((response) => {
+        const request = xhr.buildRequest('/api/entry/gallery/upload', formData, 'POST');
+        xhr.send(request).then(response => {
           const img = response.data.files[0]['scaled']['default'];
           console.log(img);
           editingEntry.raw_content +=
-            "![uploaded media](" + encodeURI(img) + ")";
+              "![uploaded media](" + encodeURI(img) + ")";
         });
       });
       this.$store.dispatch("updateEntry", { entry: editingEntry });

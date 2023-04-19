@@ -8,6 +8,7 @@
 
 <script>
 import axios from 'axios';
+import xhr from "../../../helpers/xhr";
 
 export default {
   name: 'RestoreBackup',
@@ -17,10 +18,9 @@ export default {
       const formData = new FormData();
       formData.append("backup", file);
       formData.append("token", this.$store.getters.token);
-      console.log(formData);
-      axios.post("/api/admin/restore-backup", formData).then((response) => {
-        console.log(response);
-      });
+
+      const request = xhr.buildRequest('/api/admin/restore-backup', formData, 'POST');
+      xhr.send(request).then(response => {console.log(response)});
     },
     goBack() {
       this.$router.push('/admin/tools');
