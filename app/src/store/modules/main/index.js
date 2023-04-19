@@ -1,10 +1,8 @@
 import axios from 'axios';
-import {
-    queryFormatter
-} from '../../../helpers/queryFormatter';
+import xhr from '../../../helpers/xhr';
 
 const state = {
-    isLoading: false,
+    loadingCount: 0,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
     meta: {
@@ -26,8 +24,8 @@ const state = {
 };
 
 const mutations = {
-    LOADING(state, isLoading) {
-        state.isLoading = isLoading;
+    LOADING_COUNT(state, loadingCount) {
+        state.loadingCount = loadingCount;
     },
     EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
         state.showEditSpecificPopup = showEditSpecificPopup;
@@ -41,6 +39,12 @@ const mutations = {
 }
 
 const actions = {
+    increaseLoadingCount({commit}) {
+        commit('LOADING_COUNT', state.loadingCount + 1);
+    },
+    decreaseLoadingCount({commit}) {
+        commit('LOADING_COUNT', state.loadingCount - 1);
+    },
     setTitle({
                  commit
              }, title) {
@@ -52,27 +56,33 @@ const actions = {
         state.pageTitle = title;
     },
     buildCache(asdf, token) {
-        return axios.post('/api/admin/build-cache?token=' + token);
+        return xhr.post('/api/admin/build-cache', {token: token});
     },
     init({commit}, data) {
-        return axios({
-            method: 'POST',
-            url: '/api/init',
-            data: queryFormatter(data),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+        return xhr.post('/api/init', data).then((response) => {
             if (response.data.is_token_valid !== 'token_valid') {
                 commit('UPDATE_TOKEN', null);
             }
             commit('UPDATE_METADATA', response.data);
-        });
+        })
+        // return axios({
+        //     method: 'POST',
+        //     url: '/api/init',
+        //     data: queryFormatter(data),
+        //     headers: {
+        //         'Content-Type': 'application/x-www-form-urlencoded'
+        //     },
+        // }).then((response) => {
+        //     if (response.data.is_token_valid !== 'token_valid') {
+        //         commit('UPDATE_TOKEN', null);
+        //     }
+        //     commit('UPDATE_METADATA', response.data);
+        // });
     },
 }
 
 const getters = {
-    loading: state => state.isLoading,
+    loading: state => state.loadingCount !== 0,
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,

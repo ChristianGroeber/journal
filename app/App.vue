@@ -48,26 +48,6 @@ export default {
     this.$store.dispatch("getEntries").then(() => {
       resizeVideos();
     });
-    this.axios.interceptors.request.use(
-        (config) => {
-          this.$store.commit("LOADING", true);
-          return config;
-        },
-        (error) => {
-          this.$store.commit("LOADING", false);
-          return Promise.reject(error);
-        }
-    );
-    this.axios.interceptors.response.use(
-        (response) => {
-          this.$store.commit("LOADING", false);
-          return response;
-        },
-        (error) => {
-          this.$store.commit("LOADING", false);
-          return Promise.reject(error);
-        }
-    );
   },
 };
 </script>
