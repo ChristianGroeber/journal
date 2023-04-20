@@ -21,10 +21,18 @@ class PageController extends AbstractController
         $content = $cache->getContent();
 
         if (!$this->journalIsCurrentYear()) {
-            $content = array_reverse($content);
+            $content = $this->reverseEntries($content);
         }
 
         return $this->json($content);
+    }
+
+    private function reverseEntries(array $content): array
+    {
+        return array_reverse(array_map(function(array $month) {
+            $month['days'] = array_reverse($month['days']);
+            return $month;
+        }, $content));
     }
 
     private function journalIsCurrentYear(): bool
