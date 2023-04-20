@@ -5,4 +5,4 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    image: christiangroeber/journal:latest
+    image: christiangroeber/journal:2022
