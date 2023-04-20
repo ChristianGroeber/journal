@@ -8,3 +8,6 @@ services:
             - '86:80'
         volumes: 
             - ./:/var/www/html
+        environment:
+            USER_FILE: 'users/users.json'
+            SECRET: 'test'

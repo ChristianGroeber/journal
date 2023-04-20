@@ -19,6 +19,19 @@ class PageController extends AbstractController
         }
         $content = json_decode(file_get_contents($cacheFile), true)['content'];
 
+        if (!$this->journalIsCurrentYear()) {
+            $content = array_reverse($content);
+        }
+
         return $this->json($content);
+    }
+
+    private function journalIsCurrentYear(): bool
+    {
+        $journalYear = 2022;
+        $now = new \DateTime();
+        $currentYear = intval($now->format('Y'));
+
+        return $journalYear === $currentYear;
     }
 }
