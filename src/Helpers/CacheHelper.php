@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Cache;
 use App\Repository\CacheRepository;
-use Nacho\Helpers\DataHandler;
+use Nacho\Models\PicoPage;
 use Nacho\Nacho;
 use Nacho\ORM\RepositoryInterface;
 use Nacho\ORM\RepositoryManager;
@@ -48,7 +48,7 @@ class CacheHelper
                     'days' => [],
                 ];
             }
-            if (!$page->raw_content && !key_exists('raceReport', (array) $page->meta)) {
+            if ($this->isEmptyContent($page)) {
                 continue;
             }
             $page->content = $this->nacho->getMarkdownHelper()->renderPage($page);
@@ -58,7 +58,7 @@ class CacheHelper
         return $months;
     }
 
-    private function sortByDate($a, $b): int
+    private function sortByDate(PicoPage $a, PicoPage $b): int
     {
         if (is_int(array_search($a->meta->title, self::MONTHS))) {
             return -1;
@@ -70,5 +70,10 @@ class CacheHelper
         $t2 = strtotime($b->meta->title);
 
         return $t2 - $t1;
+    }
+
+    private function isEmptyContent(PicoPage $page): bool
+    {
+        return !$page->raw_content && !key_exists('raceReport', (array) $page->meta);
     }
 }
