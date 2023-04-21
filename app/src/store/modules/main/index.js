@@ -1,8 +1,6 @@
-import axios from 'axios';
 import xhr from '../../../helpers/xhr';
 
 const state = {
-    loadingCount: 0,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
     meta: {
@@ -24,9 +22,6 @@ const state = {
 };
 
 const mutations = {
-    LOADING_COUNT(state, loadingCount) {
-        state.loadingCount = loadingCount;
-    },
     EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
         state.showEditSpecificPopup = showEditSpecificPopup;
     },
@@ -39,12 +34,6 @@ const mutations = {
 }
 
 const actions = {
-    increaseLoadingCount({commit}) {
-        commit('LOADING_COUNT', state.loadingCount + 1);
-    },
-    decreaseLoadingCount({commit}) {
-        commit('LOADING_COUNT', state.loadingCount - 1);
-    },
     setTitle({
                  commit
              }, title) {
@@ -71,7 +60,6 @@ const actions = {
 }
 
 const getters = {
-    loading: state => state.loadingCount !== 0,
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,

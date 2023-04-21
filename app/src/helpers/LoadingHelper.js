@@ -24,6 +24,10 @@ function updateAverageLoadingTime(url, newTime) {
 function getAverageLoadingTime(url) {
     const obj = getAverageLoadingTimeObject(url);
 
+    if (obj.averageLoadingTime === 0) {
+        return defaultTime;
+    }
+
     return obj.averageLoadingTime;
 }
 
@@ -33,12 +37,13 @@ function calculateNewAverageLoadingTime(loadingTimeObject, newLoadingTime) {
 
 function replaceTimeObjectsInArray(oldObject, newObject) {
     const arr = getAverageLoadingTimes();
-    const i = arr.indexOf(oldObject);
-    if (i === -1) {
-        arr.push(newObject);
-    } else {
-        arr[i] = newObject;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].url === oldObject.url) {
+            arr[i] = newObject;
+            return arr;
+        }
     }
+    arr.push(newObject);
 
     return arr;
 }
@@ -50,7 +55,7 @@ function storeAverageLoadingTimes(averageLoadingTimes) {
 
 function getAverageLoadingTimeObject(url) {
     const loadingTimes = getAverageLoadingTimes();
-    return getAverageLoadingTimeForUrl(loadingTimes, url);
+    return getAverageLoadingTimeForUrl(url, loadingTimes);
 }
 
 function getAverageLoadingTimes() {
@@ -64,17 +69,10 @@ function getAverageLoadingTimes() {
 }
 
 function getAverageLoadingTimeForUrl(url, averageLoadingTimes) {
-    let result = null;
-
     for (let i = 0; i < averageLoadingTimes.length; i++) {
         if (averageLoadingTimes[i].url === url) {
-            result = averageLoadingTimes[i];
-            break;
+            return averageLoadingTimes[i];
         }
-    }
-
-    if (result) {
-        return result;
     }
 
     return defaultObject;

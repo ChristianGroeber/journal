@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import months from "./modules/months/";
 import auth from "./modules/auth/";
 import main from "./modules/main/";
+import loading from "./modules/loading";
 
 Vue.use(Vuex);
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
         main,
         months,
         auth,
+        loading,
     }
 })
