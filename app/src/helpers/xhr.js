@@ -1,6 +1,7 @@
 import axios from "axios";
 import {queryFormatter} from "./queryFormatter";
 import store from "../store";
+import LoadingHelper from "./LoadingHelper";
 
 function buildRequest(url, data = {}, method = 'GET') {
     method = method.toUpperCase();
@@ -33,6 +34,7 @@ function send(request) {
             const endTime = new Date();
             const diff = endTime - startTime;
             console.log(diff);
+            LoadingHelper.updateAverageLoadingTime(request.url, diff);
             return response;
         })
         .catch((reason) => {
