@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-  "2022":
+  "journal":
     build:
       dockerfile: Dockerfile
       context: .
       args:
         UID: 99
         GID: 100
-    image: christiangroeber/journal:latest
+    image: christiangroeber/journal:2023
     environment:
       SECRET: 'adsf'
     ports:
