@@ -29,11 +29,26 @@ function buildRequest(url, data = {}, method = 'GET') {
     return request;
 }
 
+function clearProgressBar() {
+    const estimated = store.getters.estimatedProgress;
+    if (estimated >= 100) {
+        store.dispatch('resetLoadingBar');
+        window.clearInterval(loadingBarInterval);
+    } else {
+        store.dispatch('updateEstimatedProgress', estimated + 5);
+    }
+}
+
 function updateLoadingProgress() {
     store.dispatch('increaseTimePassed', updateSpeed);
     const newProgress = 100 / store.getters.loadingTime * store.getters.timePassed;
     console.log({loadingTime: store.getters.loadingTime, timePassed: store.getters.timePassed, newProgress: newProgress})
     store.dispatch('updateEstimatedProgress', newProgress);
+
+    if (store.getters.loadingCount <= 0) {
+        window.clearInterval(loadingBarInterval);
+        loadingBarInterval = window.setInterval(clearProgressBar, updateSpeed);
+    }
 }
 
 // TODO: Get the Loading Bar to work with parallel requests
@@ -51,9 +66,6 @@ function send(request) {
             const endTime = new Date();
             const diff = endTime - startTime;
             LoadingHelper.updateAverageLoadingTime(request.url, diff);
-            if (store.getters.loadingCount === 0) {
-                window.clearInterval(loadingBarInterval);
-            }
             return response;
         })
         .catch((reason) => {

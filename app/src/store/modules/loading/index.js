@@ -2,7 +2,7 @@ const state = {
     loadingCount: 0,
     loadingTime: 0,
     timePassed: 0,
-    estimatedProgress: 100,
+    estimatedProgress: 0,
 }
 
 const mutations = {
@@ -38,7 +38,12 @@ const actions = {
     },
     updateEstimatedProgress({commit}, newEstimatedProgress) {
         commit('ESTIMATED_PROGRESS', newEstimatedProgress);
-    }
+    },
+    resetLoadingBar({commit}) {
+        commit('LOADING_COUNT', 0);
+        commit('LOADING_TIME', 0);
+        commit('TIME_PASSED', 0);
+    },
 }
 
 const getters = {

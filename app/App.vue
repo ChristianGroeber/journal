@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading v-if="isLoading"></Loading>
+    <Loading></Loading>
     <div class="header">
       <h1>{{ pageTitle }}</h1>
     </div>
