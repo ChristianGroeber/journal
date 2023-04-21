@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\JournalConfiguration;
 use Nacho\Controllers\AbstractController;
 
 /**
@@ -37,7 +38,7 @@ class PageController extends AbstractController
 
     private function journalIsCurrentYear(): bool
     {
-        $journalYear = 2022;
+        $journalYear = JournalConfiguration::year();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
 

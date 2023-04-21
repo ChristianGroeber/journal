@@ -15,8 +15,6 @@ function updateAverageLoadingTime(url, newTime) {
         loadCount: loadingTimeObject.loadCount + 1,
     };
 
-    console.log(url, newLoadingTimeObject);
-
     const newArray = replaceTimeObjectsInArray(loadingTimeObject, newLoadingTimeObject);
     storeAverageLoadingTimes(newArray);
 
