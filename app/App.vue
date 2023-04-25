@@ -29,9 +29,6 @@ export default {
     Footer,
   },
   computed: {
-    isLoading: function () {
-      return this.$store.getters.loading;
-    },
     pageTitle() {
       return this.$store.getters.pageTitle;
     },

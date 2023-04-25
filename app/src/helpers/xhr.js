@@ -34,6 +34,7 @@ function clearProgressBar() {
     if (estimated >= 100) {
         store.dispatch('resetLoadingBar');
         window.clearInterval(loadingBarInterval);
+        loadingBarInterval = null;
     } else {
         store.dispatch('updateEstimatedProgress', estimated + 5);
     }

@@ -43,6 +43,7 @@ const actions = {
         commit('LOADING_COUNT', 0);
         commit('LOADING_TIME', 0);
         commit('TIME_PASSED', 0);
+        commit('ESTIMATED_PROGRESS', 0);
     },
 }
 
