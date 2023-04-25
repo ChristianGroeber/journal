@@ -43,7 +43,6 @@ function clearProgressBar() {
 function updateLoadingProgress() {
     store.dispatch('increaseTimePassed', updateSpeed);
     const newProgress = 100 / store.getters.loadingTime * store.getters.timePassed;
-    console.log({loadingTime: store.getters.loadingTime, timePassed: store.getters.timePassed, newProgress: newProgress})
     store.dispatch('updateEstimatedProgress', newProgress);
 
     if (store.getters.loadingCount <= 0) {
@@ -63,7 +62,6 @@ function send(request) {
     return axios(request)
         .then((response) => {
             store.dispatch('decreaseLoadingCount');
-            console.log(store.getters.loadingCount);
             const endTime = new Date();
             const diff = endTime - startTime;
             LoadingHelper.updateAverageLoadingTime(request.url, diff);

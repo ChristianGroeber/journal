@@ -16,11 +16,13 @@ export default {
 <style scoped>
 .loader {
   display: block;
-  position: absolute;
-  height: 5px;
+  position: fixed;
+  height: 3px;
   width: 0;
   top: 0;
   background-color: red;
   z-index: 100;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
 }
 </style>
