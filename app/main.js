@@ -19,8 +19,10 @@ Vue.use(VuikitIcons)
 Vue.use(VueMeta)
 Vue.use(VueToast)
 
-new Vue({
+const app = new Vue({
   store,
   router,
   render: h => h(App),
 }).$mount('#app')
+
+export default app;

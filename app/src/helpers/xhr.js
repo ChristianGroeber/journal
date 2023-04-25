@@ -2,6 +2,7 @@ import axios from "axios";
 import {queryFormatter} from "./queryFormatter";
 import store from "../store";
 import LoadingHelper from "./LoadingHelper";
+import app from "../../main";
 
 const updateSpeed = 10;
 
@@ -68,6 +69,11 @@ function send(request) {
             return response;
         })
         .catch((reason) => {
+            let message = 'Error Sending Request to ' + request.url;
+            if ('message' in reason.response.data) {
+                 message = reason.response.data.message;
+            }
+            app.$toast.error(message);
             store.dispatch('decreaseLoadingCount');
             if (store.getters.loadingCount === 0) {
                 window.clearInterval(loadingBarInterval);
