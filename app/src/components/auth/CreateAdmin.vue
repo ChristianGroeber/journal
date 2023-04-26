@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import {queryFormatter} from '../../helpers/queryFormatter';
+import xhr from "../../helpers/xhr";
 
 export default {
   data: function () {
@@ -20,14 +19,12 @@ export default {
     }
   },
   created: function () {
-    axios({
-      url: '/api/auth/create-admin',
-      method: 'GET',
-    }).catch((reason) => {
+    const request = xhr.buildRequest('/api/auth/create-admin');
+    xhr.send(request).catch(reason => {
       if (reason.response.status === 400) {
         alert(reason.response.data.message);
       }
-    })
+    });
   },
   methods: {
     submit() {
@@ -35,22 +32,18 @@ export default {
         username: this.username,
         password: this.password,
       }
-      axios({
-        method: "POST",
-        url: '/api/auth/create-admin',
-        data: queryFormatter(data),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-      }).then((response) => {
-        if (response.data.adminCreated) {
-          this.$router.push('/auth/login');
-        }
-      }).catch((reason) => {
-        if (reason.response.status === 400) {
-          alert(reason.response.data.message);
-        }
-      })
+      const request = xhr.buildRequest('/api/auth/create-admin', data, 'POST');
+      xhr.send(request)
+          .then(response => {
+            if (response.data.adminCreated) {
+              this.$router.push('/auth/login');
+            }
+          })
+          .catch((reason) => {
+            if (reason.response.status === 400) {
+              alert(reason.response.data.message);
+            }
+          });
     }
   }
 }

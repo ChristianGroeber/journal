@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Loading v-if="isLoading"></Loading>
+    <Loading></Loading>
     <div class="header">
       <h1>{{ pageTitle }}</h1>
     </div>
@@ -15,7 +15,6 @@
 
 <script>
 import Loading from './src/components/Loading';
-import axios from 'axios';
 import AddRaceReport from './src/components/Modals/AddRaceReport'
 import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
 import {resizeVideos} from "src/helpers/videosizer";
@@ -30,9 +29,6 @@ export default {
     Footer,
   },
   computed: {
-    isLoading: function () {
-      return this.$store.getters.loading;
-    },
     pageTitle() {
       return this.$store.getters.pageTitle;
     },
@@ -49,26 +45,6 @@ export default {
     this.$store.dispatch("getEntries").then(() => {
       resizeVideos();
     });
-    this.axios.interceptors.request.use(
-        (config) => {
-          this.$store.commit("LOADING", true);
-          return config;
-        },
-        (error) => {
-          this.$store.commit("LOADING", false);
-          return Promise.reject(error);
-        }
-    );
-    this.axios.interceptors.response.use(
-        (response) => {
-          this.$store.commit("LOADING", false);
-          return response;
-        },
-        (error) => {
-          this.$store.commit("LOADING", false);
-          return Promise.reject(error);
-        }
-    );
   },
 };
 </script>

@@ -1,10 +1,6 @@
-import axios from 'axios';
-import {
-    queryFormatter
-} from '../../../helpers/queryFormatter';
+import xhr from '../../../helpers/xhr';
 
 const state = {
-    isLoading: false,
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
     meta: {
@@ -26,9 +22,6 @@ const state = {
 };
 
 const mutations = {
-    LOADING(state, isLoading) {
-        state.isLoading = isLoading;
-    },
     EDIT_SPECIFIC_POPUP(state, showEditSpecificPopup) {
         state.showEditSpecificPopup = showEditSpecificPopup;
     },
@@ -52,27 +45,21 @@ const actions = {
         state.pageTitle = title;
     },
     buildCache(asdf, token) {
-        return axios.post('/api/admin/build-cache?token=' + token);
+        const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
+        return xhr.send(request);
     },
     init({commit}, data) {
-        return axios({
-            method: 'POST',
-            url: '/api/init',
-            data: queryFormatter(data),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        }).then((response) => {
+        const request = xhr.buildRequest('/api/init', data, 'POST');
+        return xhr.send(request).then((response) => {
             if (response.data.is_token_valid !== 'token_valid') {
                 commit('UPDATE_TOKEN', null);
             }
             commit('UPDATE_METADATA', response.data);
-        });
+        })
     },
 }
 
 const getters = {
-    loading: state => state.isLoading,
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
     pageTitle: state => state.pageTitle,
