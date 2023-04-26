@@ -3,6 +3,7 @@ import xhr from '../../../helpers/xhr';
 const state = {
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
+    showLoginPopup: true,
     meta: {
         journalYear: '',
         adminCreated: true,
@@ -27,6 +28,9 @@ const mutations = {
     },
     EDIT_RACE_REPORT_POPUP(state, showRaceReportPopup) {
         state.showRaceReportPopup = showRaceReportPopup;
+    },
+    SHOW_LOGIN_POPUP(state, showLoginPopup) {
+        state.showLoginPopup = showLoginPopup;
     },
     UPDATE_METADATA(state, metaData) {
         state.meta = metaData;
@@ -62,6 +66,7 @@ const actions = {
 const getters = {
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
+    showLoginPopup: state => state.showLoginPopup,
     pageTitle: state => state.pageTitle,
     mediaTypes: state => state.mediaTypes,
     meta: state => state.meta,
