@@ -3,7 +3,7 @@ import xhr from '../../../helpers/xhr';
 const state = {
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
-    showLoginPopup: true,
+    showLoginPopup: false,
     meta: {
         journalYear: '',
         adminCreated: true,
@@ -59,6 +59,8 @@ const actions = {
                 commit('UPDATE_TOKEN', null);
             }
             commit('UPDATE_METADATA', response.data);
+
+            return response;
         })
     },
 }

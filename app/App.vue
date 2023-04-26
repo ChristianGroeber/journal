@@ -38,7 +38,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getToken").then((token) => {
-      this.$store.dispatch("init", {token: token}).then(() => {
+      this.$store.dispatch("init", {token: token}).then(response => {
+        if (response.data.is_token_valid === 'token_invalid') {
+          this.$store.commit('SHOW_LOGIN_POPUP', true);
+          this.$toast.error('Your token is invalid, please login again');
+        }
         this.$store.dispatch('setTitle', this.$store.getters.meta.journalYear);
         if (!this.$store.getters.meta.adminCreated) {
           this.$router.push('/auth/create-admin');
