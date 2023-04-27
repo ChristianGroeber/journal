@@ -73,7 +73,7 @@ function send(request) {
             if ('message' in reason.response.data) {
                  message = reason.response.data.message;
             }
-            app.$toast.error(message);
+            alert(message);
             store.dispatch('decreaseLoadingCount');
             if (store.getters.loadingCount === 0) {
                 window.clearInterval(loadingBarInterval);
