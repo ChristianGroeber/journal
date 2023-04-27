@@ -6878,11 +6878,6 @@ vue-template-es2015-compiler@^1.2.2:
   resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-toast-notification@^1.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vue-toast-notification/-/vue-toast-notification-1.0.1.tgz#b97d07c9b061d769b7c959ea303b3e5908b965d2"
-  integrity sha512-qaBDz6jjaRxTXqimb0+NUtfj1Yjz2nd/tSpDePkw04mIyi57dcx1oGTnyqEZpvM6KeXoeYte/Qo9363QdKVQow==
-
 vue-video-player@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/vue-video-player/-/vue-video-player-6.0.0.tgz#fc51581b4b0437e5efd7e30388f18d900e27573d"
