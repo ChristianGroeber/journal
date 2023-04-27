@@ -4,6 +4,12 @@ const state = {
     showEditSpecificPopup: false,
     showRaceReportPopup: false,
     showLoginPopup: false,
+    showMediaPreviewPopup: true,
+    mediaPreview: {
+        showing: false,
+        src: '',
+        mediaType: '',
+    },
     meta: {
         journalYear: '',
         adminCreated: true,
@@ -32,6 +38,9 @@ const mutations = {
     SHOW_LOGIN_POPUP(state, showLoginPopup) {
         state.showLoginPopup = showLoginPopup;
     },
+    UPDATE_MEDIA_PREVIEW(state, mediaPreview) {
+        state.mediaPreview = mediaPreview;
+    },
     UPDATE_METADATA(state, metaData) {
         state.meta = metaData;
     }
@@ -52,6 +61,12 @@ const actions = {
         const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
         return xhr.send(request);
     },
+    showMediaPreview({commit}, mediaPreview) {
+        commit('UPDATE_MEDIA_PREVIEW', mediaPreview);
+    },
+    hideMediaPreview({commit}) {
+        commit('UPDATE_MEDIA_PREVIEW', {showing: false});
+    },
     init({commit}, data) {
         const request = xhr.buildRequest('/api/init', data, 'POST');
         return xhr.send(request).then((response) => {
@@ -69,6 +84,7 @@ const getters = {
     showEditSpecificPopup: state => state.showEditSpecificPopup,
     showRaceReportPopup: state => state.showRaceReportPopup,
     showLoginPopup: state => state.showLoginPopup,
+    mediaPreview: state => state.mediaPreview,
     pageTitle: state => state.pageTitle,
     mediaTypes: state => state.mediaTypes,
     meta: state => state.meta,

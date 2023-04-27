@@ -7,8 +7,8 @@
       <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
         <fa icon="trash"></fa>
       </vk-button>
-      <vk-button v-if="amVideo" class="btn btn-rounded btn-icon" @click="openVideo">
-        <fa icon="external-link"></fa>
+      <vk-button class="btn btn-rounded btn-icon" @click="previewMedia">
+        <fa icon="eye"></fa>
       </vk-button>
     </div>
     <template v-if="amVideo">
@@ -39,10 +39,22 @@ export default {
     amImage() {
       return ['jpg', 'jpeg', 'png', 'webp'].includes(getFileExtension(this.media).pop());
     },
+    mediaType() {
+      if (this.amImage) {
+        return 'image';
+      }
+      if (this.amVideo) {
+        return 'video';
+      }
+    },
   },
   methods: {
-    openVideo() {
-      window.open('/video?video=' + this.srcMedia, '_blank');
+    previewMedia() {
+      this.$store.dispatch('showMediaPreview', {
+        showing: true,
+        src: this.srcMedia,
+        mediaType: this.mediaType,
+      });
     },
     deleteMedia() {
       if (!confirm('Are you sure you want to delete this Image/ Video?')) {

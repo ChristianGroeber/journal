@@ -10,6 +10,7 @@
       <add-race-report></add-race-report>
       <specific-entry-popup></specific-entry-popup>
       <LoginModal></LoginModal>
+      <MediaPreview></MediaPreview>
     </div>
   </div>
 </template>
@@ -21,6 +22,7 @@ import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup'
 import {resizeVideos} from "src/helpers/videosizer";
 import Footer from "./src/components/home/Footer.vue";
 import LoginModal from "./src/components/Modals/LoginModal";
+import MediaPreview from "./src/components/Modals/MediaPreview";
 
 export default {
   name: "App",
@@ -30,6 +32,7 @@ export default {
     SpecificEntryPopup,
     Footer,
     LoginModal,
+    MediaPreview,
   },
   computed: {
     pageTitle() {

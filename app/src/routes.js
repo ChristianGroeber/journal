@@ -87,11 +87,6 @@ const routes = [
         component: RestoreBackup,
     },
     {
-        path: '/video',
-        name: 'View Video',
-        component: VideoViewer,
-    },
-    {
         path: "*",
         name: "notFound",
         component: NotFound,
