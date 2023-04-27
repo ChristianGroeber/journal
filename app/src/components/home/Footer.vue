@@ -5,7 +5,7 @@
     </span>
     |
     <span>
-      <a href="/auth/login">Login</a>
+      <a @click="showLoginForm">Login</a>
     </span>
     |
     <span>
@@ -17,6 +17,11 @@
 <script>
 export default {
   name: "Footer",
+  methods: {
+    showLoginForm() {
+      this.$store.commit('SHOW_LOGIN_POPUP', true);
+    },
+  },
   computed: {
     version() {
       return this.$store.getters.meta.version;
