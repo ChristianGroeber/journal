@@ -17,7 +17,6 @@ import Editor from "./components/admin/Editor/Editor";
 import NotFound from './components/error/NotFound';
 import AdminTools from './components/admin/Tools/index';
 import RestoreBackup from "./components/admin/Tools/RestoreBackup";
-import VideoViewer from "./components/media/VideoViewer.vue";
 
 const routes = [
     {
