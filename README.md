@@ -27,6 +27,6 @@ If you run into a problem please create an issue
 ## Development
 1. Pull this repository to your device
 2. Execute `docker-compose up -d` (runs web server on port 86)
-3. Execute the following command in order to give the `www-data` user ownership of the required directories: `docker exec -it 2022 bash chown -R www-data:www-data content data media`
-4. Install PHP Packages: `docker exec -it 2022 composer install`
+3. Execute the following command in order to give the `www-data` user ownership of the required directories: `docker exec -it jounral bash chown -R www-data:www-data content data media`
+4. Install PHP Packages: `docker exec -it journal composer install`
 5. Hack away
