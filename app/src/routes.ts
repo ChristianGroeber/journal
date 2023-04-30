@@ -1,22 +1,19 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
-Vue.use(VueRouter);
-
-import MonthList from "./components/home/MonthList";
-import Login from "./components/auth/Login";
-import LoginRedirector from "./components/auth/LoginRedirector";
-import RestorePassword from "./components/auth/RestorePassword";
-import RequestNewPassword from "./components/auth/RequestNewPassword";
-import ChangePassword from "./components/auth/ChangePassword";
-import Register from "./components/auth/Register";
-import GenerateNewToken from "./components/auth/GenerateNewToken";
-import CreateAdmin from "./components/auth/CreateAdmin";
-import Auth from "./components/auth/Auth";
-import Editor from "./components/admin/Editor/Editor";
-import NotFound from './components/error/NotFound';
-import AdminTools from './components/admin/Tools/index';
-import RestoreBackup from "./components/admin/Tools/RestoreBackup";
+import MonthList from "./components/home/MonthList.vue";
+import Login from "./components/auth/Login.vue";
+import LoginRedirector from "./components/auth/LoginRedirector.vue";
+import RestorePassword from "./components/auth/RestorePassword.vue";
+import RequestNewPassword from "./components/auth/RequestNewPassword.vue";
+import ChangePassword from "./components/auth/ChangePassword.vue";
+import Register from "./components/auth/Register.vue";
+import GenerateNewToken from "./components/auth/GenerateNewToken.vue";
+import CreateAdmin from "./components/auth/CreateAdmin.vue";
+import Auth from "./components/auth/Auth.vue";
+import Editor from "./components/admin/Editor/Editor.vue";
+import NotFound from './components/error/NotFound.vue';
+import AdminTools from './components/admin/Tools/index.vue';
+import RestoreBackup from "./components/admin/Tools/RestoreBackup.vue";
 
 const routes = [
     {
@@ -92,7 +89,9 @@ const routes = [
     }
 ];
 
-export const router = new VueRouter({
-    mode: 'history',
+const router = createRouter({
+    history: createWebHistory(),
     routes,
 })
+
+export default router;

@@ -29,6 +29,6 @@ exports.plugins = {
 };
 
 exports.paths = {
-    public: 'public/build',
+    public: 'dist',
     watched: ['app'],
 }

@@ -1,0 +1,100 @@
+import {AxiosResponse} from 'axios';
+import {defineStore} from "pinia";
+import xhr from '../helpers/xhr';
+import {useAuthStore} from "@/src/store/auth";
+
+interface MediaPreview {
+    showing: boolean,
+    src: string,
+    mediaType: string,
+}
+
+interface Meta {
+    journalYear: string|number,
+    adminCreated: boolean,
+    version: string|number,
+}
+
+interface MediaType {
+    name: string,
+    mime: string,
+}
+
+interface State {
+    showEditSpecificPopup: boolean,
+    showRaceReportPopup: boolean,
+    showLoginPopup: boolean,
+    mediaPreview: MediaPreview,
+    meta: Meta,
+    mediaTypes: MediaType[],
+    pageTitle: string,
+}
+
+export const useMainStore = defineStore('main', {
+    state: (): State => ({
+        showEditSpecificPopup: false,
+        showRaceReportPopup: false,
+        showLoginPopup: false,
+        mediaPreview: {
+            showing: false,
+            src: '',
+            mediaType: '',
+        },
+        meta: {
+            journalYear: '',
+            adminCreated: true,
+            version: 0,
+        },
+        pageTitle: 'Loading',
+        mediaTypes: [
+            {
+                'name': 'Video',
+                'mime': 'video/*',
+            },
+            {
+                'name': 'Image',
+                'mime': 'image/*'
+            }
+        ],
+    }),
+    getters: {
+        getShowEditSpecificPopup: state => state.showEditSpecificPopup,
+        getShowRaceReportPopup: state => state.showRaceReportPopup,
+        getShowLoginPopup: state => state.showLoginPopup,
+        getMediaPreview: state => state.mediaPreview,
+        getPageTitle: state => state.pageTitle,
+        getMediaTypes: state => state.mediaTypes,
+        getMeta: state => state.meta,
+    },
+    actions: {
+        setTitle(title: string) {
+            if (title == this.$state.meta.journalYear || this.$state.meta.journalYear === '') {
+                document.title = this.$state.meta.journalYear.toString();
+            } else {
+                document.title = title + ' · ' + this.$state.meta.journalYear.toString();
+            }
+            this.pageTitle = title;
+        },
+        buildCache(token: string) {
+            const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
+            return xhr.send(request);
+        },
+        showMediaPreview(mediaPreview: MediaPreview) {
+            this.mediaPreview = mediaPreview
+        },
+        hideMediaPreview() {
+            this.mediaPreview.showing = false;
+        },
+        init(token: String) {
+            const request = xhr.buildRequest('/api/init', {token: token}, 'POST');
+            return xhr.send(request).then((response: AxiosResponse) => {
+                if (response.data.is_token_valid !== 'token_valid') {
+                    useAuthStore().logout();
+                }
+                this.$state.meta = response.data;
+
+                return response;
+            })
+        },
+    },
+})

@@ -2,7 +2,6 @@ import axios from "axios";
 import {queryFormatter} from "./queryFormatter";
 import store from "../store";
 import LoadingHelper from "./LoadingHelper";
-import app from "../../main";
 
 const updateSpeed = 10;
 
@@ -82,6 +81,7 @@ function send(request) {
         });
 }
 
-export default {
-    buildRequest, send,
-};
+module.exports = {
+    buildRequest,
+    send,
+}
