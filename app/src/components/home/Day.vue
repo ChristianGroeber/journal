@@ -2,7 +2,6 @@
   <div class="article">
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
-      <div v-if="canEdit">
         <vk-button class="btn btn-icon btn-rounded"><fa icon="ellipsis-vertical"/></vk-button>
         <vk-dropdown>
           <vk-nav-dropdown>
@@ -10,6 +9,7 @@
             <vk-nav-item title="Delete" @click="deleteEntry"></vk-nav-item>
           </vk-nav-dropdown>
         </vk-dropdown>
+      <div v-if="canEdit">
       </div>
     </div>
     <RaceReport v-if="hasRaceReport" :entry="day"></RaceReport>
@@ -19,14 +19,25 @@
   </div>
 </template>
 
-<script>
-import RaceReport from './RaceReport';
+<script lang="ts">
+import RaceReport from './RaceReport.vue';
+import {defineComponent} from "vue";
+import {useRouter} from 'vue-router'
+import {useAuthStore} from "@/src/store/auth";
+import {useJournalStore} from "@/src/store/journal";
 
-export default {
+export default defineComponent({
   name: "Day",
   props: ["day"],
   components: {
     RaceReport,
+  },
+  data() {
+    return {
+      journalStore: useJournalStore(),
+      authStore: useAuthStore(),
+      router: useRouter(),
+    }
   },
   computed: {
     formattedDate() {
@@ -36,14 +47,13 @@ export default {
       return this.day.content;
     },
     canEdit() {
-      return this.$store.getters.token !== null;
+      return this.authStore.getToken !== null;
     },
     query() {
       const q = { entry: this.day.id };
-      let query = Object.entries(q)
+      return Object.entries(q)
         .map(([key, val]) => `${key}=${val}`)
         .join("&");
-      return query;
     },
     hasRaceReport() {
       return 'raceReport' in this.day.meta;
@@ -55,16 +65,16 @@ export default {
       if (doDelete) {
         const data = {
           entry: this.day.id,
-          token: this.$store.getters.token,
+          token: this.authStore.getToken,
         }
-        this.$store.dispatch("deleteEntry", data).then((response) => {
-          this.$store.dispatch("getEntries");
-        });
+        this.journalStore.deleteEntry(data).then(() => {
+          this.journalStore.loadEntries();
+        })
       }
     },
     editEntry() {
-      this.$router.push('/edit?' + this.query);
+      this.router.push('/edit?' + this.query);
     },
   },
-};
+})
 </script>

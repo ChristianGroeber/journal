@@ -58,7 +58,7 @@ export const useJournalStore = defineStore('journalStore', {
         updateEntry(entry: JournalEntry) {
             this.editingEntry = entry;
         },
-        getEntries() {
+        loadEntries() {
             const request = xhr.buildRequest('/api/entries');
             return xhr.send(request).then((response) => {
                 this.entries = response.data;

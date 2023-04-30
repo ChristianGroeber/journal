@@ -50,4 +50,4 @@ function getImgElements() {
     return document.getElementsByTagName('img');
 }
 
-export {resizeVideos}
+module.export = resizeVideos

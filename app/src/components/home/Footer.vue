@@ -14,20 +14,23 @@
   </footer>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+
+export default defineComponent({
   name: "Footer",
   methods: {
     showLoginForm() {
-      this.$store.commit('SHOW_LOGIN_POPUP', true);
+      useMainStore().setShowLoginPopup(true);
     },
   },
   computed: {
     version() {
-      return this.$store.getters.meta.version;
+      useMainStore().getMeta.version;
     },
   },
-}
+})
 </script>
 
 

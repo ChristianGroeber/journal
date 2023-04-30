@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('authStore', {
                 this.token = response.data.token;
             });
         },
-        getToken() {
+        loadToken() {
             const token = localStorage.getItem('token');
             if (token) {
                 this.token = token;

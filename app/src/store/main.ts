@@ -79,13 +79,16 @@ export const useMainStore = defineStore('main', {
             const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
             return xhr.send(request);
         },
-        showMediaPreview(mediaPreview: MediaPreview) {
+        setShowLoginPopup(showLoginPopup: boolean) {
+            this.showLoginPopup = showLoginPopup;
+        },
+        setShowMediaPreview(mediaPreview: MediaPreview) {
             this.mediaPreview = mediaPreview
         },
         hideMediaPreview() {
             this.mediaPreview.showing = false;
         },
-        init(token: String) {
+        init(token: string | null) {
             const request = xhr.buildRequest('/api/init', {token: token}, 'POST');
             return xhr.send(request).then((response: AxiosResponse) => {
                 if (response.data.is_token_valid !== 'token_valid') {
