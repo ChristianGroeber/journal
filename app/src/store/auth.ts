@@ -26,7 +26,7 @@ export const useAuthStore = defineStore('authStore', {
                 this.token = response.data.token;
             });
         },
-        requestNewPassword(data: ChangePasswordForm) {
+        requestNewPassword(data: object) {
             const request = xhr.buildRequest('/api/auth/request-new-password', data, 'POST');
             return xhr.send(request);
         },

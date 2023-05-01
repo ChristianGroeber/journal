@@ -9,14 +9,15 @@
   </div>
 </template>
 
-<script>
-import Day from "./Day";
+<script lang="ts">
+import Day from "./Day.vue";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "Month",
   props: ["month"],
   components: {
     Day,
   },
-};
+})
 </script>

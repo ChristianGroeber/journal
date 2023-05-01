@@ -8,10 +8,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import xhr from "../../helpers/xhr";
+import {useRouter} from "vue-router";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   data: function () {
     return {
       username: '',
@@ -36,7 +38,7 @@ export default {
       xhr.send(request)
           .then(response => {
             if (response.data.adminCreated) {
-              this.$router.push('/auth/login');
+              useRouter().push('/auth/login');
             }
           })
           .catch((reason) => {
@@ -46,5 +48,5 @@ export default {
           });
     }
   }
-}
+})
 </script>

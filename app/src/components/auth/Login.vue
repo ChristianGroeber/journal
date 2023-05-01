@@ -16,35 +16,41 @@
     </form>
   </div>
 </template>
-<script>
-export default {
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
+import {useRouter} from "vue-router";
+
+export default defineComponent({
   data: () => {
     return {
       username: "",
       password: "",
-      title: "Login",
+      authStore: useAuthStore(),
+      router: useRouter(),
     };
   },
   created() {
-    this.$store.dispatch('setTitle', this.title);
+    useMainStore().setTitle('Login');
   },
   mounted() {
-    this.$refs.autofocus.focus();
+    // this.$refs.autofocus.focus();
   },
   methods: {
     login() {
-      this.$store
-        .dispatch("login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
+      const data = {
+        username: this.username,
+        password: this.password,
+      };
+      this.authStore.login(data).then(() => {
+        this.router.push('/');
+      });
     },
     auth() {
-      this.$router.push("/auth");
+      this.router.push("/auth");
     }
   },
-};
+})
 </script>

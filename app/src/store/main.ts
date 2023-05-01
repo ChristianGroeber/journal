@@ -82,6 +82,12 @@ export const useMainStore = defineStore('main', {
         setShowLoginPopup(showLoginPopup: boolean) {
             this.showLoginPopup = showLoginPopup;
         },
+        setShowEditSpecificPopup(showSpecificPopup: boolean) {
+            this.showEditSpecificPopup = showSpecificPopup;
+        },
+        setShowRaceReportPopup(showRaceReportPopup: boolean) {
+            this.showRaceReportPopup = showRaceReportPopup;
+        },
         setShowMediaPreview(mediaPreview: MediaPreview) {
             this.mediaPreview = mediaPreview
         },

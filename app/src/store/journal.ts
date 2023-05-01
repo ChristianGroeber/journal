@@ -1,31 +1,7 @@
 import {defineStore} from 'pinia'
 import xhr from '../helpers/xhr';
+import {JournalEntry, WikiEntryList, Gallery} from "@/src/Contracts/JournalTypes";
 
-interface JournalEntry {
-    raw_content: string,
-    content: string,
-    id: string,
-    url: string,
-    hidden: boolean,
-    meta: EntryMeta,
-    file: string,
-}
-
-interface EntryMeta {
-    title: string,
-    date: string,
-    time: number,
-    date_formatted: string,
-    description: string | null,
-    author: string | null,
-}
-
-interface WikiEntryList extends Array<JournalEntry> {
-}
-
-interface Gallery {
-    // TODO
-}
 
 interface State {
     entries: WikiEntryList,

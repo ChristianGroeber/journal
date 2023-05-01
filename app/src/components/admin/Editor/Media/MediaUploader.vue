@@ -9,14 +9,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import xhr from "../../../../helpers/xhr";
+import {defineComponent} from "vue";
+import {useJournalStore} from "@/src/store/journal";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
 
-export default {
+export default defineComponent({
   props: ["entry"],
   data() {
     return {
-      mediaTypes: this.$store.getters.mediaTypes,
+      journalStore: useJournalStore(),
+      mainStore: useMainStore(),
+      authStore: useAuthStore(),
+      mediaTypes: useMainStore().getMediaTypes,
     }
   },
   computed: {
@@ -27,10 +34,10 @@ export default {
   methods: {
     uploadMedia(e) {
       const files = e.target.files;
-      const editingEntry = this.$store.getters.editingEntry;
+      const editingEntry = this.journalStore.getEditingEntry;
       Array.from(files).forEach((img) => {
         const formData = new FormData();
-        formData.append(Array.from(files).indexOf(img), img);
+        formData.append(Array.from(files).indexOf(img) img);
         formData.append("entry", this.entry);
         formData.append("token", this.$store.getters.token);
         const request = xhr.buildRequest('/api/entry/gallery/upload', formData, 'POST');
@@ -45,5 +52,5 @@ export default {
       this.$store.dispatch("loadMediaForEntry", { entry: editingEntry.id, token: this.$store.getters.token});
     },
   },
-};
+})
 </script>

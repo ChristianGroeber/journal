@@ -6,12 +6,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import EditEntry from "./EditEntry.vue";
 import MediaUploader from "./Media/MediaUploader.vue";
 import MediaList from "./Media/MediaList.vue";
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useJournalStore} from "@/src/store/journal";
+import {useAuthStore} from "@/src/store/auth";
 
-export default {
+export default defineComponent({
   props: ["entry"],
   data: function () {
     return {
@@ -19,20 +23,19 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch("getEntry", {
-        entry: this.entry,
-        token: this.$store.getters.token,
-      })
-      .then(() => {
-        this.$store.dispatch('setTitle', "Edit " + this.$store.getters.editingEntry.meta.title);
-        this.$store.dispatch("loadMediaForEntry", { entry: this.entry, token: this.$store.getters.token});
-      });
+    const data = {
+      entry: this.entry,
+      token: useAuthStore().getToken,
+    }
+    useJournalStore().getEntry(data).then(() => {
+      useMainStore().setTitle('Edit ' + useJournalStore().getEditingEntry?.meta.title);
+      useJournalStore().loadMediaForEntry(data);
+    })
   },
   components: {
     EditEntry,
     MediaUploader,
     MediaList,
   },
-};
+})
 </script>
