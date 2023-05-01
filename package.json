@@ -1,7 +1,7 @@
 {
-    "name": "wiki",
-    "version": "1.0.0",
-    "description": "Your very own personal Knowledgebase",
+    "name": "pixl-journal",
+    "version": "2023",
+    "description": "A nice journaling website",
     "private": true,
     "scripts": {
         "dev": "node service/commands/dev.js",
@@ -12,12 +12,14 @@
     },
     "dependencies": {
         "@babel/runtime": "^7.18.9",
+        "@element-plus/icons-vue": "^2.1.0",
         "@kangc/v-md-editor": "^2.3.15",
         "@mdi/font": "^6.6.96",
         "axios": "^0.24.0",
         "babel-plugin-transform-runtime": "^6.23.0",
         "core-js": "^3.6.5",
         "css-loader": "^6.7.1",
+        "element-plus": "^2.3.4",
         "js-base64": "^3.6.0",
         "lodash": "^4.17.21",
         "marked": "^4.0.13",

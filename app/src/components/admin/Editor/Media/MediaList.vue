@@ -3,9 +3,7 @@
     <div class="d-flex gap-1 ai_center">
       <h3>Media</h3>
       <div>
-        <vk-button class="btn btn-primary btn-icon btn-rounded" @click="getGallery">
-          <fa icon="download"></fa>
-        </vk-button>
+        <el-button round @click="getGallery"><el-icon><Download /></el-icon></el-button>
       </div>
     </div>
     <div v-for="(mediaList, i) in media" :key="i">

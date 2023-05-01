@@ -1,9 +1,10 @@
-@import 'variables';
-@import 'fonts';
-@import 'responsive';
-@import 'font-awesome';
+@import './font-awesome.css';
 
-@import '../../node_modules/@vuikit/theme/dist/vuikit';
+@import '../../node_modules/element-plus/dist/index.css';
+
+$primary: #f37033;
+$danger: #b20101;
+$max-content-width: 650px;
 
 html,
 body {
@@ -24,6 +25,7 @@ body {
     margin: 0;
     min-height: 100vh;
     background-color: rgb(243, 243, 243);
+    font-family: "Roboto", sans-serif;
 }
 
 .btn {
@@ -200,4 +202,29 @@ label {
 textarea {
     width: 100%;
     min-height: 150px;
+}
+
+@media screen and (min-width: 500px) {
+    .header {
+        h1 {
+            font-size: 10rem;
+        }
+    }
+
+    .main-content {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+        .article-body {
+            padding: 0;
+
+            img {
+                max-width: $max-content-width;
+            }
+        }
+    }
+
+    footer, .main-content {
+        margin: 0 auto;
+        max-width: $max-content-width;
+    }
 }

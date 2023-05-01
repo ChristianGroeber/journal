@@ -1,8 +1,6 @@
 <template>
   <div class="main-content">
-    <vk-button class="btn btn-icon btn-primary" @click="goBack">
-      <fa icon="arrow-left"></fa>
-    </vk-button>
+    <pj-button-link content="Return" :action="goBack"></pj-button-link>
     <label for="upload_backup">Upload Backup ZIP</label>
     <input @change="uploadBackup" type="file" id="upload_backup">
   </div>
@@ -16,6 +14,11 @@ import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'RestoreBackup',
+  data() {
+    return {
+      router: useRouter(),
+    }
+  },
   methods: {
     uploadBackup(e) {
       const file = e.target.files[0];
@@ -29,7 +32,7 @@ export default defineComponent({
       });
     },
     goBack() {
-      useRouter().push('/admin/tools');
+      this.router.push('/admin/tools');
     },
   }
 })

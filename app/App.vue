@@ -69,3 +69,7 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+@import './style/main.scss';
+</style>

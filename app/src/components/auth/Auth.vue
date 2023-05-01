@@ -1,14 +1,6 @@
 <template>
   <div class="main-content">
-    <div class="d-flex gap-1">
-      <router-link class="btn btn-primary" to="/">Home</router-link>
-      <router-link class="btn btn-primary" to="/auth/login">Login</router-link>
-      <router-link class="btn btn-primary" to="/auth/restore-password">Restore Password</router-link>
-      <router-link class="btn btn-primary" to="/auth/change-password">Change Password</router-link>
-      <router-link class="btn btn-primary" to="/auth/generate-new-token">Generate New Token</router-link>
-      <router-link class="btn btn-primary" to="/auth/request-new-password">Request New Password</router-link>
-      <vk-button class="btn btn-primary" @click="logout">Logout</vk-button>
-    </div>
+    <pj-navbar :nav="links"></pj-navbar>
   </div>
 </template>
 
@@ -19,6 +11,40 @@ import {useAuthStore} from "@/src/store/auth";
 import {useRouter} from 'vue-router';
 
 export default defineComponent({
+  data() {
+    return {
+      links: [
+        {
+          label: 'Home',
+          page: '/',
+        },
+        {
+          label: 'Login',
+          page: '/auth/login',
+        },
+        {
+          label: 'Restore Password',
+          page: '/auth/restore-password',
+        },
+        {
+          label: 'Change Password',
+          page: '/auth/change-password',
+        },
+        {
+          label: 'Generate New Token',
+          page: '/auth/generate-new-token',
+        },
+        {
+          label: 'Request New Password',
+          page: '/auth/request-new-password',
+        },
+        {
+          label: 'Logout',
+          func: this.logout,
+        }
+      ]
+    }
+  },
   created() {
     useMainStore().setTitle('Auth');
   },

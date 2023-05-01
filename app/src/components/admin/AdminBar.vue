@@ -1,16 +1,6 @@
 <template>
   <div class="admin-bar">
-    <vk-navbar>
-      <vk-navbar-nav>
-        <vk-navbar-nav-item
-          v-for="(item, index) in nav"
-          :key="index"
-          @click="handleClick(index)"
-          :title="item.label"
-        ></vk-navbar-nav-item>
-        <vk-navbar-item></vk-navbar-item>
-      </vk-navbar-nav>
-    </vk-navbar>
+    <pj-navbar :nav="nav"></pj-navbar>
   </div>
 </template>
 
@@ -43,6 +33,7 @@ export default defineComponent({
           page: "/admin/tools",
         },
       ],
+      router: useRouter(),
     };
   },
   methods: {
@@ -51,7 +42,7 @@ export default defineComponent({
       if (item.func !== undefined) {
         item.func();
       } else if ("page" in item) {
-        useRouter().push(item.page);
+        this.router.push(item.page);
       } else {
         console.error('I don\'t know what to do with item #' + itemId);
       }
@@ -62,7 +53,7 @@ export default defineComponent({
     editCurrent() {
       const request = buildRequest('/api/admin/entry/edit/current', {token: useAuthStore().getToken});
       send(request).then(response => {
-        useRouter().push("/edit?entry=" + response.data.entryId);
+        this.router.push("/edit?entry=" + response.data.entryId);
       });
     },
   },

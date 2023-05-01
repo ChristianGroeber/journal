@@ -1,13 +1,6 @@
 <template>
   <div class="main-content">
-    <div class="d-flex gap-1">
-      <vk-button class="btn btn-icon btn-primary" @click="goHome">
-        <fa icon="arrow-left"></fa>
-      </vk-button>
-      <vk-button class="btn btn-primary" @click="generateBackup">Generate Backup</vk-button>
-      <vk-button class="btn btn-primary" @click="restoreBackup">Restore Backup</vk-button>
-      <vk-button class="btn btn-primary" @click="rebuildCache">Rebuild Cache</vk-button>
-    </div>
+    <pj-navbar :nav="nav"></pj-navbar>
   </div>
 </template>
 
@@ -21,6 +14,24 @@ import {useRouter} from "vue-router";
 export default defineComponent({
   data() {
     return {
+      nav: [
+        {
+          label: 'Home',
+          page: '/',
+        },
+        {
+          label: 'Generate Backup',
+          func: this.generateBackup,
+        },
+        {
+          label: 'Restore Backup',
+          func: this.restoreBackup,
+        },
+        {
+          label: 'Rebuild Cache',
+          func: this.rebuildCache,
+        },
+      ],
       authStore: useAuthStore(),
       router: useRouter(),
     }

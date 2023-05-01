@@ -44,11 +44,12 @@ export default defineComponent({
         throw 'Editing Entry cannot be null';
       }
       const filesArray = Array.from(files);
-      for (let i = 0; i < filesArray.length; i++) {
+      filesArray.forEach(img => {
         const formData = new FormData();
-        formData.append(i.toString(), filesArray[i]);
+        formData.append(filesArray.indexOf(img).toString(), img);
         formData.append("entry", this.entry);
         formData.append("token", token.toString());
+        // TODO: fix media uploads ?
         const request = buildRequest('/api/entry/gallery/upload', formData, 'POST');
         send(request).then(response => {
           const img = response.data.files[0]['scaled']['default'];
@@ -56,7 +57,7 @@ export default defineComponent({
           editingEntry.raw_content +=
               "![uploaded media](" + encodeURI(img) + ")";
         });
-      }
+      })
       this.journalStore.updateEntry(editingEntry);
       this.journalStore.loadMediaForEntry({
         entry: editingEntry.id,

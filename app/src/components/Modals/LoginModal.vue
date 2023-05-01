@@ -1,23 +1,19 @@
 <template>
-  <vk-modal :show.sync="show">
-    <vk-modal-close @click="hidePopup"></vk-modal-close>
-    <vk-modal-title>Login</vk-modal-title>
-    <div>
-      <form>
-        <div>
-          <input class="uk-input" v-model="username" type="text" placeholder="Username">
-        </div>
-        <div>
-          <input class="uk-input" v-model="password" type="password" placeholder="Password">
-        </div>
-      </form>
-    </div>
-    <div slot="footer">
-      <div class="uk-text-right">
-        <vk-button class="btn btn-primary" @click="submitLoginForm">Login</vk-button>
-      </div>
-    </div>
-  </vk-modal>
+  <el-dialog :before-close="hidePopup" title="Login" v-model="isShowing">
+    <el-form :model="loginForm" @submit.prevent="login">
+      <el-form-item label="Username">
+        <el-input v-model="loginForm.username"/>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input type="password" v-model="loginForm.password"></el-input>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <pj-button-link :action="submitLoginForm" content="Login"></pj-button-link>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
@@ -29,8 +25,10 @@ export default defineComponent({
   name: "LoginModal",
   data() {
     return {
-      username: '',
-      password: '',
+      loginForm: {
+        username: '',
+        password: '',
+      },
       authStore: useAuthStore(),
       mainStore: useMainStore(),
     }
@@ -40,22 +38,20 @@ export default defineComponent({
       this.mainStore.setShowLoginPopup(false);
     },
     submitLoginForm() {
-      this.authStore.login({
-        username: this.username,
-        password: this.password,
-      }).then(() => {
-        this.hidePopup();
+      this.authStore.login(this.loginForm).then(() => {
+        this.mainStore.setShowLoginPopup(false);
       })
     },
   },
   computed: {
-    show: {
-      get() {
-        return this.mainStore.getShowLoginPopup;
-      },
-      set(newValue) {
-        this.mainStore.setShowLoginPopup(newValue);
-      },
+    isShowing() {
+      return this.mainStore.getShowLoginPopup;
+    },
+    open() {
+      this.mainStore.setShowLoginPopup(true);
+    },
+    close() {
+      this.mainStore.setShowLoginPopup(false);
     },
   },
 })

@@ -1,19 +1,17 @@
 <template>
   <div class="main-content">
     <div>
-      <vk-button class="btn btn-primary" @click="auth">Return</vk-button>
+      <pj-button-link href="/auth" content="Return"></pj-button-link>
     </div>
-    <form @submit.prevent="login">
-      <fieldset class="uk-fieldset">
-        <div class="form-row">
-          <input class="uk-input" ref="autofocus" @keyup.enter="login" v-model="username" placeholder="username" />
-        </div>
-        <div class="form-row">
-          <input class="uk-input" @keyup.enter="login" v-model="password" placeholder="password" type="password" />
-        </div>
-      </fieldset>
-      <vk-button class="btn btn-primary" @click="login">Login</vk-button>
-    </form>
+    <el-form :model="loginForm" @submit.prevent="login">
+      <el-form-item label="Username">
+        <el-input v-model="loginForm.username"/>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input type="password" v-model="loginForm.password"></el-input>
+      </el-form-item>
+      <pj-button-link :action="login" content="Login"></pj-button-link>
+    </el-form>
   </div>
 </template>
 
@@ -26,8 +24,10 @@ import {useRouter} from "vue-router";
 export default defineComponent({
   data: () => {
     return {
-      username: "",
-      password: "",
+      loginForm: {
+        username: "",
+        password: "",
+      },
       authStore: useAuthStore(),
       router: useRouter(),
     };
@@ -40,17 +40,10 @@ export default defineComponent({
   },
   methods: {
     login() {
-      const data = {
-        username: this.username,
-        password: this.password,
-      };
-      this.authStore.login(data).then(() => {
+      this.authStore.login(this.loginForm).then(() => {
         this.router.push('/');
       });
     },
-    auth() {
-      this.router.push("/auth");
-    }
   },
 })
 </script>

@@ -20,6 +20,10 @@ export const useAuthStore = defineStore('authStore', {
         getToken: (state) => state.token,
     },
     actions: {
+        setToken(token: string) {
+            this.token = token;
+            localStorage.setItem('token', token.toString());
+        },
         changePassword(data: object) {
             const request = buildRequest('/api/auth/change-password', data, 'POST');
             return send(request).then((response) => {
@@ -39,13 +43,13 @@ export const useAuthStore = defineStore('authStore', {
         generateNewToken(data: object) {
             const request = buildRequest('/api/auth/generate-new-token', data, 'POST');
             return send(request).then(response => {
-                this.token = response.data.token;
+                this.setToken(response.data.token);
             });
         },
         login(data: object) {
             const request = buildRequest('/api/login', data, 'POST');
             return send(request).then(response => {
-                this.token = response.data.token;
+                this.setToken(response.data.token);
             });
         },
         loadToken() {

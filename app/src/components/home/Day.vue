@@ -2,13 +2,15 @@
   <div class="article">
     <div class="article-head">
       <h3>{{ formattedDate }}</h3>
-        <vk-button class="btn btn-icon btn-rounded"><fa icon="ellipsis-vertical"/></vk-button>
-        <vk-dropdown>
-          <vk-nav-dropdown>
-            <vk-nav-item title="Edit" @click="editEntry"></vk-nav-item>
-            <vk-nav-item title="Delete" @click="deleteEntry"></vk-nav-item>
-          </vk-nav-dropdown>
-        </vk-dropdown>
+      <el-dropdown v-if="canEdit">
+        <el-button circle icon="Plus">
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-item @click="editEntry">Edit</el-dropdown-item>
+          <el-dropdown-item @click="deleteEntry">Delete</el-dropdown-item>
+        </template>
+      </el-dropdown>
+        <!--<vk-button class="btn btn-icon btn-rounded"><fa icon="ellipsis-vertical"/></vk-button>-->
       <div v-if="canEdit">
       </div>
     </div>

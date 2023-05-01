@@ -1,21 +1,19 @@
 <template>
-    <vk-modal :show.sync="show">
-      <vk-modal-close @click="hidePopup"></vk-modal-close>
-      <vk-modal-title>Add a Race Report</vk-modal-title>
-      <div>
-        <form>
-          <div v-for="(field, index) in raceReport" :key="index">
-            <label :for="index">{{ field.label }}</label>
-            <input class="uk-input" :id="index" :type="field.type" v-model="field.value" :name="index">
-          </div>
-        </form>
-      </div>
-      <div slot="footer">
-        <div class="uk-text-right">
-          <vk-button class="btn btn-primary" @click="addRaceReport">Submit</vk-button>
+  <el-dialog v-model="isShowing" title="Edit Race Report" :before-close="close">
+    <div>
+      <el-form>
+        <div v-for="(field, index) in raceReport" :key="index">
+          <el-form-item :label="field.label">
+            <el-input v-if="field.type === 'text'" v-model="field.value"></el-input>
+            <el-input-number v-if="field.type === 'number'" v-model="field.value"></el-input-number>
+          </el-form-item>
         </div>
-      </div>
-    </vk-modal>
+      </el-form>
+    </div>
+    <template #footer>
+      <pj-button-link :action="addRaceReport" content="Submit"></pj-button-link>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="ts">
@@ -62,17 +60,15 @@ export default defineComponent({
     }
   },
   computed: {
-    show: {
-      get() {
-        return this.mainStore.getShowRaceReportPopup;
-      },
-      set(newValue) {
-        this.mainStore.setShowRaceReportPopup(newValue);
-      },
+    isShowing() {
+      return this.mainStore.getShowRaceReportPopup;
     },
   },
   methods: {
-    hidePopup() {
+    open() {
+      this.mainStore.setShowRaceReportPopup(true);
+    },
+    close() {
       this.mainStore.setShowRaceReportPopup(false);
     },
     addRaceReport() {

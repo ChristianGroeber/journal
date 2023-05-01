@@ -1,12 +1,8 @@
 <template>
   <div class="main-content">
     <div class="d-flex jc_space-between">
-      <vk-button class="btn btn-icon btn-primary" @click="checkGoHome">
-        <fa icon="arrow-left"></fa>
-      </vk-button>
-      <vk-button class="btn btn-icon btn-primary" @click="addRaceReport">
-        <fa icon="file-waveform"/>
-      </vk-button>
+      <pj-button-link :action="checkGoHome" content="Home"></pj-button-link>
+      <pj-button-link :action="addRaceReport" content="Race Report"></pj-button-link>
     </div>
     <div class="container">
       <div class="textarea-wrapper">
@@ -14,9 +10,7 @@
                   :value="markdown"></textarea>
       </div>
       <div class="actions">
-        <vk-button class="btn btn-icon btn-primary" @click="save">
-          <fa icon="floppy-disk"></fa>
-        </vk-button>
+        <pj-button-link :action="save" content="Save"></pj-button-link>
       </div>
     </div>
   </div>
@@ -36,6 +30,7 @@ export default defineComponent({
   data: function () {
     return {
       unsavedChanges: false,
+      router: useRouter(),
     }
   },
   computed: {
@@ -85,7 +80,7 @@ export default defineComponent({
     },
     doGoHome() {
       useJournalStore().loadEntries();
-      useRouter().push('/');
+      this.router.push('/');
     }
   },
 })

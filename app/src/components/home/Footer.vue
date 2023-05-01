@@ -5,7 +5,7 @@
     </span>
     |
     <span>
-      <a @click="showLoginForm">Login</a>
+      <pj-button-link content="Login" :action="showLoginForm"></pj-button-link>
     </span>
     |
     <span>
@@ -20,14 +20,19 @@ import {useMainStore} from "@/src/store/main";
 
 export default defineComponent({
   name: "Footer",
+  data() {
+    return {
+      mainStore: useMainStore(),
+    }
+  },
   methods: {
     showLoginForm() {
-      useMainStore().setShowLoginPopup(true);
+      this.mainStore.setShowLoginPopup(true);
     },
   },
   computed: {
     version() {
-      useMainStore().getMeta.version;
+      this.mainStore.getMeta.version;
     },
   },
 })
