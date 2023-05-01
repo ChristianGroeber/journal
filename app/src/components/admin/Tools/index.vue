@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import xhr from '../../../helpers/xhr';
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {useAuthStore} from "@/src/store/auth";
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
@@ -27,8 +27,8 @@ export default defineComponent({
   },
   methods: {
     generateBackup: function () {
-      const request = xhr.buildRequest('/api/admin/generate-backup', {token: this.authStore.getToken})
-      xhr.send(request).then(response => {
+      const request = buildRequest('/api/admin/generate-backup', {token: this.authStore.getToken})
+      send(request).then(response => {
         location.href = response.data.file;
       });
     },

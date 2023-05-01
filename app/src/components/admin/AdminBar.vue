@@ -15,10 +15,11 @@
 </template>
 
 <script lang="ts">
-import xhr from "../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useRouter} from "vue-router";
 import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
 
 export default defineComponent({
   name: "AdminBar",
@@ -59,8 +60,8 @@ export default defineComponent({
       useMainStore().setShowEditSpecificPopup(true);
     },
     editCurrent() {
-      const request = xhr.buildRequest('/api/admin/entry/edit/current', {token: this.$store.getters.token});
-      xhr.send(request).then(response => {
+      const request = buildRequest('/api/admin/entry/edit/current', {token: useAuthStore().getToken});
+      send(request).then(response => {
         useRouter().push("/edit?entry=" + response.data.entryId);
       });
     },

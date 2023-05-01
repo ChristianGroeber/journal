@@ -21,36 +21,42 @@
 </template>
 
 <script>
-export default {
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
+
+export default defineComponent({
   name: "LoginModal",
   data() {
     return {
       username: '',
       password: '',
+      authStore: useAuthStore(),
+      mainStore: useMainStore(),
     }
   },
   methods: {
     hidePopup() {
-      this.$store.commit("SHOW_LOGIN_POPUP", false);
+      this.mainStore.setShowLoginPopup(false);
     },
     submitLoginForm() {
-      this.$store.dispatch('login', {
+      this.authStore.login({
         username: this.username,
         password: this.password,
       }).then(() => {
         this.hidePopup();
-      });
-    }
+      })
+    },
   },
   computed: {
     show: {
       get() {
-        return this.$store.getters.showLoginPopup;
+        return this.mainStore.getShowLoginPopup;
       },
       set(newValue) {
-        this.$store.commit("SHOW_LOGIN_POPUP", newValue);
+        this.mainStore.setShowLoginPopup(newValue);
       },
     },
   },
-}
+})
 </script>

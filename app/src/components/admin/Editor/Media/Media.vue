@@ -21,15 +21,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {getFileExtension} from "../../../../helpers/files";
-import xhr from "../../../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
+import {defineComponent} from "vue";
+import {useJournalStore} from "@/src/store/journal";
+import {useAuthStore} from "@/src/store/auth";
+import {useMainStore} from "@/src/store/main";
 
-export default {
+export default defineComponent({
   props: ["media", "myId", "slug", "srcMedia"],
   data: function () {
     return {
       isShowing: true,
+      authStore: useAuthStore(),
+      journalStore: useJournalStore(),
+      mainStore: useMainStore(),
     };
   },
   computed: {
@@ -50,10 +57,10 @@ export default {
   },
   methods: {
     previewMedia() {
-      this.$store.dispatch('showMediaPreview', {
+      this.mainStore.setShowMediaPreview({
         showing: true,
         src: this.srcMedia,
-        mediaType: this.mediaType,
+        mediaType: <string>this.mediaType,
       });
     },
     deleteMedia() {
@@ -62,28 +69,28 @@ export default {
       }
       const data = {
         media: this.srcMedia,
-        token: this.$store.getters.token,
+        token: this.authStore.getToken,
       };
 
-      const request = xhr.buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
-      xhr.send(request).then(response => {
+      const request = buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
+      send(request).then(response => {
         this.isShowing = false;
       });
     },
     copyUrl() {
-      const mediaUrl = document.querySelector(
+      const mediaUrl = <Node>document.querySelector(
           ".media#" + this.slug + "-" + this.myId + " .url"
       );
       const range = document.createRange();
       range.selectNode(mediaUrl);
-      window.getSelection().addRange(range);
+      window.getSelection()?.addRange(range);
 
       document.execCommand("copy");
 
-      window.getSelection().removeAllRanges();
+      window.getSelection()?.removeAllRanges();
     },
   },
-};
+})
 </script>
 
 <style lang="scss" scoped>

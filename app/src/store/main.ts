@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 import {defineStore} from "pinia";
-import xhr from '../helpers/xhr';
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {useAuthStore} from "@/src/store/auth";
 
 interface MediaPreview {
@@ -76,8 +76,8 @@ export const useMainStore = defineStore('main', {
             this.pageTitle = title;
         },
         buildCache(token: string) {
-            const request = xhr.buildRequest('/api/admin/build-cache', {token: token});
-            return xhr.send(request);
+            const request = buildRequest('/api/admin/build-cache', {token: token});
+            return send(request);
         },
         setShowLoginPopup(showLoginPopup: boolean) {
             this.showLoginPopup = showLoginPopup;
@@ -95,8 +95,8 @@ export const useMainStore = defineStore('main', {
             this.mediaPreview.showing = false;
         },
         init(token: string | null) {
-            const request = xhr.buildRequest('/api/init', {token: token}, 'POST');
-            return xhr.send(request).then((response: AxiosResponse) => {
+            const request = buildRequest('/api/init', {token: token}, 'POST');
+            return send(request).then((response: AxiosResponse) => {
                 if (response.data.is_token_valid !== 'token_valid') {
                     useAuthStore().logout();
                 }

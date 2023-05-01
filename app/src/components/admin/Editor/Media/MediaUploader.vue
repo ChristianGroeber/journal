@@ -10,11 +10,12 @@
 </template>
 
 <script lang="ts">
-import xhr from "../../../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
+import {FileUploadEvent} from "@/src/Contracts/FormTypes";
 
 export default defineComponent({
   props: ["entry"],
@@ -32,24 +33,35 @@ export default defineComponent({
     }
   },
   methods: {
-    uploadMedia(e) {
+    uploadMedia(e: FileUploadEvent) {
       const files = e.target.files;
       const editingEntry = this.journalStore.getEditingEntry;
-      Array.from(files).forEach((img) => {
+      const token = this.authStore.getToken;
+      if (token === null) {
+        throw 'Token cannot be null';
+      }
+      if (editingEntry === null) {
+        throw 'Editing Entry cannot be null';
+      }
+      const filesArray = Array.from(files);
+      for (let i = 0; i < filesArray.length; i++) {
         const formData = new FormData();
-        formData.append(Array.from(files).indexOf(img) img);
+        formData.append(i.toString(), filesArray[i]);
         formData.append("entry", this.entry);
-        formData.append("token", this.$store.getters.token);
-        const request = xhr.buildRequest('/api/entry/gallery/upload', formData, 'POST');
-        xhr.send(request).then(response => {
+        formData.append("token", token.toString());
+        const request = buildRequest('/api/entry/gallery/upload', formData, 'POST');
+        send(request).then(response => {
           const img = response.data.files[0]['scaled']['default'];
           console.log(img);
           editingEntry.raw_content +=
               "![uploaded media](" + encodeURI(img) + ")";
         });
+      }
+      this.journalStore.updateEntry(editingEntry);
+      this.journalStore.loadMediaForEntry({
+        entry: editingEntry.id,
+        token: token,
       });
-      this.$store.dispatch("updateEntry", { entry: editingEntry });
-      this.$store.dispatch("loadMediaForEntry", { entry: editingEntry.id, token: this.$store.getters.token});
     },
   },
 })

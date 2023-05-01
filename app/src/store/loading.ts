@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia'
-import xhr from '../helpers/xhr';
 
 interface State {
     loadingCount: number,

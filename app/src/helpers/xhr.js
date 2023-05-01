@@ -1,13 +1,14 @@
 import axios from "axios";
 import {queryFormatter} from "./queryFormatter";
-import store from "../store";
+import {useLoadingStore} from "../store/loading";
 import LoadingHelper from "./LoadingHelper";
 
 const updateSpeed = 10;
 
 let loadingBarInterval = null;
+// const store = useLoadingStore();
 
-function buildRequest(url, data = {}, method = 'GET') {
+export function buildRequest(url, data = {}, method = 'GET') {
     method = method.toUpperCase();
     const request = {
         url: url,
@@ -30,38 +31,38 @@ function buildRequest(url, data = {}, method = 'GET') {
 }
 
 function clearProgressBar() {
-    const estimated = store.getters.estimatedProgress;
+    const estimated = store.getEstimatedProgress;
     if (estimated >= 100) {
-        store.dispatch('resetLoadingBar');
+        store.resetLoadingBar();
         window.clearInterval(loadingBarInterval);
         loadingBarInterval = null;
     } else {
-        store.dispatch('updateEstimatedProgress', estimated + 5);
+        store.updateEstimatedProgress(estimated + 5)
     }
 }
 
 function updateLoadingProgress() {
-    store.dispatch('increaseTimePassed', updateSpeed);
-    const newProgress = 100 / store.getters.loadingTime * store.getters.timePassed;
-    store.dispatch('updateEstimatedProgress', newProgress);
+    store.increaseTimePassed(updateSpeed);
+    const newProgress = 100 / store.getLoadingTime * store.getTimePassed;
+    store.updateEstimatedProgress(newProgress);
 
-    if (store.getters.loadingCount <= 0) {
+    if (store.getLoadingCount <= 0) {
         window.clearInterval(loadingBarInterval);
         loadingBarInterval = window.setInterval(clearProgressBar, updateSpeed);
     }
 }
 
 // TODO: Get the Loading Bar to work with parallel requests
-function send(request) {
+export function send(request) {
     const startTime = new Date();
-    store.dispatch('increaseLoadingCount');
-    store.dispatch('increaseLoadingTime', LoadingHelper.getAverageLoadingTime(request.url));
+    // store.increaseLoadingCount();
+    // store.increaseLoadingTime(LoadingHelper.getAverageLoadingTime(request.url));
     if (loadingBarInterval === null) {
-        loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
+      //  loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
     }
     return axios(request)
         .then((response) => {
-            store.dispatch('decreaseLoadingCount');
+            //store.decreaseLoadingCount();
             const endTime = new Date();
             const diff = endTime - startTime;
             LoadingHelper.updateAverageLoadingTime(request.url, diff);
@@ -73,15 +74,10 @@ function send(request) {
                  message = reason.response.data.message;
             }
             alert(message);
-            store.dispatch('decreaseLoadingCount');
-            if (store.getters.loadingCount === 0) {
-                window.clearInterval(loadingBarInterval);
-            }
+            // store.decreaseLoadingCount();
+            // if (store.getLoadingTime === 0) {
+            //     window.clearInterval(loadingBarInterval);
+            // }
             return reason;
         });
-}
-
-module.exports = {
-    buildRequest,
-    send,
 }

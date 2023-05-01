@@ -77,7 +77,7 @@ const routes = [
         component: RestoreBackup,
     },
     {
-        path: "*",
+        path: "/:pathMatch(.*)*",
         name: "notFound",
         component: NotFound,
     }

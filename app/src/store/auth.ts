@@ -1,5 +1,5 @@
 import {defineStore} from "pinia"
-import xhr from "../helpers/xhr"
+import {buildRequest, send} from "../helpers/xhr";
 
 interface State {
     token: string | null,
@@ -21,37 +21,30 @@ export const useAuthStore = defineStore('authStore', {
     },
     actions: {
         changePassword(data: object) {
-            const request = xhr.buildRequest('/api/auth/change-password', data, 'POST');
-            return xhr.send(request).then((response) => {
+            const request = buildRequest('/api/auth/change-password', data, 'POST');
+            return send(request).then((response) => {
                 this.token = response.data.token;
             });
         },
         requestNewPassword(data: object) {
-            const request = xhr.buildRequest('/api/auth/request-new-password', data, 'POST');
-            return xhr.send(request);
+            const request = buildRequest('/api/auth/request-new-password', data, 'POST');
+            return send(request);
         },
         restorePassword(data: object) {
-            const request = xhr.buildRequest('/api/auth/restore-password', data, 'POST');
-            return xhr.send(request).then((response) => {
+            const request = buildRequest('/api/auth/restore-password', data, 'POST');
+            return send(request).then((response) => {
                 this.token = response.data.token;
             });
         },
         generateNewToken(data: object) {
-            const request = xhr.buildRequest('/api/auth/generate-new-token', data, 'POST');
-            return xhr.send(request).then(response => {
+            const request = buildRequest('/api/auth/generate-new-token', data, 'POST');
+            return send(request).then(response => {
                 this.token = response.data.token;
             });
         },
-        register(data: object) {
-            // TODO deprecated?
-            const request = xhr.buildRequest('/api/auth/register', data, 'POST');
-            return xhr.send(request).then(response => {
-                this.token = response.data.token;
-            })
-        },
         login(data: object) {
-            const request = xhr.buildRequest('/api/login', data, 'POST');
-            return xhr.send(request).then(response => {
+            const request = buildRequest('/api/login', data, 'POST');
+            return send(request).then(response => {
                 this.token = response.data.token;
             });
         },

@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import xhr from '../helpers/xhr';
+import {buildRequest, send} from "../helpers/xhr";
 import {JournalEntry, WikiEntryList, Gallery} from "@/src/Contracts/JournalTypes";
 
 
@@ -27,38 +27,38 @@ export const useJournalStore = defineStore('journalStore', {
                 content: this.editingEntry?.raw_content,
                 entry: this.editingEntry?.id,
             }
-            const request = xhr.buildRequest('/api/admin/entry/edit', data, 'POST');
+            const request = buildRequest('/api/admin/entry/edit', data, 'POST');
 
-            return xhr.send(request);
+            return send(request);
         },
         updateEntry(entry: JournalEntry) {
             this.editingEntry = entry;
         },
         loadEntries() {
-            const request = xhr.buildRequest('/api/entries');
-            return xhr.send(request).then((response) => {
+            const request = buildRequest('/api/entries');
+            return send(request).then((response) => {
                 this.entries = response.data;
             });
         },
         getEntry(data: object) {
-            const request = xhr.buildRequest('/api/admin/entry/edit', data);
-            return xhr.send(request).then((response) => {
+            const request = buildRequest('/api/admin/entry/edit', data);
+            return send(request).then((response) => {
                 this.editingEntry = response.data;
             });
         },
         deleteEntry(data: object) {
-            const request = xhr.buildRequest('/api/admin/entry/delete', data, 'DELETE');
-            return xhr.send(request);
+            const request = buildRequest('/api/admin/entry/delete', data, 'DELETE');
+            return send(request);
         },
         loadMediaForEntry(data: object) {
-            const request = xhr.buildRequest('/api/admin/entry/media/load', data);
-            return xhr.send(request).then((response) => {
+            const request = buildRequest('/api/admin/entry/media/load', data);
+            return send(request).then((response) => {
                 this.gallery = response.data.media;
             });
         },
         uploadRaceReport(data: object) {
-            const request = xhr.buildRequest('/api/admin/entry/race-report', data, 'POST');
-            return xhr.send(request);
+            const request = buildRequest('/api/admin/entry/race-report', data, 'POST');
+            return send(request);
         },
     }
 })

@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import xhr from "../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {useRouter} from "vue-router";
 import {defineComponent} from "vue";
 
@@ -21,8 +21,8 @@ export default defineComponent({
     }
   },
   created: function () {
-    const request = xhr.buildRequest('/api/auth/create-admin');
-    xhr.send(request).catch(reason => {
+    const request = buildRequest('/api/auth/create-admin');
+    send(request).catch(reason => {
       if (reason.response.status === 400) {
         alert(reason.response.data.message);
       }
@@ -34,8 +34,8 @@ export default defineComponent({
         username: this.username,
         password: this.password,
       }
-      const request = xhr.buildRequest('/api/auth/create-admin', data, 'POST');
-      xhr.send(request)
+      const request = buildRequest('/api/auth/create-admin', data, 'POST');
+      send(request)
           .then(response => {
             if (response.data.adminCreated) {
               useRouter().push('/auth/login');

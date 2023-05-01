@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import xhr from "../../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
 import {useRouter} from "vue-router";
@@ -23,8 +23,8 @@ export default defineComponent({
       formData.append("backup", file);
       formData.append("token", useAuthStore().getToken);
 
-      const request = xhr.buildRequest('/api/admin/restore-backup', formData, 'POST');
-      xhr.send(request).then(response => {
+      const request = buildRequest('/api/admin/restore-backup', formData, 'POST');
+      send(request).then(response => {
         console.log(response)
       });
     },

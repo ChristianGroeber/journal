@@ -20,29 +20,37 @@
   </vk-modal>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+
+export default defineComponent({
   name: "MediaPreview",
+  data() {
+    return {
+      mainStore: useMainStore(),
+    }
+  },
   computed: {
     mediaSrc() {
-      return this.$store.getters.mediaPreview.src;
+      return this.mainStore.getMediaPreview.src;
     },
     mediaType() {
-      return this.$store.getters.mediaPreview.mediaType;
+      return this.mainStore.getMediaPreview.mediaType;
     },
     show: {
       get() {
-        return this.$store.getters.mediaPreview.showing;
+        return this.mainStore.getMediaPreview.showing;
       },
       set() {
-        this.$store.dispatch("hideMediaPreview");
+        this.mainStore.hideMediaPreview();
       },
     },
   },
   methods: {
     hidePopup() {
-      this.$store.dispatch("hideMediaPreview");
+      this.mainStore.hideMediaPreview();
     },
   },
-}
+})
 </script>

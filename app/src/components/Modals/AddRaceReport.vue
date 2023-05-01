@@ -18,12 +18,20 @@
     </vk-modal>
 </template>
 
-<script>
-export default ({
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
+import {useJournalStore} from "@/src/store/journal";
+
+export default defineComponent({
   name: "AddRaceReportPopup",
   props: ["entry"],
   data() {
     return {
+      authStore: useAuthStore(),
+      mainStore: useMainStore(),
+      journalStore: useJournalStore(),
       raceReport: {
         distance: {
           label: "Distance",
@@ -56,29 +64,37 @@ export default ({
   computed: {
     show: {
       get() {
-        return this.$store.getters.showRaceReportPopup;
+        return this.mainStore.getShowRaceReportPopup;
       },
       set(newValue) {
-        this.$store.commit("EDIT_RACE_REPORT_POPUP", newValue);
+        this.mainStore.setShowRaceReportPopup(newValue);
       },
     },
   },
   methods: {
     hidePopup() {
-      this.$store.commit("EDIT_RACE_REPORT_POPUP", false);
+      this.mainStore.setShowRaceReportPopup(false);
     },
     addRaceReport() {
+      const editingEntry = this.journalStore.editingEntry;
+      const token = this.authStore.getToken;
+      if (editingEntry === null) {
+        throw 'Editing Entry cannot be null';
+      }
+      if (token === null) {
+        throw 'Token cannot be null';
+      }
       const data = {
-        token: this.$store.getters.token,
-        entry: this.$store.getters.editingEntry.id,
+        token: token,
+        entry: editingEntry.id,
         raceReport: {},
       };
       for (const key in this.raceReport) {
         data.raceReport[key] = this.raceReport[key].value;
       }
-      this.$store.dispatch('uploadRaceReport', data).then(response => {
-        this.$store.dispatch('buildCache', this.$store.getters.token);
-        this.$store.commit('EDIT_RACE_REPORT_POPUP', false);
+      this.journalStore.uploadRaceReport(data).then(() => {
+        this.mainStore.buildCache(token);
+        this.mainStore.setShowRaceReportPopup(false);
         this.clearForm();
       });
     },
@@ -86,8 +102,8 @@ export default ({
       this.raceReport.distance.value = "";
       this.raceReport.time.value = "";
       this.raceReport.pace.value = "";
-      this.raceReport.bpm.value = "";
-      this.raceReport.calories.value = "";
+      this.raceReport.bpm.value = 0;
+      this.raceReport.calories.value = 0;
     }
   },
 });
