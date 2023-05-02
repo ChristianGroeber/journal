@@ -1,16 +1,8 @@
 <template>
     <footer>
-    <span>
-      PixlJournal Version {{ version }}
-    </span>
-        |
-        <span>
-      <pj-button-link content="Login" :action="showLoginForm"></pj-button-link>
-    </span>
-        |
-        <span>
-      <a href="https://github.com/ChristianGroeber/journal">GitHub</a>
-    </span>
+        <span>PixlJournal Version {{ version }}</span>|
+        <span><el-link @click="showLoginForm">Login</el-link></span>|
+        <span><a href="https://github.com/ChristianGroeber/journal">GitHub</a></span>
     </footer>
 </template>
 
