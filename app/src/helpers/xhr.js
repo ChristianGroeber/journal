@@ -7,24 +7,9 @@ const updateSpeed = 10;
 
 let loadingBarInterval = null;
 let store = null;
-
 window.setTimeout(() => {
     store = useLoadingStore();
-}, 50);
-
-function callStoreFunction(func, argument) {
-    if (store !== null) {
-        store[func](argument);
-    }
-}
-
-function getLoadingTime() {
-    if (store === null) {
-        return 0;
-    } else {
-        return store.getLoadingTime;
-    }
-}
+}, 100);
 
 export function buildRequest(url, data = {}, method = 'GET') {
     method = method.toUpperCase();
@@ -70,17 +55,20 @@ function updateLoadingProgress() {
     }
 }
 
-// TODO: Get the Loading Bar to work with parallel requests
 export function send(request) {
     const startTime = new Date();
-    callStoreFunction('increaseLoadingCount');
-    callStoreFunction('increaseLoadingTime', LoadingHelper.getAverageLoadingTime(request.url));
-    if (loadingBarInterval === null) {
-        loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
+    if (store !== null) {
+        store.increaseLoadingCount();
+        store.increaseLoadingTime(LoadingHelper.getAverageLoadingTime(request.url));
+        if (loadingBarInterval === null) {
+            loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
+        }
     }
     return axios(request)
         .then((response) => {
-            callStoreFunction('decreaseLoadingCount');
+            if (store !== null) {
+                store.decreaseLoadingCount();
+            }
             const endTime = new Date();
             const diff = endTime - startTime;
             LoadingHelper.updateAverageLoadingTime(request.url, diff);
@@ -89,12 +77,14 @@ export function send(request) {
         .catch((reason) => {
             let message = 'Error Sending Request to ' + request.url;
             if ('message' in reason.response.data) {
-                 message = reason.response.data.message;
+                message = reason.response.data.message;
             }
             alert(message);
-            callStoreFunction('decreaseLoadingCount');
-            if (getLoadingTime() === 0) {
-                window.clearInterval(loadingBarInterval);
+            if (store !== null) {
+                store.decreaseLoadingCount();
+                if (store.getLoadingTime === 0) {
+                    window.clearInterval(loadingBarInterval);
+                }
             }
             return reason;
         });
