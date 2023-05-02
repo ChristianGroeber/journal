@@ -51,7 +51,7 @@ export default defineComponent({
   },
   methods: {
     previewMedia() {
-      this.mainStore.setShowMediaPreview({
+      this.mainStore.setMediaPreview({
         showing: true,
         src: this.srcMedia,
         mediaType: <string>this.mediaType,

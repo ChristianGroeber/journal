@@ -88,7 +88,10 @@ export const useMainStore = defineStore('main', {
         setShowRaceReportPopup(showRaceReportPopup: boolean) {
             this.showRaceReportPopup = showRaceReportPopup;
         },
-        setShowMediaPreview(mediaPreview: MediaPreview) {
+        setShowMediaPreview(showMediaPreview: boolean) {
+            this.mediaPreview.showing = showMediaPreview;
+        },
+        setMediaPreview(mediaPreview: MediaPreview) {
             this.mediaPreview = mediaPreview
         },
         hideMediaPreview() {
