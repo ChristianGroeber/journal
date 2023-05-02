@@ -1,17 +1,17 @@
 <template>
-  <footer>
+    <footer>
     <span>
       PixlJournal Version {{ version }}
     </span>
-    |
-    <span>
+        |
+        <span>
       <pj-button-link content="Login" :action="showLoginForm"></pj-button-link>
     </span>
-    |
-    <span>
+        |
+        <span>
       <a href="https://github.com/ChristianGroeber/journal">GitHub</a>
     </span>
-  </footer>
+    </footer>
 </template>
 
 <script lang="ts">
@@ -19,30 +19,30 @@ import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 
 export default defineComponent({
-  name: "Footer",
-  data() {
-    return {
-      mainStore: useMainStore(),
-    }
-  },
-  methods: {
-    showLoginForm() {
-      this.mainStore.setShowLoginPopup(true);
+    name: "Footer",
+    data() {
+        return {
+            mainStore: useMainStore(),
+        }
     },
-  },
-  computed: {
-    version() {
-      this.mainStore.getMeta.version;
+    methods: {
+        showLoginForm() {
+            this.mainStore.setShowLoginPopup(true);
+        },
     },
-  },
+    computed: {
+        version() {
+            return this.mainStore.getMeta.version;
+        },
+    },
 })
 </script>
 
 
 <style scoped>
 footer {
-  text-align: center;
-  font-size: 0.8rem;
-  margin: 1rem auto;
+    text-align: center;
+    font-size: 0.8rem;
+    margin: 1rem auto;
 }
 </style>
