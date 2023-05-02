@@ -6,7 +6,6 @@ import LoginRedirector from "./components/auth/LoginRedirector.vue";
 import RestorePassword from "./components/auth/RestorePassword.vue";
 import RequestNewPassword from "./components/auth/RequestNewPassword.vue";
 import ChangePassword from "./components/auth/ChangePassword.vue";
-import Register from "./components/auth/Register.vue";
 import GenerateNewToken from "./components/auth/GenerateNewToken.vue";
 import CreateAdmin from "./components/auth/CreateAdmin.vue";
 import Auth from "./components/auth/Auth.vue";
@@ -24,7 +23,7 @@ const routes = [
     {
         path: '/edit',
         name: "Edit",
-        props: route => ({ entry: route.query.entry }),
+        props: (route: { query: { entry: any; }; }) => ({ entry: route.query.entry }),
         component: Editor,
     },
     {
@@ -41,11 +40,6 @@ const routes = [
         path: '/auth/login-if-not-logged-in',
         name: 'Login if not logged in',
         component: LoginRedirector,
-    },
-    {
-        path: '/auth/register',
-        name: "Register",
-        component: Register,
     },
     {
         path: '/auth/restore-password',
@@ -83,7 +77,7 @@ const routes = [
         component: RestoreBackup,
     },
     {
-        path: "*",
+        path: "/:pathMatch(.*)*",
         name: "notFound",
         component: NotFound,
     }

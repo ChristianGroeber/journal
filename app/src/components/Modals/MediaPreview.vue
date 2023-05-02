@@ -1,7 +1,5 @@
 <template>
-  <vk-modal :show.sync="show">
-    <vk-modal-close @click="hidePopup"></vk-modal-close>
-    <vk-modal-title>Preview</vk-modal-title>
+  <el-dialog :before-close="close" title="Preview" v-model="isShowing">
     <div>
       <template v-if="mediaType === 'video'">
         <video controls>
@@ -12,37 +10,35 @@
         <img :src="mediaSrc">
       </template>
     </div>
-    <div slot="footer">
-      <div class="uk-text-right">
-        <vk-button class="btn btn-primary" @click="hidePopup">Close</vk-button>
-      </div>
-    </div>
-  </vk-modal>
+  </el-dialog>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+
+export default defineComponent({
   name: "MediaPreview",
+  data() {
+    return {
+      mainStore: useMainStore(),
+    }
+  },
   computed: {
     mediaSrc() {
-      return this.$store.getters.mediaPreview.src;
+      return this.mainStore.getMediaPreview.src;
     },
     mediaType() {
-      return this.$store.getters.mediaPreview.mediaType;
+      return this.mainStore.getMediaPreview.mediaType;
     },
-    show: {
-      get() {
-        return this.$store.getters.mediaPreview.showing;
-      },
-      set() {
-        this.$store.dispatch("hideMediaPreview");
-      },
+    isShowing() {
+      return this.mainStore.getMediaPreview.showing;
     },
   },
   methods: {
-    hidePopup() {
-      this.$store.dispatch("hideMediaPreview");
+    close() {
+      this.mainStore.hideMediaPreview();
     },
   },
-}
+})
 </script>

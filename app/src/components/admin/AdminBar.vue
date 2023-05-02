@@ -1,23 +1,17 @@
 <template>
   <div class="admin-bar">
-    <vk-navbar>
-      <vk-navbar-nav>
-        <vk-navbar-nav-item
-          v-for="(item, index) in nav"
-          :key="index"
-          @click="handleClick(index)"
-          :title="item.label"
-        ></vk-navbar-nav-item>
-        <vk-navbar-item></vk-navbar-item>
-      </vk-navbar-nav>
-    </vk-navbar>
+    <pj-navbar :nav="nav"></pj-navbar>
   </div>
 </template>
 
-<script>
-import xhr from "../../helpers/xhr";
+<script lang="ts">
+import {buildRequest, send} from "@/src/helpers/xhr";
+import {defineComponent} from "vue";
+import {useRouter} from "vue-router";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
 
-export default {
+export default defineComponent({
   name: "AdminBar",
   data: function () {
     return {
@@ -39,28 +33,29 @@ export default {
           page: "/admin/tools",
         },
       ],
+      router: useRouter(),
     };
   },
   methods: {
-    handleClick(itemId) {
+    handleClick(itemId: number) {
       const item = this.nav[itemId];
-      if ("func" in item) {
+      if (item.func !== undefined) {
         item.func();
       } else if ("page" in item) {
-        this.$router.push(item.page);
+        this.router.push(item.page);
       } else {
         console.error('I don\'t know what to do with item #' + itemId);
       }
     },
     toggleEditSpecificPopup() {
-      this.$store.commit('EDIT_SPECIFIC_POPUP', true);
+      useMainStore().setShowEditSpecificPopup(true);
     },
     editCurrent() {
-      const request = xhr.buildRequest('/api/admin/entry/edit/current', {token: this.$store.getters.token});
-      xhr.send(request).then(response => {
-        this.$router.push("/edit?entry=" + response.data.entryId);
+      const request = buildRequest('/api/admin/entry/edit/current', {token: useAuthStore().getToken});
+      send(request).then(response => {
+        this.router.push("/edit?entry=" + response.data.entryId);
       });
     },
   },
-};
+})
 </script>

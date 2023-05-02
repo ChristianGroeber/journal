@@ -31,3 +31,4 @@ yarn-error.log
 users.json
 cache/*
 config/journal.local.php
+dist/*

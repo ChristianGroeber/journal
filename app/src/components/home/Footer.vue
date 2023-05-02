@@ -5,7 +5,7 @@
     </span>
     |
     <span>
-      <a @click="showLoginForm">Login</a>
+      <pj-button-link content="Login" :action="showLoginForm"></pj-button-link>
     </span>
     |
     <span>
@@ -14,20 +14,28 @@
   </footer>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+
+export default defineComponent({
   name: "Footer",
+  data() {
+    return {
+      mainStore: useMainStore(),
+    }
+  },
   methods: {
     showLoginForm() {
-      this.$store.commit('SHOW_LOGIN_POPUP', true);
+      this.mainStore.setShowLoginPopup(true);
     },
   },
   computed: {
     version() {
-      return this.$store.getters.meta.version;
+      this.mainStore.getMeta.version;
     },
   },
-}
+})
 </script>
 
 
