@@ -6,7 +6,25 @@ import LoadingHelper from "./LoadingHelper";
 const updateSpeed = 10;
 
 let loadingBarInterval = null;
-// const store = useLoadingStore();
+let store = null;
+
+window.setTimeout(() => {
+    store = useLoadingStore();
+}, 50);
+
+function callStoreFunction(func, argument) {
+    if (store !== null) {
+        store[func](argument);
+    }
+}
+
+function getLoadingTime() {
+    if (store === null) {
+        return 0;
+    } else {
+        return store.getLoadingTime;
+    }
+}
 
 export function buildRequest(url, data = {}, method = 'GET') {
     method = method.toUpperCase();
@@ -55,14 +73,14 @@ function updateLoadingProgress() {
 // TODO: Get the Loading Bar to work with parallel requests
 export function send(request) {
     const startTime = new Date();
-    // store.increaseLoadingCount();
-    // store.increaseLoadingTime(LoadingHelper.getAverageLoadingTime(request.url));
+    callStoreFunction('increaseLoadingCount');
+    callStoreFunction('increaseLoadingTime', LoadingHelper.getAverageLoadingTime(request.url));
     if (loadingBarInterval === null) {
-      //  loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
+        loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
     }
     return axios(request)
         .then((response) => {
-            //store.decreaseLoadingCount();
+            callStoreFunction('decreaseLoadingCount');
             const endTime = new Date();
             const diff = endTime - startTime;
             LoadingHelper.updateAverageLoadingTime(request.url, diff);
@@ -74,10 +92,10 @@ export function send(request) {
                  message = reason.response.data.message;
             }
             alert(message);
-            // store.decreaseLoadingCount();
-            // if (store.getLoadingTime === 0) {
-            //     window.clearInterval(loadingBarInterval);
-            // }
+            callStoreFunction('decreaseLoadingCount');
+            if (getLoadingTime() === 0) {
+                window.clearInterval(loadingBarInterval);
+            }
             return reason;
         });
 }

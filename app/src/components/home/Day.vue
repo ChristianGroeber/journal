@@ -10,9 +10,6 @@
           <el-dropdown-item @click="deleteEntry">Delete</el-dropdown-item>
         </template>
       </el-dropdown>
-        <!--<vk-button class="btn btn-icon btn-rounded"><fa icon="ellipsis-vertical"/></vk-button>-->
-      <div v-if="canEdit">
-      </div>
     </div>
     <RaceReport v-if="hasRaceReport" :entry="day"></RaceReport>
     <div class="article-body">
@@ -52,10 +49,10 @@ export default defineComponent({
       return this.authStore.getToken !== null;
     },
     query() {
-      const q = { entry: this.day.id };
+      const q = {entry: this.day.id};
       return Object.entries(q)
-        .map(([key, val]) => `${key}=${val}`)
-        .join("&");
+          .map(([key, val]) => `${key}=${val}`)
+          .join("&");
     },
     hasRaceReport() {
       return 'raceReport' in this.day.meta;
@@ -80,3 +77,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+.article-head {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+</style>

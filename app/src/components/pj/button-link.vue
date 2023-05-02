@@ -1,5 +1,12 @@
 <template>
-  <el-button @click="clicked">{{ content }}</el-button>
+  <el-button @click="clicked">
+    <template v-if="icon !== undefined">
+      <pj-icon :icon="icon"></pj-icon>
+    </template>
+    <template v-if="content !== undefined">
+      {{ content }}
+    </template>
+  </el-button>
 </template>
 
 <script lang="ts">
@@ -8,7 +15,7 @@ import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'PJButtonLink',
-  props: ['href', 'action', 'content'],
+  props: ['href', 'action', 'content', 'icon'],
   data() {
     return {
       router: useRouter(),

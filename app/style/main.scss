@@ -1,7 +1,3 @@
-@import './font-awesome.css';
-
-@import '../../node_modules/element-plus/dist/index.css';
-
 $primary: #f37033;
 $danger: #b20101;
 $max-content-width: 650px;
@@ -28,44 +24,6 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.btn {
-    background-color: white;
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-    border-width: 2px;
-    border-radius: 2px;
-    border-style: solid;
-    font-size: 14px;
-    line-height: 38px;
-    text-align: center;
-    text-transform: uppercase;
-
-    &:hover {
-        text-decoration: none;
-        background-color: rgb(204, 204, 204);
-    }
-}
-
-.btn-icon {
-    height: 3rem;
-    width: 3rem;
-}
-
-.btn-primary {
-    color: $primary;
-    border-color: $primary;
-
-    &:hover {
-        background-color: $primary;
-        color: white;
-        border-color: $primary;
-    }
-}
-
-.btn-rounded {
-    border-radius: 50%;
-}
-
 .loader {
     display: block;
     position: fixed;
@@ -76,17 +34,6 @@ body {
     z-index: 100;
     border-top-right-radius: 1px;
     border-top-left-radius: 1px;
-}
-
-.btn-danger {
-    color: $danger;
-    border-color: $danger;
-
-    &:hover {
-        background-color: $danger;
-        border-color: $danger;
-        color: white;
-    }
 }
 
 a {
@@ -120,16 +67,6 @@ a {
     background-color: white;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
-}
-
-
-.article-head {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 1rem;
 }
 
 .article-body {

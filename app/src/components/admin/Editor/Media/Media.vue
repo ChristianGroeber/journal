@@ -1,15 +1,9 @@
 <template>
   <div v-if="isShowing" class="media">
     <div class="media-meta-controls">
-      <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
-        <fa icon="clipboard"></fa>
-      </vk-button>
-      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
-        <fa icon="trash"></fa>
-      </vk-button>
-      <vk-button class="btn btn-rounded btn-icon" @click="previewMedia">
-        <fa icon="eye"></fa>
-      </vk-button>
+      <pj-button-link :action="copyUrl" icon="clipboard"></pj-button-link>
+      <pj-button-link :action="deleteMedia" icon="trash"></pj-button-link>
+      <pj-button-link :action="previewMedia" icon="eye"></pj-button-link>
     </div>
     <template v-if="amVideo">
       <img src="/public/assets/video-thumbnail.png" alt="Thumbnail">
@@ -105,14 +99,10 @@ export default defineComponent({
   .url {
     font-size: 1px;
   }
-
-  &:hover .media-meta-controls {
-    display: flex;
-  }
 }
 
 .media-meta-controls {
-  display: none;
+  display: flex;
   height: 100%;
   width: 100%;
   background-color: rgba(116, 116, 116, 0.25);
@@ -125,6 +115,14 @@ export default defineComponent({
 @media screen and (min-width: 500px) {
   .media {
     width: 25%;
+
+    .media-meta-controls {
+      display: none;
+    }
+
+    &:hover .media-meta-controls {
+      display: flex;
+    }
   }
 }
 </style>

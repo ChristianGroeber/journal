@@ -3,7 +3,7 @@
     <div class="d-flex gap-1 ai_center">
       <h3>Media</h3>
       <div>
-        <el-button round @click="getGallery"><el-icon><Download /></el-icon></el-button>
+        <pj-button-link :action="getGallery" icon="download"></pj-button-link>
       </div>
     </div>
     <div v-for="(mediaList, i) in media" :key="i">
