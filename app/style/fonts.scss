@@ -1,0 +1,11 @@
+@import 'variables.scss';
+
+body {
+  color: $text-color;
+  font-family: "Roboto Light", sans-serif;
+}
+
+@font-face {
+  font-family: Roboto Light;
+  src: url('/app/style/Roboto/Roboto-Light.ttf');
+}

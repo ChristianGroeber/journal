@@ -71,7 +71,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import './style/font-awesome.css';
 @import './style/main.scss';
-@import '../node_modules/element-plus/dist/index.css';
 </style>

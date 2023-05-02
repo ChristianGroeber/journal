@@ -1,11 +1,11 @@
 <template>
   <div class="rr_card">
     <div>
-      <h3 class="rr_distance">
+      <div class="rr_distance">
         <pj-icon icon="person-running"></pj-icon>
         {{ entry.meta.raceReport.distance }}
         Km
-      </h3>
+      </div>
     </div>
     <div class="rr_data_table">
       <div v-for="(stat, index) in stats" :key="index">
