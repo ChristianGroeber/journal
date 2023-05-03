@@ -21,3 +21,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+h2 {
+    margin: 0 5px 1.5rem 5px;
+}
+</style>

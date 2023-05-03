@@ -2,6 +2,9 @@
 
 @media screen and (min-width: 500px) {
     .header {
+        max-width: $max-content-width;
+        margin: 0 auto;
+
         h1 {
             font-size: 10rem;
         }
