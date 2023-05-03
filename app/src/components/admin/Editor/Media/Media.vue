@@ -1,15 +1,9 @@
 <template>
   <div v-if="isShowing" class="media">
     <div class="media-meta-controls">
-      <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
-        <fa icon="clipboard"></fa>
-      </vk-button>
-      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
-        <fa icon="trash"></fa>
-      </vk-button>
-      <vk-button class="btn btn-rounded btn-icon" @click="previewMedia">
-        <fa icon="eye"></fa>
-      </vk-button>
+      <pj-button-link :action="copyUrl" icon="clipboard"></pj-button-link>
+      <pj-button-link :action="deleteMedia" icon="trash"></pj-button-link>
+      <pj-button-link :action="previewMedia" icon="eye"></pj-button-link>
     </div>
     <template v-if="amVideo">
       <img src="/public/assets/video-thumbnail.png" alt="Thumbnail">
@@ -21,15 +15,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {getFileExtension} from "../../../../helpers/files";
-import xhr from "../../../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
+import {defineComponent} from "vue";
+import {useJournalStore} from "@/src/store/journal";
+import {useAuthStore} from "@/src/store/auth";
+import {useMainStore} from "@/src/store/main";
 
-export default {
+export default defineComponent({
   props: ["media", "myId", "slug", "srcMedia"],
   data: function () {
     return {
       isShowing: true,
+      authStore: useAuthStore(),
+      journalStore: useJournalStore(),
+      mainStore: useMainStore(),
     };
   },
   computed: {
@@ -50,10 +51,10 @@ export default {
   },
   methods: {
     previewMedia() {
-      this.$store.dispatch('showMediaPreview', {
+      this.mainStore.setMediaPreview({
         showing: true,
         src: this.srcMedia,
-        mediaType: this.mediaType,
+        mediaType: <string>this.mediaType,
       });
     },
     deleteMedia() {
@@ -62,28 +63,28 @@ export default {
       }
       const data = {
         media: this.srcMedia,
-        token: this.$store.getters.token,
+        token: this.authStore.getToken,
       };
 
-      const request = xhr.buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
-      xhr.send(request).then(response => {
+      const request = buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
+      send(request).then(response => {
         this.isShowing = false;
       });
     },
     copyUrl() {
-      const mediaUrl = document.querySelector(
+      const mediaUrl = <Node>document.querySelector(
           ".media#" + this.slug + "-" + this.myId + " .url"
       );
       const range = document.createRange();
       range.selectNode(mediaUrl);
-      window.getSelection().addRange(range);
+      window.getSelection()?.addRange(range);
 
       document.execCommand("copy");
 
-      window.getSelection().removeAllRanges();
+      window.getSelection()?.removeAllRanges();
     },
   },
-};
+})
 </script>
 
 <style lang="scss" scoped>
@@ -98,14 +99,10 @@ export default {
   .url {
     font-size: 1px;
   }
-
-  &:hover .media-meta-controls {
-    display: flex;
-  }
 }
 
 .media-meta-controls {
-  display: none;
+  display: flex;
   height: 100%;
   width: 100%;
   background-color: rgba(116, 116, 116, 0.25);
@@ -118,6 +115,14 @@ export default {
 @media screen and (min-width: 500px) {
   .media {
     width: 25%;
+
+    .media-meta-controls {
+      display: none;
+    }
+
+    &:hover .media-meta-controls {
+      display: flex;
+    }
   }
 }
 </style>

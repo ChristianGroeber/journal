@@ -1,14 +1,15 @@
-@import 'variables';
-@import 'fonts';
-@import 'responsive';
-@import 'font-awesome';
+@use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
 
-@import '../../node_modules/@vuikit/theme/dist/vuikit';
+@import '/app/style/fonts.scss';
+@import '/node_modules/element-plus/dist/index.css';
+@import '/app/style/responsive.scss';
+@import '/app/style/variables.scss';
 
 html,
 body {
     overflow-x: hidden;
     width: 100vw;
+    color: var(--el-text-color-primary);
 }
 
 * {
@@ -23,45 +24,10 @@ body {
 body {
     margin: 0;
     min-height: 100vh;
-    background-color: rgb(243, 243, 243);
 }
 
-.btn {
-    background-color: white;
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-    border-width: 2px;
-    border-radius: 2px;
-    border-style: solid;
-    font-size: 14px;
-    line-height: 38px;
-    text-align: center;
-    text-transform: uppercase;
-
-    &:hover {
-        text-decoration: none;
-        background-color: rgb(204, 204, 204);
-    }
-}
-
-.btn-icon {
-    height: 3rem;
-    width: 3rem;
-}
-
-.btn-primary {
-    color: $primary;
-    border-color: $primary;
-
-    &:hover {
-        background-color: $primary;
-        color: white;
-        border-color: $primary;
-    }
-}
-
-.btn-rounded {
-    border-radius: 50%;
+video {
+    width: 100%;
 }
 
 .loader {
@@ -76,23 +42,11 @@ body {
     border-top-left-radius: 1px;
 }
 
-.btn-danger {
-    color: $danger;
-    border-color: $danger;
-
-    &:hover {
-        background-color: $danger;
-        border-color: $danger;
-        color: white;
-    }
-}
-
 a {
     color: $primary;
 }
 
 .header {
-    background-color: white;
     position: relative;
 
     h1 {
@@ -111,23 +65,11 @@ a {
 }
 
 .month>div>h2.month {
-    margin: 0 5px 1.5rem 5px;
 }
 
 .main-content {
-    background-color: white;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
-}
-
-
-.article-head {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 1rem;
 }
 
 .article-body {

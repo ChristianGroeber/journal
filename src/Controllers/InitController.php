@@ -29,7 +29,7 @@ class InitController extends AbstractController
 
     private function isTokenValid(): string
     {
-        if (!key_exists('token', $_REQUEST)) {
+        if (!key_exists('token', $_REQUEST) || $this->isTokenNull()) {
             return self::NO_TOKEN_SET;
         }
 
@@ -42,5 +42,12 @@ class InitController extends AbstractController
         }
 
         return self::TOKEN_INVALID;
+    }
+
+    private function isTokenNull(): bool
+    {
+        $token = $_REQUEST['token'];
+
+        return $token === null || $token === 'null' || $token === 'undefined';
     }
 }

@@ -3,9 +3,7 @@
     <div class="d-flex gap-1 ai_center">
       <h3>Media</h3>
       <div>
-        <vk-button class="btn btn-primary btn-icon btn-rounded" @click="getGallery">
-          <fa icon="download"></fa>
-        </vk-button>
+        <pj-button-link :action="getGallery" icon="download"></pj-button-link>
       </div>
     </div>
     <div v-for="(mediaList, i) in media" :key="i">
@@ -18,27 +16,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Media from "./Media.vue"
+import {defineComponent} from "vue";
+import {useJournalStore} from "@/src/store/journal";
+import {useAuthStore} from "@/src/store/auth";
 
-export default {
+export default defineComponent({
   props: ["entry"],
   components: {
     Media,
   },
   data: function () {
     return {
-      media: this.$store.getters.gallery,
+      journalStore: useJournalStore(),
+      authStore: useAuthStore(),
+      media: useJournalStore().getGallery,
     };
   },
   methods: {
     getGallery() {
-      this.$store
-          .dispatch("loadMediaForEntry", {entry: this.entry, token: this.$store.getters.token})
-          .then(() => {
-            this.media = this.$store.getters.gallery;
-          });
+      const data = {
+        entry: this.entry,
+        token: this.authStore.getToken,
+      }
+      this.journalStore.loadMediaForEntry(data).then(() => {
+        this.media = this.journalStore.getGallery;
+      });
     },
   },
-};
+})
 </script>

@@ -18,8 +18,11 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useAuthStore} from "@/src/store/auth";
+
+export default defineComponent({
   data: () => {
     return {
       username: "",
@@ -27,10 +30,10 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.dispatch("requestNewPassword", { username: this.username });
+      useAuthStore().requestNewPassword({username: this.username});
     },
   },
-};
+})
 </script>
 
 
