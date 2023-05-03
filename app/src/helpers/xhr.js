@@ -2,6 +2,7 @@ import axios from "axios";
 import {queryFormatter} from "./queryFormatter";
 import {useLoadingStore} from "../store/loading";
 import LoadingHelper from "./LoadingHelper";
+import {ElNotification} from "element-plus";
 
 const updateSpeed = 10;
 
@@ -79,7 +80,11 @@ export function send(request) {
             if ('message' in reason.response.data) {
                 message = reason.response.data.message;
             }
-            alert(message);
+            ElNotification({
+                title: 'Error',
+                message: message,
+                type: 'warning',
+            });
             if (store !== null) {
                 store.decreaseLoadingCount();
                 if (store.getLoadingTime === 0) {
