@@ -28,6 +28,7 @@ import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
 import {useRouter} from 'vue-router';
 import {resizeVideos} from "./src/helpers/videosizer";
+import {ElNotification} from "element-plus";
 
 export default defineComponent({
   name: "App",
@@ -57,7 +58,11 @@ export default defineComponent({
     this.mainStore.init(token).then(response => {
       if (response.data.is_token_valid === 'token_invalid') {
         this.mainStore.setShowLoginPopup(true);
-        alert('Your token is invalid, please login again');
+        ElNotification({
+            title: 'Error',
+            message: 'Your token is invalid, please login again',
+            type: 'warning',
+        });
       }
       this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
       if (!this.mainStore.meta.adminCreated) {
