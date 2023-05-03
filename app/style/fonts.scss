@@ -1,3 +1,19 @@
+@import 'variables.scss';
+
 body {
-    font-family: "Roboto", sans-serif;
+  font-family: "Roboto Light", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h2, h3, h4 {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Roboto Light;
+  src: url('/app/style/Roboto/Roboto-Light.ttf');
 }

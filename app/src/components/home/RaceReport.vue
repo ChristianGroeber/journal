@@ -1,16 +1,16 @@
 <template>
   <div class="rr_card">
     <div>
-      <h3 class="rr_distance">
-        <fa icon="person-running"></fa>
+      <div class="rr_distance">
+        <pj-icon icon="person-running"></pj-icon>
         {{ entry.meta.raceReport.distance }}
         Km
-      </h3>
+      </div>
     </div>
     <div class="rr_data_table">
       <div v-for="(stat, index) in stats" :key="index">
         <div class="rr_data_value" :title="stat.label">
-          <fa :icon="stat.icon"></fa>
+          <pj-icon :icon="stat.icon"></pj-icon>
           {{ stat.value }}
         </div>
       </div>
@@ -18,8 +18,10 @@
   </div>
 </template>
 
-<script>
-export default ({
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "RaceReport",
   props: ["entry"],
   data() {

@@ -8,10 +8,12 @@
   </div>
 </template>
 
-<script>
-import xhr from "../../helpers/xhr";
+<script lang="ts">
+import {buildRequest, send} from "@/src/helpers/xhr";
+import {useRouter} from "vue-router";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   data: function () {
     return {
       username: '',
@@ -19,8 +21,8 @@ export default {
     }
   },
   created: function () {
-    const request = xhr.buildRequest('/api/auth/create-admin');
-    xhr.send(request).catch(reason => {
+    const request = buildRequest('/api/auth/create-admin');
+    send(request).catch(reason => {
       if (reason.response.status === 400) {
         alert(reason.response.data.message);
       }
@@ -32,11 +34,11 @@ export default {
         username: this.username,
         password: this.password,
       }
-      const request = xhr.buildRequest('/api/auth/create-admin', data, 'POST');
-      xhr.send(request)
+      const request = buildRequest('/api/auth/create-admin', data, 'POST');
+      send(request)
           .then(response => {
             if (response.data.adminCreated) {
-              this.$router.push('/auth/login');
+              useRouter().push('/auth/login');
             }
           })
           .catch((reason) => {
@@ -46,5 +48,5 @@ export default {
           });
     }
   }
-}
+})
 </script>

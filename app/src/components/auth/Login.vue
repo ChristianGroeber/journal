@@ -1,50 +1,49 @@
 <template>
   <div class="main-content">
     <div>
-      <vk-button class="btn btn-primary" @click="auth">Return</vk-button>
+      <pj-button-link href="/auth" content="Return"></pj-button-link>
     </div>
-    <form @submit.prevent="login">
-      <fieldset class="uk-fieldset">
-        <div class="form-row">
-          <input class="uk-input" ref="autofocus" @keyup.enter="login" v-model="username" placeholder="username" />
-        </div>
-        <div class="form-row">
-          <input class="uk-input" @keyup.enter="login" v-model="password" placeholder="password" type="password" />
-        </div>
-      </fieldset>
-      <vk-button class="btn btn-primary" @click="login">Login</vk-button>
-    </form>
+    <el-form :model="loginForm" @submit.prevent="login">
+      <el-form-item label="Username">
+        <el-input v-model="loginForm.username"/>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input type="password" v-model="loginForm.password"></el-input>
+      </el-form-item>
+      <pj-button-link :action="login" content="Login"></pj-button-link>
+    </el-form>
   </div>
 </template>
-<script>
-export default {
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
+import {useRouter} from "vue-router";
+
+export default defineComponent({
   data: () => {
     return {
-      username: "",
-      password: "",
-      title: "Login",
+      loginForm: {
+        username: "",
+        password: "",
+      },
+      authStore: useAuthStore(),
+      router: useRouter(),
     };
   },
   created() {
-    this.$store.dispatch('setTitle', this.title);
+    useMainStore().setTitle('Login');
   },
   mounted() {
-    this.$refs.autofocus.focus();
+    // this.$refs.autofocus.focus();
   },
   methods: {
     login() {
-      this.$store
-        .dispatch("login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
+      this.authStore.login(this.loginForm).then(() => {
+        this.router.push('/');
+      });
     },
-    auth() {
-      this.$router.push("/auth");
-    }
   },
-};
+})
 </script>

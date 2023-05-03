@@ -7,28 +7,39 @@
   </div>
 </template>
 
-<script>
-import Month from "./Month";
-import AdminBar from "../admin/AdminBar";
+<script lang="ts">
+import Month from "./Month.vue";
+import AdminBar from "../admin/AdminBar.vue";
 import {resizeVideos} from "../../helpers/videosizer";
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {useJournalStore} from "@/src/store/journal";
+import {useAuthStore} from "@/src/store/auth";
 
-export default {
+export default defineComponent({
   name: "MonthList",
   components: {
     Month,
     AdminBar,
   },
+  data() {
+    return {
+      mainStore: useMainStore(),
+      journalStore: useJournalStore(),
+      authStore: useAuthStore(),
+    }
+  },
   created() {
-    this.$store.dispatch('setTitle', this.$store.getters.meta.journalYear);
+    this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
     window.setTimeout(resizeVideos, 100);
   },
   computed: {
     months() {
-      return this.$store.getters.entries;
+      return this.journalStore.getEntries;
     },
     canEdit() {
-      return this.$store.getters.token !== null;
+      return this.authStore.getToken !== null;
     },
   },
-};
+})
 </script>

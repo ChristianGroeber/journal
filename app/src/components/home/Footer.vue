@@ -1,40 +1,56 @@
 <template>
-  <footer>
-    <span>
-      PixlJournal Version {{ version }}
-    </span>
-    |
-    <span>
-      <a @click="showLoginForm">Login</a>
-    </span>
-    |
-    <span>
-      <a href="https://github.com/ChristianGroeber/journal">GitHub</a>
-    </span>
-  </footer>
+    <footer>
+        <span>PixlJournal Version {{ version }}</span>|
+        <span><el-link @click="showLoginForm">Login</el-link></span>|
+        <span><a href="https://github.com/ChristianGroeber/journal">GitHub</a></span>|
+        <span><el-link @click="switchTheme" :icon="themeIcon"></el-link></span>
+    </footer>
 </template>
 
-<script>
-export default {
-  name: "Footer",
-  methods: {
-    showLoginForm() {
-      this.$store.commit('SHOW_LOGIN_POPUP', true);
+<script lang="ts">
+import {defineComponent} from "vue";
+import {useMainStore} from "@/src/store/main";
+import {Moon, Sunny} from "@element-plus/icons-vue";
+
+export default defineComponent({
+    name: "Footer",
+    data() {
+        return {
+            mainStore: useMainStore(),
+        }
     },
-  },
-  computed: {
-    version() {
-      return this.$store.getters.meta.version;
+    methods: {
+        showLoginForm() {
+            this.mainStore.setShowLoginPopup(true);
+        },
+        switchTheme() {
+            const selectedTheme = this.mainStore.getTheme;
+            const newTheme = selectedTheme === 'dark' ? 'light' : 'dark';
+
+            this.mainStore.setTheme(newTheme);
+        }
     },
-  },
-}
+    computed: {
+        version() {
+            return this.mainStore.getMeta.version;
+        },
+        themeIcon() {
+            const selectedTheme = this.mainStore.getTheme;
+            if (selectedTheme === 'light') {
+                return Sunny;
+            } else {
+                return Moon;
+            }
+        },
+    },
+})
 </script>
 
 
 <style scoped>
 footer {
-  text-align: center;
-  font-size: 0.8rem;
-  margin: 1rem auto;
+    text-align: center;
+    font-size: 0.8rem;
+    margin: 1rem auto;
 }
 </style>

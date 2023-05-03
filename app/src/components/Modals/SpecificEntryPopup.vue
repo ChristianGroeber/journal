@@ -1,52 +1,56 @@
 <template>
-  <div>
-    <vk-modal :show.sync="show">
-      <vk-modal-close @click="hidePopup"></vk-modal-close>
-      <vk-modal-title>Edit Specific Entry</vk-modal-title>
-      <div>
-        <input type="date" v-model="dateEntry" />
-      </div>
-      <div slot="footer">
-        <div class="uk-text-right">
-          <vk-button class="btn btn-primary" @click="editSpecificEntry">Submit</vk-button>
+    <el-dialog v-model="isShowing" title="Edit Specific">
+        <div>
+            <el-form>
+                <el-form-item label="Date">
+                    <el-input v-model="dateEntry" type="date"></el-input>
+                </el-form-item>
+            </el-form>
         </div>
-      </div>
-    </vk-modal>
-  </div>
+        <template #footer>
+            <pj-button-link :action="editSpecificEntry" content="Submit"></pj-button-link>
+        </template>
+    </el-dialog>
 </template>
 
 <script>
 import moment from "moment";
-import xhr from "../../helpers/xhr";
+import {buildRequest, send} from "@/src/helpers/xhr";
+import {useMainStore} from "@/src/store/main";
+import {useAuthStore} from "@/src/store/auth";
+import {useRouter} from "vue-router";
 
 export default {
-  data: function () {
-    return {
-      dateEntry: moment().format("yyyy-MM-DD"),
-    };
-  },
-  computed: {
-    show: {
-      get() {
-        return this.$store.getters.showEditSpecificPopup;
-      },
-      set(newValue) {
-        this.$store.commit("EDIT_SPECIFIC_POPUP", newValue);
-      },
+    data: function () {
+        return {
+            dateEntry: moment().format("yyyy-MM-DD"),
+            mainStore: useMainStore(),
+            router: useRouter(),
+        };
     },
-  },
-  methods: {
-    hidePopup() {
-      this.$store.commit("EDIT_SPECIFIC_POPUP", false);
+    computed: {
+        isShowing: {
+            get() {
+                return this.mainStore.getShowEditSpecificPopup;
+            },
+            set(newValue) {
+                this.mainStore.setShowEditSpecificPopup(newValue);
+            },
+        },
     },
-    editSpecificEntry() {
-      const data = {token: this.$store.getters.token, entry: this.dateEntry};
-      const request = xhr.buildRequest('/api/admin/entry/create', data);
-      xhr.send(request).then(response => {
-        this.$store.commit("EDIT_SPECIFIC_POPUP", false);
-        this.$router.push("/edit?entry=" + response.data.entryId);
-      })
+    methods: {
+        hidePopup() {
+            this.isShowing(false);
+        },
+        editSpecificEntry() {
+            const token = useAuthStore().getToken;
+            const data = {token: token, entry: this.dateEntry};
+            const request = buildRequest('/api/admin/entry/create', data);
+            send(request).then(response => {
+                this.mainStore.setShowEditSpecificPopup(false);
+                this.router.push("/edit?entry=" + response.data.entryId);
+            })
+        },
     },
-  },
 };
 </script>

@@ -1,6 +1,6 @@
 // TODO: make sure only videos on the main page (no admin pages) are being resized.
 // Maybe check if it's a child element of a day element
-function resizeVideos() {
+export function resizeVideos() {
     const videos = getVideoElements();
     videos.map(renderVideo)
 }
@@ -49,5 +49,3 @@ function isVideo(srcName) {
 function getImgElements() {
     return document.getElementsByTagName('img');
 }
-
-export {resizeVideos}
