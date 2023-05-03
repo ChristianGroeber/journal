@@ -1,12 +1,18 @@
+@use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
+
 @import '/app/style/fonts.scss';
 @import '/node_modules/element-plus/dist/index.css';
 @import '/app/style/responsive.scss';
 @import '/app/style/variables.scss';
 
+html.dark {
+}
+
 html,
 body {
     overflow-x: hidden;
     width: 100vw;
+    color: var(--el-text-color-primary);
 }
 
 * {
@@ -40,7 +46,6 @@ a {
 }
 
 .header {
-    background-color: white;
     position: relative;
 
     h1 {
@@ -63,7 +68,6 @@ a {
 }
 
 .main-content {
-    background-color: white;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 }

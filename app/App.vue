@@ -53,6 +53,7 @@ export default defineComponent({
   },
   created() {
     const token = this.authStore.loadToken();
+    this.mainStore.loadTheme();
     this.mainStore.init(token).then(response => {
       if (response.data.is_token_valid === 'token_invalid') {
         this.mainStore.setShowLoginPopup(true);
