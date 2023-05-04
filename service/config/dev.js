@@ -26,7 +26,11 @@ module.exports = merge(baseWebpackConfig, cssWebpackConfig, {
             '/api': {
                 target: 'http://localhost:86',
                 pathRewrite: {'^/api': '/api'}
-            }
+            },
+            '/media': {
+                target: 'http://localhost:86',
+                pathRewrite: {'^/media': '/media'}
+            },
         },
     },
 
