@@ -18,7 +18,7 @@ export function buildRequest(url, data = {}, method = 'GET') {
         url: url,
         method: method,
     }
-    if (method === 'GET') {
+    if (method === 'GET' || method === 'DELETE') {
         request.url = url + '?' + queryFormatter(data);
     } else {
         if (data instanceof FormData) {
