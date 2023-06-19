@@ -26,7 +26,7 @@ import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
 import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
-import {useRouter} from 'vue-router';
+import {useRouter} from "vue-router";
 import {resizeVideos} from "./src/helpers/videosizer";
 import {ElNotification} from "element-plus";
 
@@ -45,6 +45,7 @@ export default defineComponent({
       authStore: useAuthStore(),
       mainStore: useMainStore(),
       journalStore: useJournalStore(),
+      router: useRouter(),
     }
   },
   computed: {
@@ -66,7 +67,7 @@ export default defineComponent({
       }
       this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
       if (!this.mainStore.meta.adminCreated) {
-        useRouter().push('/auth/create-admin');
+        this.router.push('/auth/create-admin')
       }
     })
     this.journalStore.loadEntries().then(() => {

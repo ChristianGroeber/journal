@@ -1,10 +1,14 @@
 <template>
   <div class="main-content">
-    <form>
-      <input class="uk-input" type="text" v-model="username" placeholder="Admin Username">
-      <input class="uk-input" type="text" v-model="password" placeholder="Admin Password">
-      <vk-button class="btn btn-primary" @click="submit">Submit</vk-button>
-    </form>
+    <el-form>
+      <el-form-item label="Admin Username">
+        <el-input v-model="adminForm.username"></el-input>
+      </el-form-item>
+      <el-form-item label="Admin Password">
+        <el-input v-model="adminForm.password"></el-input>
+      </el-form-item>
+      <el-button @click="submit">Submit</el-button>
+    </el-form>
   </div>
 </template>
 
@@ -16,8 +20,11 @@ import {defineComponent} from "vue";
 export default defineComponent({
   data: function () {
     return {
-      username: '',
-      password: '',
+      adminForm: {
+        username: '',
+        password: '',
+      },
+      router: useRouter(),
     }
   },
   created: function () {
@@ -30,15 +37,12 @@ export default defineComponent({
   },
   methods: {
     submit() {
-      const data = {
-        username: this.username,
-        password: this.password,
-      }
+      const data = this.adminForm
       const request = buildRequest('/api/auth/create-admin', data, 'POST');
       send(request)
           .then(response => {
             if (response.data.adminCreated) {
-              useRouter().push('/auth/login');
+              this.router.push('/auth/login');
             }
           })
           .catch((reason) => {

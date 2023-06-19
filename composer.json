@@ -1,7 +1,7 @@
 {
     "require": {
         "ext-json": "*",
-        "christiangroeber/nacho": "*",
+        "pixlmint/nacho": "*",
         "ext-zip": "*",
         "ext-gd": "*",
         "ext-exif": "*",
