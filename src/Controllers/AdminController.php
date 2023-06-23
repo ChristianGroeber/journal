@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Helpers\Media\ImageMediaType;
-use DateTime;
 use App\Helpers\TokenHelper;
+use DateTime;
 use App\Helpers\BackupHelper;
 use App\Helpers\CacheHelper;
 use App\Models\RaceReport;
@@ -37,7 +37,9 @@ class AdminController extends AbstractController
         }
 
         if (strtoupper($request->requestMethod) === HttpMethod::POST) {
-            $this->nacho->getMarkdownHelper()->editPage($page->id, $request->getBody()['content'], []);
+            $content = urldecode($request->getBody()['content']);
+            $content = str_replace('&#039;', '\'', $content);
+            $this->nacho->getMarkdownHelper()->editPage($page->id, $content, []);
             $cacheHelper = new CacheHelper($this->nacho);
             $cacheHelper->build();
 
