@@ -197,12 +197,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "038b329b466dcc760ef56663f5e82537f500ee91"
+                "reference": "2c02b5858fc641f9bc1e9cd234939382c86d3ac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/038b329b466dcc760ef56663f5e82537f500ee91",
-                "reference": "038b329b466dcc760ef56663f5e82537f500ee91",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/2c02b5858fc641f9bc1e9cd234939382c86d3ac4",
+                "reference": "2c02b5858fc641f9bc1e9cd234939382c86d3ac4",
                 "shasum": ""
             },
             "require": {
@@ -212,7 +212,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "PixlMint\\Journal\\": "src/"
+                    "PixlMint\\JournalPlugin\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -221,7 +221,7 @@
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
                 "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/master"
             },
-            "time": "2023-06-19T20:54:51+00:00"
+            "time": "2023-06-23T20:15:37+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1308,12 +1308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3a265d7ab8fd963d18d4319511b4e51e58442bf1"
+                "reference": "c4dc769928163fa285f4a322a4a866fa174bd04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3a265d7ab8fd963d18d4319511b4e51e58442bf1",
-                "reference": "3a265d7ab8fd963d18d4319511b4e51e58442bf1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c4dc769928163fa285f4a322a4a866fa174bd04c",
+                "reference": "c4dc769928163fa285f4a322a4a866fa174bd04c",
                 "shasum": ""
             },
             "require": {
@@ -1402,7 +1402,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-22T04:57:45+00:00"
+            "time": "2023-06-23T06:18:53+00:00"
         },
         {
             "name": "sebastian/cli-parser",
