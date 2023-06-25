@@ -60,11 +60,7 @@ export default defineComponent({
     },
     save(): AxiosPromise {
       this.unsavedChanges = false;
-      const token = useAuthStore().getToken;
-      if (token === null) {
-        throw 'Token is Null';
-      }
-      return useJournalStore().saveEntry(token);
+      return useJournalStore().saveEntry();
     },
     checkGoHome() {
       if (this.unsavedChanges && confirm('You\'ve go unsaved changes. Save first?')) {

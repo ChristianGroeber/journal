@@ -197,12 +197,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "2c02b5858fc641f9bc1e9cd234939382c86d3ac4"
+                "reference": "645d19ea6904e259141dace781a4adc29e104cec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/2c02b5858fc641f9bc1e9cd234939382c86d3ac4",
-                "reference": "2c02b5858fc641f9bc1e9cd234939382c86d3ac4",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/645d19ea6904e259141dace781a4adc29e104cec",
+                "reference": "645d19ea6904e259141dace781a4adc29e104cec",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +221,7 @@
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
                 "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/master"
             },
-            "time": "2023-06-23T20:15:37+00:00"
+            "time": "2023-06-23T20:54:10+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

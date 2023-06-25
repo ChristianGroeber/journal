@@ -51,7 +51,7 @@ export default defineComponent({
       useMainStore().setShowEditSpecificPopup(true);
     },
     editCurrent() {
-      const request = buildRequest('/api/admin/entry/edit/current', {token: useAuthStore().getToken});
+      const request = buildRequest('/api/admin/entry/edit/current');
       send(request).then(response => {
         this.router.push("/edit?entry=" + response.data.entryId);
       });

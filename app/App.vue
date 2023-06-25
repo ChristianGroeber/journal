@@ -29,6 +29,8 @@ import {useJournalStore} from "@/src/store/journal";
 import {useRouter} from "vue-router";
 import {resizeVideos} from "./src/helpers/videosizer";
 import {ElNotification} from "element-plus";
+import {configureStores} from "@/src/helpers/xhr";
+import {useLoadingStore} from "@/src/store/loading";
 
 export default defineComponent({
   name: "App",
@@ -55,6 +57,7 @@ export default defineComponent({
   },
   created() {
     const token = this.authStore.loadToken();
+    configureStores(this.authStore, useLoadingStore());
     this.mainStore.loadTheme();
     this.mainStore.init(token).then(response => {
       if (response.data.is_token_valid === 'token_invalid') {

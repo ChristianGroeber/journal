@@ -21,13 +21,12 @@ export const useJournalStore = defineStore('journalStore', {
         getGallery: (state) => state.gallery,
     },
     actions: {
-        saveEntry(token: string) {
+        saveEntry() {
             const data = {
-                token: token,
                 content: this.editingEntry?.raw_content,
                 entry: this.editingEntry?.id,
             }
-            const request = buildRequest('/api/admin/entry/edit', data, 'POST');
+            const request = buildRequest('/api/admin/entry/edit', data, 'PUT');
 
             return send(request);
         },
@@ -40,8 +39,8 @@ export const useJournalStore = defineStore('journalStore', {
                 this.entries = response.data;
             });
         },
-        getEntry(data: object) {
-            const request = buildRequest('/api/admin/entry/edit', data);
+        getEntry(entry: string) {
+            const request = buildRequest('/api/admin/entry/edit', {entry: entry});
             return send(request).then((response) => {
                 this.editingEntry = response.data;
             });
@@ -50,11 +49,19 @@ export const useJournalStore = defineStore('journalStore', {
             const request = buildRequest('/api/admin/entry/delete', data, 'DELETE');
             return send(request);
         },
-        loadMediaForEntry(data: object) {
-            const request = buildRequest('/api/admin/entry/media/load', data);
+        loadMediaForEntry(entry: string) {
+            const request = buildRequest('/api/admin/entry/media/load', {entry: entry});
             return send(request).then((response) => {
                 this.gallery = response.data.media;
             });
+        },
+        uploadMedia(data: FormData) {
+            const request = buildRequest('/api/admin/entry/gallery/upload', data, 'POST');
+            return send(request)
+        },
+        deleteMedia(mediaString: string) {
+            const request = buildRequest('/api/admin/entry/media/delete', {media: mediaString}, 'DELETE');
+            return send(request);
         },
         uploadRaceReport(data: object) {
             const request = buildRequest('/api/admin/entry/race-report', data, 'POST');

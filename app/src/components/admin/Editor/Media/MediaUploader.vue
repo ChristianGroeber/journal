@@ -23,7 +23,6 @@ export default defineComponent({
     return {
       journalStore: useJournalStore(),
       mainStore: useMainStore(),
-      authStore: useAuthStore(),
       mediaTypes: useMainStore().getMediaTypes,
     }
   },
@@ -36,10 +35,6 @@ export default defineComponent({
     uploadMedia(e: FileUploadEvent) {
       const files = e.target.files;
       const editingEntry = this.journalStore.getEditingEntry;
-      const token = this.authStore.getToken;
-      if (token === null) {
-        throw 'Token cannot be null';
-      }
       if (editingEntry === null) {
         throw 'Editing Entry cannot be null';
       }
@@ -48,10 +43,8 @@ export default defineComponent({
         const formData = new FormData();
         formData.append(filesArray.indexOf(img).toString(), img);
         formData.append("entry", this.entry);
-        formData.append("token", token.toString());
         // TODO: fix media uploads ?
-        const request = buildRequest('/api/entry/gallery/upload', formData, 'POST');
-        send(request).then(response => {
+        this.journalStore.uploadMedia(formData).then(response => {
           const img = response.data.files[0]['scaled']['default'];
           console.log(img);
           editingEntry.raw_content +=
@@ -59,10 +52,7 @@ export default defineComponent({
         });
       })
       this.journalStore.updateEntry(editingEntry);
-      this.journalStore.loadMediaForEntry({
-        entry: editingEntry.id,
-        token: token,
-      });
+      this.journalStore.loadMediaForEntry(editingEntry.id);
     },
   },
 })

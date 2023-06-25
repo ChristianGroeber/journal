@@ -80,8 +80,8 @@ export const useMainStore = defineStore('main', {
             }
             this.pageTitle = title;
         },
-        buildCache(token: string) {
-            const request = buildRequest('/api/admin/build-cache', {token: token});
+        buildCache() {
+            const request = buildRequest('/api/admin/build-cache');
             return send(request);
         },
         setShowLoginPopup(showLoginPopup: boolean) {

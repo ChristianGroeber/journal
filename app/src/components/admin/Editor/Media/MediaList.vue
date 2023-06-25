@@ -20,7 +20,6 @@
 import Media from "./Media.vue"
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
-import {useAuthStore} from "@/src/store/auth";
 
 export default defineComponent({
   props: ["entry"],
@@ -30,17 +29,12 @@ export default defineComponent({
   data: function () {
     return {
       journalStore: useJournalStore(),
-      authStore: useAuthStore(),
       media: useJournalStore().getGallery,
     };
   },
   methods: {
     getGallery() {
-      const data = {
-        entry: this.entry,
-        token: this.authStore.getToken,
-      }
-      this.journalStore.loadMediaForEntry(data).then(() => {
+      this.journalStore.loadMediaForEntry(this.entry).then(() => {
         this.media = this.journalStore.getGallery;
       });
     },

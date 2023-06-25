@@ -38,17 +38,13 @@ export default defineComponent({
   },
   methods: {
     generateBackup: function () {
-      const request = buildRequest('/api/admin/generate-backup', {token: this.authStore.getToken})
+      const request = buildRequest('/api/admin/generate-backup')
       send(request).then(response => {
         location.href = response.data.file;
       });
     },
     rebuildCache() {
-      const token = this.authStore.getToken;
-      if (token === null) {
-        throw 'Token is null';
-      }
-      useMainStore().buildCache(token);
+      useMainStore().buildCache();
     },
     restoreBackup() {
       this.router.push('/admin/tools/restore-backup');
