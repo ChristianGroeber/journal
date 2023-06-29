@@ -31,6 +31,10 @@ module.exports = merge(baseWebpackConfig, cssWebpackConfig, {
                 target: 'http://172.23.162.161:94',
                 pathRewrite: {'^/media': '/media'}
             },
+            '/backup': {
+                target: 'http://172.23.162.161:94',
+                pathRewrite: {'^/backup': '/backup'}
+            },
         },
     },
 

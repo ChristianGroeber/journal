@@ -1,12 +1,13 @@
 import {defineStore} from 'pinia'
 import {buildRequest, send} from "../helpers/xhr";
-import {JournalEntry, WikiEntryList, Gallery} from "@/src/Contracts/JournalTypes";
+import {JournalEntry, JournalMonth, Gallery} from "@/src/Contracts/JournalTypes";
 
 
 interface State {
-    entries: WikiEntryList,
+    entries: JournalMonth[],
     editingEntry: JournalEntry | null,
     gallery: Gallery | null,
+    months: string[],
 }
 
 export const useJournalStore = defineStore('journalStore', {
@@ -14,11 +15,13 @@ export const useJournalStore = defineStore('journalStore', {
         entries: [],
         editingEntry: null,
         gallery: null,
+        months: [],
     }),
     getters: {
         getEntries: (state) => state.entries,
         getEditingEntry: (state) => state.editingEntry,
         getGallery: (state) => state.gallery,
+        getMonths: state => state.months,
     },
     actions: {
         saveEntry() {
@@ -37,6 +40,30 @@ export const useJournalStore = defineStore('journalStore', {
             const request = buildRequest('/api/entries');
             return send(request).then((response) => {
                 this.entries = response.data;
+            });
+        },
+        listMonths() {
+            const request = buildRequest('/api/journal/list-months');
+            return send(request).then((response) => {
+                this.months = response.data;
+            });
+        },
+        isMonthLoaded(month: string) {
+            let monthExists = false;
+            this.getEntries.forEach(monthObj => {
+                if (monthObj.name === month) {
+                    monthExists = true;
+                }
+            })
+
+            return monthExists;
+        },
+        loadMonth(month: string) {
+            const request = buildRequest('/api/journal/month', {month: month});
+            return send(request).then((response) => {
+                if (!this.isMonthLoaded(month)) {
+                    this.entries.push(response.data);
+                }
             });
         },
         getEntry(entry: string) {

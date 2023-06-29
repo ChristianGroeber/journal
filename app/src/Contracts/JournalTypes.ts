@@ -8,6 +8,11 @@ export interface JournalEntry {
     file: string,
 }
 
+export interface JournalMonth {
+    name: string,
+    days: JournalEntry[],
+}
+
 export interface EntryMeta {
     title: string,
     date: string,
@@ -15,9 +20,6 @@ export interface EntryMeta {
     date_formatted: string,
     description: string | null,
     author: string | null,
-}
-
-export interface WikiEntryList extends Array<JournalEntry> {
 }
 
 export interface Gallery {

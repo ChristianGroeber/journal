@@ -73,9 +73,7 @@ export default defineComponent({
         this.router.push('/auth/create-admin')
       }
     })
-    this.journalStore.loadEntries().then(() => {
-      resizeVideos();
-    });
+    this.journalStore.listMonths();
   },
 })
 </script>
