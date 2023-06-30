@@ -13,7 +13,6 @@ import MediaList from "./Media/MediaList.vue";
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
-import {useAuthStore} from "@/src/store/auth";
 
 export default defineComponent({
   props: ["entry"],
@@ -23,13 +22,9 @@ export default defineComponent({
     }
   },
   created() {
-    const data = {
-      entry: this.entry,
-      token: useAuthStore().getToken,
-    }
-    useJournalStore().getEntry(data).then(() => {
+    useJournalStore().getEntry(this.entry).then(() => {
       useMainStore().setTitle('Edit ' + useJournalStore().getEditingEntry?.meta.title);
-      useJournalStore().loadMediaForEntry(data);
+      useJournalStore().loadMediaForEntry(this.entry);
     })
   },
   components: {

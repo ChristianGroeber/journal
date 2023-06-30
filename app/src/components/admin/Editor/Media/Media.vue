@@ -2,8 +2,8 @@
   <div v-if="isShowing" class="media">
     <div class="media-meta-controls">
       <pj-button-link :action="copyUrl" icon="clipboard"></pj-button-link>
-      <pj-button-link :action="deleteMedia" icon="trash"></pj-button-link>
       <pj-button-link :action="previewMedia" icon="eye"></pj-button-link>
+      <pj-button-link :action="deleteMedia" icon="trash"></pj-button-link>
     </div>
     <template v-if="amVideo">
       <img src="/public/assets/video-thumbnail.png" alt="Thumbnail">
@@ -61,13 +61,7 @@ export default defineComponent({
       if (!confirm('Are you sure you want to delete this Image/ Video?')) {
         return;
       }
-      const data = {
-        media: this.srcMedia,
-        token: this.authStore.getToken,
-      };
-
-      const request = buildRequest('/api/admin/entry/media/delete', data, 'DELETE');
-      send(request).then(response => {
+      this.journalStore.deleteMedia(this.srcMedia).then(response => {
         this.isShowing = false;
       });
     },

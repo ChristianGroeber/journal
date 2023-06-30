@@ -32,7 +32,7 @@ export default defineComponent({
     },
     computed: {
         version() {
-            return this.mainStore.getMeta.version;
+            return this.mainStore.getMeta.journalVersion;
         },
         themeIcon() {
             const selectedTheme = this.mainStore.getTheme;

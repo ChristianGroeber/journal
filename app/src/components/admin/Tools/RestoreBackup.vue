@@ -24,7 +24,6 @@ export default defineComponent({
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("backup", file);
-      formData.append("token", useAuthStore().getToken);
 
       const request = buildRequest('/api/admin/restore-backup', formData, 'POST');
       send(request).then(response => {

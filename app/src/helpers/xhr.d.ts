@@ -9,3 +9,4 @@ interface JournalAPIRequest {
 
 export function buildRequest(url: string, data?: object, method?: string): JournalAPIRequest;
 export function send(request: JournalAPIRequest): AxiosPromise;
+export function configureStores(newAuthStore: any, newLoadingStore: any): void;

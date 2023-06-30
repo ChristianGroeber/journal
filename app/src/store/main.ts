@@ -13,6 +13,7 @@ interface Meta {
     journalYear: string|number,
     adminCreated: boolean,
     version: string|number,
+    journalVersion: string|number,
 }
 
 interface MediaType {
@@ -45,6 +46,7 @@ export const useMainStore = defineStore('main', {
             journalYear: '',
             adminCreated: true,
             version: 0,
+            journalVersion: 0,
         },
         pageTitle: 'Loading',
         mediaTypes: [
@@ -78,8 +80,8 @@ export const useMainStore = defineStore('main', {
             }
             this.pageTitle = title;
         },
-        buildCache(token: string) {
-            const request = buildRequest('/api/admin/build-cache', {token: token});
+        buildCache() {
+            const request = buildRequest('/api/admin/build-cache');
             return send(request);
         },
         setShowLoginPopup(showLoginPopup: boolean) {

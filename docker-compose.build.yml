@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  "journal":
+  "journal_build":
     build:
       dockerfile: Dockerfile
       context: .
@@ -9,7 +9,19 @@ services:
         UID: 99
         GID: 100
     image: christiangroeber/journal:2023
+    container_name: journal_build
+    volumes:
+      - data:/var/www/html/data
+      - content:/var/www/html/content
+      - media:/var/www/html/media
+      - backup:/var/www/html/backup
     environment:
       SECRET: 'adsf'
     ports:
       - "88:80"
+
+volumes:
+  data:
+  media:
+  content:
+  backup:

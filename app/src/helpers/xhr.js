@@ -7,27 +7,33 @@ import {ElNotification} from "element-plus";
 const updateSpeed = 10;
 
 let loadingBarInterval = null;
-let store = null;
-window.setTimeout(() => {
-    store = useLoadingStore();
-}, 100);
+
+let authStore = null;
+let loadingStore = null;
+
+export function configureStores(newAuthStore, newLoadingStore) {
+    authStore = newAuthStore;
+    loadingStore = newLoadingStore;
+}
 
 export function buildRequest(url, data = {}, method = 'GET') {
     method = method.toUpperCase();
     const request = {
         url: url,
         method: method,
+        headers: {},
     }
-    if (method === 'GET' || method === 'DELETE') {
+    if (authStore.getToken !== null) {
+        request.headers.pixltoken = authStore.getToken;
+    }
+    if (method === 'GET') {
         request.url = url + '?' + queryFormatter(data);
     } else {
         if (data instanceof FormData) {
             request.data = data;
         } else {
             request.data = queryFormatter(data);
-            request.headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            };
+            request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
     }
 
@@ -35,22 +41,22 @@ export function buildRequest(url, data = {}, method = 'GET') {
 }
 
 function clearProgressBar() {
-    const estimated = store.getEstimatedProgress;
+    const estimated = loadingStore.getEstimatedProgress;
     if (estimated >= 100) {
-        store.resetLoadingBar();
+        loadingStore.resetLoadingBar();
         window.clearInterval(loadingBarInterval);
         loadingBarInterval = null;
     } else {
-        store.updateEstimatedProgress(estimated + 5)
+        loadingStore.updateEstimatedProgress(estimated + 5)
     }
 }
 
 function updateLoadingProgress() {
-    store.increaseTimePassed(updateSpeed);
-    const newProgress = 100 / store.getLoadingTime * store.getTimePassed;
-    store.updateEstimatedProgress(newProgress);
+    loadingStore.increaseTimePassed(updateSpeed);
+    const newProgress = 100 / loadingStore.getLoadingTime * loadingStore.getTimePassed;
+    loadingStore.updateEstimatedProgress(newProgress);
 
-    if (store.getLoadingCount <= 0) {
+    if (loadingStore.getLoadingCount <= 0) {
         window.clearInterval(loadingBarInterval);
         loadingBarInterval = window.setInterval(clearProgressBar, updateSpeed);
     }
@@ -58,17 +64,17 @@ function updateLoadingProgress() {
 
 export function send(request) {
     const startTime = new Date();
-    if (store !== null) {
-        store.increaseLoadingCount();
-        store.increaseLoadingTime(LoadingHelper.getAverageLoadingTime(request.url));
+    if (loadingStore !== null) {
+        loadingStore.increaseLoadingCount();
+        loadingStore.increaseLoadingTime(LoadingHelper.getAverageLoadingTime(request.url));
         if (loadingBarInterval === null) {
             loadingBarInterval = window.setInterval(updateLoadingProgress, updateSpeed);
         }
     }
     return axios(request)
         .then((response) => {
-            if (store !== null) {
-                store.decreaseLoadingCount();
+            if (loadingStore !== null) {
+                loadingStore.decreaseLoadingCount();
             }
             const endTime = new Date();
             const diff = endTime - startTime;
@@ -85,9 +91,9 @@ export function send(request) {
                 message: message,
                 type: 'warning',
             });
-            if (store !== null) {
-                store.decreaseLoadingCount();
-                if (store.getLoadingTime === 0) {
+            if (loadingStore !== null) {
+                loadingStore.decreaseLoadingCount();
+                if (loadingStore.getLoadingTime === 0) {
                     window.clearInterval(loadingBarInterval);
                 }
             }
