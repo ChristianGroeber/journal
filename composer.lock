@@ -162,16 +162,16 @@
         },
         {
             "name": "pixlmint/pixl-cms",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixl-cms.git",
-                "reference": "68613349603d592d00b098e1f483ce22ab652bb6"
+                "reference": "0de3c1bc841950274c8ee713d9db599c1f073824"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/68613349603d592d00b098e1f483ce22ab652bb6",
-                "reference": "68613349603d592d00b098e1f483ce22ab652bb6",
+                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/0de3c1bc841950274c8ee713d9db599c1f073824",
+                "reference": "0de3c1bc841950274c8ee713d9db599c1f073824",
                 "shasum": ""
             },
             "require": {
@@ -188,9 +188,9 @@
             "description": "A lightweight CMS powered by Markdown and Nachos",
             "support": {
                 "issues": "https://github.com/pixlmint/pixl-cms/issues",
-                "source": "https://github.com/pixlmint/pixl-cms/tree/1.0"
+                "source": "https://github.com/pixlmint/pixl-cms/tree/1.1"
             },
-            "time": "2023-06-30T13:30:15+00:00"
+            "time": "2023-06-30T13:44:54+00:00"
         },
         {
             "name": "pixlmint/pixlcms-journal-plugin",
