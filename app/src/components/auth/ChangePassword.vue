@@ -5,22 +5,22 @@
     </div>
     <form @submit.prevent="submit">
       <div class="form-row">
-        <input placeholder="Username" v-model="username" type="text"/>
+        <input placeholder="Username" v-model="form.username" type="text"/>
       </div>
       <div class="form-row">
         <input
             placeholder="Current Password"
-            v-model="currentPassword"
+            v-model="form.currentPassword"
             type="password"
         />
       </div>
       <div class="form-row">
-        <input placeholder="Password" v-model="newPassword1" type="password"/>
+        <input placeholder="Password" v-model="form.newPassword1" type="password"/>
       </div>
       <div class="form-row">
         <input
             placeholder="Repeat Password"
-            v-model="newPassword2"
+            v-model="form.newPassword2"
             type="password"
         />
       </div>
@@ -37,22 +37,19 @@ import {useRouter} from "vue-router";
 export default defineComponent({
   data: () => {
     return {
-      username: "",
-      currentPassword: "",
-      newPassword1: "",
-      newPassword2: "",
+      form: {
+        username: "",
+        currentPassword: "",
+        newPassword1: "",
+        newPassword2: "",
+      },
+      router: useRouter(),
     };
   },
   methods: {
     submit() {
-      const data = {
-        username: this.username,
-        currentPassword: this.currentPassword,
-        newPassword1: this.newPassword1,
-        newPassword2: this.newPassword2,
-      }
-      useAuthStore().changePassword(data).then(() => {
-        useRouter().push('/');
+      useAuthStore().changePassword(this.form).then(() => {
+        this.router.push('/');
       })
     },
   },

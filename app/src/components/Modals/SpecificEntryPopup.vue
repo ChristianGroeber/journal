@@ -44,7 +44,7 @@ export default {
         },
         editSpecificEntry() {
             const token = useAuthStore().getToken;
-            const data = {token: token, entry: this.dateEntry};
+            const data = {entry: this.dateEntry};
             const request = buildRequest('/api/admin/entry/create', data);
             send(request).then(response => {
                 this.mainStore.setShowEditSpecificPopup(false);
