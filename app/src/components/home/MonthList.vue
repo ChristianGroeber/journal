@@ -1,8 +1,10 @@
 <template>
   <div class="main-content">
     <AdminBar v-if="canEdit" />
-    <div class="month" v-for="month in months" :key="month.id">
-      <Month :month="month" />
+    <div class="months">
+      <div class="month" v-for="month in months" :key="month.id">
+        <Month :month="month" />
+      </div>
     </div>
   </div>
 </template>
@@ -43,3 +45,20 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped lang="scss">
+.months {
+  display: flex;
+  gap: 5%;
+  margin: 0 5px 0 5px;
+
+  .month {
+    display: block;
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+
+}
+</style>

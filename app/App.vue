@@ -63,9 +63,9 @@ export default defineComponent({
       if (response.data.is_token_valid === 'token_invalid') {
         this.mainStore.setShowLoginPopup(true);
         ElNotification({
-            title: 'Error',
-            message: 'Your token is invalid, please login again',
-            type: 'warning',
+          title: 'Error',
+          message: 'Your token is invalid, please login again',
+          type: 'warning',
         });
       }
       this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
@@ -82,4 +82,14 @@ export default defineComponent({
 
 <style lang="scss">
 @import './style/main.scss';
+
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+
+  h1 {
+    font-size: 5em;
+  }
+}
 </style>
