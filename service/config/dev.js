@@ -24,15 +24,18 @@ module.exports = merge(baseWebpackConfig, cssWebpackConfig, {
         liveReload: true,
         proxy: {
             '/api': {
-                target: 'http://172.23.162.161:86',
+                //target: 'http://172.23.162.161:86',
+		target: 'http://localhost:86',
                 pathRewrite: {'^/api': '/api'}
             },
             '/media': {
-                target: 'http://172.23.162.161:86',
+                //target: 'http://172.23.162.161:86',
+                target: 'http://localhost:86',
                 pathRewrite: {'^/media': '/media'}
             },
             '/backup': {
-                target: 'http://172.23.162.161:86',
+                //target: 'http://172.23.162.161:86',
+                target: 'http://localhost:86',
                 pathRewrite: {'^/backup': '/backup'}
             },
         },

@@ -1,6 +1,5 @@
 <template>
   <div class="main-content">
-    <AdminBar v-if="canEdit" />
     <div class="months">
       <div class="month" v-for="month in months" :key="month.id">
         <Month :month="month" />
@@ -39,9 +38,6 @@ export default defineComponent({
     months() {
       return this.journalStore.getEntries;
     },
-    canEdit() {
-      return this.authStore.getToken !== null;
-    },
   },
 })
 </script>
@@ -49,16 +45,12 @@ export default defineComponent({
 <style scoped lang="scss">
 .months {
   display: flex;
-  gap: 5%;
-  margin: 0 5px 0 5px;
+  width: 100%;
+  gap: var(--content-gap);
 
   .month {
     display: block;
-    width: 80%;
+    width: var(--content-width);
   }
-}
-
-@media screen and (min-width: 500px) {
-
 }
 </style>

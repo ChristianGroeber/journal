@@ -102,18 +102,6 @@ export const useMainStore = defineStore('main', {
         hideMediaPreview() {
             this.mediaPreview.showing = false;
         },
-        loadTheme() {
-            const deviceTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const storedTheme = localStorage.getItem('theme');
-
-            if (storedTheme !== null && storedTheme !== undefined ) {
-                this.theme = storedTheme;
-            } else {
-                this.theme = deviceTheme;
-            }
-
-            document.documentElement.classList.add(this.theme);
-        },
         setTheme(theme: string) {
             if (theme !== 'light' && theme !== 'dark') {
                 throw 'The selected theme is not supported';

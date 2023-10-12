@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2 class="month">{{ month.name }}</h2>
+    <h2>{{ month.name }}</h2>
     <div class="article-list container">
       <div v-for="(day, index) in month.days" :key="index">
-        <Day :day="day" />
+        <Day :day="day"/>
       </div>
     </div>
   </div>
@@ -22,8 +22,12 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style>
 h2 {
-    margin: 0 5px 1.5rem 5px;
+  text-align: center;
+  padding: 5px 0;
+  margin: 5px 0 20px 0;
+  background-color: rgba(107, 81, 81, 0.33);
+  color: white;
 }
 </style>
