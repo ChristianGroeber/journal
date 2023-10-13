@@ -19,23 +19,28 @@ import {buildRequest, send} from "@/src/helpers/xhr";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
 import {useRouter} from "vue-router";
+import {useDialogStore} from "@/src/store/dialog";
+
+const route = "/edit/specific";
 
 export default {
+    name: 'SpecificEntryPopup',
     data: function () {
         return {
             dateEntry: moment().format("yyyy-MM-DD"),
             mainStore: useMainStore(),
+            dialogStore: useDialogStore(),
             router: useRouter(),
         };
     },
     computed: {
         isShowing: {
             get() {
-                return this.mainStore.getShowEditSpecificPopup;
+                return route === this.dialogStore.getShowingDialog;
             },
-            set(newValue) {
-                this.mainStore.setShowEditSpecificPopup(newValue);
-            },
+            set() {
+                this.dialogStore.clearShowingDialog();
+            }
         },
     },
     methods: {

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="isShowing" title="Edit Race Report" :before-close="close">
+    <el-dialog v-model="isShowing" title="Edit Race Report">
         <div>
             <el-form>
                 <div v-for="(field, index) in raceReport" :key="index">
@@ -21,6 +21,9 @@ import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
+import {useDialogStore} from "@/src/store/dialog";
+
+const route = "/edit/race-report";
 
 export default defineComponent({
     name: "AddRaceReportPopup",
@@ -30,6 +33,7 @@ export default defineComponent({
             authStore: useAuthStore(),
             mainStore: useMainStore(),
             journalStore: useJournalStore(),
+            dialogStore: useDialogStore(),
             raceReport: {
                 distance: {
                     label: "Distance",
@@ -62,20 +66,14 @@ export default defineComponent({
     computed: {
         isShowing: {
             get() {
-                return this.mainStore.getShowRaceReportPopup;
+                return route === this.dialogStore.getShowingDialog;
             },
-            set(newValue: boolean) {
-                this.mainStore.setShowRaceReportPopup(newValue);
+            set() {
+                this.dialogStore.clearShowingDialog();
             }
         },
     },
     methods: {
-        open() {
-            this.mainStore.setShowRaceReportPopup(true);
-        },
-        close() {
-            this.mainStore.setShowRaceReportPopup(false);
-        },
         addRaceReport() {
             const editingEntry = this.journalStore.editingEntry;
             const token = this.authStore.getToken;

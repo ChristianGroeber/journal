@@ -20,11 +20,11 @@
 
 <script lang="ts">
 import Loading from './src/components/Loading.vue';
-import AddRaceReport from './src/components/Modals/AddRaceReport.vue'
-import SpecificEntryPopup from './src/components/Modals/SpecificEntryPopup.vue'
+import AddRaceReport from './src/components/modals/AddRaceReport.vue'
+import SpecificEntryPopup from './src/components/modals/SpecificEntryPopup.vue'
 import Footer from "./src/components/home/Footer.vue";
-import LoginModal from "./src/components/Modals/LoginModal.vue";
-import MediaPreview from "./src/components/Modals/MediaPreview.vue";
+import LoginModal from "./src/components/modals/LoginModal.vue";
+import MediaPreview from "./src/components/modals/MediaPreview.vue";
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
 import {useMainStore} from "@/src/store/main";

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :before-close="hidePopup" title="Login" v-model="isShowing">
+    <el-dialog title="Login" v-model="isShowing">
         <el-form :model="loginForm" @submit.prevent="login">
             <el-form-item label="Username">
                 <el-input v-model="loginForm.username"/>
@@ -20,6 +20,9 @@
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
+import {useDialogStore} from "@/src/store/dialog";
+
+const route = "/auth/login";
 
 export default defineComponent({
     name: "LoginModal",
@@ -31,25 +34,25 @@ export default defineComponent({
             },
             authStore: useAuthStore(),
             mainStore: useMainStore(),
+            dialogStore: useDialogStore(),
         }
     },
     methods: {
-        hidePopup() {
-            this.mainStore.setShowLoginPopup(false);
-        },
         submitLoginForm() {
             this.authStore.login(this.loginForm).then(() => {
-                this.mainStore.setShowLoginPopup(false);
+                this.dialogStore.clearShowingDialog();
             })
         },
     },
     computed: {
         isShowing: {
-            get() {
-                return this.mainStore.getShowLoginPopup;
-            },
-            set(newValue) {
-                this.mainStore.setShowLoginPopup(newValue);
+            isShowing: {
+                get() {
+                    return route === this.dialogStore.getShowingDialog;
+                },
+                set() {
+                    this.dialogStore.clearShowingDialog();
+                }
             },
         },
         open() {

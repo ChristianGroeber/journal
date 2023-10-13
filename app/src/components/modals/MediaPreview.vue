@@ -16,12 +16,16 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
+import {useDialogStore} from "@/src/store/dialog";
+
+const route = "/media/preview";
 
 export default defineComponent({
     name: "MediaPreview",
     data() {
         return {
             mainStore: useMainStore(),
+            dialogStore: useDialogStore(),
         }
     },
     computed: {
@@ -33,10 +37,10 @@ export default defineComponent({
         },
         isShowing: {
             get() {
-                return this.mainStore.getMediaPreview.showing;
+                return route === this.dialogStore.getShowingDialog;
             },
-            set(newValue: boolean) {
-                this.mainStore.setShowMediaPreview(newValue);
+            set() {
+                this.dialogStore.clearShowingDialog();
             }
         },
     },
@@ -50,6 +54,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 img {
-  width: 100%;
+    width: 100%;
 }
 </style>

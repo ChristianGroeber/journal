@@ -4,7 +4,6 @@ import {buildRequest, send} from "@/src/helpers/xhr";
 import {useAuthStore} from "@/src/store/auth";
 
 interface MediaPreview {
-    showing: boolean,
     src: string,
     mediaType: string,
 }
@@ -22,9 +21,6 @@ interface MediaType {
 }
 
 interface State {
-    showEditSpecificPopup: boolean,
-    showRaceReportPopup: boolean,
-    showLoginPopup: boolean,
     mediaPreview: MediaPreview,
     meta: Meta,
     mediaTypes: MediaType[],
@@ -34,11 +30,7 @@ interface State {
 
 export const useMainStore = defineStore('main', {
     state: (): State => ({
-        showEditSpecificPopup: false,
-        showRaceReportPopup: false,
-        showLoginPopup: false,
         mediaPreview: {
-            showing: false,
             src: '',
             mediaType: '',
         },
@@ -62,9 +54,6 @@ export const useMainStore = defineStore('main', {
         theme: 'light',
     }),
     getters: {
-        getShowEditSpecificPopup: state => state.showEditSpecificPopup,
-        getShowRaceReportPopup: state => state.showRaceReportPopup,
-        getShowLoginPopup: state => state.showLoginPopup,
         getMediaPreview: state => state.mediaPreview,
         getPageTitle: state => state.pageTitle,
         getMediaTypes: state => state.mediaTypes,
@@ -84,23 +73,8 @@ export const useMainStore = defineStore('main', {
             const request = buildRequest('/api/admin/build-cache');
             return send(request);
         },
-        setShowLoginPopup(showLoginPopup: boolean) {
-            this.showLoginPopup = showLoginPopup;
-        },
-        setShowEditSpecificPopup(showSpecificPopup: boolean) {
-            this.showEditSpecificPopup = showSpecificPopup;
-        },
-        setShowRaceReportPopup(showRaceReportPopup: boolean) {
-            this.showRaceReportPopup = showRaceReportPopup;
-        },
-        setShowMediaPreview(showMediaPreview: boolean) {
-            this.mediaPreview.showing = showMediaPreview;
-        },
         setMediaPreview(mediaPreview: MediaPreview) {
             this.mediaPreview = mediaPreview
-        },
-        hideMediaPreview() {
-            this.mediaPreview.showing = false;
         },
         setTheme(theme: string) {
             if (theme !== 'light' && theme !== 'dark') {

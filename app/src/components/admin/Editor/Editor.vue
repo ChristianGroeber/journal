@@ -1,9 +1,9 @@
 <template>
-  <div class="main-content">
-    <EditEntry :entry="entry"></EditEntry>
-    <MediaUploader :entry="entry"></MediaUploader>
-    <MediaList :entry="entry"></MediaList>
-  </div>
+    <div class="main-content">
+        <EditEntry :entry="entry"></EditEntry>
+        <MediaUploader :entry="entry"></MediaUploader>
+        <MediaList :entry="entry"></MediaList>
+    </div>
 </template>
 
 <script lang="ts">
@@ -15,22 +15,22 @@ import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
 
 export default defineComponent({
-  props: ["entry"],
-  data: function () {
-    return {
-      title: "Edit " + this.entry,
-    }
-  },
-  created() {
-    useJournalStore().getEntry(this.entry).then(() => {
-      useMainStore().setTitle('Edit ' + useJournalStore().getEditingEntry?.meta.title);
-      useJournalStore().loadMediaForEntry(this.entry);
-    })
-  },
-  components: {
-    EditEntry,
-    MediaUploader,
-    MediaList,
-  },
+    props: ["entry"],
+    data: function () {
+        return {
+            title: "Edit " + this.entry,
+        }
+    },
+    created() {
+        useJournalStore().getEntry(this.entry).then(() => {
+            useMainStore().setTitle('Edit ' + useJournalStore().getEditingEntry?.meta.title);
+            useJournalStore().loadMediaForEntry(this.entry);
+        })
+    },
+    components: {
+        EditEntry,
+        MediaUploader,
+        MediaList,
+    },
 })
 </script>

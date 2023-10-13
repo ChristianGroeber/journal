@@ -1,11 +1,11 @@
 <template>
-  <div class="main-content">
-    <div class="months">
-      <div class="month" v-for="month in months" :key="month.id">
-        <Month :month="month" />
-      </div>
+    <div class="main-content">
+        <div class="months">
+            <div class="month" v-for="month in months" :key="month.id">
+                <Month :month="month"/>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -18,39 +18,39 @@ import {useJournalStore} from "@/src/store/journal";
 import {useAuthStore} from "@/src/store/auth";
 
 export default defineComponent({
-  name: "MonthList",
-  components: {
-    Month,
-    AdminBar,
-  },
-  data() {
-    return {
-      mainStore: useMainStore(),
-      journalStore: useJournalStore(),
-      authStore: useAuthStore(),
-    }
-  },
-  created() {
-    this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
-    window.setTimeout(resizeVideos, 100);
-  },
-  computed: {
-    months() {
-      return this.journalStore.getEntries;
+    name: "MonthList",
+    components: {
+        Month,
+        AdminBar,
     },
-  },
+    data() {
+        return {
+            mainStore: useMainStore(),
+            journalStore: useJournalStore(),
+            authStore: useAuthStore(),
+        }
+    },
+    created() {
+        this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
+        window.setTimeout(resizeVideos, 100);
+    },
+    computed: {
+        months() {
+            return this.journalStore.getEntries;
+        },
+    },
 })
 </script>
 
 <style scoped lang="scss">
 .months {
-  display: flex;
-  width: 100%;
-  gap: var(--content-gap);
+    display: flex;
+    width: 100%;
+    gap: var(--content-gap);
 
-  .month {
-    display: block;
-    width: var(--content-width);
-  }
+    .month {
+        display: block;
+        width: var(--content-width);
+    }
 }
 </style>
