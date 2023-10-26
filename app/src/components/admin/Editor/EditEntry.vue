@@ -19,11 +19,9 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
-import {useAuthStore} from "@/src/store/auth";
 import {useRouter} from "vue-router";
-import {JournalEntry} from "@/src/Contracts/JournalTypes";
+import {JournalEntry} from "@/src/contracts/JournalTypes";
 import {AxiosPromise} from "axios";
-import {useMainStore} from "@/src/store/main";
 import {useDialogStore} from "@/src/store/dialog";
 
 export default defineComponent({
