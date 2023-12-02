@@ -32,3 +32,4 @@ users.json
 cache/*
 config/journal.local.php
 dist/*
+var/*
