@@ -1,22 +1,27 @@
 import {defineStore} from "pinia";
 
 interface State {
-    showingDialog: string | boolean,
+    showingDialogs: string[],
 }
 
 export const useDialogStore = defineStore('dialog', {
     state: (): State => ({
-        showingDialog: false,
+        showingDialogs: [],
     }),
     getters: {
-        getShowingDialog: state => state.showingDialog,
+        getShowingDialogs: state => state.showingDialogs,
     },
     actions: {
         showDialog(route: string) {
-            this.showingDialog = route;
+            this.showingDialogs.push(route);
         },
-        clearShowingDialog() {
-            this.showingDialog = false;
+        isDialogShowing(route: string) {
+            return this.showingDialogs.includes(route);
+        },
+        hideDialog(route: string) {
+            if (this.showingDialogs.includes(route)) {
+                this.showingDialogs.splice(this.showingDialogs.indexOf(route), 1);
+            }
         },
     }
 });

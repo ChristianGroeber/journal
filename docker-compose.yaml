@@ -10,6 +10,6 @@ services:
                 GID: 33
         container_name: journal
         ports:
-            - '86:80'
+            - '94:80'
         volumes: 
             - ./:/var/www/html

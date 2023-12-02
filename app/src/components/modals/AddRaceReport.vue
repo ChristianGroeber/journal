@@ -66,10 +66,10 @@ export default defineComponent({
     computed: {
         isShowing: {
             get() {
-                return route === this.dialogStore.getShowingDialog;
+                return this.dialogStore.isDialogShowing(route);
             },
             set() {
-                this.dialogStore.clearShowingDialog();
+                this.dialogStore.hideDialog(route);
             }
         },
     },
@@ -93,7 +93,7 @@ export default defineComponent({
             }
             this.journalStore.uploadRaceReport(data).then(() => {
                 this.mainStore.buildCache(token);
-                this.mainStore.setShowRaceReportPopup(false);
+                this.dialogStore.hideDialog(route);
                 this.clearForm();
             });
         },

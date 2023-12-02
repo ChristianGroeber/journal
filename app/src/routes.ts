@@ -7,7 +7,6 @@ import RestorePassword from "./components/auth/RestorePassword.vue";
 import RequestNewPassword from "./components/auth/RequestNewPassword.vue";
 import ChangePassword from "./components/auth/ChangePassword.vue";
 import GenerateNewToken from "./components/auth/GenerateNewToken.vue";
-import CreateAdmin from "./components/auth/CreateAdmin.vue";
 import Auth from "./components/auth/Auth.vue";
 import Editor from "./components/admin/Editor/Editor.vue";
 import NotFound from './components/error/NotFound.vue';
@@ -60,11 +59,6 @@ const routes = [
         path: '/auth/generate-new-token',
         name: "Generate New Token",
         component: GenerateNewToken,
-    },
-    {
-        path: '/auth/create-admin',
-        name: "Create Admin User",
-        component: CreateAdmin,
     },
     {
         path: "/admin/tools",

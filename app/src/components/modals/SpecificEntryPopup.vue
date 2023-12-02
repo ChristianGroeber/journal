@@ -36,10 +36,10 @@ export default {
     computed: {
         isShowing: {
             get() {
-                return route === this.dialogStore.getShowingDialog;
+                return this.dialogStore.isDialogShowing(route);
             },
             set() {
-                this.dialogStore.clearShowingDialog();
+                this.dialogStore.hideDialog(route);
             }
         },
     },
@@ -52,7 +52,7 @@ export default {
             const data = {entry: this.dateEntry};
             const request = buildRequest('/api/admin/entry/create', data);
             send(request).then(response => {
-                this.mainStore.setShowEditSpecificPopup(false);
+                this.dialogStore.hideDialog(route);
                 this.router.push("/edit?entry=" + response.data.entryId);
             })
         },

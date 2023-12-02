@@ -37,16 +37,16 @@ export default defineComponent({
         },
         isShowing: {
             get() {
-                return route === this.dialogStore.getShowingDialog;
+                return this.dialogStore.isDialogShowing(route);
             },
             set() {
-                this.dialogStore.clearShowingDialog();
+                this.dialogStore.hideDialog(route);
             }
         },
     },
     methods: {
         close() {
-            this.mainStore.hideMediaPreview();
+            this.dialogStore.hideDialog(route);
         },
     },
 })

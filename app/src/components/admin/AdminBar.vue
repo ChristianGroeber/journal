@@ -8,8 +8,6 @@
 import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useRouter} from "vue-router";
-import {useMainStore} from "@/src/store/main";
-import {useAuthStore} from "@/src/store/auth";
 import {useDialogStore} from "@/src/store/dialog";
 
 export default defineComponent({

@@ -40,26 +40,18 @@ export default defineComponent({
     methods: {
         submitLoginForm() {
             this.authStore.login(this.loginForm).then(() => {
-                this.dialogStore.clearShowingDialog();
+                this.dialogStore.hideDialog(route);
             })
         },
     },
     computed: {
         isShowing: {
-            isShowing: {
-                get() {
-                    return route === this.dialogStore.getShowingDialog;
-                },
-                set() {
-                    this.dialogStore.clearShowingDialog();
-                }
+            get() {
+                return this.dialogStore.isDialogShowing(route);
             },
-        },
-        open() {
-            this.mainStore.setShowLoginPopup(true);
-        },
-        close() {
-            this.mainStore.setShowLoginPopup(false);
+            set() {
+                this.dialogStore.hideDialog(route);
+            }
         },
     },
 })
