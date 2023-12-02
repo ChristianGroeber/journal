@@ -1,5 +1,7 @@
 <?php
 
+use App\Controller\JournalFrontendController;
+
 return [
     "plugins" => [
         [
@@ -9,7 +11,14 @@ return [
             'config' => require_once('vendor/pixlmint/pixlcms-journal-plugin/config/config.php'),
         ],
     ],
+    'routes' => [
+        [
+            'route' => '/',
+            'controller' => JournalFrontendController::class,
+            'function' => 'index',
+        ],
+    ],
     'base' => [
-        'frontendController' => \App\Controller\JournalFrontendController::class,
+        'frontendController' => JournalFrontendController::class,
     ],
 ];

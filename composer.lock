@@ -7,6 +7,66 @@
     "content-hash": "109be0115248be2f604029f70826a7a6",
     "packages": [
         {
+            "name": "laravel/serializable-closure",
+            "version": "v1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/serializable-closure.git",
+                "reference": "3dbf8a8e914634c48d389c1234552666b3d43754"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/3dbf8a8e914634c48d389c1234552666b3d43754",
+                "reference": "3dbf8a8e914634c48d389c1234552666b3d43754",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "nesbot/carbon": "^2.61",
+                "pestphp/pest": "^1.21.3",
+                "phpstan/phpstan": "^1.8.2",
+                "symfony/var-dumper": "^5.4.11"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\SerializableClosure\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Nuno Maduro",
+                    "email": "nuno@laravel.com"
+                }
+            ],
+            "description": "Laravel Serializable Closure provides an easy and secure way to serialize closures in PHP.",
+            "keywords": [
+                "closure",
+                "laravel",
+                "serializable"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/serializable-closure/issues",
+                "source": "https://github.com/laravel/serializable-closure"
+            },
+            "time": "2023-11-08T14:08:06+00:00"
+        },
+        {
             "name": "mhor/php-mediainfo",
             "version": "5.5.0",
             "source": {
@@ -64,30 +124,163 @@
             "time": "2023-05-10T16:03:31+00:00"
         },
         {
-            "name": "pixlmint/nacho",
-            "version": "1.2",
+            "name": "php-di/invoker",
+            "version": "2.3.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pixlmint/Nacho.git",
-                "reference": "93f3a04892561ac8809b4c438871ad5465cf28ff"
+                "url": "https://github.com/PHP-DI/Invoker.git",
+                "reference": "33234b32dafa8eb69202f950a1fc92055ed76a86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/93f3a04892561ac8809b4c438871ad5465cf28ff",
-                "reference": "93f3a04892561ac8809b4c438871ad5465cf28ff",
+                "url": "https://api.github.com/repos/PHP-DI/Invoker/zipball/33234b32dafa8eb69202f950a1fc92055ed76a86",
+                "reference": "33234b32dafa8eb69202f950a1fc92055ed76a86",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3",
+                "psr/container": "^1.0|^2.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "mnapoli/hard-mode": "~0.3.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Invoker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generic and extensible callable invoker",
+            "homepage": "https://github.com/PHP-DI/Invoker",
+            "keywords": [
+                "callable",
+                "dependency",
+                "dependency-injection",
+                "injection",
+                "invoke",
+                "invoker"
+            ],
+            "support": {
+                "issues": "https://github.com/PHP-DI/Invoker/issues",
+                "source": "https://github.com/PHP-DI/Invoker/tree/2.3.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-09-08T09:24:21+00:00"
+        },
+        {
+            "name": "php-di/php-di",
+            "version": "7.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-DI/PHP-DI.git",
+                "reference": "8097948a89f6ec782839b3e958432f427cac37fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-DI/PHP-DI/zipball/8097948a89f6ec782839b3e958432f427cac37fd",
+                "reference": "8097948a89f6ec782839b3e958432f427cac37fd",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/serializable-closure": "^1.0",
+                "php": ">=8.0",
+                "php-di/invoker": "^2.0",
+                "psr/container": "^1.1 || ^2.0"
+            },
+            "provide": {
+                "psr/container-implementation": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "friendsofphp/proxy-manager-lts": "^1",
+                "mnapoli/phpunit-easymock": "^1.3",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.6"
+            },
+            "suggest": {
+                "friendsofphp/proxy-manager-lts": "Install it if you want to use lazy injection (version ^1)"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "DI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The dependency injection container for humans",
+            "homepage": "https://php-di.org/",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interop",
+                "dependency injection",
+                "di",
+                "ioc",
+                "psr11"
+            ],
+            "support": {
+                "issues": "https://github.com/PHP-DI/PHP-DI/issues",
+                "source": "https://github.com/PHP-DI/PHP-DI/tree/7.0.6"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/php-di/php-di",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-11-02T10:04:50+00:00"
+        },
+        {
+            "name": "pixlmint/nacho",
+            "version": "1.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pixlmint/Nacho.git",
+                "reference": "63a5066b278600ad832bb4692d6850357e2cd822"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/63a5066b278600ad832bb4692d6850357e2cd822",
+                "reference": "63a5066b278600ad832bb4692d6850357e2cd822",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
                 "php": "8.*",
+                "php-di/php-di": "^7.0",
                 "pixlmint/parsedown": "*",
-                "symfony/yaml": "^5.2",
-                "twig/twig": "^1.36"
+                "psr/log": "^3.0",
+                "symfony/yaml": "^5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.3"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Nacho\\": "src/"
+                    "Nacho\\": "src/",
+                    "Tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -103,9 +296,9 @@
             "description": "My own Lightweight PHP Framework",
             "support": {
                 "issues": "https://github.com/pixlmint/Nacho/issues",
-                "source": "https://github.com/pixlmint/Nacho/tree/1.2"
+                "source": "https://github.com/pixlmint/Nacho/tree/1.4.5"
             },
-            "time": "2023-09-07T08:31:56+00:00"
+            "time": "2023-12-02T08:59:29+00:00"
         },
         {
             "name": "pixlmint/parsedown",
@@ -163,16 +356,16 @@
         },
         {
             "name": "pixlmint/pixl-cms",
-            "version": "1.7",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixl-cms.git",
-                "reference": "da234761ed7432eeab28365afc8a1082cf4138c2"
+                "reference": "5d632b8b53631e476786161ce711b343e6aae56a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/da234761ed7432eeab28365afc8a1082cf4138c2",
-                "reference": "da234761ed7432eeab28365afc8a1082cf4138c2",
+                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/5d632b8b53631e476786161ce711b343e6aae56a",
+                "reference": "5d632b8b53631e476786161ce711b343e6aae56a",
                 "shasum": ""
             },
             "require": {
@@ -190,27 +383,28 @@
             "description": "A lightweight CMS powered by Markdown and Nachos",
             "support": {
                 "issues": "https://github.com/pixlmint/pixl-cms/issues",
-                "source": "https://github.com/pixlmint/pixl-cms/tree/1.7"
+                "source": "https://github.com/pixlmint/pixl-cms/tree/2.0.6"
             },
-            "time": "2023-09-07T08:31:56+00:00"
+            "time": "2023-11-23T19:41:06+00:00"
         },
         {
             "name": "pixlmint/pixlcms-journal-plugin",
-            "version": "1.1",
+            "version": "2023.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "aeecd9994de561776ab81c2e30fbbd65e001d024"
+                "reference": "ce2fd0ed91d68b0320698c7b25710e2c091e6188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/aeecd9994de561776ab81c2e30fbbd65e001d024",
-                "reference": "aeecd9994de561776ab81c2e30fbbd65e001d024",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/ce2fd0ed91d68b0320698c7b25710e2c091e6188",
+                "reference": "ce2fd0ed91d68b0320698c7b25710e2c091e6188",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "pixlmint/pixl-cms": "*"
+                "pixlmint/pixl-cms": "*",
+                "pixlmint/pixlcms-media-plugin": "*"
             },
             "type": "library",
             "autoload": {
@@ -222,9 +416,145 @@
             "description": "The official journaling plugin for PixlCMS",
             "support": {
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
-                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/1.1"
+                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2023.14"
             },
-            "time": "2023-09-03T18:10:30+00:00"
+            "time": "2023-11-17T14:36:24+00:00"
+        },
+        {
+            "name": "pixlmint/pixlcms-media-plugin",
+            "version": "1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pixlmint/pixlcms-media-plugin.git",
+                "reference": "fbf6b99fb1f4f572dc981a2d7636bd6179cbf057"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-media-plugin/zipball/fbf6b99fb1f4f572dc981a2d7636bd6179cbf057",
+                "reference": "fbf6b99fb1f4f572dc981a2d7636bd6179cbf057",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "mhor/php-mediainfo": "^5.5",
+                "pixlmint/pixl-cms": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PixlMint\\Media\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple Media plugin for PixlCMS",
+            "support": {
+                "issues": "https://github.com/pixlmint/pixlcms-media-plugin/issues",
+                "source": "https://github.com/pixlmint/pixlcms-media-plugin/tree/1.6.3"
+            },
+            "time": "2023-11-17T14:36:54+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/2.0.2"
+            },
+            "time": "2021-11-05T16:47:00+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.0"
+            },
+            "time": "2021-07-14T16:46:02+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -656,84 +986,6 @@
                 }
             ],
             "time": "2023-04-23T19:33:36+00:00"
-        },
-        {
-            "name": "twig/twig",
-            "version": "v1.44.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "0887422319889e442458e48e2f3d9add1a172ad5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/0887422319889e442458e48e2f3d9add1a172ad5",
-                "reference": "0887422319889e442458e48e2f3d9add1a172ad5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "require-dev": {
-                "psr/container": "^1.0",
-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.44-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Twig_": "lib/"
-                },
-                "psr-4": {
-                    "Twig\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Twig Team",
-                    "role": "Contributors"
-                },
-                {
-                    "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
-                }
-            ],
-            "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "https://twig.symfony.com",
-            "keywords": [
-                "templating"
-            ],
-            "support": {
-                "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v1.44.7"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-09-28T08:38:36+00:00"
         }
     ],
     "packages-dev": [
