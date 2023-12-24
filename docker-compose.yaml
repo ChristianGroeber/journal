@@ -6,10 +6,10 @@ services:
             context: .
             dockerfile: docker/local.Dockerfile
             args:
-                UID: 33
-                GID: 33
+                UID: 1000
+                GID: 1000
         container_name: journal
         ports:
-            - '86:80'
+            - '94:80'
         volumes: 
             - ./:/var/www/html

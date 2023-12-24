@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-import {getFileExtension} from "../../../../helpers/files";
-import {buildRequest, send} from "@/src/helpers/xhr";
+import {getFileExtension} from "@/src/helpers/files";
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
 import {useAuthStore} from "@/src/store/auth";

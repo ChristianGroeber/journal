@@ -19,16 +19,27 @@ export const useJournalStore = defineStore('journalStore', {
         getEntries: (state) => state.entries,
         getEditingEntry: (state) => state.editingEntry,
         getGallery: (state) => state.gallery,
+        safeCurrentEntry: state => {
+            if (!state.editingEntry) {
+                throw "not editing any entry";
+            }
+
+            return state.editingEntry;
+        },
     },
     actions: {
         saveEntry() {
             const data = {
                 content: this.editingEntry?.raw_content,
                 entry: this.editingEntry?.id,
+                lastUpdate: this.editingEntry?.meta.dateUpdated,
             }
             const request = buildRequest('/api/admin/entry/edit', data, 'PUT');
 
-            return send(request);
+            return send(request).then(response => {
+                this.safeCurrentEntry.meta.dateUpdated = response.data.lastUpdate;
+                return response;
+            });
         },
         updateEntry(entry: JournalEntry) {
             this.editingEntry = entry;
@@ -50,17 +61,17 @@ export const useJournalStore = defineStore('journalStore', {
             return send(request);
         },
         loadMediaForEntry(entry: string) {
-            const request = buildRequest('/api/admin/entry/media/load', {entry: entry});
+            const request = buildRequest('/api/admin/gallery/load', {gallery: entry});
             return send(request).then((response) => {
                 this.gallery = response.data.media;
             });
         },
         uploadMedia(data: FormData) {
-            const request = buildRequest('/api/admin/entry/gallery/upload', data, 'POST');
+            const request = buildRequest('/api/admin/gallery/upload', data, 'POST');
             return send(request)
         },
         deleteMedia(mediaString: string) {
-            const request = buildRequest('/api/admin/entry/media/delete', {media: mediaString}, 'DELETE');
+            const request = buildRequest('/api/admin/gallery/delete', {media: mediaString}, 'DELETE');
             return send(request);
         },
         uploadRaceReport(data: object) {
