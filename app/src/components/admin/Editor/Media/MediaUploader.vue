@@ -10,11 +10,9 @@
 </template>
 
 <script lang="ts">
-import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
 import {useMainStore} from "@/src/store/main";
-import {useAuthStore} from "@/src/store/auth";
 import {FileUploadEvent} from "@/src/Contracts/FormTypes";
 
 export default defineComponent({
@@ -42,10 +40,14 @@ export default defineComponent({
             filesArray.forEach(img => {
                 const formData = new FormData();
                 formData.append(filesArray.indexOf(img).toString(), img);
-                formData.append("entry", this.entry);
-                // TODO: fix media uploads ?
+                formData.append("gallery", this.entry);
                 this.journalStore.uploadMedia(formData).then(response => {
-                    const img = response.data.files[0]['scaled']['default'];
+                    let img;
+                    if ('default' in response.data.files[0]['scaled']) {
+                        img = response.data.files[0]['scaled']['default'];
+                    } else if ('encode' in response.data.files[0]['scaled']) {
+                        img = response.data.files[0]['scaled']['encode'];
+                    }
                     console.log(img);
                     editingEntry.raw_content +=
                         "![uploaded media](" + encodeURI(img) + ")";

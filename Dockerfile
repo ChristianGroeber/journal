@@ -11,12 +11,12 @@ WORKDIR /var/www/html
 
 RUN composer install
 
-RUN groupadd -o -g ${GID} journal_group
-RUN useradd -M -N -u ${UID} -g ${GID} journal_user
+RUN groupadd -o -g ${GID} journal
+RUN useradd -M -N -u ${UID} -g ${GID} journal
 
 RUN cp docker/apache2.conf /etc/apache2/apache2.conf
 
-RUN chown -R journal_user:journal_group .
+RUN chown -R journal:journal .
 
 # Cron
 COPY docker/crontab /etc/cron.d/container_crontab

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use Nacho\Models\HttpResponse;
+
 class JournalFrontendController
 {
-    public function index(): string
+    public function index(): HttpResponse
     {
-        return file_get_contents('dist/index.html');
+        return new HttpResponse(file_get_contents('dist/index.html'));
     }
 }

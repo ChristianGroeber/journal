@@ -6,8 +6,8 @@ services:
             context: .
             dockerfile: docker/local.Dockerfile
             args:
-                UID: 33
-                GID: 33
+                UID: 1000
+                GID: 1000
         container_name: journal
         ports:
             - '94:80'

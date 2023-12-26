@@ -5,7 +5,11 @@ ARG GID
 
 RUN apt update && apt install -y mediainfo cron ffmpeg python3
 
+RUN groupadd -o -g ${GID} journal
+RUN useradd -M -N -u ${UID} -g ${GID} journal
+
 COPY docker/crontab /etc/cron.d/container_crontab
+COPY docker/apache2.conf /etc/apache2/apache2.conf
 COPY docker/cron_start.sh /root/cron_start.sh
 
 RUN chmod +x /root/cron_start.sh

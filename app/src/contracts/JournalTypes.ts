@@ -10,11 +10,10 @@ export interface JournalEntry {
 
 export interface EntryMeta {
     title: string,
-    date: string,
-    time: number,
     date_formatted: string,
     description: string | null,
     author: string | null,
+    dateUpdated: string | null,
 }
 
 export interface WikiEntryList extends Array<JournalEntry> {
