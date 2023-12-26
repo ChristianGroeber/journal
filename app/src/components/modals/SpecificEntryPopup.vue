@@ -5,11 +5,9 @@
                 <el-form-item label="Date">
                     <el-input v-model="dateEntry" type="date"></el-input>
                 </el-form-item>
+                <pj-button-link :action="editSpecificEntry" content="Submit"></pj-button-link>
             </el-form>
         </div>
-        <template #footer>
-            <pj-button-link :action="editSpecificEntry" content="Submit"></pj-button-link>
-        </template>
     </el-dialog>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content">
+    <el-dialog v-model="isShowing" title="Edit Race Report">
         <el-form>
             <el-form-item label="Admin Username">
                 <el-input v-model="adminForm.username"></el-input>
@@ -9,7 +9,7 @@
             </el-form-item>
             <el-button @click="submit">Submit</el-button>
         </el-form>
-    </div>
+    </el-dialog>
 </template>
 
 <script lang="ts">
@@ -31,14 +31,6 @@ export default defineComponent({
             router: useRouter(),
             dialogStore: useDialogStore(),
         }
-    },
-    created: function () {
-        const request = buildRequest('/api/auth/create-admin');
-        send(request).catch(reason => {
-            if (reason.response.status === 400) {
-                alert(reason.response.data.message);
-            }
-        });
     },
     methods: {
         submit() {

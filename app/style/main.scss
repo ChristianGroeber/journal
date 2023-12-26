@@ -1,8 +1,4 @@
-//@use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
-//
-//@import '/app/style/fonts.scss';
 @import '/node_modules/element-plus/dist/index.css';
-//@import '/app/style/responsive.scss';
 @import '/app/style/variables.scss';
 
 html,
@@ -37,6 +33,23 @@ body {
             font-size: 5em;
         }
     }
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    width: 100vw;
+    position: fixed;
+    height: 2rem;
+    bottom: 0;
+    z-index: 1;
+}
+
+.main-content {
+    margin-bottom: 2rem;
+    background-color: white;
+    z-index: 2;
+    position: relative;
 }
 
 @media screen and (min-width: $content-width-medium) {

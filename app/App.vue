@@ -41,7 +41,7 @@ const breakpointStyles = {
     large: 900,
 }
 
-const contentGap = 300;
+const contentGap = 50;
 
 export default defineComponent({
     name: "App",
@@ -69,9 +69,6 @@ export default defineComponent({
         },
     },
     created() {
-        // for (const [key, value] of Object.entries(contentWidthStyles)) {
-        //   document.documentElement.style.setProperty(`--content-width-${key}`, `${value}px`);
-        // }
         for (const [key, value] of Object.entries(breakpointStyles)) {
             document.documentElement.style.setProperty(`--content-width-${key}`, `${value}px`);
         }

@@ -47,7 +47,7 @@ export default defineComponent({
             }
         },
         toggleEditSpecificPopup() {
-            useDialogStore().showDialog('/admin/edit-specific');
+            useDialogStore().showDialog('/edit/specific');
         },
         editCurrent() {
             const request = buildRequest('/api/admin/entry/edit/current');

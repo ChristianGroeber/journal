@@ -29,6 +29,7 @@ import {useRouter} from 'vue-router'
 import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
 import {Edit, Delete} from "@element-plus/icons-vue";
+import {ElMessageBox, ElMessage} from "element-plus";
 
 export default defineComponent({
     name: "Day",
@@ -68,16 +69,19 @@ export default defineComponent({
     },
     methods: {
         deleteEntry() {
-            const doDelete = confirm("Are you sure you want to delete this entry");
-            if (doDelete) {
-                const data = {
-                    entry: this.day.id,
-                    token: this.authStore.getToken,
+            ElMessageBox.confirm(
+                "Are you sure you want to delete this entry",
+                "Warning",
+                {
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    type: "warning",
                 }
-                this.journalStore.deleteEntry(data).then(() => {
+            ).then(() => {
+                this.journalStore.deleteEntry({entry: this.day.id}).then(() => {
                     this.journalStore.loadEntries();
-                })
-            }
+                });
+            });
         },
         editEntry() {
             this.router.push('/edit?' + this.query);
