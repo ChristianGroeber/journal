@@ -2,7 +2,7 @@
     "require": {
         "ext-json": "*",
         "pixlmint/pixl-cms": "*",
-        "pixlmint/pixlcms-journal-plugin": "*",
+        "pixlmint/pixlcms-journal-plugin": "2023.*",
         "ext-zip": "*",
         "ext-gd": "*",
         "ext-exif": "*",
