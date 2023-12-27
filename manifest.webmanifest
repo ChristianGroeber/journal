@@ -1,26 +1,50 @@
 {
     "dir": "ltr",
     "lang": "en",
-    "name": "2023",
+    "name": "2024",
     "scope": "/",
     "display": "standalone",
     "start_url": "/auth/login-if-not-logged-in",
-    "short_name": "2023",
-    "theme_color": "#f1530a",
+    "short_name": "2024",
+    "theme_color": "#00dccf",
     "orientation": "any",
     "background_color": "#000000",
     "related_applications": [],
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "/public/manifest/icon-192x192.png",
-            "sizes": "192x192",
+            "src": "/public/manifest/icon-72x72.png",
+            "sizes": "72x72",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
-            "src": "/public/manifest/icon-256x256.png",
-            "sizes": "256x256",
+            "src": "/public/manifest/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/public/manifest/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/public/manifest/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/public/manifest/icon-152x152.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/public/manifest/icon-192x192.png",
+            "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable any"
         },
