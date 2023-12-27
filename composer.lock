@@ -389,16 +389,16 @@
         },
         {
             "name": "pixlmint/pixlcms-journal-plugin",
-            "version": "2023.14.2",
+            "version": "2024.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "7f2445f08117241d09a31c4a6470870dd1eff5cb"
+                "reference": "5790b15cfa13aa0feb914b2108d5ea353ea6ff7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/7f2445f08117241d09a31c4a6470870dd1eff5cb",
-                "reference": "7f2445f08117241d09a31c4a6470870dd1eff5cb",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/5790b15cfa13aa0feb914b2108d5ea353ea6ff7a",
+                "reference": "5790b15cfa13aa0feb914b2108d5ea353ea6ff7a",
                 "shasum": ""
             },
             "require": {
@@ -416,9 +416,9 @@
             "description": "The official journaling plugin for PixlCMS",
             "support": {
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
-                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2023.14.2"
+                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2024.1"
             },
-            "time": "2023-12-26T03:37:21+00:00"
+            "time": "2023-12-27T14:32:41+00:00"
         },
         {
             "name": "pixlmint/pixlcms-media-plugin",
@@ -1538,16 +1538,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.3",
+            "version": "10.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6fce887c71076a73f32fd3e0774a6833fc5c7f19"
+                "reference": "f15372ecc42f14d64e2e6e2f07d22308c316b888"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6fce887c71076a73f32fd3e0774a6833fc5c7f19",
-                "reference": "6fce887c71076a73f32fd3e0774a6833fc5c7f19",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f15372ecc42f14d64e2e6e2f07d22308c316b888",
+                "reference": "f15372ecc42f14d64e2e6e2f07d22308c316b888",
                 "shasum": ""
             },
             "require": {
@@ -1619,7 +1619,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.3"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.4"
             },
             "funding": [
                 {
@@ -1635,7 +1635,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-13T07:25:23+00:00"
+            "time": "2023-12-27T13:17:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",

@@ -8,11 +8,7 @@
                 <el-input type="password" v-model="loginForm.password"></el-input>
             </el-form-item>
         </el-form>
-        <template #footer>
-      <span class="dialog-footer">
-        <pj-button-link :action="submitLoginForm" content="Login"></pj-button-link>
-      </span>
-        </template>
+      <pj-button-link :action="submitLoginForm" content="Login"></pj-button-link>
     </el-dialog>
 </template>
 
