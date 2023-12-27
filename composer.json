@@ -2,12 +2,11 @@
     "require": {
         "ext-json": "*",
         "pixlmint/pixl-cms": "*",
-        "pixlmint/pixlcms-journal-plugin": "2023.*",
+        "pixlmint/pixlcms-journal-plugin": "*",
         "ext-zip": "*",
         "ext-gd": "*",
         "ext-exif": "*",
-        "ext-fileinfo": "*",
-        "mhor/php-mediainfo": "^5.4"
+        "ext-fileinfo": "*"
     },
     "autoload": {
         "psr-4": {
