@@ -19,7 +19,6 @@
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
-import {useRouter} from "vue-router";
 
 export default defineComponent({
     data: () => {
@@ -29,19 +28,14 @@ export default defineComponent({
                 password: "",
             },
             authStore: useAuthStore(),
-            router: useRouter(),
         };
     },
     created() {
         useMainStore().setTitle('Login');
     },
-    mounted() {
-        // this.$refs.autofocus.focus();
-    },
     methods: {
         login() {
             this.authStore.login(this.loginForm).then(() => {
-                this.router.push('/');
             });
         },
     },

@@ -7,7 +7,6 @@
 <script lang="ts">
 import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
-import {useRouter} from "vue-router";
 import {useDialogStore} from "@/src/store/dialog";
 
 export default defineComponent({
@@ -24,15 +23,14 @@ export default defineComponent({
                     func: this.toggleEditSpecificPopup,
                 },
                 {
-                    label: "Auth",
-                    page: "/auth",
+                    label: "More",
+                    func: this.toggleSettingsPopup,
                 },
                 {
                     label: "More",
                     page: "/admin/tools",
                 },
             ],
-            router: useRouter(),
         };
     },
     methods: {
@@ -41,7 +39,7 @@ export default defineComponent({
             if (item.func !== undefined) {
                 item.func();
             } else if ("page" in item) {
-                this.router.push(item.page);
+                // this.router.push(item.page);
             } else {
                 console.error('I don\'t know what to do with item #' + itemId);
             }
@@ -52,8 +50,11 @@ export default defineComponent({
         editCurrent() {
             const request = buildRequest('/api/admin/entry/edit/current');
             send(request).then(response => {
-                this.router.push("/edit?entry=" + response.data.entryId);
+                // this.router.push("/edit?entry=" + response.data.entryId);
             });
+        },
+        toggleSettingsPopup() {
+            useDialogStore().showDialog("/settings");
         },
     },
 })

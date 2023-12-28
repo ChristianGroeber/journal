@@ -10,14 +10,10 @@
 import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
-import {useRouter} from "vue-router";
 
 export default defineComponent({
     name: 'RestoreBackup',
     data() {
-        return {
-            router: useRouter(),
-        }
     },
     methods: {
         uploadBackup(e) {
@@ -31,7 +27,6 @@ export default defineComponent({
             });
         },
         goBack() {
-            this.router.push('/admin/tools');
         },
     }
 })

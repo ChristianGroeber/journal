@@ -18,6 +18,8 @@ import MediaPreview, {route as mediaPreviewRoute} from "@/src/components/modals/
 import LoginModal, {route as loginRoute} from "@/src/components/modals/LoginModal.vue";
 import CreateAdmin, {route as createAdminRoute} from "@/src/components/modals/CreateAdmin.vue";
 import EditorModal, {route as editorRoute} from "@/src/components/modals/EditorModal.vue";
+import UserSettings, {route as settingsRoute} from "@/src/components/modals/UserSettingsModal.vue";
+import ChangePassword, {route as changePasswordRoute} from "@/src/components/auth/ChangePassword.vue";
 import {useDialogStore} from "@/src/store/dialog";
 
 interface DialogComponent {
@@ -34,6 +36,7 @@ export default defineComponent({
         LoginModal,
         CreateAdmin,
         EditorModal,
+        UserSettings,
     },
     methods: {},
     setup() {
@@ -44,27 +47,35 @@ export default defineComponent({
             {
                 route: specificEntryRoute,
                 component: SpecificEntryPopup,
-            } as DialogComponent,
+            },
             {
                 route: editorRoute,
                 component: EditorModal,
-            } as DialogComponent,
+            },
             {
                 route: mediaPreviewRoute,
                 component: MediaPreview,
-            } as DialogComponent,
+            },
             {
                 route: raceReportRoute,
                 component: AddRaceReport,
-            } as DialogComponent,
+            },
             {
                 route: loginRoute,
                 component: LoginModal,
-            } as DialogComponent,
+            },
             {
                 route: createAdminRoute,
                 component: CreateAdmin,
-            } as DialogComponent,
+            },
+            {
+                route: settingsRoute,
+                component: UserSettings,
+            },
+            {
+                route: changePasswordRoute,
+                component: ChangePassword,
+            },
         ];
 
         const getComponent = (route: string) => {

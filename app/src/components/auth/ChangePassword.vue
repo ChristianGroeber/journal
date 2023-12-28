@@ -1,38 +1,29 @@
 <template>
-    <div class="main-content">
-        <div>
-            <router-link class="btn" to="/auth">Return</router-link>
-        </div>
-        <form @submit.prevent="submit">
-            <div class="form-row">
-                <input placeholder="Username" v-model="form.username" type="text"/>
-            </div>
-            <div class="form-row">
-                <input
-                    placeholder="Current Password"
-                    v-model="form.currentPassword"
-                    type="password"
-                />
-            </div>
-            <div class="form-row">
-                <input placeholder="Password" v-model="form.newPassword1" type="password"/>
-            </div>
-            <div class="form-row">
-                <input
-                    placeholder="Repeat Password"
-                    v-model="form.newPassword2"
-                    type="password"
-                />
-            </div>
-            <button class="mt-1" type="submit">Submit</button>
-        </form>
-    </div>
+    <pj-dialog title="Change Password">
+        <el-form v-model="form" @submit.prevent="submit">
+            <el-form-item label="Username">
+                <el-input v-model="form.username"/>
+            </el-form-item>
+            <el-form-item label="Current Password">
+                <el-input type="password" v-model="form.currentPassword"/>
+            </el-form-item>
+            <el-form-item label="New Password">
+                <el-input v-model="form.newPassword1" type="password"/>
+            </el-form-item>
+            <el-form-item label="Repeat Password">
+                <el-input v-model="form.newPassword2" type="password"/>
+            </el-form-item>
+            <el-button type="submit">Submit</el-button>
+        </el-form>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
-import {useRouter} from "vue-router";
+import {useDialogStore} from "@/src/store/dialog";
+
+export const route = "/auth/change-password";
 
 export default defineComponent({
     data: () => {
@@ -43,14 +34,14 @@ export default defineComponent({
                 newPassword1: "",
                 newPassword2: "",
             },
-            router: useRouter(),
+            dialogStore: useDialogStore(),
         };
     },
     methods: {
         submit() {
             useAuthStore().changePassword(this.form).then(() => {
-                this.router.push('/');
-            })
+                this.dialogStore.hideDialog(route);
+            });
         },
     },
 })

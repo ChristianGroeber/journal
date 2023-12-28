@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Edit" :fullscreen="true" @close="closeEditor" :route="route">
+    <pj-dialog :title="'Edit ' + entry" :fullscreen="true" @close="closeEditor" :route="route">
         <Editor :entry="entry"></Editor>
     </pj-dialog>
 </template>

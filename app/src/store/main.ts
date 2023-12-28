@@ -25,7 +25,6 @@ interface State {
     meta: Meta,
     mediaTypes: MediaType[],
     pageTitle: string,
-    theme: string,
 }
 
 export const useMainStore = defineStore('main', {
@@ -51,14 +50,12 @@ export const useMainStore = defineStore('main', {
                 'mime': 'image/*'
             }
         ],
-        theme: 'light',
     }),
     getters: {
         getMediaPreview: state => state.mediaPreview,
         getPageTitle: state => state.pageTitle,
         getMediaTypes: state => state.mediaTypes,
         getMeta: state => state.meta,
-        getTheme: state => state.theme,
     },
     actions: {
         setTitle(title: string) {
@@ -75,18 +72,6 @@ export const useMainStore = defineStore('main', {
         },
         setMediaPreview(mediaPreview: MediaPreview) {
             this.mediaPreview = mediaPreview
-        },
-        setTheme(theme: string) {
-            if (theme !== 'light' && theme !== 'dark') {
-                throw 'The selected theme is not supported';
-            }
-
-            document.documentElement.classList.remove(this.getTheme);
-            document.documentElement.classList.add(theme);
-            this.theme = theme;
-
-
-            localStorage.setItem('theme', theme);
         },
         init(token: string | null) {
             const request = buildRequest('/api/init', {token: token}, 'POST');

@@ -1,7 +1,6 @@
 <template>
     <div class="main-content">
         <div>
-            <router-link class="btn" to="/auth">Return</router-link>
         </div>
         <form @submit.prevent="submit">
             <div class="form-row">
@@ -26,7 +25,6 @@
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
-import {useRouter} from "vue-router";
 
 export default defineComponent({
     data: () => {
@@ -50,7 +48,6 @@ export default defineComponent({
                 token: urlParams.get('token'),
             }
             useAuthStore().restorePassword(data).then(() => {
-                useRouter().push('/');
             })
         },
     },

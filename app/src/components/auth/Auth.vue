@@ -8,7 +8,6 @@
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
-import {useRouter} from 'vue-router';
 
 export default defineComponent({
     data() {
@@ -51,7 +50,6 @@ export default defineComponent({
     methods: {
         logout() {
             useAuthStore().logout();
-            useRouter().push('/');
         },
     },
 })

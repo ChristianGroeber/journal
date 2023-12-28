@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import {buildRequest, send} from "@/src/helpers/xhr";
-import {useRouter} from "vue-router";
 import {defineComponent} from "vue";
 import {useDialogStore} from "@/src/store/dialog";
 
@@ -28,7 +27,6 @@ export default defineComponent({
                 username: '',
                 password: '',
             },
-            router: useRouter(),
             dialogStore: useDialogStore(),
         }
     },
@@ -39,7 +37,6 @@ export default defineComponent({
             send(request)
                 .then(response => {
                     if (response.data.adminCreated) {
-                        this.router.push('/auth/login');
                     }
                 })
                 .catch((reason) => {

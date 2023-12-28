@@ -25,7 +25,6 @@
 <script lang="ts">
 import RaceReport from './RaceReport.vue';
 import {defineComponent} from "vue";
-import {useRouter} from 'vue-router'
 import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
 import {Edit, Delete} from "@element-plus/icons-vue";
@@ -42,7 +41,6 @@ export default defineComponent({
         return {
             journalStore: useJournalStore(),
             authStore: useAuthStore(),
-            router: useRouter(),
             dialogStore: useDialogStore(),
         }
     },

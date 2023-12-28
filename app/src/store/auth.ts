@@ -40,8 +40,8 @@ export const useAuthStore = defineStore('authStore', {
                 this.token = response.data.token;
             });
         },
-        generateNewToken(data: object) {
-            const request = buildRequest('/api/auth/generate-new-token', data, 'POST');
+        generateNewToken() {
+            const request = buildRequest('/api/auth/generate-new-token', {}, 'POST');
             return send(request).then(response => {
                 this.setToken(response.data.token);
             });

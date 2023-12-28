@@ -3,11 +3,11 @@
         <Loading></Loading>
         <div class="header">
             <div class="header-sticky-content">
-                <h1>{{ pageTitle }}</h1>
+                <h1>{{ journalYear }}</h1>
                 <AdminBar v-if="canEdit"/>
             </div>
         </div>
-        <router-view></router-view>
+        <MonthList></MonthList>
         <Footer></Footer>
         <Modals></Modals>
     </div>
@@ -20,7 +20,6 @@ import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
 import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
-import {useRouter} from "vue-router";
 import {resizeVideos} from "./src/helpers/videosizer";
 import {ElNotification} from "element-plus";
 import {configureStores} from "@/src/helpers/xhr";
@@ -28,6 +27,7 @@ import {useLoadingStore} from "@/src/store/loading";
 import AdminBar from "@/src/components/admin/AdminBar.vue";
 import {useDialogStore} from "@/src/store/dialog";
 import Modals from "@/src/components/modals/Modals.vue";
+import MonthList from "@/src/components/home/MonthList.vue";
 
 const contentWidthStyles = {
     small: 400,
@@ -46,6 +46,7 @@ const contentGap = 50;
 export default defineComponent({
     name: "App",
     components: {
+        MonthList,
         AdminBar,
         Loading,
         Footer,
@@ -56,16 +57,15 @@ export default defineComponent({
             authStore: useAuthStore(),
             mainStore: useMainStore(),
             journalStore: useJournalStore(),
-            router: useRouter(),
             dialogStore: useDialogStore(),
         }
     },
     computed: {
-        pageTitle() {
-            return this.mainStore.getPageTitle;
-        },
         canEdit() {
             return this.authStore.getToken !== null;
+        },
+        journalYear() {
+            return this.mainStore.meta.journalYear;
         },
     },
     created() {

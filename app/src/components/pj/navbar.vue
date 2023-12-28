@@ -9,14 +9,12 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {useRouter} from "vue-router";
 
 export default defineComponent({
     name: "Navbar",
     props: ['nav'],
     data: function () {
         return {
-            router: useRouter(),
         };
     },
     methods: {
@@ -25,7 +23,7 @@ export default defineComponent({
             if (item.func !== undefined) {
                 item.func();
             } else if ("page" in item) {
-                this.router.push(item.page);
+                // this.router.push(item.page);
             } else {
                 console.error('I don\'t know what to do with item #' + itemId);
             }

@@ -9,7 +9,6 @@ import {buildRequest, send} from "@/src/helpers/xhr";
 import {useAuthStore} from "@/src/store/auth";
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useRouter} from "vue-router";
 
 export default defineComponent({
     data() {
@@ -33,7 +32,6 @@ export default defineComponent({
                 },
             ],
             authStore: useAuthStore(),
-            router: useRouter(),
         }
     },
     methods: {
@@ -47,10 +45,8 @@ export default defineComponent({
             useMainStore().buildCache();
         },
         restoreBackup() {
-            this.router.push('/admin/tools/restore-backup');
         },
         goHome() {
-            this.router.push('/');
         },
     }
 })
