@@ -20,6 +20,27 @@ class PageController extends AbstractController
         }
         $content = $cache->getContent();
 
+        if (!$this->journalIsCurrentYear()) {
+            $content = $this->reverseEntries($content);
+        }
+
         return $this->json($content);
+    }
+
+    private function reverseEntries(array $content): array
+    {
+        return array_reverse(array_map(function(array $month) {
+            $month['days'] = array_reverse($month['days']);
+            return $month;
+        }, $content));
+    }
+
+    private function journalIsCurrentYear(): bool
+    {
+        $journalYear = 2022;
+        $now = new \DateTime();
+        $currentYear = intval($now->format('Y'));
+
+        return $journalYear === $currentYear;
     }
 }

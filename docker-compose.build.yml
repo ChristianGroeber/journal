@@ -8,4 +8,4 @@ services:
       args:
         UID: 99
         GID: 100
-    image: christiangroeber/journal:latest
+    image: pixlmint/journal:2022
