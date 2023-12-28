@@ -33,7 +33,7 @@ export default defineComponent({
     },
     computed: {
         version() {
-            return this.mainStore.getMeta.journalVersion;
+            return this.mainStore.getMeta.feVersion;
         },
         isLoggedIn() {
             return this.authStore.getToken !== null;

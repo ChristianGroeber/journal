@@ -9,10 +9,11 @@ interface MediaPreview {
 }
 
 interface Meta {
-    journalYear: string|number,
+    feYear: string|number,
     adminCreated: boolean,
     version: string|number,
     journalVersion: string|number,
+    feVersion: string|number,
 }
 
 interface MediaType {
@@ -34,9 +35,10 @@ export const useMainStore = defineStore('main', {
             mediaType: '',
         },
         meta: {
-            journalYear: '',
+            feYear: '',
             adminCreated: true,
             version: 0,
+            feVersion: 0,
             journalVersion: 0,
         },
         pageTitle: 'Loading',
@@ -59,10 +61,10 @@ export const useMainStore = defineStore('main', {
     },
     actions: {
         setTitle(title: string) {
-            if (title == this.$state.meta.journalYear || this.$state.meta.journalYear === '') {
-                document.title = this.$state.meta.journalYear.toString();
+            if (title == this.$state.meta.feYear || this.$state.meta.feYear === '') {
+                document.title = this.$state.meta.feYear.toString();
             } else {
-                document.title = title + ' · ' + this.$state.meta.journalYear.toString();
+                document.title = title + ' · ' + this.$state.meta.feYear.toString();
             }
             this.pageTitle = title;
         },

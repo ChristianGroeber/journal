@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\JournalFrontendController;
+use App\Hooks\FeInitHook;
 
 return [
     "plugins" => [
@@ -27,5 +28,13 @@ return [
     'base' => [
         'frontendController' => JournalFrontendController::class,
         'debugEnabled' => false,
+        'feVersion' => '2024.2',
+        'feYear' => 2024,
+    ],
+    'hooks' => [
+        [
+            'anchor' => 'init',
+            'hook' => FeInitHook::class,
+        ],
     ],
 ];

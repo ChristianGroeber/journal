@@ -31,7 +31,7 @@ export default defineComponent({
         }
     },
     created() {
-        this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
+        this.mainStore.setTitle(this.mainStore.getMeta.feYear.toString());
         window.setTimeout(resizeVideos, 100);
     },
     computed: {
