@@ -5,11 +5,25 @@ services:
         build:
             context: .
             dockerfile: docker/local.Dockerfile
-            args:
-                UID: 1000
-                GID: 1000
         container_name: journal
         ports:
             - '94:80'
-        volumes: 
+        environment:
+            USER_UID: 1000
+            USER_GID: 1000
+            INI_ZEND_EXTENSION: xdebug.so
+            #INI_MEMORY_LIMIT: 200M
+            #INI_UPLOAD_MAX_FILESIZE: 200M
+            #INI_POST_MAX_SIZE: 200M
+            OPCACHE_MAX_WASTED_PERCENTAGE: 20
+            OPCACHE_JIT: 1255
+            OPCACHE_ENABLE: 1
+            OPCACHE_JIT_BUFFER_SIZE: 100M
+            OPCACHE_VALIDATE_TIMESTAMPS: 1
+            OPCACHE_INTERNED_STRINGS_BUFFER: 16
+            XDEBUG_MODE: debug
+            XDEBUG_CLIENT_HOST: 127.0.0.1
+            XDEBUG_START_WITH_REQUEST: yes
+            XDEBUG_DISCOVER_CLIENT_HOST: true
+        volumes:
             - ./:/var/www/html

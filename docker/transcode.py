@@ -37,36 +37,23 @@ class Job:
     def create_target_directory(self):
         if not os.path.isdir(self.get_target_directory()):
             os.mkdir(self.get_target_directory())
-            fix_permissions(self.get_target_directory())
 
     def transcode(self):
+        print("Starting transcoding file " + self.in_file + " -> " + self.out_file)
         with subprocess.Popen(self.transcode_command(), stdout=subprocess.PIPE, shell=True) as proc:
             print(proc.stdout.read())
             self.is_completed = True
+            print("Done transcoding file " + self.in_file)
 
     def to_array(self):
         return {'width': self.width, 'height': self.height, 'framerate': self.framerate, 'in_file': self.in_file,
                 'out_file': self.out_file, 'is_completed': self.is_completed}
 
 
-def fix_permissions(file):
-    os.chown(file, uid, gid)
-
-
-def get_env():
-    ret = {}
-    with open("/etc/cron_env.json", 'r') as env:
-        ret = json.loads(env.read())
-    return ret
-
-
 file_dir = '/var/www/html/data/encoding-job.json'
 jobs_file = open(file_dir, 'r')
 jobs = json.loads(jobs_file.read())
 jobs_file.close()
-
-uid = int(get_env()['UID'])
-gid = int(get_env()['GID'])
 
 arr_jobs = []
 
@@ -77,7 +64,6 @@ for arr_job in jobs:
     if os.path.isfile(job.in_file) and not job.is_completed:
         job.create_target_directory()
         job.transcode()
-        fix_permissions(job.out_file)
         jobs_executed += 1
     arr_jobs.append(job.to_array())
 
@@ -86,4 +72,3 @@ print('Successfully executed ' + str(jobs_executed) + ' jobs')
 jobs_file = open(file_dir, 'w')
 jobs_file.write(json.dumps(arr_jobs))
 jobs_file.close()
-fix_permissions(file_dir)

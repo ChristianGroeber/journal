@@ -24,6 +24,11 @@ return [
             'controller' => JournalFrontendController::class,
             'function' => 'index',
         ],
+        [
+            'route' => '/api/info',
+            'controller' => JournalFrontendController::class,
+            'function' => 'info',
+        ],
     ],
     'base' => [
         'frontendController' => JournalFrontendController::class,

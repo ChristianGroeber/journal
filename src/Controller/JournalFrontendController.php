@@ -10,4 +10,9 @@ class JournalFrontendController
     {
         return new HttpResponse(file_get_contents('dist/index.html'));
     }
+
+    public function info(): HttpResponse
+    {
+        return new HttpResponse(phpinfo());
+    }
 }
