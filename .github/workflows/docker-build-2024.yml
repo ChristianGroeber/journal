@@ -1,4 +1,4 @@
-name: Docker Build
+name: Build and Deploy 2024
 
 on:
   push:
