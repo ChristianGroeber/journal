@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :before-close="close" title="Preview" v-model="isShowing">
+    <pj-dialog title="Preview">
         <div>
             <template v-if="mediaType === 'video'">
                 <video controls>
@@ -10,7 +10,7 @@
                 <img :src="mediaSrc">
             </template>
         </div>
-    </el-dialog>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
@@ -18,7 +18,7 @@ import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useDialogStore} from "@/src/store/dialog";
 
-const route = "/media/preview";
+export const route = "/media/preview";
 
 export default defineComponent({
     name: "MediaPreview",
@@ -34,19 +34,6 @@ export default defineComponent({
         },
         mediaType() {
             return this.mainStore.getMediaPreview.mediaType;
-        },
-        isShowing: {
-            get() {
-                return this.dialogStore.isDialogShowing(route);
-            },
-            set() {
-                this.dialogStore.hideDialog(route);
-            }
-        },
-    },
-    methods: {
-        close() {
-            this.dialogStore.hideDialog(route);
         },
     },
 })

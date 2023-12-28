@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="isShowing" title="Edit Race Report">
+    <pj-dialog title="Edit Race Report">
         <div>
             <el-form>
                 <div v-for="(field, index) in raceReport" :key="index">
@@ -13,7 +13,7 @@
         <template #footer>
             <pj-button-link :action="addRaceReport" content="Submit"></pj-button-link>
         </template>
-    </el-dialog>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
@@ -23,7 +23,7 @@ import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
 import {useDialogStore} from "@/src/store/dialog";
 
-const route = "/edit/race-report";
+export const route = "/edit/race-report";
 
 export default defineComponent({
     name: "AddRaceReportPopup",
@@ -62,16 +62,6 @@ export default defineComponent({
                 },
             },
         }
-    },
-    computed: {
-        isShowing: {
-            get() {
-                return this.dialogStore.isDialogShowing(route);
-            },
-            set() {
-                this.dialogStore.hideDialog(route);
-            }
-        },
     },
     methods: {
         addRaceReport() {

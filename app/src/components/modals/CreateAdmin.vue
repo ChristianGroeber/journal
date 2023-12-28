@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="isShowing" title="Edit Race Report">
+    <pj-dialog title="Edit Race Report">
         <el-form>
             <el-form-item label="Admin Username">
                 <el-input v-model="adminForm.username"></el-input>
@@ -9,7 +9,7 @@
             </el-form-item>
             <el-button @click="submit">Submit</el-button>
         </el-form>
-    </el-dialog>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
@@ -19,7 +19,7 @@ import {defineComponent} from "vue";
 import {useDialogStore} from "@/src/store/dialog";
 
 
-const route = "/auth/create-admin"
+export const route = "/auth/create-admin"
 
 export default defineComponent({
     data: function () {
@@ -47,16 +47,6 @@ export default defineComponent({
                         alert(reason.response.data.message);
                     }
                 });
-        },
-    },
-    computed: {
-        isShowing: {
-            get() {
-                return this.dialogStore.isDialogShowing(route);
-            },
-            set() {
-                this.dialogStore.hideDialog(route);
-            }
         },
     },
 })

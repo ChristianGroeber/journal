@@ -29,7 +29,8 @@ import {useRouter} from 'vue-router'
 import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
 import {Edit, Delete} from "@element-plus/icons-vue";
-import {ElMessageBox, ElMessage} from "element-plus";
+import {ElMessageBox} from "element-plus";
+import {useDialogStore} from "@/src/store/dialog";
 
 export default defineComponent({
     name: "Day",
@@ -42,6 +43,7 @@ export default defineComponent({
             journalStore: useJournalStore(),
             authStore: useAuthStore(),
             router: useRouter(),
+            dialogStore: useDialogStore(),
         }
     },
     created() {
@@ -84,7 +86,7 @@ export default defineComponent({
             });
         },
         editEntry() {
-            this.router.push('/edit?' + this.query);
+            this.dialogStore.showDialog({route: '/editor', data: this.day.id});
         },
     },
 })

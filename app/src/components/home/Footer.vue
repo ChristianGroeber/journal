@@ -1,11 +1,11 @@
 <template>
     <footer>
-        <span>PixlJournal Version {{ version }}</span>|
+        <span>PixlJournal Version {{ version }}</span><el-divider direction="vertical"/>
         <span>
-            <el-link v-if="!isLoggedIn" @click="showLoginForm">Login</el-link>
-            <el-link v-else @click="logout">Logout</el-link>
-        </span>|
-        <span><a href="https://github.com/ChristianGroeber/journal">GitHub</a></span>|
+            <el-link underline v-if="!isLoggedIn" @click="showLoginForm">Login</el-link>
+            <el-link underline v-else @click="logout">Logout</el-link>
+        </span><el-divider direction="vertical"/>
+        <span><el-link underline target="_blank" href="https://github.com/ChristianGroeber/journal">GitHub</el-link></span>
     </footer>
 </template>
 
@@ -27,9 +27,6 @@ export default defineComponent({
         showLoginForm() {
             useDialogStore().showDialog("/auth/login")
         },
-        isLoggedIn() {
-            return this.authStore.getToken !== null;
-        },
         logout() {
             this.authStore.logout();
         },
@@ -37,6 +34,9 @@ export default defineComponent({
     computed: {
         version() {
             return this.mainStore.getMeta.journalVersion;
+        },
+        isLoggedIn() {
+            return this.authStore.getToken !== null;
         },
     },
 })

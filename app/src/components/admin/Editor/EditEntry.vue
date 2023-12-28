@@ -19,7 +19,6 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
-import {useRouter} from "vue-router";
 import {JournalEntry} from "@/src/contracts/JournalTypes";
 import {AxiosPromise} from "axios";
 import {useDialogStore} from "@/src/store/dialog";
@@ -29,7 +28,6 @@ export default defineComponent({
     data: function () {
         return {
             unsavedChanges: false,
-            router: useRouter(),
         }
     },
     computed: {
@@ -62,21 +60,10 @@ export default defineComponent({
             return useJournalStore().saveEntry();
         },
         checkGoHome() {
-            if (this.unsavedChanges && confirm('You\'ve go unsaved changes. Save first?')) {
-                this.save().then(() => {
-                    this.doGoHome();
-                });
-            } else {
-                this.doGoHome();
-            }
         },
         addRaceReport() {
             useDialogStore().showDialog('/edit/race-report');
         },
-        doGoHome() {
-            useJournalStore().loadEntries();
-            this.router.push('/');
-        }
     },
 })
 </script>

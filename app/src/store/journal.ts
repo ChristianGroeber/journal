@@ -1,10 +1,10 @@
 import {defineStore} from 'pinia'
 import {buildRequest, send} from "../helpers/xhr";
-import {JournalEntry, WikiEntryList, Gallery} from "@/src/contracts/JournalTypes";
+import {JournalEntry, Gallery} from "@/src/contracts/JournalTypes";
 
 
 interface State {
-    entries: WikiEntryList,
+    entries: JournalEntry[],
     editingEntry: JournalEntry | null,
     gallery: Gallery | null,
 }

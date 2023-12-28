@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="Login" v-model="isShowing">
+    <pj-dialog title="Login">
         <el-form :model="loginForm">
             <el-form-item label="Username">
                 <el-input v-model="loginForm.username"/>
@@ -9,7 +9,7 @@
             </el-form-item>
         </el-form>
       <pj-button-link :action="submitLoginForm" content="Login"></pj-button-link>
-    </el-dialog>
+    </pj-dialog>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
 import {useDialogStore} from "@/src/store/dialog";
 
-const route = "/auth/login";
+export const route = "/auth/login";
 
 export default defineComponent({
     name: "LoginModal",
@@ -38,16 +38,6 @@ export default defineComponent({
             this.authStore.login(this.loginForm).then(() => {
                 this.dialogStore.hideDialog(route);
             })
-        },
-    },
-    computed: {
-        isShowing: {
-            get() {
-                return this.dialogStore.isDialogShowing(route);
-            },
-            set() {
-                this.dialogStore.hideDialog(route);
-            }
         },
     },
 })

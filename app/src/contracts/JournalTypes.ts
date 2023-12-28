@@ -16,9 +16,6 @@ export interface EntryMeta {
     dateUpdated: string | null,
 }
 
-export interface WikiEntryList extends Array<JournalEntry> {
-}
-
 export interface Gallery {
     // TODO
 }
