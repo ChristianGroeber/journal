@@ -1,30 +1,26 @@
 <template>
-    <div class="main-content">
-        <div>
-        </div>
-        <form @submit.prevent="submit">
-            <div class="form-row">
-                <input placeholder="Username" v-model="username" type="text"/>
-            </div>
-            <div class="form-row">
-                <input placeholder="New Password" v-model="password1" type="password"/>
-            </div>
-            <div class="form-row">
-                <input
-                    placeholder="Repeat New Password"
-                    v-model="password2"
-                    type="password"
-                />
-            </div>
-            <button class="mt-1" type="submit">Submit</button>
-        </form>
-    </div>
+    <pj-dialog title="Restore Password">
+        <el-form @submit.prevent="submit">
+            <el-form-item label="Username">
+                <el-input v-model="username"/>
+            </el-form-item>
+            <el-form-item label="New Password">
+                <el-input v-model="password1" type="password"/>
+            </el-form-item>
+            <el-form-item label="Repeat New Password">
+                <el-input v-model="password2" type="password"/>
+            </el-form-item>
+            <el-button @click="submit">Submit</el-button>
+        </el-form>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useAuthStore} from "@/src/store/auth";
+
+export const route = "/auth/restore-password";
 
 export default defineComponent({
     data: () => {

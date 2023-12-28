@@ -1,20 +1,21 @@
 <template>
-    <div class="main-content">
-        <pj-button-link content="Return" :action="goBack"></pj-button-link>
-        <label for="upload_backup">Upload Backup ZIP</label>
-        <input @change="uploadBackup" type="file" id="upload_backup">
-    </div>
+    <pj-dialog title="Restore Backup">
+        <el-form>
+            <el-form-item label="Upload Backup ZIP">
+                <input type="file" @change="uploadBackup"/>
+            </el-form-item>
+        </el-form>
+    </pj-dialog>
 </template>
 
-<script>
+<script lang="ts">
 import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
-import {useAuthStore} from "@/src/store/auth";
+
+export const route = "/admin/restore-backup";
 
 export default defineComponent({
     name: 'RestoreBackup',
-    data() {
-    },
     methods: {
         uploadBackup(e) {
             const file = e.target.files[0];
@@ -25,8 +26,6 @@ export default defineComponent({
             send(request).then(response => {
                 console.log(response)
             });
-        },
-        goBack() {
         },
     }
 })

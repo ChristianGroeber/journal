@@ -360,12 +360,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixl-cms.git",
-                "reference": "fe796b8d59ff62fd73b3b0d3256c214e145cd633"
+                "reference": "34bd5f914a9d572e38888ec3dc0af3a9c134002b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/fe796b8d59ff62fd73b3b0d3256c214e145cd633",
-                "reference": "fe796b8d59ff62fd73b3b0d3256c214e145cd633",
+                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/34bd5f914a9d572e38888ec3dc0af3a9c134002b",
+                "reference": "34bd5f914a9d572e38888ec3dc0af3a9c134002b",
                 "shasum": ""
             },
             "require": {
@@ -385,7 +385,7 @@
                 "issues": "https://github.com/pixlmint/pixl-cms/issues",
                 "source": "https://github.com/pixlmint/pixl-cms/tree/2.0.9"
             },
-            "time": "2023-12-28T13:59:30+00:00"
+            "time": "2023-12-28T14:13:07+00:00"
         },
         {
             "name": "pixlmint/pixlcms-journal-plugin",

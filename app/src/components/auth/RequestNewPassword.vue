@@ -1,26 +1,19 @@
 <template>
-    <div class="main-content">
-        <div>
-            <router-link class="btn" to="/auth">Return</router-link>
-        </div>
-        <form @submit.prevent="submit">
-            <div>
-                <input
-                    placeholder="Username"
-                    v-model="username"
-                    id="username"
-                    type="text"
-                />
-                <br/>
-            </div>
-            <button class="mt-1" type="submit">Submit</button>
-        </form>
-    </div>
+    <pj-dialog title="Request New Password">
+        <el-form @submit.prevent="submit">
+            <el-form-item label="Username">
+                <el-input v-model="username" type="text"/>
+            </el-form-item>
+            <el-button @click="submit">Submit</el-button>
+        </el-form>
+    </pj-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
+
+export const route = "/auth/request-new-password";
 
 export default defineComponent({
     data: () => {
@@ -35,10 +28,3 @@ export default defineComponent({
     },
 })
 </script>
-
-
-<style scoped>
-label {
-    display: block;
-}
-</style>

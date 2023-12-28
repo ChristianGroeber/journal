@@ -9,10 +9,8 @@
                     </el-form-item>
                 </div>
             </el-form>
-        </div>
-        <template #footer>
             <pj-button-link :action="addRaceReport" content="Submit"></pj-button-link>
-        </template>
+        </div>
     </pj-dialog>
 </template>
 

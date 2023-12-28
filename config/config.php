@@ -26,5 +26,6 @@ return [
     ],
     'base' => [
         'frontendController' => JournalFrontendController::class,
+        'debugEnabled' => false,
     ],
 ];
