@@ -1,10 +1,9 @@
 <template>
   <div>
     <input
-      accept="image/*"
-      @change="uploadImages"
+      :accept="mimeTypes"
+      @change="uploadMedia"
       type="file"
-      label="Upload Images"
       multiple
     />
   </div>
@@ -12,10 +11,21 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: ["entry"],
+  data() {
+    return {
+      mediaTypes: this.$store.getters.mediaTypes,
+    }
+  },
+  computed: {
+    mimeTypes() {
+      return this.mediaTypes.map(media => media.mime);
+    }
+  },
   methods: {
-    uploadImages(e) {
+    uploadMedia(e) {
       const files = e.target.files;
       const editingEntry = this.$store.getters.editingEntry;
       Array.from(files).forEach((img) => {
@@ -31,7 +41,7 @@ export default {
         });
       });
       this.$store.dispatch("updateEntry", { entry: editingEntry });
-      this.$store.dispatch("loadImagesForEntry", { entry: editingEntry.id });
+      this.$store.dispatch("loadMediaForEntry", { entry: editingEntry.id, token: this.$store.getters.token});
     },
   },
 };

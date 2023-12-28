@@ -44,25 +44,25 @@
     },
     {
         "route": "/api/entry/gallery",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "images"
+        "controller": "App\\Controllers\\MediaController",
+        "function": "media"
     },
     {
         "route": "/api/entry/gallery/upload",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "uploadImages"
+        "controller": "App\\Controllers\\MediaController",
+        "function": "uploadMedia"
     },
     {
-        "route": "/api/admin/entry/images/load",
+        "route": "/api/admin/entry/media/load",
         "min_role": "Editor",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "loadImagesForEntry"
+        "controller": "App\\Controllers\\MediaController",
+        "function": "loadMediaForEntry"
     },
     {
-        "route": "/api/admin/entry/image/delete",
+        "route": "/api/admin/entry/media/delete",
         "min_role": "Editor",
-        "controller": "App\\Controllers\\ImageController",
-        "function": "deleteImage"
+        "controller": "App\\Controllers\\MediaController",
+        "function": "deleteMedia"
     },
     {
         "route": "/api/admin/_server",

@@ -3,6 +3,9 @@ version: "3"
 services:
   "2022":
     build:
-      dockerfile: Dockerfile
+      dockerfile: docker/prod.Dockerfile
       context: .
-    image: christiangroeber/journal:2022
+      args:
+        UID: 99
+        GID: 100
+    image: pixlmint/journal:2022

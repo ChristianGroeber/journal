@@ -65,12 +65,12 @@ const actions = {
   }, payload) {
     return axios.delete('/api/admin/entry/delete?' + queryFormatter(payload))
   },
-  loadImagesForEntry({
+  loadMediaForEntry({
     commit
   }, payload) {
-    console.log(payload);
-    return axios.get('/api/admin/entry/images/load?entry=' + payload.entry).then((response) => {
-      commit('UPDATE_EDITING_GALLERY', response.data.images);
+    const data = queryFormatter(payload);
+    return axios.get('/api/admin/entry/media/load?' + data).then((response) => {
+      commit('UPDATE_EDITING_GALLERY', response.data.media);
     })
   },
   uploadRaceReport({commit}, data) {

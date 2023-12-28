@@ -2,7 +2,11 @@
     "require": {
         "ext-json": "*",
         "christiangroeber/nacho": "*",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "ext-gd": "*",
+        "ext-exif": "*",
+        "ext-fileinfo": "*",
+        "mhor/php-mediainfo": "^5.4"
     },
     "autoload": {
         "psr-4": {

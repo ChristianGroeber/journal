@@ -1,30 +1,44 @@
 <template>
-  <div v-if="isShowing" class="image">
-    <div class="img-controls">
+  <div v-if="isShowing" class="media">
+    <div class="media-meta-controls">
       <vk-button class="btn btn-rounded btn-icon" @click="copyUrl">
         <fa icon="clipboard"></fa>
       </vk-button>
-      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteImage">
+      <vk-button class="btn btn-rounded btn-danger btn-icon" @click="deleteMedia">
         <fa icon="trash"></fa>
       </vk-button>
     </div>
-    <img :src="img" alt="Image" />
-    <div class="url">![uploaded image]({{ img }})</div>
+    <template v-if="amVideo">
+      <video :src="media" />
+    </template>
+    <template v-else-if="amImage">
+      <img :src="media" alt="Image" />
+    </template>
+    <div class="url">![uploaded media]({{ media }})</div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import {getFileExtension} from "../../../../helpers/files";
 export default {
-  props: ["img", "myId"],
+  props: ["media", "myId", "slug"],
   data: function() {
     return {
       isShowing: true,
     };
   },
+  computed: {
+    amVideo() {
+      return ['webm', 'mp4', 'mov', 'avi', 'mkv'].includes(getFileExtension(this.media).pop());
+    },
+    amImage() {
+      return ['jpg', 'jpeg', 'png', 'webp'].includes(getFileExtension(this.media).pop());
+    },
+  },
   methods: {
-    deleteImage() {
-      if (!confirm('Are you sure you want to delete this image?')) {
+    deleteMedia() {
+      if (!confirm('Are you sure you want to delete this Image/ Video?')) {
         return;
       }
       const data = {
@@ -35,20 +49,20 @@ export default {
         .map(([key, val]) => `${key}=${val}`)
         .join("&");
 
-      axios.delete('/api/admin/entry/image/delete?' + query)
+      axios.delete('/api/admin/entry/media/delete?' + query)
         .then((response) => {
           this.isShowing = false;
         });
     },
     copyUrl() {
-      const imgUrl = document.querySelector(
-        ".image#img-" + this.myId + " .url"
+      const mediaUrl = document.querySelector(
+        ".media#" + this.slug + "-" + this.myId + " .url"
       );
       const range = document.createRange();
-      range.selectNode(imgUrl);
+      range.selectNode(mediaUrl);
       window.getSelection().addRange(range);
 
-      console.log(document.execCommand("copy"));
+      document.execCommand("copy");
 
       window.getSelection().removeAllRanges();
     },
@@ -57,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image {
+.media {
   width: 50%;
   position: relative;
 
@@ -69,12 +83,12 @@ export default {
     font-size: 1px;
   }
 
-  &:hover .img-controls {
+  &:hover .media-meta-controls {
     display: flex;
   }
 }
 
-.img-controls {
+.media-meta-controls {
   display: none;
   height: 100%;
   width: 100%;
@@ -86,7 +100,7 @@ export default {
 }
 
 @media screen and (min-width: 500px) {
-  .image {
+  .media {
     width: 25%;
   }
 }

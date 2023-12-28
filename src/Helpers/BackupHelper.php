@@ -12,7 +12,7 @@ class BackupHelper
     {
         $this->toBackup = [
             'content' => $_SERVER['DOCUMENT_ROOT'] . '/content',
-            'images' => $_SERVER['DOCUMENT_ROOT'] . '/images',
+            'media' => $_SERVER['DOCUMENT_ROOT'] . '/media',
         ];
     }
 
@@ -98,7 +98,6 @@ class BackupHelper
      * Copy a file, or recursively copy a folder and its contents
      *
      * @return      bool     Returns true on success, false on failure
-     * @version     1.0.1
      * @link        http://aidanlister.com/2004/04/recursively-copying-directories-in-php/
      * @author      Aidan Lister <aidan@php.net>
      */

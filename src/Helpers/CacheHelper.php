@@ -3,24 +3,36 @@
 namespace App\Helpers;
 
 use Nacho\Models\PicoPage;
+use App\Models\Cache;
+use App\Repository\CacheRepository;
+use Nacho\Helpers\DataHandler;
 use Nacho\Nacho;
+use Nacho\ORM\RepositoryInterface;
+use Nacho\ORM\RepositoryManager;
 
 class CacheHelper
 {
     private Nacho $nacho;
+    private CacheRepository|RepositoryInterface $repository;
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     public function __construct($nacho) {
         $this->nacho = $nacho;
+        $this->repository = RepositoryManager::getInstance()->getRepository(CacheRepository::class);
     }
 
-    public function build(): string
+    public function build(): void
     {
         $content = $this->renderContent();
         $renderDate = date('Y-m-d H:i:s', time());
-        $fileName = $_SERVER['DOCUMENT_ROOT'] . '/cache/content.json';
-        file_put_contents($fileName, json_encode(['renderDate' => $renderDate, 'content' => $content]));
+        $cache = new Cache($renderDate, $content);
 
-        return $fileName;
+        $this->repository->set($cache);
+    }
+
+    public function read(): ?Cache
+    {
+        return $this->repository->getById(0);
     }
 
     private function renderContent(): array
@@ -49,10 +61,10 @@ class CacheHelper
 
     private function sortByDate(PicoPage $a, PicoPage $b): int
     {
-        if (is_int(array_search($a->meta->title, MONTHS))) {
+        if (is_int(array_search($a->meta->title, self::MONTHS))) {
             return -1;
         }
-        if (is_int(array_search($b->meta->title, MONTHS))) {
+        if (is_int(array_search($b->meta->title, self::MONTHS))) {
             return 1;
         }
         $t1 = strtotime($a->meta->title);

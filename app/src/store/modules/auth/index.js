@@ -15,16 +15,6 @@ const mutations = {
 }
 
 const actions = {
-    register(payload) {
-        return axios({
-            method: 'POST',
-            url: '/api/auth/register',
-            data: queryFormatter(payload),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        });
-    },
     changePassword({
         commit
     }, payload) {
