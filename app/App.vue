@@ -9,12 +9,16 @@
         </div>
         <MonthList></MonthList>
         <Footer></Footer>
-        <Modals></Modals>
+        <Modals :dialog-components="dialogs"></Modals>
     </div>
 </template>
 
 <script lang="ts">
-import Loading from './src/components/Loading.vue';
+import {Loading} from 'pixlcms-wrapper';
+import {useLoadingStore} from "pixlcms-wrapper";
+import {useDialogStore} from "pixlcms-wrapper";
+import {Modals} from "pixlcms-wrapper";
+import {configureStores} from "@/src/helpers/xhr";
 import Footer from "./src/components/home/Footer.vue";
 import {defineComponent} from "vue";
 import {useAuthStore} from "@/src/store/auth";
@@ -22,12 +26,9 @@ import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
 import {resizeVideos} from "./src/helpers/videosizer";
 import {ElNotification} from "element-plus";
-import {configureStores} from "@/src/helpers/xhr";
-import {useLoadingStore} from "@/src/store/loading";
 import AdminBar from "@/src/components/admin/AdminBar.vue";
-import {useDialogStore} from "@/src/store/dialog";
-import Modals from "@/src/components/modals/Modals.vue";
 import MonthList from "@/src/components/home/MonthList.vue";
+import {dialogs} from "@/src/dialogs";
 
 const contentWidthStyles = {
     small: 400,
@@ -58,6 +59,7 @@ export default defineComponent({
             mainStore: useMainStore(),
             journalStore: useJournalStore(),
             dialogStore: useDialogStore(),
+            dialogs: dialogs(),
         }
     },
     computed: {
@@ -65,7 +67,7 @@ export default defineComponent({
             return this.authStore.getToken !== null;
         },
         journalYear() {
-            return this.mainStore.meta.journalYear;
+            return this.mainStore.meta.feYear;
         },
     },
     created() {
@@ -84,7 +86,7 @@ export default defineComponent({
                     type: 'warning',
                 });
             }
-            this.mainStore.setTitle(this.mainStore.getMeta.journalYear.toString());
+            this.mainStore.setTitle(this.mainStore.getMeta.feYear.toString());
             if (!this.mainStore.meta.adminCreated) {
                 setTimeout(() => {
                     this.dialogStore.showDialog('/auth/create-admin');

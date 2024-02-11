@@ -4,6 +4,7 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import {createPinia} from "pinia";
 import ElementPlus from 'element-plus';
+import {main} from "pixlcms-wrapper";
 import * as ElementPlusIcons from '@element-plus/icons-vue';
 
 import PJButtonLink from './src/components/pj/button-link.vue';
@@ -12,8 +13,10 @@ import PJIcon from '@/src/components/pj/icon.vue';
 import PJDialog from '@/src/components/pj/dialog.vue';
 
 const app = createApp(App);
+const pinia = createPinia();
+app.use(main, {pinia: pinia});
 app.use(VueAxios, axios);
-app.use(createPinia());
+app.use(pinia);
 app.use(ElementPlus);
 
 app.component('pj-button-link', PJButtonLink);

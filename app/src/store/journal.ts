@@ -1,11 +1,12 @@
 import {defineStore} from 'pinia'
 import {buildRequest, send} from "../helpers/xhr";
-import {JournalEntry, Gallery} from "@/src/contracts/JournalTypes";
+import {Gallery} from "@/src/contracts/JournalTypes";
+import {PixlEntry} from "pixlcms-wrapper";
 
 
 interface State {
-    entries: JournalEntry[],
-    editingEntry: JournalEntry | null,
+    entries: PixlEntry[],
+    editingEntry: PixlEntry | null,
     gallery: Gallery | null,
 }
 
@@ -41,7 +42,7 @@ export const useJournalStore = defineStore('journalStore', {
                 return response;
             });
         },
-        updateEntry(entry: JournalEntry) {
+        updateEntry(entry: PixlEntry) {
             this.editingEntry = entry;
         },
         loadEntries() {

@@ -29,6 +29,7 @@
         "node-sass": "^7.0.1",
         "node-sass-import": "^2.0.1",
         "pinia": "^2.0.35",
+        "pixlcms-wrapper": "^1.0.8",
         "qs": "^6.10.3",
         "sass-brunch": "^3.0.1",
         "vue": "^3.2.39",

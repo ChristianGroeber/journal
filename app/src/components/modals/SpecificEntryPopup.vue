@@ -13,13 +13,14 @@
 
 <script>
 import moment from "moment";
+import {defineComponent} from "vue";
 import {buildRequest, send} from "@/src/helpers/xhr";
 import {useMainStore} from "@/src/store/main";
 import {useDialogStore} from "@/src/store/dialog";
 
 export const route = "/edit/specific";
 
-export default {
+export default defineComponent({
     name: 'SpecificEntryPopup',
     data: function () {
         return {
@@ -38,5 +39,5 @@ export default {
             })
         },
     },
-};
+});
 </script>

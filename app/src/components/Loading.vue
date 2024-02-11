@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {useLoadingStore} from "@/src/store/loading";
+import {useLoadingStore} from "../store/loading";
 
 export default defineComponent({
     name: "Loading",
@@ -23,7 +23,7 @@ export default defineComponent({
     height: 3px;
     width: 0;
     top: 0;
-    background-color: $primary;
+    background-color: var(--pm-primary);
     z-index: 100;
     border-top-right-radius: 1px;
     border-top-left-radius: 1px;
