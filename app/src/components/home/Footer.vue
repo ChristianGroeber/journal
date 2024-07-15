@@ -9,35 +9,28 @@
     </footer>
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue";
+<script lang="ts" setup>
+import {computed} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useDialogStore} from "@/src/store/dialog";
-import {useAuthStore} from "@/src/store/auth";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
-export default defineComponent({
-    name: "Footer",
-    data() {
-        return {
-            mainStore: useMainStore(),
-            authStore: useAuthStore(),
-        }
-    },
-    methods: {
-        showLoginForm() {
-            useDialogStore().showDialog("/auth/login")
-        },
-        logout() {
-            this.authStore.logout();
-        },
-    },
-    computed: {
-        version() {
-            return this.mainStore.getMeta.feVersion;
-        },
-        isLoggedIn() {
-            return this.authStore.getToken !== null;
-        },
-    },
-})
+const mainStore = useMainStore();
+const authStore = useAuthStore();
+const dialogStore = useDialogStore();
+
+const showLoginForm = function () {
+    dialogStore.showDialog("/auth/login");
+}
+
+const logout = function () {
+    authStore.logout();
+}
+
+const version = computed(() => {
+    return mainStore.getMeta.feVersion;
+});
+
+const isLoggedIn = computed(() => {
+    return authStore.getToken !== null;
+});
 </script>

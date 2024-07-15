@@ -15,7 +15,7 @@ import {resizeVideos} from "../../helpers/videosizer";
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
-import {useAuthStore} from "@/src/store/auth";
+import {useAuthStore} from "pixlcms-wrapper";
 
 export default defineComponent({
     name: "MonthList",
@@ -41,16 +41,3 @@ export default defineComponent({
     },
 })
 </script>
-
-<style scoped lang="scss">
-.months {
-    display: flex;
-    width: 100%;
-    gap: var(--content-gap);
-
-    .month {
-        display: block;
-        width: var(--content-width);
-    }
-}
-</style>

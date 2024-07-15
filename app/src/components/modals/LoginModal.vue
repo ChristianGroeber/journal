@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Login">
+    <pm-dialog title="Login">
         <el-form :model="loginForm">
             <el-form-item label="Username">
                 <el-input v-model="loginForm.username"/>
@@ -9,14 +9,13 @@
             </el-form-item>
         </el-form>
       <pj-button-link :action="submitLoginForm" content="Login"></pj-button-link>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
-<script>
+<script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useAuthStore} from "@/src/store/auth";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
 export const route = "/auth/login";
 

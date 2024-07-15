@@ -1,5 +1,6 @@
 @import '/node_modules/element-plus/dist/index.css';
 @import '/app/style/variables.scss';
+@import '/app/style/responsive.scss';
 
 html,
 body {
@@ -64,7 +65,7 @@ footer {
 }
 
 button.el-button {
-    border: black 2px solid;
+    border: $black-border;
     border-radius: 0;
     color: black;
 
@@ -85,7 +86,7 @@ video {
 
 /* Interesting Image Arrangements */
 .article-body {
-    img {
+    img, video {
         max-width: 80%;
         height: auto;
         border: 10px solid #000;

@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Change Password">
+    <pm-dialog title="Change Password">
         <el-form v-model="form" @submit.prevent="submit">
             <el-form-item label="Username">
                 <el-input v-model="form.username"/>
@@ -15,13 +15,12 @@
             </el-form-item>
             <el-button type="submit">Submit</el-button>
         </el-form>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {useAuthStore} from "@/src/store/auth";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
 export const route = "/auth/change-password";
 

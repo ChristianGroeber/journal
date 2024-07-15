@@ -19,9 +19,8 @@
 import {getFileExtension} from "@/src/helpers/files";
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
-import {useAuthStore} from "@/src/store/auth";
 import {useMainStore} from "@/src/store/main";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
 export default defineComponent({
     props: ["media", "myId", "slug", "srcMedia"],

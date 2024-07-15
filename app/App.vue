@@ -14,14 +14,9 @@
 </template>
 
 <script lang="ts">
-import {Loading} from 'pixlcms-wrapper';
-import {useLoadingStore} from "pixlcms-wrapper";
-import {useDialogStore} from "pixlcms-wrapper";
-import {Modals} from "pixlcms-wrapper";
-import {configureStores} from "@/src/helpers/xhr";
+import {useDialogStore, useAuthStore, useLoadingStore, Loading, configureStores, Modals} from "pixlcms-wrapper";
 import Footer from "./src/components/home/Footer.vue";
 import {defineComponent} from "vue";
-import {useAuthStore} from "@/src/store/auth";
 import {useMainStore} from "@/src/store/main";
 import {useJournalStore} from "@/src/store/journal";
 import {resizeVideos} from "./src/helpers/videosizer";
@@ -74,7 +69,7 @@ export default defineComponent({
         for (const [key, value] of Object.entries(breakpointStyles)) {
             document.documentElement.style.setProperty(`--content-width-${key}`, `${value}px`);
         }
-        window.addEventListener('resize', this.recalculateStyleVariables);
+        // window.addEventListener('resize', this.recalculateStyleVariables);
         const token = this.authStore.loadToken();
         configureStores(this.authStore, useLoadingStore());
         this.mainStore.init(token).then(response => {
@@ -100,7 +95,7 @@ export default defineComponent({
     },
     methods: {
         recalculateStyleVariables() {
-            const currentSize = window.innerWidth;
+            /*const currentSize = window.innerWidth;
             const currentBreakpointArr = Object.entries(breakpointStyles).find(value => {
                 return currentSize <= value[1];
             });
@@ -113,7 +108,7 @@ export default defineComponent({
             const htmlWidth = entriesCount * newContentWidth + contentGap * entriesCount;
             document.documentElement.style.setProperty('--total-width', `${htmlWidth}px`);
             document.documentElement.style.setProperty('--content-gap', `${contentGap}px`);
-            document.documentElement.style.setProperty('--content-width', `${newContentWidth}px`);
+            document.documentElement.style.setProperty('--content-width', `${newContentWidth}px`);*/
         },
     },
 })

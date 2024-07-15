@@ -1,17 +1,17 @@
 <template>
-    <pj-dialog title="Request New Password">
+    <pm-dialog title="Request New Password">
         <el-form @submit.prevent="submit">
             <el-form-item label="Username">
                 <el-input v-model="username" type="text"/>
             </el-form-item>
             <el-button @click="submit">Submit</el-button>
         </el-form>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {useAuthStore} from "@/src/store/auth";
+import {useAuthStore} from "pixlcms-wrapper";
 
 export const route = "/auth/request-new-password";
 

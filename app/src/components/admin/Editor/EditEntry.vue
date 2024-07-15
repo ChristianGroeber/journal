@@ -1,7 +1,6 @@
 <template>
     <div class="main-content">
-        <div class="d-flex jc_space-between">
-            <pj-button-link :action="checkGoHome" content="Home"></pj-button-link>
+        <div class="d-flex js_end">
             <pj-button-link :action="addRaceReport" content="Race Report"></pj-button-link>
         </div>
         <div class="container">
@@ -21,7 +20,7 @@ import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
 import {JournalEntry} from "@/src/contracts/JournalTypes";
 import {AxiosPromise} from "axios";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore} from "pixlcms-wrapper";
 
 export default defineComponent({
     props: ["entry"],

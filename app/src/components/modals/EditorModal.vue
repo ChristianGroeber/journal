@@ -1,12 +1,12 @@
 <template>
-    <pj-dialog :title="'Edit ' + entry" :fullscreen="true" @close="closeEditor" :route="route">
+    <pm-dialog :title="'Edit ' + entry" :fullscreen="true" @close="closeEditor" :route="route">
         <Editor :entry="entry"></Editor>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore} from "pixlcms-wrapper";
 import Editor from "@/src/components/admin/Editor/Editor.vue";
 import {useJournalStore} from "@/src/store/journal";
 

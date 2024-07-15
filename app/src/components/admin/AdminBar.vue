@@ -5,9 +5,8 @@
 </template>
 
 <script lang="ts">
-import {buildRequest, send} from "@/src/helpers/xhr";
 import {defineComponent} from "vue";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, buildRequest, send} from "pixlcms-wrapper";
 
 export default defineComponent({
     name: "AdminBar",

@@ -22,12 +22,16 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
+@import '/app/style/variables.scss';
+
 h2 {
     text-align: center;
     padding: 5px 0;
-    margin: 5px 0 20px 0;
+    margin: 5px 0 20px 0 !important;
     background-color: rgba(107, 81, 81, 0.33);
     color: white;
+    border: $black-border;
+    text-shadow: 0 0 2px black;
 }
 </style>

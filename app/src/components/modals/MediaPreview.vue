@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Preview">
+    <pm-dialog title="Preview">
         <div>
             <template v-if="mediaType === 'video'">
                 <video controls>
@@ -10,13 +10,13 @@
                 <img :src="mediaSrc">
             </template>
         </div>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore} from "pixlcms-wrapper";
 
 export const route = "/media/preview";
 

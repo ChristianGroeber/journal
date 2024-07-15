@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Edit Specific">
+    <pm-dialog title="Edit Specific">
         <div>
             <el-form>
                 <el-form-item label="Date">
@@ -8,15 +8,14 @@
                 <pj-button-link :action="editSpecificEntry" content="Submit"></pj-button-link>
             </el-form>
         </div>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script>
 import moment from "moment";
 import {defineComponent} from "vue";
-import {buildRequest, send} from "@/src/helpers/xhr";
 import {useMainStore} from "@/src/store/main";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, buildRequest, send} from "pixlcms-wrapper";
 
 export const route = "/edit/specific";
 

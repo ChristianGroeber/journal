@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Edit Race Report">
+    <pm-dialog title="Edit Race Report">
         <div>
             <el-form>
                 <div v-for="(field, index) in raceReport" :key="index">
@@ -11,15 +11,14 @@
             </el-form>
             <pj-button-link :action="addRaceReport" content="Submit"></pj-button-link>
         </div>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
 export const route = "/edit/race-report";
 

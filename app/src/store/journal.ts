@@ -1,7 +1,6 @@
 import {defineStore} from 'pinia'
-import {buildRequest, send} from "../helpers/xhr";
 import {Gallery} from "@/src/contracts/JournalTypes";
-import {PixlEntry} from "pixlcms-wrapper";
+import {PixlEntry, buildRequest, send} from "pixlcms-wrapper";
 
 
 interface State {

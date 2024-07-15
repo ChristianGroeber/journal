@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Admin">
+    <pm-dialog title="Admin">
         <div>
             <h3>Auth</h3>
             <el-button v-for="(item, index) in authActions" :index="(index + 1).toString()" :key="index"
@@ -13,7 +13,7 @@
                 {{ item.label }}
             </el-button>
         </div>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
@@ -21,10 +21,8 @@ import {defineComponent} from "vue";
 import {route as changePasswordRoute} from "@/src/components/auth/ChangePassword.vue";
 import {route as requestNewPasswordRoute} from "@/src/components/auth/RequestNewPassword.vue";
 import {route as restoreBackupRoute} from "@/src/components/modals/RestoreBackup.vue";
-import {useDialogStore} from "@/src/store/dialog";
-import {useAuthStore} from "@/src/store/auth";
+import {useDialogStore, useAuthStore, buildRequest, send} from "pixlcms-wrapper";
 import {useMainStore} from "@/src/store/main";
-import {buildRequest, send} from "@/src/helpers/xhr";
 import {useJournalStore} from "@/src/store/journal";
 
 export const route = "/settings";

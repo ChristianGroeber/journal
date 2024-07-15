@@ -1,5 +1,5 @@
 <template>
-    <pj-dialog title="Restore Password">
+    <pm-dialog title="Restore Password">
         <el-form @submit.prevent="submit">
             <el-form-item label="Username">
                 <el-input v-model="username"/>
@@ -12,13 +12,13 @@
             </el-form-item>
             <el-button @click="submit">Submit</el-button>
         </el-form>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import {useMainStore} from "@/src/store/main";
-import {useAuthStore} from "@/src/store/auth";
+import {useAuthStore} from "pixlcms-wrapper";
 
 export const route = "/auth/restore-password";
 

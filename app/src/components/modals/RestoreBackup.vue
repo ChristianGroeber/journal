@@ -1,15 +1,15 @@
 <template>
-    <pj-dialog title="Restore Backup">
+    <pm-dialog title="Restore Backup">
         <el-form>
             <el-form-item label="Upload Backup ZIP">
                 <input type="file" @change="uploadBackup"/>
             </el-form-item>
         </el-form>
-    </pj-dialog>
+    </pm-dialog>
 </template>
 
 <script lang="ts">
-import {buildRequest, send} from "@/src/helpers/xhr";
+import {buildRequest, send} from "pixlcms-wrapper";
 import {defineComponent} from "vue";
 
 export const route = "/admin/restore-backup";

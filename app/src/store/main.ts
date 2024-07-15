@@ -1,7 +1,6 @@
 import {AxiosResponse} from 'axios';
 import {defineStore} from "pinia";
-import {buildRequest, send} from "@/src/helpers/xhr";
-import {useAuthStore} from "@/src/store/auth";
+import {useAuthStore, buildRequest, send} from "pixlcms-wrapper";
 
 interface MediaPreview {
     src: string,

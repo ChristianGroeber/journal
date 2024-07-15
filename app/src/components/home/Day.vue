@@ -25,11 +25,10 @@
 <script lang="ts">
 import RaceReport from './RaceReport.vue';
 import {defineComponent} from "vue";
-import {useAuthStore} from "@/src/store/auth";
 import {useJournalStore} from "@/src/store/journal";
 import {Edit, Delete} from "@element-plus/icons-vue";
 import {ElMessageBox} from "element-plus";
-import {useDialogStore} from "@/src/store/dialog";
+import {useDialogStore, useAuthStore} from "pixlcms-wrapper";
 
 export default defineComponent({
     name: "Day",
@@ -41,7 +40,7 @@ export default defineComponent({
         return {
             journalStore: useJournalStore(),
             authStore: useAuthStore(),
-            dialogStore: useDialogStore(),
+            dialogStore: useDialogStore() 
         }
     },
     created() {
