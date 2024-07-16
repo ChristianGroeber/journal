@@ -1,5 +1,6 @@
 @import '/node_modules/element-plus/dist/index.css';
 @import '/app/style/variables.scss';
+@import '/app/style/responsive.scss';
 
 html,
 body {
@@ -53,6 +54,16 @@ footer {
     position: relative;
 }
 
+@media screen and (min-width: $content-width-medium) {
+    .header {
+        .header-sticky-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
+
 button.el-button {
     border: $black-border;
     border-radius: 0;
@@ -69,8 +80,40 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-img, video {
-    max-width: 100%;
+video {
+    width: 100%;
+}
+
+/* Interesting Image Arrangements */
+.article-body {
+    img, video {
+        max-width: 80%;
+        height: auto;
+        border: 10px solid #000;
+        margin: 10px 0;
+
+        &:nth-child(4n+1) {
+            margin-left: -20%;
+            margin-right: 20%;
+        }
+
+        &:nth-child(4n+2) {
+            margin-left: 20%;
+            margin-right: -20%;
+        }
+
+        &:nth-child(4n+3) {
+            max-width: 110%;
+            margin-left: -5%;
+            margin-right: -5%;
+        }
+
+        &:nth-child(4n) {
+            max-width: 120%;
+            margin-left: -10%;
+            margin-right: -10%;
+        }
+    }
 }
 
 .months {
@@ -78,41 +121,7 @@ img, video {
     margin: 0 auto;
 }
 
-.article-body {
-    img, video {
-        border: 10px solid #000;
-        box-sizing: border-box;
-        
-        &:nth-child(4n+1) {
-            margin-left: -5%;
-            margin-right: 5%;
-        }
-
-        &:nth-child(4n+2) {
-            margin-right: -5%;
-        }
-
-        &:nth-child(4n+3) {
-            margin-right: -2.5%;
-        }
-
-        &:nth-child(4n) {
-            margin-left: -5%;
-        }
-    }
-}
-
-@media screen and (min-width: $content-width-medium) {
-    .header {
-        .header-sticky-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-    }
-}
-
-@media screen and (min-width: $content-width-small) {
+@media screen and (min-width: 500px) {
     .header {
         h1 {
             font-size: 10rem;
@@ -131,37 +140,6 @@ img, video {
 
     .months {
         max-width: 500px;
-    }
-
-    .article-body {
-        img, video {
-            max-width: 80%;
-            height: auto;
-            border: 10px solid #000;
-            margin: 10px 0;
-
-            &:nth-child(4n+1) {
-                margin-left: -20%;
-                margin-right: 20%;
-            }
-
-            &:nth-child(4n+2) {
-                margin-left: 20%;
-                margin-right: -20%;
-            }
-
-            &:nth-child(4n+3) {
-                max-width: 110%;
-                margin-left: -5%;
-                margin-right: -5%;
-            }
-
-            &:nth-child(4n) {
-                max-width: 120%;
-                margin-left: -10%;
-                margin-right: -10%;
-            }
-        }
     }
 }
 

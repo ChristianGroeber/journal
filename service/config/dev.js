@@ -35,6 +35,10 @@ module.exports = merge(baseWebpackConfig, cssWebpackConfig, {
                 target: 'http://127.0.0.1:94',
                 pathRewrite: {'^/backup': '/backup'}
             },
+            '/public': {
+                target: 'http://127.0.0.1:94',
+                pathRewrite: {'^/public': '/public'}
+            },
         },
     },
 
