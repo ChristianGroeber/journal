@@ -53,11 +53,11 @@ export default defineComponent({
     computed: {
         style: function () {
             let img = '/public/assets/dots-asthetic.png';
-            if (this.stats[0].value % 2 === 0) {
+            if (Math.floor(this.stats[0].value) % 2 === 0) {
                 img = '/public/assets/dots-asthetic-flip-v.png';
-            } else if (this.stats[0].value % 3 === 0) {
+            } else if (Math.floor(this.stats[0].value % 3) === 0) {
                 img = '/public/assets/dots-asthetic-flip-h.png';
-            } else if (this.stats[0].value % 5 === 0) {
+            } else if (Math.floor(this.stats[0].value % 5) === 0) {
                 img = '/public/assets/dots-asthetic-flip-v-h.png';
             } else {
                 img = '';
