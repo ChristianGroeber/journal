@@ -9,7 +9,7 @@
                   :value="markdown"></textarea>
             </div>
             <div class="actions">
-                <pj-button-link :action="save" content="Save"></pj-button-link>
+                <pj-button-link :loading="isLoading" :action="save" content="Save"></pj-button-link>
             </div>
         </div>
     </div>
@@ -19,7 +19,6 @@
 import {defineComponent} from "vue";
 import {useJournalStore} from "@/src/store/journal";
 import {JournalEntry} from "@/src/contracts/JournalTypes";
-import {AxiosPromise} from "axios";
 import {useDialogStore} from "pixlcms-wrapper";
 
 export default defineComponent({
@@ -27,6 +26,7 @@ export default defineComponent({
     data: function () {
         return {
             unsavedChanges: false,
+            isLoading: false,
         }
     },
     computed: {
@@ -46,7 +46,6 @@ export default defineComponent({
             newContent = newContent.replace(/”/g, '"');
             newContent = newContent.replace(/„/g, '"');
             newContentField.value = newContent;
-            console.log(newContent);
             const entry = <JournalEntry | null>useJournalStore().getEditingEntry;
             if (entry === null) {
                 throw 'Editing Entry is null';
@@ -54,9 +53,12 @@ export default defineComponent({
             entry.raw_content = newContent;
             useJournalStore().updateEntry(entry);
         },
-        save(): AxiosPromise {
+        save(): void {
+            this.isLoading = true;
             this.unsavedChanges = false;
-            return useJournalStore().saveEntry();
+            useJournalStore().saveEntry().then(() => {
+                this.isLoading = false;
+            });
         },
         checkGoHome() {
         },
