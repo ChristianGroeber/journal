@@ -3,7 +3,7 @@ $danger: #b20101;
 $max-content-width: 650px;
 
 /** Copied from App.vue (for use in @media tags) */
-$content-width-small: 750px;
+$content-width-small: 650px;
 $content-width-medium: 750px;
 $content-width-large: 900px;
 
@@ -14,3 +14,30 @@ $black-border: 2px solid black;
 //$content-width-small: 200px;
 //$content-width-medium: 400px;
 //$content-width-large: 650px;
+
+
+/* Color */
+/* Define SCSS variables */
+$primary-color-1: #ffadad;
+$primary-color-2: #ffd6a5;
+$primary-color-3: #caffbf;
+$primary-color-4: #a0c4ff;
+$primary-color-5: #bde0fe;
+$primary-color-6: #ffafcc;
+
+$secondary-color-1: #ff5959;
+$secondary-color-2: #ff9e00;
+$secondary-color-3: #9df39d;
+$secondary-color-4: #6b94f6;
+$secondary-color-5: #669bbc;
+$secondary-color-6: #ff7096;
+
+$shadow-color-1: #b02a2a;
+$shadow-color-2: #b35900;
+$shadow-color-3: #499c49;
+$shadow-color-4: #264b96;
+$shadow-color-5: #3b6275;
+$shadow-color-6: #cc4f73;
+
+$heading-color-1: #006d77;
+$heading-color-2: #2ec4b6;
