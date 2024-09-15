@@ -33,7 +33,7 @@ return [
     'base' => [
         'frontendController' => JournalFrontendController::class,
         'debugEnabled' => false,
-        'feVersion' => '2024.4',
+        'feVersion' => '2024.5',
         'feYear' => 2024,
     ],
     'hooks' => [
