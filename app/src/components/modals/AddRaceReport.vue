@@ -1,7 +1,7 @@
 <template>
     <pm-dialog title="Edit Race Report">
         <div>
-            <el-form>
+            <el-form label-width="auto">
                 <div v-for="(field, index) in raceReport" :key="index">
                     <el-form-item :label="field.label">
                         <el-input v-if="field.type === 'text'" v-model="field.value"></el-input>

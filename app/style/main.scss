@@ -15,10 +15,13 @@ body {
     margin: 0;
     min-height: 100vh;
     min-width: 100vw;
-    font-family: "Courier New", monospace;
     background-color: white;
     padding: 0;
     color: #333;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 .header {
@@ -61,150 +64,30 @@ img, video {
         margin: 0 auto;
 
         .month {
-            background-color: #fff;
-            padding: 20px;
-            margin: 20px;
-
-            &:nth-child(4n+1) {
-                margin-left: -3%;
-                margin-right: 3%;
-            }
-
-            &:nth-child(4n+2) {
-                margin-left: -5%;
-                margin-right: 5;
-            }
-
-            &:nth-child(4n+3) {
-                margin-left: 8%;
-                margin-right: -8%;
-            }
-
-            &:nth-child(4n+3) {
-                margin-left: 4%;
-                margin-right: -4%;
-            }
-
-            &:nth-child(1) {
-                // background-color: #b9f8c4;
-
-                h2 {
-                    // color: #e85c7b;
-                    //background-color: #72F286;
-                    // box-shadow: 5px 5px 0 #10a228;
-                    // border-color: #10a228;
-                    // background: rgb(114,242,134);
-                    // background: linear-gradient(45deg, rgba(114,242,134,1) 0%, rgba(68,238,94,1) 100%); 
-                }
-            }
-
             h2 {
                 font-size: 3rem;
                 color: $text-color;
-                text-transform: uppercase;
-                text-align: center;
-                padding: 5px 0;
-                margin: 5px 0 20px 0 !important;
-                background-color: rgba(107, 81, 81, 0.33);
-                color: white;
-                border: $black-border;
-                text-shadow: 0 0 2px black;
-                box-shadow: 5px 5px 0 black;
-
-                &:nth-child(even) {
-                    // color: #006d77;
-                }
-
-                &:nth-child(odd) {
-                    // color: #2ec4b6;
-                }
             }
 
             .article-list {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-
                 .article {
-                    background-color: rgba(241, 241, 241, 1);
-                    border: 3px solid #000;
-                    padding: 20px;
-                    box-shadow: 5px 5px 0 #333;
-
-                    &:nth-child(4n + 1) {
-                        margin-right: -6%;
-                        margin-left: 6%;
-                        margin-top: 3%;
-                        margin-bottom: -3%;
-                    }
-
-                    &:nth-child(4n+2) {
-                        margin-top: -6%;
-                        margin-bottom: 6%;
-                        margin-left: -3%;
-                        margin-right: 3%;
-                    }
-
-                    &:nth-child(4n+3) {
-                        margin-top: 4%;
-                        margin-bottom: -4%;
-                        margin-left: 1%;
-                        margin-right: -1%;
-                    }
-
-                    &:nth-child(4n+4) {
-                        margin-top: 2%;
-                        margin-bottom: -2%;
-                        margin-left: -1%;
-                        margin-right: 1%;
-                    }
-
                     .article-head {
-                        // background-color: #edf2f4;
-                        padding: 10px;
-                        border-bottom: 3px solid #000;
-
                         h3 {
                             font-size: 2rem;
-                            // color: #2b2d42;
                             margin: 0;
                         }
                     }
 
                     .article-body {
                         font-size: 1rem;
-                        color: #000;
-                        // background-color: #edf2f4;
-                        padding: 10px;
 
                         img, video {
-                            border: 10px solid #000;
                             box-sizing: border-box;
-
-                            &:nth-child(4n+1) {
-                                margin-left: -5%;
-                                margin-right: 5%;
-                            }
-
-                            &:nth-child(4n+2) {
-                                margin-right: -5%;
-                            }
-
-                            &:nth-child(4n+3) {
-                                margin-right: -2.5%;
-                            }
-
-                            &:nth-child(4n) {
-                                margin-left: -5%;
-                            }
                         }
 
                         img {
                             max-width: 100%;
                             height: auto;
-                            border: 3px solid #000;
-                            box-shadow: 5px 5px 0 #333;
-                            margin-top: 10px;
                         }
 
                         p {
@@ -219,25 +102,32 @@ img, video {
     }
 }
 
-button.el-button {
-    border: $black-border;
-    border-radius: 0;
-    color: black;
-    box-shadow: 3px 3px 0 black;
+.el-link {
+    color: blue;
+    text-decoration: underline;
+    padding: unset;
+    margin: unset;
 
     &:hover {
-        background-color: black;
-        color: white;
-        border: black 2px solid;
+        color: purple;
+       
+        &::after {
+            all: unset !important;
+        }
     }
 }
 
+.article-head {
+    .el-link {
+        margin-right: 5px;
+    }
+}
 
 @media screen and (min-width: $content-width-medium) {
     .header {
         .header-sticky-content {
             display: flex;
-            align-items: center;
+            // align-items: center;
             justify-content: space-between;
         }
     }
@@ -253,6 +143,7 @@ button.el-button {
     .main-content {
         .months {
             max-width: 650px;
+
             .article-body {
                 img {
                     max-width: 100%;
@@ -265,30 +156,6 @@ button.el-button {
         img, video {
             max-width: 80%;
             height: auto;
-            border: 10px solid #000;
-            margin: 10px 0;
-
-            &:nth-child(4n+1) {
-                margin-left: -20%;
-                margin-right: 20%;
-            }
-
-            &:nth-child(4n+2) {
-                margin-left: 20%;
-                margin-right: -20%;
-            }
-
-            &:nth-child(4n+3) {
-                max-width: 110%;
-                margin-left: -5%;
-                margin-right: -5%;
-            }
-
-            &:nth-child(4n) {
-                max-width: 120%;
-                margin-left: -10%;
-                margin-right: -10%;
-            }
         }
     }
 }

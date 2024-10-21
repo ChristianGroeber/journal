@@ -1,18 +1,14 @@
 <template>
     <div class="article">
         <div class="article-head">
-            <div class="d-flex jc_space-between">
-                <el-button v-if="canEdit" @click="deleteEntry">
-                    <el-icon>
-                        <Delete/>
-                    </el-icon>
-                </el-button>
+            <div>
+                <el-link v-if="canEdit" @click="editEntry">
+                    Edit
+                </el-link>
+                <el-link v-if="canEdit" @click="deleteEntry">
+                    Delete
+                </el-link>
                 <h3>{{ formattedDate }}</h3>
-                <el-button v-if="canEdit" @click="editEntry">
-                    <el-icon>
-                        <Edit/>
-                    </el-icon>
-                </el-button>
             </div>
         </div>
         <RaceReport v-if="hasRaceReport" :entry="day"></RaceReport>
@@ -88,9 +84,3 @@ export default defineComponent({
     },
 })
 </script>
-
-<style scoped lang="scss">
-p, h2, h3, h4, h5 {
-    text-align: center;
-}
-</style>
