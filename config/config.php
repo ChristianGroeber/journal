@@ -6,6 +6,12 @@ use App\Hooks\FeInitHook;
 return [
     "plugins" => [
         [
+            'name' => 'pixl-cms',
+            'install_method' => 'composer',
+            'enabled' => true,
+            'config' => require_once('vendor/pixlmint/pixl-cms/config/config.php'),
+        ],
+        [
             'name' => 'pixlcms-journal-plugin',
             'install_method' => 'composer',
             'enabled' => true,
