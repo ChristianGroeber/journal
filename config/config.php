@@ -6,6 +6,12 @@ use PixlMint\JournalPlugin\Hooks\InitHook;
 return [
     "plugins" => [
         [
+            'name' => 'pixl-cms',
+            'install_method' => 'composer',
+            'enabled' => true,
+            'config' => require_once('vendor/pixlmint/pixl-cms/config/config.php'),
+        ],
+        [
             'name' => 'pixlcms-journal-plugin',
             'install_method' => 'composer',
             'enabled' => true,
@@ -16,12 +22,6 @@ return [
             'install_method' => 'composer',
             'enabled' => true,
             'config' => require_once('vendor/pixlmint/pixlcms-media-plugin/config/config.php'),
-        ],
-        [
-            'name' => 'pixl-cms',
-            'install_method' => 'composer',
-            'enabled' => true,
-            'config' => require_once('vendor/pixlmint/pixl-cms/config/config.php'),
         ],
     ],
     'routes' => [
@@ -34,7 +34,7 @@ return [
     'base' => [
         'frontendController' => JournalFrontendController::class,
         'debugEnabled' => false,
-        'feVersion' => '2024.6',
+        'feVersion' => '2024.7',
         'feYear' => 2024,
     ],
     'hooks' => [
