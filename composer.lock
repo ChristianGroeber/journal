@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "laravel/serializable-closure",
-            "version": "v1.3.6",
+            "version": "v1.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "f865a58ea3a0107c336b7045104c75243fa59d96"
+                "reference": "4f48ade902b94323ca3be7646db16209ec76be3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/f865a58ea3a0107c336b7045104c75243fa59d96",
-                "reference": "f865a58ea3a0107c336b7045104c75243fa59d96",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/4f48ade902b94323ca3be7646db16209ec76be3d",
+                "reference": "4f48ade902b94323ca3be7646db16209ec76be3d",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2024-11-11T17:06:04+00:00"
+            "time": "2024-11-14T18:34:49+00:00"
         },
         {
             "name": "mhor/php-mediainfo",
@@ -254,16 +254,16 @@
         },
         {
             "name": "pixlmint/nacho",
-            "version": "1.6.6",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/Nacho.git",
-                "reference": "f12a95fcf9db16a8c701521fc78aa6a6c31599bb"
+                "reference": "3091038f74cb18846e78a85db76f6d09030fa835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/f12a95fcf9db16a8c701521fc78aa6a6c31599bb",
-                "reference": "f12a95fcf9db16a8c701521fc78aa6a6c31599bb",
+                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/3091038f74cb18846e78a85db76f6d09030fa835",
+                "reference": "3091038f74cb18846e78a85db76f6d09030fa835",
                 "shasum": ""
             },
             "require": {
@@ -297,30 +297,30 @@
             "description": "My own Lightweight PHP Framework",
             "support": {
                 "issues": "https://github.com/pixlmint/Nacho/issues",
-                "source": "https://github.com/pixlmint/Nacho/tree/1.6.6"
+                "source": "https://github.com/pixlmint/Nacho/tree/1.6.8"
             },
-            "time": "2024-11-19T11:42:20+00:00"
+            "time": "2024-12-26T16:10:29+00:00"
         },
         {
             "name": "pixlmint/parsedown",
-            "version": "1.2",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/parsedown.git",
-                "reference": "5f2c5ee8f93540b3ab62c29c5a1be683d10b6660"
+                "reference": "d0cb3bcd8bdb3aa12ba7bfca7313acb537c28314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/parsedown/zipball/5f2c5ee8f93540b3ab62c29c5a1be683d10b6660",
-                "reference": "5f2c5ee8f93540b3ab62c29c5a1be683d10b6660",
+                "url": "https://api.github.com/repos/pixlmint/parsedown/zipball/d0cb3bcd8bdb3aa12ba7bfca7313acb537c28314",
+                "reference": "d0cb3bcd8bdb3aa12ba7bfca7313acb537c28314",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=5.3.0"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35"
+                "phpunit/phpunit": "^7.5|^8.5|^9.6"
             },
             "type": "library",
             "autoload": {
@@ -351,22 +351,22 @@
                 "parser"
             ],
             "support": {
-                "source": "https://github.com/pixlmint/parsedown/tree/1.2"
+                "source": "https://github.com/pixlmint/parsedown/tree/pixlmint-1.3"
             },
-            "time": "2023-11-18T13:28:23+00:00"
+            "time": "2024-12-30T00:31:01+00:00"
         },
         {
             "name": "pixlmint/pixl-cms",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixl-cms.git",
-                "reference": "3eb673c86e9f65de1963eb56d5a2ce8797a540f9"
+                "reference": "25dda5974876789b0b9a8f4edba8e32da4e8799d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/3eb673c86e9f65de1963eb56d5a2ce8797a540f9",
-                "reference": "3eb673c86e9f65de1963eb56d5a2ce8797a540f9",
+                "url": "https://api.github.com/repos/pixlmint/pixl-cms/zipball/25dda5974876789b0b9a8f4edba8e32da4e8799d",
+                "reference": "25dda5974876789b0b9a8f4edba8e32da4e8799d",
                 "shasum": ""
             },
             "require": {
@@ -384,22 +384,22 @@
             "description": "A lightweight CMS powered by Markdown and Nachos",
             "support": {
                 "issues": "https://github.com/pixlmint/pixl-cms/issues",
-                "source": "https://github.com/pixlmint/pixl-cms/tree/2.3.0"
+                "source": "https://github.com/pixlmint/pixl-cms/tree/2.4.0"
             },
-            "time": "2024-11-19T11:54:40+00:00"
+            "time": "2024-12-26T16:18:51+00:00"
         },
         {
             "name": "pixlmint/pixlcms-journal-plugin",
-            "version": "2024.3",
+            "version": "2024.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "87958f8871b00f80c767f6170981854cbaeae6ba"
+                "reference": "93ba194641f035ba96774b45a368115326124de0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/87958f8871b00f80c767f6170981854cbaeae6ba",
-                "reference": "87958f8871b00f80c767f6170981854cbaeae6ba",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/93ba194641f035ba96774b45a368115326124de0",
+                "reference": "93ba194641f035ba96774b45a368115326124de0",
                 "shasum": ""
             },
             "require": {
@@ -417,9 +417,9 @@
             "description": "The official journaling plugin for PixlCMS",
             "support": {
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
-                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2024.3"
+                "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2024.6"
             },
-            "time": "2024-06-07T21:15:51+00:00"
+            "time": "2024-12-30T01:47:15+00:00"
         },
         {
             "name": "pixlmint/pixlcms-media-plugin",
@@ -559,16 +559,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
                 "shasum": ""
             },
             "require": {
@@ -576,12 +576,12 @@
             },
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -606,7 +606,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -622,20 +622,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.1.6",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "c835867b3c62bb05c7fe3d637c871c7ae52024d4"
+                "reference": "b8dce482de9d7c9fe2891155035a7248ab5c7fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/c835867b3c62bb05c7fe3d637c871c7ae52024d4",
-                "reference": "c835867b3c62bb05c7fe3d637c871c7ae52024d4",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/b8dce482de9d7c9fe2891155035a7248ab5c7fdb",
+                "reference": "b8dce482de9d7c9fe2891155035a7248ab5c7fdb",
                 "shasum": ""
             },
             "require": {
@@ -672,7 +672,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.1.6"
+                "source": "https://github.com/symfony/filesystem/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -688,7 +688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-25T15:11:02+00:00"
+            "time": "2024-10-25T15:15:23+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -716,8 +716,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -795,8 +795,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -851,16 +851,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.1.8",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "42783370fda6e538771f7c7a36e9fa2ee3a84892"
+                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/42783370fda6e538771f7c7a36e9fa2ee3a84892",
-                "reference": "42783370fda6e538771f7c7a36e9fa2ee3a84892",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
+                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
                 "shasum": ""
             },
             "require": {
@@ -892,7 +892,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.1.8"
+                "source": "https://github.com/symfony/process/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -908,7 +908,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T14:23:19+00:00"
+            "time": "2024-11-06T14:24:19+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1049,16 +1049,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.1",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
+                "reference": "447a020a1f875a434d62f2a401f53b82a396e494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
-                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/447a020a1f875a434d62f2a401f53b82a396e494",
+                "reference": "447a020a1f875a434d62f2a401f53b82a396e494",
                 "shasum": ""
             },
             "require": {
@@ -1101,9 +1101,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.4.0"
             },
-            "time": "2024-10-08T18:51:32+00:00"
+            "time": "2024-12-30T11:07:19+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -1546,16 +1546,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.38",
+            "version": "10.5.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a86773b9e887a67bc53efa9da9ad6e3f2498c132"
+                "reference": "e6ddda95af52f69c1e0c7b4f977cccb58048798c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a86773b9e887a67bc53efa9da9ad6e3f2498c132",
-                "reference": "a86773b9e887a67bc53efa9da9ad6e3f2498c132",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e6ddda95af52f69c1e0c7b4f977cccb58048798c",
+                "reference": "e6ddda95af52f69c1e0c7b4f977cccb58048798c",
                 "shasum": ""
             },
             "require": {
@@ -1565,7 +1565,7 @@
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "myclabs/deep-copy": "^1.12.0",
+                "myclabs/deep-copy": "^1.12.1",
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.1",
@@ -1627,7 +1627,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.38"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.40"
             },
             "funding": [
                 {
@@ -1643,7 +1643,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-28T13:06:21+00:00"
+            "time": "2024-12-21T05:49:06+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -2614,7 +2614,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -2624,6 +2624,6 @@
         "ext-exif": "*",
         "ext-fileinfo": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

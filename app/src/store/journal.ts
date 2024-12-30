@@ -28,8 +28,9 @@ export const useJournalStore = defineStore('journalStore', {
         },
     },
     actions: {
-        saveEntry() {
+        async saveEntry() {
             const data = {
+                meta: this.editingEntry?.meta,
                 content: this.editingEntry?.raw_content,
                 entry: this.editingEntry?.id,
                 lastUpdate: this.editingEntry?.meta.dateUpdated,
@@ -44,14 +45,14 @@ export const useJournalStore = defineStore('journalStore', {
         updateEntry(entry: PixlEntry) {
             this.editingEntry = entry;
         },
-        loadEntries() {
+        async loadEntries() {
             const request = buildRequest('/api/entries');
             return send(request).then((response) => {
                 this.entries = response.data;
             });
         },
-        getEntry(entry: string) {
-            const request = buildRequest('/api/admin/entry/edit', {entry: entry});
+        async getEntry(entry: string) {
+            const request = buildRequest('/api/entry/view', {p: entry});
             return send(request).then((response) => {
                 this.editingEntry = response.data;
             });
@@ -60,7 +61,7 @@ export const useJournalStore = defineStore('journalStore', {
             const request = buildRequest('/api/admin/entry/delete', data, 'DELETE');
             return send(request);
         },
-        loadMediaForEntry(entry: string) {
+        async loadMediaForEntry(entry: string) {
             const request = buildRequest('/api/admin/gallery/load', {gallery: entry});
             return send(request).then((response) => {
                 this.gallery = response.data.media;

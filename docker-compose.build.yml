@@ -5,7 +5,7 @@ services:
         build:
             dockerfile: Dockerfile
             context: .
-        image: pixlmint/journal:2024
+        image: pixlmint/journal:2025
         container_name: journal_build
         volumes:
             - data:/var/www/html/data
