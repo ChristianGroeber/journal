@@ -394,12 +394,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/pixlcms-journal-plugin.git",
-                "reference": "953f1b29f55f2efd12af0cca2fd9c016e4b8b6f5"
+                "reference": "93ba194641f035ba96774b45a368115326124de0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/953f1b29f55f2efd12af0cca2fd9c016e4b8b6f5",
-                "reference": "953f1b29f55f2efd12af0cca2fd9c016e4b8b6f5",
+                "url": "https://api.github.com/repos/pixlmint/pixlcms-journal-plugin/zipball/93ba194641f035ba96774b45a368115326124de0",
+                "reference": "93ba194641f035ba96774b45a368115326124de0",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 "issues": "https://github.com/pixlmint/pixlcms-journal-plugin/issues",
                 "source": "https://github.com/pixlmint/pixlcms-journal-plugin/tree/2024.6"
             },
-            "time": "2024-12-30T00:06:14+00:00"
+            "time": "2024-12-30T01:47:15+00:00"
         },
         {
             "name": "pixlmint/pixlcms-media-plugin",
