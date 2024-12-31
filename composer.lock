@@ -254,16 +254,16 @@
         },
         {
             "name": "pixlmint/nacho",
-            "version": "1.6.8",
+            "version": "1.6.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pixlmint/Nacho.git",
-                "reference": "3091038f74cb18846e78a85db76f6d09030fa835"
+                "reference": "9781be998d1ff39710a7de9afcbfb578e099f40a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/3091038f74cb18846e78a85db76f6d09030fa835",
-                "reference": "3091038f74cb18846e78a85db76f6d09030fa835",
+                "url": "https://api.github.com/repos/pixlmint/Nacho/zipball/9781be998d1ff39710a7de9afcbfb578e099f40a",
+                "reference": "9781be998d1ff39710a7de9afcbfb578e099f40a",
                 "shasum": ""
             },
             "require": {
@@ -297,9 +297,9 @@
             "description": "My own Lightweight PHP Framework",
             "support": {
                 "issues": "https://github.com/pixlmint/Nacho/issues",
-                "source": "https://github.com/pixlmint/Nacho/tree/1.6.8"
+                "source": "https://github.com/pixlmint/Nacho/tree/1.6.9"
             },
-            "time": "2024-12-26T16:10:29+00:00"
+            "time": "2024-12-30T18:33:23+00:00"
         },
         {
             "name": "pixlmint/parsedown",

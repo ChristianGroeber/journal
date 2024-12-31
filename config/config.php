@@ -1,15 +1,14 @@
 <?php
 
 use App\Controller\JournalFrontendController;
-use PixlMint\JournalPlugin\Hooks\InitHook;
 
 return [
     "plugins" => [
         [
-            'name' => 'pixlcms-journal-plugin',
+            'name' => 'pixl-cms',
             'install_method' => 'composer',
             'enabled' => true,
-            'config' => require_once('vendor/pixlmint/pixlcms-journal-plugin/config/config.php'),
+            'config' => require_once('vendor/pixlmint/pixl-cms/config/config.php'),
         ],
         [
             'name' => 'pixlcms-media-plugin',
@@ -18,10 +17,10 @@ return [
             'config' => require_once('vendor/pixlmint/pixlcms-media-plugin/config/config.php'),
         ],
         [
-            'name' => 'pixl-cms',
+            'name' => 'pixlcms-journal-plugin',
             'install_method' => 'composer',
             'enabled' => true,
-            'config' => require_once('vendor/pixlmint/pixl-cms/config/config.php'),
+            'config' => require_once('vendor/pixlmint/pixlcms-journal-plugin/config/config.php'),
         ],
     ],
     'routes' => [
@@ -31,16 +30,12 @@ return [
             'function' => 'index',
         ],
     ],
+    'journal' => [
+        'year' => '2025',
+        'version' => '2025.1',
+    ],
     'base' => [
         'frontendController' => JournalFrontendController::class,
         'debugEnabled' => false,
-        'feVersion' => '2025.1',
-        'feYear' => 2025,
-    ],
-    'hooks' => [
-        [
-            'anchor' => 'init',
-            'hook' => InitHook::class,
-        ],
     ],
 ];
