@@ -84,3 +84,10 @@ export default defineComponent({
     },
 })
 </script>
+
+<style lang="scss" scoped>
+.el-link {
+    color: blue;
+    cursor: pointer;
+}
+</style>

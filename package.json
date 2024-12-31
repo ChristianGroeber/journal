@@ -8,7 +8,8 @@
         "build": "node service/commands/build.js",
         "lint": "yarn lint:js && yarn lint:style",
         "lint:js": "eslint --ext .ts,.js,.vue src --fix",
-        "lint:style": "stylelint \"./app/**/*.vue\" \"./app/**/*.scss\" --fix"
+        "lint:style": "stylelint \"./app/**/*.vue\" \"./app/**/*.scss\" --fix",
+        "type-check": "vue-tsc --noEmit"
     },
     "dependencies": {
         "@babel/runtime": "^7.18.9",

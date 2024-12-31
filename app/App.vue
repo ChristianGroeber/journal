@@ -25,19 +25,11 @@ import AdminBar from "@/src/components/admin/AdminBar.vue";
 import MonthList from "@/src/components/home/MonthList.vue";
 import {dialogs} from "@/src/dialogs";
 
-const contentWidthStyles = {
-    small: 400,
-    medium: 400,
-    large: 650,
-}
-
 const breakpointStyles = {
     small: 500,
     medium: 750,
     large: 900,
 }
-
-const contentGap = 50;
 
 export default defineComponent({
     name: "App",
@@ -90,30 +82,14 @@ export default defineComponent({
         })
         this.journalStore.loadEntries().then(() => {
             resizeVideos();
-            this.recalculateStyleVariables();
         });
-    },
-    methods: {
-        recalculateStyleVariables() {
-            /*const currentSize = window.innerWidth;
-            const currentBreakpointArr = Object.entries(breakpointStyles).find(value => {
-                return currentSize <= value[1];
-            });
-            const currentBreakpoint = currentBreakpointArr ? currentBreakpointArr[0] : 'large';
-            const entriesCount = Object.keys(this.journalStore.getEntries).length;
-            let newContentWidth = contentWidthStyles[currentBreakpoint];
-            if (newContentWidth > currentSize) {
-                newContentWidth = currentSize;
-            }
-            const htmlWidth = entriesCount * newContentWidth + contentGap * entriesCount;
-            document.documentElement.style.setProperty('--total-width', `${htmlWidth}px`);
-            document.documentElement.style.setProperty('--content-gap', `${contentGap}px`);
-            document.documentElement.style.setProperty('--content-width', `${newContentWidth}px`);*/
-        },
     },
 })
 </script>
 
 <style lang="scss">
-@import './style/main.scss';
+    svg {
+        display: none;
+    }
 </style>
+

@@ -1,10 +1,10 @@
 <template>
-    <el-menu mode="horizontal">
-        <el-menu-item v-for="(item, index) in nav" :index="(index + 1).toString()" :key="index"
-                      @click="handleClick(index)">
+    <ul>
+        <li v-for="(item, index) in nav" :index="(index + 1).toString()" :key="index"
+                @click="handleClick(index)">
             {{ item.label }}
-        </el-menu-item>
-    </el-menu>
+        </li>
+    </ul>
 </template>
 
 <script lang="ts">
@@ -32,8 +32,11 @@ export default defineComponent({
 })
 </script>
 
-<style>
-.el-menu--horizontal {
-    border-bottom: none !important;
+<style scoped lang="scss">
+ul {
+    li {
+        cursor: pointer;
+        color: blue;
+    }
 }
 </style>
