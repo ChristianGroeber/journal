@@ -39,13 +39,9 @@ return [
     'base' => [
         'frontendController' => JournalFrontendController::class,
         'debugEnabled' => false,
-        'feVersion' => '2025.1',
-        'feYear' => 2025,
     ],
-    'hooks' => [
-        [
-            'anchor' => 'init',
-            'hook' => FeInitHook::class,
-        ],
+    'journal' => [
+        'year' => 2025,
+        'version' => '2025.2',
     ],
 ];
